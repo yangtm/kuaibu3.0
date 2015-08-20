@@ -19,6 +19,7 @@
 		0678C4B41B859A2A0035660E /* order.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4B31B859A2A0035660E /* order.m */; };
 		0678C4B61B85A2800035660E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0678C4B51B85A2800035660E /* .gitignore */; };
 		1E6AAAA91B858CF800DED611 /* DemoL.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6AAAA81B858CF800DED611 /* DemoL.m */; };
+		1E6AAAAC1B85A41200DED611 /* dasd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6AAAAB1B85A41200DED611 /* dasd.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		0678C4B51B85A2800035660E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1E6AAAA71B858CF800DED611 /* DemoL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoL.h; sourceTree = "<group>"; };
 		1E6AAAA81B858CF800DED611 /* DemoL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoL.m; sourceTree = "<group>"; };
+		1E6AAAAA1B85A41200DED611 /* dasd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dasd.h; sourceTree = "<group>"; };
+		1E6AAAAB1B85A41200DED611 /* dasd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dasd.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				0678C48A1B8572DF0035660E /* AppDelegate.h */,
+				1E6AAAAA1B85A41200DED611 /* dasd.h */,
+				1E6AAAAB1B85A41200DED611 /* dasd.m */,
 				0678C48B1B8572DF0035660E /* AppDelegate.m */,
 				0678C4901B8572DF0035660E /* ViewController.h */,
 				0678C4911B8572DF0035660E /* ViewController.m */,
@@ -246,6 +251,7 @@
 				0678C4B41B859A2A0035660E /* order.m in Sources */,
 				0678C48F1B8572DF0035660E /* kuaibu.xcdatamodeld in Sources */,
 				1E6AAAA91B858CF800DED611 /* DemoL.m in Sources */,
+				1E6AAAAC1B85A41200DED611 /* dasd.m in Sources */,
 				0678C4921B8572DF0035660E /* ViewController.m in Sources */,
 				0678C4891B8572DF0035660E /* main.m in Sources */,
 			);
