@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface dasd : BaseViewController
+@interface dasd : UIViewController
 
 @end
