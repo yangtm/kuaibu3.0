@@ -19,6 +19,7 @@
 		0678C4B41B859A2A0035660E /* order.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4B31B859A2A0035660E /* order.m */; };
 		0678C4B61B85A2800035660E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0678C4B51B85A2800035660E /* .gitignore */; };
 		0678C4B91B85A48E0035660E /* member.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4B81B85A48E0035660E /* member.m */; };
+		0678C4BC1B85A6DD0035660E /* product.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4BB1B85A6DD0035660E /* product.m */; };
 		1E6AAAA91B858CF800DED611 /* DemoL.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6AAAA81B858CF800DED611 /* DemoL.m */; };
 		1E6AAAAC1B85A41200DED611 /* dasd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6AAAAB1B85A41200DED611 /* dasd.m */; };
 /* End PBXBuildFile section */
@@ -55,6 +56,8 @@
 		0678C4B51B85A2800035660E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		0678C4B71B85A48E0035660E /* member.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = member.h; sourceTree = "<group>"; };
 		0678C4B81B85A48E0035660E /* member.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = member.m; sourceTree = "<group>"; };
+		0678C4BA1B85A6DD0035660E /* product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = product.h; sourceTree = "<group>"; };
+		0678C4BB1B85A6DD0035660E /* product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = product.m; sourceTree = "<group>"; };
 		1E6AAAA71B858CF800DED611 /* DemoL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoL.h; sourceTree = "<group>"; };
 		1E6AAAA81B858CF800DED611 /* DemoL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoL.m; sourceTree = "<group>"; };
 		1E6AAAAA1B85A41200DED611 /* dasd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dasd.h; sourceTree = "<group>"; };
@@ -120,6 +123,8 @@
 				0678C4B31B859A2A0035660E /* order.m */,
 				0678C4B71B85A48E0035660E /* member.h */,
 				0678C4B81B85A48E0035660E /* member.m */,
+				0678C4BA1B85A6DD0035660E /* product.h */,
+				0678C4BB1B85A6DD0035660E /* product.m */,
 			);
 			path = kuaibu;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				1E6AAAAC1B85A41200DED611 /* dasd.m in Sources */,
 				0678C4921B8572DF0035660E /* ViewController.m in Sources */,
 				0678C4891B8572DF0035660E /* main.m in Sources */,
+				0678C4BC1B85A6DD0035660E /* product.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
