@@ -48,6 +48,7 @@
 		06706DAC1B85B2AA00F58ACC /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06706D7F1B85B2AA00F58ACC /* libMobClickLibrary.a */; };
 		06706DAD1B85B2AA00F58ACC /* ViewInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 06706D841B85B2AA00F58ACC /* ViewInteraction.m */; };
 		06706DB11B85B67500F58ACC /* AreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06706DB01B85B67500F58ACC /* AreaModel.m */; };
+		06706DB41B85BB2200F58ACC /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06706DB31B85BB2200F58ACC /* CartModel.m */; };
 		0678C4891B8572DF0035660E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4881B8572DF0035660E /* main.m */; };
 		0678C48C1B8572DF0035660E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C48B1B8572DF0035660E /* AppDelegate.m */; };
 		0678C48F1B8572DF0035660E /* kuaibu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0678C48D1B8572DF0035660E /* kuaibu.xcdatamodeld */; };
@@ -157,6 +158,8 @@
 		06706DAE1B85B38C00F58ACC /* MyHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyHeader.pch; sourceTree = "<group>"; };
 		06706DAF1B85B67500F58ACC /* AreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaModel.h; sourceTree = "<group>"; };
 		06706DB01B85B67500F58ACC /* AreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaModel.m; sourceTree = "<group>"; };
+		06706DB21B85BB2200F58ACC /* CartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartModel.h; sourceTree = "<group>"; };
+		06706DB31B85BB2200F58ACC /* CartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartModel.m; sourceTree = "<group>"; };
 		0678C4831B8572DF0035660E /* kuaibu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kuaibu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0678C4871B8572DF0035660E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0678C4881B8572DF0035660E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -416,6 +419,8 @@
 		06706D261B85B2AA00F58ACC /* CartModel */ = {
 			isa = PBXGroup;
 			children = (
+				06706DB21B85BB2200F58ACC /* CartModel.h */,
+				06706DB31B85BB2200F58ACC /* CartModel.m */,
 			);
 			path = CartModel;
 			sourceTree = "<group>";
@@ -834,6 +839,7 @@
 				06706D9B1B85B2AA00F58ACC /* SDWebImageCompat.m in Sources */,
 				0678C4921B8572DF0035660E /* ViewController.m in Sources */,
 				06706D981B85B2AA00F58ACC /* MKAnnotationView+WebCache.m in Sources */,
+				06706DB41B85BB2200F58ACC /* CartModel.m in Sources */,
 				06706D891B85B2AA00F58ACC /* SearchViewController.m in Sources */,
 				0678C4891B8572DF0035660E /* main.m in Sources */,
 				06706DA01B85B2AA00F58ACC /* SDWebImagePrefetcher.m in Sources */,
