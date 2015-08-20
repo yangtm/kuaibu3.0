@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DemoL : BaseViewController
+@interface DemoL : UIViewController
 
 @end
