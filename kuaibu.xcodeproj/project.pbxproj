@@ -47,6 +47,7 @@
 		06706DAB1B85B2AA00F58ACC /* UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 06706D7D1B85B2AA00F58ACC /* UIViewAdditions.m */; };
 		06706DAC1B85B2AA00F58ACC /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06706D7F1B85B2AA00F58ACC /* libMobClickLibrary.a */; };
 		06706DAD1B85B2AA00F58ACC /* ViewInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 06706D841B85B2AA00F58ACC /* ViewInteraction.m */; };
+		06706DB11B85B67500F58ACC /* AreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06706DB01B85B67500F58ACC /* AreaModel.m */; };
 		0678C4891B8572DF0035660E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4881B8572DF0035660E /* main.m */; };
 		0678C48C1B8572DF0035660E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C48B1B8572DF0035660E /* AppDelegate.m */; };
 		0678C48F1B8572DF0035660E /* kuaibu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0678C48D1B8572DF0035660E /* kuaibu.xcdatamodeld */; };
@@ -154,6 +155,8 @@
 		06706D831B85B2AA00F58ACC /* ViewInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewInteraction.h; sourceTree = "<group>"; };
 		06706D841B85B2AA00F58ACC /* ViewInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewInteraction.m; sourceTree = "<group>"; };
 		06706DAE1B85B38C00F58ACC /* MyHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyHeader.pch; sourceTree = "<group>"; };
+		06706DAF1B85B67500F58ACC /* AreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaModel.h; sourceTree = "<group>"; };
+		06706DB01B85B67500F58ACC /* AreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaModel.m; sourceTree = "<group>"; };
 		0678C4831B8572DF0035660E /* kuaibu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kuaibu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0678C4871B8572DF0035660E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0678C4881B8572DF0035660E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -404,6 +407,8 @@
 		06706D251B85B2AA00F58ACC /* AreaModel */ = {
 			isa = PBXGroup;
 			children = (
+				06706DAF1B85B67500F58ACC /* AreaModel.h */,
+				06706DB01B85B67500F58ACC /* AreaModel.m */,
 			);
 			path = AreaModel;
 			sourceTree = "<group>";
@@ -837,6 +842,7 @@
 				06706D8C1B85B2AA00F58ACC /* AFHTTPRequestOperation.m in Sources */,
 				06706D9F1B85B2AA00F58ACC /* SDWebImageManager.m in Sources */,
 				06706DA41B85B2AA00F58ACC /* UIImage+WebP.m in Sources */,
+				06706DB11B85B67500F58ACC /* AreaModel.m in Sources */,
 				06706D921B85B2AA00F58ACC /* AFXMLRequestOperation.m in Sources */,
 				06706DAA1B85B2AA00F58ACC /* UIImage+ImageEffects.m in Sources */,
 				06706D9A1B85B2AA00F58ACC /* SDImageCache.m in Sources */,
