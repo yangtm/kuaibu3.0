@@ -17,6 +17,7 @@
 		0678C4A61B8572DF0035660E /* kuaibuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4A51B8572DF0035660E /* kuaibuTests.m */; };
 		0678C4B11B8574B70035660E /* demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4B01B8574B70035660E /* demo.m */; };
 		0678C4B41B859A2A0035660E /* order.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4B31B859A2A0035660E /* order.m */; };
+		0678C4B61B85A2800035660E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0678C4B51B85A2800035660E /* .gitignore */; };
 		1E6AAAA91B858CF800DED611 /* DemoL.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6AAAA81B858CF800DED611 /* DemoL.m */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		0678C4B01B8574B70035660E /* demo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = demo.m; sourceTree = "<group>"; };
 		0678C4B21B859A2A0035660E /* order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = order.h; sourceTree = "<group>"; };
 		0678C4B31B859A2A0035660E /* order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = order.m; sourceTree = "<group>"; };
+		0678C4B51B85A2800035660E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		1E6AAAA71B858CF800DED611 /* DemoL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoL.h; sourceTree = "<group>"; };
 		1E6AAAA81B858CF800DED611 /* DemoL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoL.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -74,6 +76,7 @@
 		0678C47A1B8572DF0035660E = {
 			isa = PBXGroup;
 			children = (
+				0678C4B51B85A2800035660E /* .gitignore */,
 				0678C4851B8572DF0035660E /* kuaibu */,
 				0678C4A21B8572DF0035660E /* kuaibuTests */,
 				0678C4841B8572DF0035660E /* Products */,
@@ -217,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0678C4B61B85A2800035660E /* .gitignore in Resources */,
 				0678C4951B8572DF0035660E /* Main.storyboard in Resources */,
 				0678C49A1B8572DF0035660E /* LaunchScreen.xib in Resources */,
 				0678C4971B8572DF0035660E /* Images.xcassets in Resources */,
