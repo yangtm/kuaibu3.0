@@ -16,6 +16,7 @@
 		0678C49A1B8572DF0035660E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0678C4981B8572DF0035660E /* LaunchScreen.xib */; };
 		0678C4A61B8572DF0035660E /* kuaibuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4A51B8572DF0035660E /* kuaibuTests.m */; };
 		0678C4B11B8574B70035660E /* demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4B01B8574B70035660E /* demo.m */; };
+		0678C4B41B859A2A0035660E /* order.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4B31B859A2A0035660E /* order.m */; };
 		1E6AAAA91B858CF800DED611 /* DemoL.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6AAAA81B858CF800DED611 /* DemoL.m */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,8 @@
 		0678C4A51B8572DF0035660E /* kuaibuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kuaibuTests.m; sourceTree = "<group>"; };
 		0678C4AF1B8574B70035660E /* demo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = demo.h; sourceTree = "<group>"; };
 		0678C4B01B8574B70035660E /* demo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = demo.m; sourceTree = "<group>"; };
+		0678C4B21B859A2A0035660E /* order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = order.h; sourceTree = "<group>"; };
+		0678C4B31B859A2A0035660E /* order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = order.m; sourceTree = "<group>"; };
 		1E6AAAA71B858CF800DED611 /* DemoL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoL.h; sourceTree = "<group>"; };
 		1E6AAAA81B858CF800DED611 /* DemoL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoL.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +105,8 @@
 				0678C4B01B8574B70035660E /* demo.m */,
 				1E6AAAA71B858CF800DED611 /* DemoL.h */,
 				1E6AAAA81B858CF800DED611 /* DemoL.m */,
+				0678C4B21B859A2A0035660E /* order.h */,
+				0678C4B31B859A2A0035660E /* order.m */,
 			);
 			path = kuaibu;
 			sourceTree = "<group>";
@@ -234,6 +239,7 @@
 			files = (
 				0678C4B11B8574B70035660E /* demo.m in Sources */,
 				0678C48C1B8572DF0035660E /* AppDelegate.m in Sources */,
+				0678C4B41B859A2A0035660E /* order.m in Sources */,
 				0678C48F1B8572DF0035660E /* kuaibu.xcdatamodeld in Sources */,
 				1E6AAAA91B858CF800DED611 /* DemoL.m in Sources */,
 				0678C4921B8572DF0035660E /* ViewController.m in Sources */,
