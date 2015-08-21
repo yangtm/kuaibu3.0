@@ -9,5 +9,5 @@
 #import "CartModel.h"
 
 @implementation CartModel
-
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{}
 @end
