@@ -10,4 +10,5 @@
 
 @interface AreaModel : NSObject
 
+
 @end
