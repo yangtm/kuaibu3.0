@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>A95636D3-D8B7-4D5B-A297-6464A1F95EBA</string>
 	<key>IDESourceControlProjectName</key>
-	<string>kuaibu</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>1BAB0B131B47BF8BA71B02869DF5678B7136D6DA</key>
 		<string>github.com:yangtm/kuaibu3.0.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>kuaibu.xcodeproj</string>
+	<string>kuaibu.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1BAB0B131B47BF8BA71B02869DF5678B7136D6DA</key>
