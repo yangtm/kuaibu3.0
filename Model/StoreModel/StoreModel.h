@@ -11,6 +11,7 @@
 @interface StoreModel : NSObject
 
 @property (strong,nonatomic) NSString *storeId;
+@property (strong,nonatomic) NSString *memberId;
 @property (strong,nonatomic) NSString *storeName;
 @property (strong,nonatomic) NSString *logo;
 @property (strong,nonatomic) NSString *storeStar;
@@ -21,5 +22,5 @@
 @property (strong,nonatomic) NSString *storeAddress;
 @property (strong,nonatomic) NSString *storePhone;
 @property (strong,nonatomic) NSString *companyName;
-
+@property (strong,nonatomic) NSString *authenticationType;
 @end
