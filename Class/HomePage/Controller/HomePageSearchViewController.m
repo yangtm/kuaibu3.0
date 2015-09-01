@@ -1,23 +1,22 @@
 //
-//  SearchViewController.m
-//  kuaibu_3.0
+//  HomePageSearchViewController.m
+//  kuaibu
 //
-//  Created by zxy on 15/8/18.
-//  Copyright (c) 2015年 zxy. All rights reserved.
+//  Created by zxy on 15/9/1.
+//  Copyright (c) 2015年 yangtm. All rights reserved.
 //
 
-#import "SearchViewController.h"
+#import "HomePageSearchViewController.h"
 
-@interface SearchViewController ()
+@interface HomePageSearchViewController ()
 
 @end
 
-@implementation SearchViewController
+@implementation HomePageSearchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
-    [self settitleLabel:@"发现"];
+    self.view.backgroundColor = [UIColor redColor];
     // Do any additional setup after loading the view.
 }
 

@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor redColor];
+    [self settitleLabel:@"朋友"];
     // Do any additional setup after loading the view.
 }
 

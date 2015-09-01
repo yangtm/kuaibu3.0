@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
-//#import "MineHeadView.h"
+
+#import "MineHeadView.h"
+#import "FunctionsView.h"
 
 @interface MineViewController : BaseViewController
+
+@property (nonatomic,strong) MineHeadView *mineHeadView;
+@property (nonatomic,strong) FunctionsView *functionsView;
+
+@property (nonatomic,strong) UIButton *rightBtn;
 
 @end

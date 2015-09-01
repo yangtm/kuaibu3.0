@@ -14,20 +14,19 @@
 #define kMainScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define kRatio (kMainScreenWidth / 320)
 
-//#define kYHBUrl @"http://www.51kuaibu.com/"
-#define kYHBUrl @"http://staging.51kuaibu.com/"
-//#define kYHBBaseUrl @"http://www.51kuaibu.com/app/"
-#define kYHBBaseUrl @"http://staging.51kuaibu.com/app/"
-//#define EMAppKey @"yibu2015#kuaibu"
-#define EMAppKey @"yibu2015#kuaibudev"
 
-#define WeixinAppID @"wxdf71533663734340"
+#define kAPPID (@"iosapp_kuaibu3")
+#define kAPPKEY (@"iosapp_kuaibu3_20150001")
 
-#define kAppID @"967520876"
+//#define EMAppKey @"yibu2015#kuaibudev"
+//#define WeixinAppID @"wxdf71533663734340"
+#define __hzUserCookieKey @"coolieKey"
 
+#define kYHBBaseUrl @"http://192.168.1.119:8082/kuaibu-appService/"
 #define kYHBRequestUrl(path,outUrl) do{\
   outUrl = [NSString stringWithFormat:@"%@%@",kYHBBaseUrl,path];\
 }while(0)
+
 #define isNull(a) [a isKindOfClass:[NSNull class]]
 
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:r/256.0 green:g/256.0 blue:b/256.0 alpha:1]
