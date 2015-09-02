@@ -92,8 +92,8 @@
     }
     titleLabel.center = self.navigationController.navigationBar.center;
     titleLabel.backgroundColor = kClearColor;
-    titleLabel.textColor = [UIColor blackColor];
-    titleLabel.font = kFont18;
+    titleLabel.textColor = kNaviTitleColor;
+    titleLabel.font = kFont20;
     titleLabel.text = aTitle;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     

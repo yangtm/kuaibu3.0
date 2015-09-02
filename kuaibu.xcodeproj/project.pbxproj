@@ -47,6 +47,9 @@
 		0678C49A1B8572DF0035660E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0678C4981B8572DF0035660E /* LaunchScreen.xib */; };
 		0678C4A61B8572DF0035660E /* kuaibuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4A51B8572DF0035660E /* kuaibuTests.m */; };
 		0678C4B61B85A2800035660E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0678C4B51B85A2800035660E /* .gitignore */; };
+		1ED762E51B968165001727EA /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED762E41B968165001727EA /* RegisterViewController.m */; };
+		1ED762EB1B968C06001727EA /* MyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED762EA1B968C06001727EA /* MyUtil.m */; };
+		1ED762ED1B968E09001727EA /* tablecellbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED762EC1B968E09001727EA /* tablecellbackground.png */; };
 		1ED88FEC1B9533770020DFF3 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */; };
 		1ED88FF01B95348B0020DFF3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FEF1B95348B0020DFF3 /* LoginViewController.m */; };
 		1ED88FF61B953DF70020DFF3 /* WoWTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FF51B953DF70020DFF3 /* WoWTabBarItem.m */; };
@@ -188,6 +191,11 @@
 		0678C4A41B8572DF0035660E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0678C4A51B8572DF0035660E /* kuaibuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kuaibuTests.m; sourceTree = "<group>"; };
 		0678C4B51B85A2800035660E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1ED762E31B968165001727EA /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		1ED762E41B968165001727EA /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		1ED762E91B968C06001727EA /* MyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUtil.h; sourceTree = "<group>"; };
+		1ED762EA1B968C06001727EA /* MyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUtil.m; sourceTree = "<group>"; };
+		1ED762EC1B968E09001727EA /* tablecellbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tablecellbackground.png; sourceTree = "<group>"; };
 		1ED88FEA1B9533770020DFF3 /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
 		1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
 		1ED88FEE1B95348B0020DFF3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -532,6 +540,7 @@
 		06706D2D1B85B2AA00F58ACC /* Resourse */ = {
 			isa = PBXGroup;
 			children = (
+				1ED762EC1B968E09001727EA /* tablecellbackground.png */,
 				1ED890741B95796F0020DFF3 /* tabbar */,
 			);
 			path = Resourse;
@@ -681,6 +690,8 @@
 		06706D851B85B2AA00F58ACC /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				1ED762E91B968C06001727EA /* MyUtil.h */,
+				1ED762EA1B968C06001727EA /* MyUtil.m */,
 				1ED8906E1B9578AE0020DFF3 /* NetworkService.h */,
 				1ED8906F1B9578AE0020DFF3 /* NetworkService.m */,
 				1ED890681B95785E0020DFF3 /* HZCookie.h */,
@@ -766,6 +777,8 @@
 			children = (
 				1ED88FEE1B95348B0020DFF3 /* LoginViewController.h */,
 				1ED88FEF1B95348B0020DFF3 /* LoginViewController.m */,
+				1ED762E31B968165001727EA /* RegisterViewController.h */,
+				1ED762E41B968165001727EA /* RegisterViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1005,6 +1018,7 @@
 				1ED890641B95754E0020DFF3 /* SVProgressHUD.bundle in Resources */,
 				1ED8908B1B957C590020DFF3 /* iconfont-home_on(1).png in Resources */,
 				0678C4951B8572DF0035660E /* Main.storyboard in Resources */,
+				1ED762ED1B968E09001727EA /* tablecellbackground.png in Resources */,
 				1ED890801B95796F0020DFF3 /* 2.png in Resources */,
 				1ED890831B95796F0020DFF3 /* 5.png in Resources */,
 				0678C49A1B8572DF0035660E /* LaunchScreen.xib in Resources */,
@@ -1068,6 +1082,8 @@
 				1ED890571B9573F90020DFF3 /* AFHTTPRequestOperation.m in Sources */,
 				1ED9228F1B8724700013AF29 /* OrderDetailModel.m in Sources */,
 				1ED922881B8722BB0013AF29 /* MemberModel.m in Sources */,
+				1ED762EB1B968C06001727EA /* MyUtil.m in Sources */,
+				1ED762E51B968165001727EA /* RegisterViewController.m in Sources */,
 				0678C48F1B8572DF0035660E /* kuaibu.xcdatamodeld in Sources */,
 				1ED8905E1B9573F90020DFF3 /* AFURLResponseSerialization.m in Sources */,
 				06706DA71B85B2AA00F58ACC /* UIView+WebCacheOperation.m in Sources */,

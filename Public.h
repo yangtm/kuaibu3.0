@@ -46,6 +46,7 @@
 #define NSLog(...)
 #endif
 
+#define kNaviTitleColor RGBCOLOR(80,180,220) // 导航栏标题颜色
 #define kViewBackgroundColor RGBCOLOR(240,240,240) // 所有屏幕底色
 #define kTabbarBackgroundColor RGBCOLOR(249,249,249) //tabbar的背景色
 #define kIconNorColor RGBCOLOR(153,153,153) //所有icon未选中的颜色

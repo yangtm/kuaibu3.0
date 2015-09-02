@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     [self settitleLabel:@"用户中心"];
-    
+    self.navigationController.navigationBar.translucent = NO;
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
     self.navigationItem.leftBarButtonItem = item;
     
