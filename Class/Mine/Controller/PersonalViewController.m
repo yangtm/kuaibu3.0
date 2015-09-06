@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self createNavi];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,7 +27,7 @@
 #pragma mark - 导航栏
 - (void)createNavi
 {
-    [self settitleLabel:@"设置"];
+    [self settitleLabel:@"个人资料"];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
     self.navigationItem.leftBarButtonItem = item;
 }

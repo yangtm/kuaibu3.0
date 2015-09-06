@@ -66,7 +66,6 @@
     
     self.backgroudImageView.image = [UIImage imageNamed:@"userBannerDefault"];
     self.portraitImageView.backgroundColor = [UIColor whiteColor];
-    self.nameLabel.text = @"点此登录";
 }
 
 - (void)tapPortraitHandle:(UITapGestureRecognizer *)tap

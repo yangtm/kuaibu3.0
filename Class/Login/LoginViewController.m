@@ -13,12 +13,10 @@
 #import "HZCookie.h"
 #import "FGGProgressHUD.h"
 #import "NetworkService.h"
-#import "AppDelegate.h"
-#import "NSString+MD5.h"
 #import "MineViewController.h"
 #import "RegisterViewController.h"
 
-#define DefaultAppDelegate ([UIApplication sharedApplication].delegate)
+
 
 enum TextField_Type
 {
@@ -58,12 +56,22 @@ enum TextField_Type
     [super viewDidLoad];
     self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = kViewBackgroundColor;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    [self.view addGestureRecognizer:tap];
+    
     [self settitleLabel:@"登陆"];
     
     [self.view addSubview:self.loginView];
     
     [self setRightButton:[UIImage imageNamed:@"1"] title:nil target:self action:@selector(showRegister)];
 }
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tap
+{
+    [self resignAllKeybord];
+}
+
 
 -(void)showRegister
 {
@@ -125,18 +133,20 @@ enum TextField_Type
                 if([result isKindOfClass:[NSDictionary class]])
                 {
                     NSDictionary *dictionary=result;
-                    NSString *msg=dictionary[@"RESPMSG"];
-                    NSString *status=dictionary[@"RESPCODE"];
-                    
+                    NSString *msg = dictionary[@"RESPMSG"];
+                    NSString *status = dictionary[@"RESPCODE"];
+                    NSString *token = dictionary[@"RESULT"];
+                    NSLog(@"%@",result);
                     if([status integerValue] == 0)
                     {
                         [weakSelf showAlertWithMessage:msg automaticDismiss:YES];
-                        //                    AppDelegate *app= DefaultAppDelegate;
-                        //                    //保存Token
-                        //                    app.token=token;
-                        //                    app.isLoginedIn=YES;
+                                            AppDelegate *app= DefaultAppDelegate;
+                                            //保存Token
+                                            app.token = token;
+                                            app.isLoginedIn = YES;
                         MineViewController *vc = [[MineViewController alloc] init];
-                        self.tabBarController.tabBar.hidden = YES;
+                        vc.userName = _phoneNumberTextField.text;
+//                        self.tabBarController.tabBar.hidden = YES;
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     else if ([status integerValue] != 0)
@@ -303,5 +313,12 @@ enum TextField_Type
     [textField setReturnKeyType:returnKeyType];
     return textField;
 }
+
+- (void)clearText
+{
+    //_phoneNumberTextField.text = @"";
+    _passwordTextField.text = @"";
+}
+
 
 @end

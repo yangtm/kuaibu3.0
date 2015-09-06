@@ -14,6 +14,7 @@
 #define kMainScreenWidth  [UIScreen mainScreen].bounds.size.width
 #define kRatio (kMainScreenWidth / 320)
 
+#define DefaultAppDelegate ([UIApplication sharedApplication].delegate)
 
 #define kAPPID (@"iosapp_kuaibu3")
 #define kAPPKEY (@"iosapp_kuaibu3_20150001")

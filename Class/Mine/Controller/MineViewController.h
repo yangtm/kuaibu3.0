@@ -15,6 +15,7 @@
 
 @property (nonatomic,strong) MineHeadView *mineHeadView;
 @property (nonatomic,strong) FunctionsView *functionsView;
+@property (nonatomic,strong) NSString *userName;
 
 @property (nonatomic,strong) UIButton *rightBtn;
 

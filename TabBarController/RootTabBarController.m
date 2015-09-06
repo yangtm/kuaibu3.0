@@ -14,7 +14,8 @@
 #import "LoginViewController.h"
 #import "LSNavigationController.h"
 #import "WoWTabBarItem.h"
-
+#import "LoginViewController.h"
+#import "AppDelegate.h"
 
 
 
@@ -25,6 +26,7 @@
     SearchViewController *_searchVC;
     FriendsViewController *_friendsVC;
     MineViewController *_mineVC;
+   
     
     NSInteger _newSelectIndex;
     NSInteger _oldSelectIndex;
@@ -55,13 +57,14 @@
     _searchVC = [[SearchViewController alloc] init];
     _friendsVC = [[FriendsViewController alloc] init];
     _mineVC = [[MineViewController alloc] init];
-    
+    _loginVC = [[LoginViewController alloc] init];
+    AppDelegate *app= DefaultAppDelegate;
     LSNavigationController *nav0 = [[LSNavigationController alloc] initWithRootViewController:_homePageVC];
     LSNavigationController *nav1 = [[LSNavigationController alloc] initWithRootViewController:_searchVC];
     LSNavigationController *nav2 = [[LSNavigationController alloc] init];
     LSNavigationController *nav3 = [[LSNavigationController alloc] initWithRootViewController:_friendsVC];
-    LSNavigationController *nav4 = [[LSNavigationController alloc] initWithRootViewController:_mineVC];
-    
+    LSNavigationController *nav4 = [[LSNavigationController alloc] initWithRootViewController: _mineVC];
+  
     nav0.tabBarItem.tag = 0;
     nav1.tabBarItem.tag = 1;
     nav2.tabBarItem.tag = 2;

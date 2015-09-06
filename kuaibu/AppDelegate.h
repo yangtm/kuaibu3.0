@@ -20,6 +20,12 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+/**
+ *  登陆成功的token
+ */
+@property (nonatomic,strong)NSString *token;
+
+@property (nonatomic,assign)BOOL isLoginedIn;
 
 @end
 
