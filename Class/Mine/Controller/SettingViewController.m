@@ -11,6 +11,7 @@
 #import "NetworkService.h"
 #import "FGGProgressHUD.h"
 #import "LoginViewController.h"
+#import "PasswordManagerViewController.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
@@ -214,7 +215,11 @@
         }
             break;
         case 1:
-            NSLog(@"修改密码");
+//            NSLog(@"修改密码");
+            {
+                PasswordManagerViewController *vc = [[PasswordManagerViewController alloc] init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             break;
         case 2:
             NSLog(@"清理缓存");

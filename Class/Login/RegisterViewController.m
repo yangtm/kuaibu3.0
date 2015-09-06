@@ -180,15 +180,9 @@ enum TextField_Type
             //                return;
             //            }
             
-            NSString *nonce = [NSString stringWithFormat:@"%d",arc4random_uniform(1000)+1];
-            NSString *timestamp = [self getcurrentTimestamp];
-            NSString *sign = [[NSString stringWithFormat:@"%@||%@||%@||%@",kAPPID,nonce,timestamp,kAPPKEY] MD5Hash];
-            NSString *newSign = [sign substringWithRange:NSMakeRange(12, 8)];
-            NSDictionary *postDic =@{@"app_id":kAPPID,@"timestamp":timestamp,@"nonce":nonce,@"sign":newSign, @"memberNameTel":_rgPhoneNumberTextField.text,@"password":_rgRePasswordTextFiled.text};
-            NSString *registeUrl = [NSString stringWithFormat:@"%@member/memberRegister",kYHBBaseUrl];
             __weak typeof(self) weakSelf=self;
             [FGGProgressHUD showLoadingOnView:self.view];
-            [NetworkService postWithURL:registeUrl paramters:postDic success:^(NSData *receiveData) {
+            [NetworkService registerWithPhone:_rgPhoneNumberTextField.text checkCode:_checkCodeTextField.text passWord:_rgPasswordTextField.text success:^(NSData *receiveData) {
                 [FGGProgressHUD hideLoadingFromView:weakSelf.view];
                 if(receiveData.length>0)
                 {
@@ -215,16 +209,10 @@ enum TextField_Type
                 [FGGProgressHUD hideLoadingFromView:weakSelf.view];
                 [self showAlertWithMessage:error.localizedDescription automaticDismiss:NO];
             }];
-            
         }
     }
 }
 
-#pragma mark touch忘记密码按钮
-- (void)touchForgetPswBtn
-{
-    NSLog(@"修改密码");
-}
 
 - (void)resignAllKeybord
 {
@@ -239,39 +227,57 @@ enum TextField_Type
         
         [SVProgressHUD showWithStatus:@"验证码发送中" cover:YES offsetY:kMainScreenHeight/2.0];
         
-        NSString *nonce = [NSString stringWithFormat:@"%d",arc4random_uniform(1000)+1];
-        NSString *timestamp = [self getcurrentTimestamp];
-        NSString *sign = [[NSString stringWithFormat:@"%@||%@||%@||%@",kAPPID,nonce,timestamp,kAPPKEY] MD5Hash];
-        //    NSLog(@"sign:%@",sign);
-        //    NSString *signs = [sign MD5Hash];
-        //    NSLog(@"sign:%@",signs);
-        NSString *newSign = [sign substringWithRange:NSMakeRange(12, 8)];
-        NSDictionary *postDic =@{@"app_id":kAPPID,@"timestamp":timestamp,@"nonce":nonce,@"sign":newSign, @"phone":_rgPhoneNumberTextField.text,@"zone":@""};
-        NSString *registeUrl = [NSString stringWithFormat:@"%@sendSms/getCheckCode",kYHBBaseUrl];
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        //                manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html", nil];
-        
-        [manager POST:registeUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"%@",responseObject);
-            NSLog(@"%@",responseObject[@"RESPMSG"]);
-            if ([responseObject[@"RESPCODE"] integerValue]==0) {
+        [NetworkService getCheckCodeWithPhone:_rgPhoneNumberTextField.text smstpl:_checkCodeTextField.text success:^(NSData *receiveData) {
+            id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+            if ([result[@"RESPCODE"] integerValue]==0) {
                 [SVProgressHUD dismissWithSuccess:@"验证码已发送到您的手机"];
                 self.checkCodeButton.enabled = NO;
                 _secondCountDown = ksecond;
                 if (!self.checkCodeTimer) {
                     self.checkCodeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timeClicked) userInfo:nil repeats:YES];
                 }
-                _verifyCode = [NSString stringWithFormat:@"%@",responseObject[@"RESULT"]] ;
+                _verifyCode = [NSString stringWithFormat:@"%@",result[@"RESULT"]] ;
                 
                 NSLog(@"************************************");
                 NSLog(@"_verifyCode%@:",_verifyCode);
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@",error);
+        } failure:^(NSError *error) {
             
         }];
+        
+//        NSString *nonce = [NSString stringWithFormat:@"%d",arc4random_uniform(1000)+1];
+//        NSString *timestamp = [self getcurrentTimestamp];
+//        NSString *sign = [[NSString stringWithFormat:@"%@||%@||%@||%@",kAPPID,nonce,timestamp,kAPPKEY] MD5Hash];
+//        //    NSLog(@"sign:%@",sign);
+//        //    NSString *signs = [sign MD5Hash];
+//        //    NSLog(@"sign:%@",signs);
+//        NSString *newSign = [sign substringWithRange:NSMakeRange(12, 8)];
+//        NSDictionary *postDic =@{@"app_id":kAPPID,@"timestamp":timestamp,@"nonce":nonce,@"sign":newSign, @"phone":_rgPhoneNumberTextField.text,@"zone":@""};
+//        NSString *registeUrl = [NSString stringWithFormat:@"%@sendSms/getCheckCode",kYHBBaseUrl];
+//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//        //                manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//        //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html", nil];
+//        
+//        [manager POST:registeUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            NSLog(@"%@",responseObject);
+//            NSLog(@"%@",responseObject[@"RESPMSG"]);
+//            if ([responseObject[@"RESPCODE"] integerValue]==0) {
+//                [SVProgressHUD dismissWithSuccess:@"验证码已发送到您的手机"];
+//                self.checkCodeButton.enabled = NO;
+//                _secondCountDown = ksecond;
+//                if (!self.checkCodeTimer) {
+//                    self.checkCodeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timeClicked) userInfo:nil repeats:YES];
+//                }
+//                _verifyCode = [NSString stringWithFormat:@"%@",responseObject[@"RESULT"]] ;
+//                
+//                NSLog(@"************************************");
+//                NSLog(@"_verifyCode%@:",_verifyCode);
+//            }
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"%@",error);
+//            
+//        }];
     }
     
 }
@@ -381,16 +387,6 @@ enum TextField_Type
     [self.view endEditing:YES];
 }
 
-//获取时间戳
--(NSString*)getcurrentTimestamp
-{
-    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval time = [date timeIntervalSince1970];
-    NSString *timeStr = [NSString stringWithFormat:@"%f",time];
-    NSString *timestamp = [timeStr componentsSeparatedByString:@"."][0]; //精确到秒
-    return timestamp;
-    
-}
 
 - (void)clearText
 {

@@ -63,7 +63,7 @@
     LSNavigationController *nav1 = [[LSNavigationController alloc] initWithRootViewController:_searchVC];
     LSNavigationController *nav2 = [[LSNavigationController alloc] init];
     LSNavigationController *nav3 = [[LSNavigationController alloc] initWithRootViewController:_friendsVC];
-    LSNavigationController *nav4 = [[LSNavigationController alloc] initWithRootViewController: _mineVC];
+    LSNavigationController *nav4 = [[LSNavigationController alloc] initWithRootViewController: _loginVC];
   
     nav0.tabBarItem.tag = 0;
     nav1.tabBarItem.tag = 1;

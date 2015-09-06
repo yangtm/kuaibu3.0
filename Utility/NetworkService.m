@@ -7,6 +7,8 @@
 //
 
 #import "NetworkService.h"
+#import "getTimestamp.h"
+
 
 @implementation NetworkService
 
@@ -49,6 +51,112 @@
             failure(error);
     }];
 }
+
+//登入
++(void)loginWithphone:(NSString *)phone password:(NSString *)password success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure;
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:phone,@"memberNameTel",password,@"password", nil];
+    NSMutableDictionary *postDic = [DicModel createPostDictionary];
+   [postDic addEntriesFromDictionary:dic];
+
+    NSString *loginUrl = nil;
+    kYHBRequestUrl(@"member/memberLogin", loginUrl);
+    
+    AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
+    mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
+    [mgr POST:loginUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(success)
+            success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure)
+            failure(error);
+    }];
+}
+
+//注册
++(void)registerWithPhone:(NSString *)phone checkCode:(NSString *)checkcode passWord:(NSString *)password success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:phone,@"memberNameTel",password,@"password",checkcode,@"checkcode", nil];
+    NSMutableDictionary *postDic = [DicModel createPostDictionary];
+    [postDic addEntriesFromDictionary:dic];
+    
+    NSString *registerUrl = nil;
+    kYHBRequestUrl(@"member/memberRegister", registerUrl);
+    
+    AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
+    mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
+    [mgr POST:registerUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(success)
+            success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure)
+            failure(error);
+    }];
+}
+
+//获取验证码
++(void)getCheckCodeWithPhone:(NSString *)phone smstpl:(NSString *)sms success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:phone,@"memberNameTel",sms,@"zone",nil];
+    NSMutableDictionary *postDic = [DicModel createPostDictionary];
+    [postDic addEntriesFromDictionary:dic];
+
+    NSString *checkCodeUrl = nil;
+    kYHBRequestUrl(@"sendSms/getCheckCode", checkCodeUrl);
+    
+    AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
+    mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
+    [mgr POST:checkCodeUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(success)
+            success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure)
+            failure(error);
+    }];
+}
+
+
+//修改密码
++(void)changePassWordWithOldPwd:(NSString *)oldpwd andNewPwd:(NSString *)newpwd success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:oldpwd,@"oldPassword",newpwd,@"newPassword",nil];
+    NSMutableDictionary *postDic = [DicModel createPostDictionary];
+    [postDic addEntriesFromDictionary:dic];
+   
+    NSString *changePassWordUrl = nil;
+    kYHBRequestUrl(@"member/saveUpdateMemberPassword", changePassWordUrl);
+    
+    AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
+    mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
+    [mgr POST:changePassWordUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(success)
+            success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure)
+            failure(error);
+    }];
+}
+
+//忘记密码
++(void)findPasswordWithPhone:(NSString *)phone newPassword:(NSString *)new checkcode:(NSString *)checkcode success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:phone,@"memberNameTel",new,@"password",checkcode,@"zone",nil];
+    NSMutableDictionary *postDic = [DicModel createPostDictionary];
+    [postDic addEntriesFromDictionary:dic];
+    NSLog(@".....:%@",postDic);
+    NSString *changePassWordUrl = nil;
+    kYHBRequestUrl(@"member/forgetPassword", changePassWordUrl);
+    AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
+    mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
+    [mgr POST:changePassWordUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(success)
+            success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(failure)
+            failure(error);
+    }];
+}
+
 /**
  *  上传文件
  *

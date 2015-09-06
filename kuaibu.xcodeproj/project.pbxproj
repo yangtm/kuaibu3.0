@@ -47,6 +47,11 @@
 		0678C49A1B8572DF0035660E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0678C4981B8572DF0035660E /* LaunchScreen.xib */; };
 		0678C4A61B8572DF0035660E /* kuaibuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0678C4A51B8572DF0035660E /* kuaibuTests.m */; };
 		0678C4B61B85A2800035660E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0678C4B51B85A2800035660E /* .gitignore */; };
+		1E6BC96D1B9BC97400B726DA /* PasswordManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BC96B1B9BC97400B726DA /* PasswordManagerViewController.m */; };
+		1E6BC96E1B9BC97400B726DA /* PasswordManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E6BC96C1B9BC97400B726DA /* PasswordManagerViewController.xib */; };
+		1E6BC9711B9BC9E800B726DA /* UIScrollView+AvoidingKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BC9701B9BC9E800B726DA /* UIScrollView+AvoidingKeyboard.m */; };
+		1E6BC99B1B9BDF5D00B726DA /* FindPswViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BC99A1B9BDF5D00B726DA /* FindPswViewController.m */; };
+		1E6BC99E1B9C366A00B726DA /* DicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6BC99D1B9C366A00B726DA /* DicModel.m */; };
 		1ED762E51B968165001727EA /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED762E41B968165001727EA /* RegisterViewController.m */; };
 		1ED762EB1B968C06001727EA /* MyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED762EA1B968C06001727EA /* MyUtil.m */; };
 		1ED762ED1B968E09001727EA /* tablecellbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED762EC1B968E09001727EA /* tablecellbackground.png */; };
@@ -192,6 +197,15 @@
 		0678C4A41B8572DF0035660E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0678C4A51B8572DF0035660E /* kuaibuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kuaibuTests.m; sourceTree = "<group>"; };
 		0678C4B51B85A2800035660E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1E6BC96A1B9BC97400B726DA /* PasswordManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordManagerViewController.h; sourceTree = "<group>"; };
+		1E6BC96B1B9BC97400B726DA /* PasswordManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordManagerViewController.m; sourceTree = "<group>"; };
+		1E6BC96C1B9BC97400B726DA /* PasswordManagerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordManagerViewController.xib; sourceTree = "<group>"; };
+		1E6BC96F1B9BC9E800B726DA /* UIScrollView+AvoidingKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+AvoidingKeyboard.h"; sourceTree = "<group>"; };
+		1E6BC9701B9BC9E800B726DA /* UIScrollView+AvoidingKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+AvoidingKeyboard.m"; sourceTree = "<group>"; };
+		1E6BC9991B9BDF5D00B726DA /* FindPswViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindPswViewController.h; sourceTree = "<group>"; };
+		1E6BC99A1B9BDF5D00B726DA /* FindPswViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindPswViewController.m; sourceTree = "<group>"; };
+		1E6BC99C1B9C366A00B726DA /* DicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DicModel.h; sourceTree = "<group>"; };
+		1E6BC99D1B9C366A00B726DA /* DicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DicModel.m; sourceTree = "<group>"; };
 		1ED762E31B968165001727EA /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		1ED762E41B968165001727EA /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1ED762E91B968C06001727EA /* MyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUtil.h; sourceTree = "<group>"; };
@@ -363,6 +377,9 @@
 		06706D0C1B85B2AA00F58ACC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1E6BC96A1B9BC97400B726DA /* PasswordManagerViewController.h */,
+				1E6BC96B1B9BC97400B726DA /* PasswordManagerViewController.m */,
+				1E6BC96C1B9BC97400B726DA /* PasswordManagerViewController.xib */,
 				06706D0D1B85B2AA00F58ACC /* HomePageViewController.h */,
 				06706D0E1B85B2AA00F58ACC /* HomePageViewController.m */,
 				1ED88FFA1B9552390020DFF3 /* HomePageSearchViewController.h */,
@@ -693,6 +710,8 @@
 		06706D851B85B2AA00F58ACC /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				1E6BC96F1B9BC9E800B726DA /* UIScrollView+AvoidingKeyboard.h */,
+				1E6BC9701B9BC9E800B726DA /* UIScrollView+AvoidingKeyboard.m */,
 				1ED762F11B96E50E001727EA /* getTimestamp.h */,
 				1ED762F21B96E50E001727EA /* getTimestamp.m */,
 				1ED762E91B968C06001727EA /* MyUtil.h */,
@@ -701,6 +720,8 @@
 				1ED8906F1B9578AE0020DFF3 /* NetworkService.m */,
 				1ED890681B95785E0020DFF3 /* HZCookie.h */,
 				1ED890691B95785E0020DFF3 /* HZCookie.m */,
+				1E6BC99C1B9C366A00B726DA /* DicModel.h */,
+				1E6BC99D1B9C366A00B726DA /* DicModel.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -784,6 +805,8 @@
 				1ED88FEF1B95348B0020DFF3 /* LoginViewController.m */,
 				1ED762E31B968165001727EA /* RegisterViewController.h */,
 				1ED762E41B968165001727EA /* RegisterViewController.m */,
+				1E6BC9991B9BDF5D00B726DA /* FindPswViewController.h */,
+				1E6BC99A1B9BDF5D00B726DA /* FindPswViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1029,6 +1052,7 @@
 				0678C49A1B8572DF0035660E /* LaunchScreen.xib in Resources */,
 				0678C4971B8572DF0035660E /* Images.xcassets in Resources */,
 				1ED890861B95796F0020DFF3 /* 8.png in Resources */,
+				1E6BC96E1B9BC97400B726DA /* PasswordManagerViewController.xib in Resources */,
 				1ED8907F1B95796F0020DFF3 /* 1.png in Resources */,
 				1ED890881B95796F0020DFF3 /* 10.png in Resources */,
 				1ED890021B956D230020DFF3 /* README.txt in Resources */,
@@ -1105,15 +1129,19 @@
 				1ED922841B87228D0013AF29 /* MessageModel.m in Sources */,
 				06706D9E1B85B2AA00F58ACC /* SDWebImageDownloaderOperation.m in Sources */,
 				1ED88FFC1B9552390020DFF3 /* HomePageSearchViewController.m in Sources */,
+				1E6BC99B1B9BDF5D00B726DA /* FindPswViewController.m in Sources */,
 				1ED9226A1B86B2330013AF29 /* AdvertModel.m in Sources */,
 				06706D9F1B85B2AA00F58ACC /* SDWebImageManager.m in Sources */,
 				06706DA41B85B2AA00F58ACC /* UIImage+WebP.m in Sources */,
 				1ED8905C1B9573F90020DFF3 /* AFURLConnectionOperation.m in Sources */,
 				1ED890951B9582F30020DFF3 /* SettingViewController.m in Sources */,
 				06706DB11B85B67500F58ACC /* AreaModel.m in Sources */,
+				1E6BC99E1B9C366A00B726DA /* DicModel.m in Sources */,
 				1ED922751B86C5530013AF29 /* ProductModel.m in Sources */,
 				1ED8905D1B9573F90020DFF3 /* AFURLRequestSerialization.m in Sources */,
 				1ED922711B86BC320013AF29 /* StoreModel.m in Sources */,
+				1E6BC96D1B9BC97400B726DA /* PasswordManagerViewController.m in Sources */,
+				1E6BC9711B9BC9E800B726DA /* UIScrollView+AvoidingKeyboard.m in Sources */,
 				1ED9228C1B8723660013AF29 /* OrderModel.m in Sources */,
 				1ED922931B8725910013AF29 /* AddressModel.m in Sources */,
 				1ED922791B86D0720013AF29 /* ProcurementModel.m in Sources */,
