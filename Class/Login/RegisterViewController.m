@@ -391,4 +391,13 @@ enum TextField_Type
     return timestamp;
     
 }
+
+- (void)clearText
+{
+ 
+    _rgPasswordTextField.text = @"";
+    _rgPhoneNumberTextField.text = @"";
+}
+
+
 @end

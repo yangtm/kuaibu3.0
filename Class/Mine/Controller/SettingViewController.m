@@ -7,8 +7,12 @@
 //  设置
 
 #import "SettingViewController.h"
+#import "PersonalViewController.h"
+#import "NetworkService.h"
+#import "FGGProgressHUD.h"
+#import "LoginViewController.h"
 
-@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
     UITableView *_tableView;
 }
@@ -26,7 +30,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = kViewBackgroundColor;
     
-    
+  
     [self createNavi];
     [self createTableView];
     [self exitAction];
@@ -70,7 +74,57 @@
 #pragma mark -按钮响应事件
 - (void)clickAction:(UIGestureRecognizer *)btn
 {
-    NSLog(@"..");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定退出登录吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定退出", nil];
+    alertView.tag = 10;
+    [alertView show];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 10) {
+        if (buttonIndex == 1) {
+            NSString *loginUrl = [NSString stringWithFormat:@"%@member/outlogin",kYHBBaseUrl];
+            NSString *nonce = [NSString stringWithFormat:@"%d",arc4random_uniform(1000)+1];
+            
+            NSString *sign = [[NSString stringWithFormat:@"%@||%@||%@||%@",kAPPID,nonce,[getTimestamp getcurrentTimestamp],kAPPKEY] MD5Hash];
+            //    NSLog(@"sign:%@",sign);
+            //    NSString *signs = [sign MD5Hash];
+            //    NSLog(@"sign:%@",signs);
+            NSString *newSign = [sign substringWithRange:NSMakeRange(12, 8)];
+            NSDictionary *postDic =@{@"app_id":kAPPID,@"timestamp":[getTimestamp getcurrentTimestamp],@"nonce":nonce,@"sign":newSign, @"phone":@"",@"zone":@""};
+            [FGGProgressHUD showLoadingOnView:self.view];
+            __weak typeof(self) weakSelf=self;
+            [NetworkService postWithURL:loginUrl paramters:postDic success:^(NSData *receiveData) {
+                [FGGProgressHUD hideLoadingFromView:weakSelf.view];
+                if(receiveData.length>0)
+                {
+                    id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+                    if([result isKindOfClass:[NSDictionary class]])
+                    {
+                        NSDictionary *dictionary=result;
+                        NSString *msg=dictionary[@"RESPMSG"];
+                        NSString *status=dictionary[@"RESPCODE"];
+                        NSLog(@"%@",result);
+                        if([status integerValue] == 0)
+                        {
+                            [weakSelf showAlertWithMessage:msg automaticDismiss:YES];
+                            LoginViewController *vc = [[LoginViewController alloc] init];
+                            [self.navigationController pushViewController:vc animated:YES];
+                        }
+                        else if ([status integerValue] != 0)
+                        {
+                            [FGGProgressHUD hideLoadingFromView:weakSelf.view];
+                            [weakSelf showAlertWithMessage:msg automaticDismiss:NO];
+                        }
+                    }
+                }
+            } failure:^(NSError *error) {
+                [FGGProgressHUD hideLoadingFromView:weakSelf.view];
+                [self showAlertWithMessage:error.localizedDescription automaticDismiss:NO];
+            }];
+        }
+    }
 }
 
 - (void)back
@@ -81,6 +135,30 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+/**
+ *  警告视图
+ *
+ *  @param message   警告信息
+ *  @param automatic 警告视图是否自动消失
+ */
+-(void)showAlertWithMessage:(NSString *)message automaticDismiss:(BOOL)automatic
+{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+    if(automatic)
+        [self performSelector:@selector(dismissAlertView:) withObject:alert afterDelay:1.0f];
+    
+}
+/**
+ *  消失警告视图
+ *
+ *  @param alert 警告视图
+ */
+-(void)dismissAlertView:(UIAlertView *)alert
+{
+    [alert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 #pragma mark - UITableViewDelegate
@@ -130,8 +208,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
-        case 0:
-            NSLog(@"个人资料");
+        case 0:{
+            PersonalViewController *vc = [[PersonalViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
             break;
         case 1:
             NSLog(@"修改密码");

@@ -24,12 +24,13 @@
     
     [self settitleLabel:@"用户中心"];
     self.navigationController.navigationBar.translucent = NO;
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem = item;
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
+//    self.navigationItem.leftBarButtonItem = item;
     
-    [self test];
+        
     self.view.backgroundColor = kViewBackgroundColor;
     self.mineHeadView = [[MineHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 180) type:MineHeadViewTypeBuyer];
+    self.mineHeadView.nameLabel.text = _userName;
     self.functionsView = [[FunctionsView alloc] initWithFrame:CGRectMake(0, self.mineHeadView.bottom, kMainScreenWidth, kMainScreenHeight-self.mineHeadView.height)];
     //    self.mineHeadView.frame = CGRectMake(0, 0, kMainScreenWidth, 220);
     [self.view addSubview:self.mineHeadView];
@@ -39,11 +40,11 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
-    self.tabBarController.tabBar.hidden = NO;
-}
+//- (void)back
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//    self.tabBarController.tabBar.hidden = NO;
+//}
 
 - (UIButton *)rightBtn
 {

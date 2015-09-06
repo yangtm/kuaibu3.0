@@ -22,9 +22,9 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    
+    _isLoginedIn = NO;
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[MainTabBarController alloc] init];
+    self.window.rootViewController = [[RootTabBarController alloc] init];
     return YES;
 }
 
