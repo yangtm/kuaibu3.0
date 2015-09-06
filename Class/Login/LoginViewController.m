@@ -86,7 +86,7 @@ enum TextField_Type
 //登入
 - (void)touchLoginButton
 {
-    [self resignAllKeybord];
+    [self resignAllKeybord];//隐藏所有键盘
     if (self.phoneNumberTextField.text.length && self.passwordTextField.text.length) {
         
         //        if(_phoneNumberTextField.text.length==0)
@@ -152,6 +152,7 @@ enum TextField_Type
                 id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
                 if([result isKindOfClass:[NSDictionary class]])
                 {
+                    //NSLog(@"person=%@",result);
                     NSDictionary *dictionary=result;
                     NSString *msg=dictionary[@"RESPMSG"];
                     NSString *status=dictionary[@"RESPCODE"];
