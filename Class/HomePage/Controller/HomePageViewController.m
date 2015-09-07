@@ -8,10 +8,18 @@
 
 #import "HomePageViewController.h"
 #import "HomePageSearchViewController.h"
+#import "CategoryPageViewController.h"
+
+NSString *const BannerCellIdentifier = @"BannerCellIdentifier";
+NSString *const PavilionCellIdentifier = @"PavilionCellIdentifier";
+NSString *const HotProductIdentifier = @"HotProductIdentifier";
+NSString *const BandCellIdentifier = @"BandCellIdentifier";
+NSString *const LatestBuyIdentifier = @"LatestBuyIdentifier";
+NSString *const TitleHeadViewIdentifier = @"TitleHeadViewIdentifier";
+NSString *const BlankReuseViewIdentifier = @"BlankReuseViewIdentifier";
 
 
 @interface HomePageViewController ()
-
 
 @property (assign, nonatomic) CGFloat alphaOfNavigationBar;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -21,7 +29,9 @@
 @property (strong, nonatomic) UITextField *navBarSearchTextField;
 @property (strong, nonatomic) UIButton *navBarCancelButton;
 @property (assign, nonatomic) CGFloat ratio;
+@property (strong, nonatomic) UIView *badgeView;
 @property (strong, nonatomic) HomePageSearchViewController *homePageSearchViewController;
+
 
 @end
 
@@ -29,9 +39,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor grayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.ratio = kMainScreenWidth / 320;
     [self setupNormalNavBar];
+    
+    self.collectionView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 64);
+    [self registerCell];
+    [self.view addSubview:self.collectionView];
+    
 }
 
 #pragma mark -创建导航栏
@@ -87,6 +102,23 @@
     return _navBarCancelButton;
 }
 
+- (UIButton *)navBarMessageButton
+{
+    if (_navBarMessageButton == nil) {
+        _navBarMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _navBarMessageButton.frame = CGRectMake(0, 0, 20, 25);
+        [_navBarMessageButton setImage:[UIImage imageNamed:@"home_page_3"] forState:UIControlStateNormal];
+        _navBarMessageButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_navBarMessageButton addTarget:self action:@selector(messageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        _badgeView = [[UIView alloc] initWithFrame:CGRectMake(13, 0, 10, 10)];
+        _badgeView.layer.cornerRadius = 5.0;
+        _badgeView.layer.masksToBounds = YES;
+        _badgeView.backgroundColor = [UIColor redColor];
+        [_navBarMessageButton addSubview:_badgeView];
+    }
+    return _navBarMessageButton;
+}
+
 #pragma mark -按钮响应事件
 - (void)searchButtonClick:(UIButton *)sender
 {
@@ -119,12 +151,39 @@
 //    [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)registerCell
+{
+    [self registerCellWithNibName:@"HomePageBannerCell" identifier:BannerCellIdentifier];
+    [self registerCellWithNibName:@"HomePagePavilionCell" identifier:PavilionCellIdentifier];
+    [self registerCellWithNibName:@"HomePageHotProductCell" identifier:HotProductIdentifier];
+    [self registerCellWithNibName:@"HomePageBandCell" identifier:BandCellIdentifier];
+    [self registerCellWithNibName:@"HomePageLatestBuyCell" identifier:LatestBuyIdentifier];
+
+    [_collectionView registerNib:[UINib nibWithNibName:@"HomePageTitleHeadView" bundle:[NSBundle mainBundle]] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:TitleHeadViewIdentifier];
+    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:BlankReuseViewIdentifier];
+    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:BlankReuseViewIdentifier];
+    
+}
+
+- (void)registerCellWithNibName:(NSString *)nibName identifier:(NSString *)identifier
+{
+    [self.collectionView registerNib:[UINib nibWithNibName:nibName bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:identifier];
+}
+
+
 - (void)setupSearchNavBar
 {
     self.navigationItem.leftBarButtonItem = nil;
     self.navigationItem.titleView = self.navBarSearchTextField;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navBarCancelButton];
     [self.navBarSearchTextField becomeFirstResponder];
+}
+
+- (void)killScroll
+{
+    CGPoint offset = _collectionView.contentOffset;
+    offset.y += 10.0;
+    [_collectionView setContentOffset:offset];
 }
 
 - (void)dismissSearchView
@@ -134,13 +193,6 @@
     [self.homePageSearchViewController.view removeFromSuperview];
     self.homePageSearchViewController = nil;
     _navBarSearchTextField.text = @"";
-}
-
-- (void)killScroll
-{
-    CGPoint offset = _collectionView.contentOffset;
-    offset.y += 10.0;
-    [_collectionView setContentOffset:offset];
 }
 
 - (void)didReceiveMemoryWarning {
