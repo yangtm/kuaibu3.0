@@ -47,7 +47,7 @@
     
     AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
     mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
-    [mgr POST:url parameters:paramters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [mgr POST:url parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(success)
             success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
