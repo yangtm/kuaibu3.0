@@ -15,6 +15,8 @@
 #import "NetworkService.h"
 #import "MineViewController.h"
 #import "RegisterViewController.h"
+#import "FindPswViewController.h"
+
 
 
 
@@ -111,28 +113,16 @@ enum TextField_Type
         //            [self showAlertWithMessage:@"手机号或密码输入有误" automaticDismiss:NO];
         //            return;
         //        }
-        
-        NSString *nonce = [NSString stringWithFormat:@"%d",arc4random_uniform(1000)+1];
-        NSString *timestamp = [self getcurrentTimestamp];
-        NSString *sign = [[NSString stringWithFormat:@"%@||%@||%@||%@",kAPPID,nonce,timestamp,kAPPKEY] MD5Hash];
-        //        NSLog(@"sign:%@",sign);
-        //        NSString *signs = [sign MD5Hash];
-        
-        NSString *newSign = [sign substringWithRange:NSMakeRange(12, 8)];
-        //        NSLog(@"sign:%@",newSign);
-        NSDictionary *postDic =@{@"app_id":kAPPID,@"timestamp":timestamp,@"nonce":nonce,@"sign":newSign, @"memberNameTel":_phoneNumberTextField.text,@"password":_passwordTextField.text};
-        NSString *loginUrl = [NSString stringWithFormat:@"%@member/memberLogin",kYHBBaseUrl];
    
         [FGGProgressHUD showLoadingOnView:self.view];
         __weak typeof(self) weakSelf=self;
-        [NetworkService postWithURL:loginUrl paramters:postDic success:^(NSData *receiveData) {
+        [NetworkService loginWithphone:_phoneNumberTextField.text password:_passwordTextField.text success:^(NSData *receiveData) {
             [FGGProgressHUD hideLoadingFromView:weakSelf.view];
             if(receiveData.length>0)
             {
                 id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
                 if([result isKindOfClass:[NSDictionary class]])
                 {
-                    //NSLog(@"person=%@",result);
                     NSDictionary *dictionary=result;
                     NSString *msg = dictionary[@"RESPMSG"];
                     NSString *status = dictionary[@"RESPCODE"];
@@ -161,6 +151,7 @@ enum TextField_Type
             [FGGProgressHUD hideLoadingFromView:weakSelf.view];
             [self showAlertWithMessage:error.localizedDescription automaticDismiss:NO];
         }];
+
     }
 }
 
@@ -273,20 +264,14 @@ enum TextField_Type
     [alert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
--(NSString*)getcurrentTimestamp
-{
-    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval time = [date timeIntervalSince1970];
-    NSString *timeStr = [NSString stringWithFormat:@"%f",time];
-    NSString *timestamp = [timeStr componentsSeparatedByString:@"."][0]; //精确到秒
-    return timestamp;
-    
-}
+
 
 #pragma mark touch忘记密码按钮
 - (void)touchForgetPswBtn
 {
-    NSLog(@"修改密码");
+    FindPswViewController *findVC = [[FindPswViewController alloc] init];
+    LSNavigationController *nav = [[LSNavigationController alloc] initWithRootViewController:findVC];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)resignAllKeybord
