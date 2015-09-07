@@ -12,10 +12,13 @@
 #import "FGGProgressHUD.h"
 #import "LoginViewController.h"
 #import "PasswordManagerViewController.h"
+#import "MineInfoSetViewController.h"
+#import "SDImageCache.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
     UITableView *_tableView;
+    UILabel *_label;
 }
 
 @end
@@ -185,7 +188,16 @@
     }else if (indexPath.row == 1){
         cell.textLabel.text = @"修改密码";
     }else if (indexPath.row == 2){
+        
+        int cacheNumber = (int)[[SDImageCache sharedImageCache] getSize];
+        NSString *cacheStr = [self cacheNumber:cacheNumber];
+        UILabel *cacheL = [[UILabel alloc] initWithFrame:CGRectMake(kMainScreenWidth - 100 - 30, 12, 100, 20)];
+        cacheL.tag = 190;
+        cacheL.text = cacheStr;
+        cacheL.textAlignment = NSTextAlignmentRight;
+        [cell.contentView addSubview:cacheL];
         cell.textLabel.text = @"清理缓存";
+        
     }else if (indexPath.row == 3){
         cell.textLabel.text = @"意见反馈";
     }else if (indexPath.row == 4){
@@ -210,12 +222,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:{
-            PersonalViewController *vc = [[PersonalViewController alloc] init];
+            MineInfoSetViewController *vc = [[MineInfoSetViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         case 1:
-//            NSLog(@"修改密码");
+            NSLog(@"修改密码");
             {
                 PasswordManagerViewController *vc = [[PasswordManagerViewController alloc] init];
                 [self.navigationController pushViewController:vc animated:YES];
@@ -223,6 +235,14 @@
             break;
         case 2:
             NSLog(@"清理缓存");
+        {
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            _label = (UILabel *)[cell viewWithTag:190];
+            
+            UIAlertView * alert  = [[UIAlertView alloc] initWithTitle:nil message:@"缓存清除成功" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+            [alert show];
+            [alert dismissWithClickedButtonIndex:1 animated:YES];
+        }
             break;
         case 3:
             NSLog(@"意见反馈");
@@ -235,5 +255,17 @@
     }
 }
 
+#pragma mark - 计算缓存  转化单位
+- (NSString *)cacheNumber:(int)cacheNumber{
+    if (cacheNumber <= 1024) {
+        return [NSString stringWithFormat:@"%d B",cacheNumber];
+    }else if (cacheNumber > 1024  && cacheNumber <= (1024 * 1024)){
+        return [NSString stringWithFormat:@"%.1f KB",cacheNumber/(1024 * 1.0)];
+    }else if(cacheNumber > (1024 * 1024) && cacheNumber <= (1024 * 1024 *1024)){
+        return [NSString stringWithFormat:@"%.1f M",cacheNumber/(1024.0*1024.0*1.0)];
+    }else{
+        return [NSString stringWithFormat:@"%.1f G",cacheNumber/(1024*1024*1024 *1.0)];
+    }
+}
 
 @end

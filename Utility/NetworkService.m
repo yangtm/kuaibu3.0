@@ -21,6 +21,7 @@
  */
 +(void)getDataWithURL:(NSString *)url withSucess:(void (^)(NSData *))success failure:(void (^)(NSError *))failure
 {
+    
     AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
     mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
     [mgr GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -41,6 +42,9 @@
  */
 +(void)postWithURL:(NSString *)url paramters:(NSDictionary *)paramters success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure
 {
+    NSMutableDictionary *postDic = [DicModel createPostDictionary];
+    [postDic addEntriesFromDictionary:paramters];
+    
     AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
     mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
     [mgr POST:url parameters:paramters success:^(AFHTTPRequestOperation *operation, id responseObject) {

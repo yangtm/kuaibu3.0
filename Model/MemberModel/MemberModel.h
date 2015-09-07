@@ -16,4 +16,5 @@
 @property (strong, nonatomic) NSString *sex;
 @property (strong, nonatomic) NSString *authenticationType;
 @property (strong, nonatomic) NSString *authenticationState;
+@property (strong, nonatomic) NSString *memberPhone;
 @end

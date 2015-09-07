@@ -13,7 +13,7 @@
 @property (strong, nonatomic) NSString *memberDeliveryAddressId;
 @property (strong, nonatomic) NSString *memberId;
 @property (strong, nonatomic) NSString *contactor;
-@property (assign,nonatomic) BOOL isDefault;
+@property (assign, nonatomic) BOOL isDefault;
 @property (strong, nonatomic) NSString *contactMobileNumber;
 @property (strong, nonatomic) NSString *contactTelNumber;
 @property (strong, nonatomic) NSString *postCode;
@@ -24,5 +24,5 @@
 @property (strong, nonatomic) NSString *area_id;
 @property (strong, nonatomic) NSString *area;
 @property (strong, nonatomic) NSString *address;
-
+@property (nonatomic, strong) NSString *truename;
 @end

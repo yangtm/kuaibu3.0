@@ -16,11 +16,12 @@
 #import "WoWTabBarItem.h"
 #import "LoginViewController.h"
 #import "AppDelegate.h"
+#import "YHBPublishBuyViewController.h"
 
 
 
 
-@interface RootTabBarController ()
+@interface RootTabBarController ()<UIActionSheetDelegate>
 {
     HomePageViewController *_homePageVC;
     SearchViewController *_searchVC;
@@ -147,6 +148,44 @@
     }
     
     [self changeSelectItem:num];
+}
+
+
+#pragma mark -UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+            {
+                YHBPublishBuyViewController *supplyVC = [[YHBPublishBuyViewController alloc] init];
+                
+                [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:supplyVC] animated:YES completion:^{
+                    
+                }];
+            }
+            break;
+        case 1:
+            
+            break;
+        case 3:
+            {
+//                HomePageViewController *vc = [[HomePageViewController alloc] init];
+//                [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+//                    self.tabBarController.tabBar.hidden = NO;
+//                }];
+                
+            }
+            
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    NSLog(@"....");
+    
 }
 
 @end
