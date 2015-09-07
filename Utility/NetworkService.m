@@ -172,8 +172,11 @@
  */
 +(void)uploadFile:(NSString *)url paramters:(NSDictionary *)paramters file:(void (^)(id<AFMultipartFormData>))fileData success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure
 {
+    NSMutableDictionary *postDic = [DicModel createPostDictionary];
+    [postDic addEntriesFromDictionary:paramters];
+    
     AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
-    [mgr POST:url parameters:paramters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [mgr POST:url parameters:postDic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         if(fileData)
             fileData(formData);
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
