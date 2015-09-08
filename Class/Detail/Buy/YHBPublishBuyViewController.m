@@ -25,13 +25,17 @@
 #import "UIScrollView+AvoidingKeyboard.h"
 #import "MeasurePicker.h"
 //#import "amrFileCodec.h"
+#import "YHBAreaModel.h"
+#import "YHBCity.h"
 
 
 const NSInteger BottomLineTag = 59;
 
 #define kButtonTag_Yes 100
-
-@interface YHBPublishBuyViewController()<UITextFieldDelegate, UIPickerViewDataSource,RecordEditViewDelegate, UIPickerViewDelegate, UIScrollViewDelegate>
+#define kPeriodTextFieldTag 200
+#define kAsofdateTextFieldTag 202
+#define kButtonTag_Cancel 10
+@interface YHBPublishBuyViewController()<UITextFieldDelegate, UIPickerViewDataSource,RecordEditViewDelegate, UIPickerViewDelegate, UIScrollViewDelegate,UIPickerViewAccessibilityDelegate>
 {
     int typeId;
     float price;
@@ -39,9 +43,16 @@ const NSInteger BottomLineTag = 59;
     
     ProcurementModel *myModel;
     BOOL isClean;
+    BOOL _isSelectBtn;
     
     NSArray *categoryArray;
     NSString *catidString;
+    
+    NSInteger _indexTag;
+    UIButton *_cancelBtn;
+    NSInteger _selProvince;
+    NSInteger _selCity;
+    
     
     BOOL webEdit;
     BOOL _isPublicPhone;
@@ -57,15 +68,33 @@ const NSInteger BottomLineTag = 59;
 @property (nonatomic, strong) UITextField *categoryTextField;
 @property (nonatomic, strong) UITextField *quantityTextField;
 @property (nonatomic, strong) UITextField *periodTextField;
+@property (nonatomic, strong) UITextField *asofdateTextField;
 @property (nonatomic, strong) UITextField *contactNameTextField;
 @property (nonatomic, strong) UITextField *contactPhoneTextField;
+@property (nonatomic, strong) UITextField *addressTextField;
+@property (nonatomic, strong) UITextField *detailedAddressTextField;
 @property (nonatomic, strong) MeasurePicker *measurePicker;
 @property (nonatomic, strong) YHBRadioBox *publicPhoneRadiBox;
+
+@property (strong, nonatomic) UIPickerView *areaPicker;
+@property (strong, nonatomic) UIButton *tool;
+@property (strong, nonatomic) UIView *clearView;
+@property (strong, nonatomic) NSMutableArray *areaArray;
+
 @property (nonatomic, strong) RecordEditView *recordEditView;
 @property (nonatomic, strong) UIPickerView *dayPickerView;
 @property (nonatomic, strong) UIView *toolView;
+@property (nonatomic, strong) UIView *toolViews;
+@property (nonatomic, strong) UIDatePicker *datePickerView;
+@property (nonatomic, strong) UIDatePicker *datePickersView;
 //@property (nonatomic, strong) YHBPublishBuyManage *netManage;
 @property (nonatomic, strong) UITextField *currentTextField;
+@property (nonatomic, strong) NSString *offerdateStr;//报价截止日期
+@property (nonatomic, strong) NSString *goodsdateStr;//收货截止日期
+@property (nonatomic, strong) NSDateFormatter *pickerFormatter;
+
+@property (nonatomic,strong) YHBRadioBox *cutYes;
+@property (nonatomic,strong) YHBRadioBox *cutNo;
 
 @end
 
@@ -89,6 +118,11 @@ const NSInteger BottomLineTag = 59;
     [super viewDidLoad];
 //    self.edgesForExtendedLayout = UIRectEdgeBottom;
     
+    
+//    _areaArray =  [[NSMutableArray alloc] initWithObjects:@"1",@"2",@"3", nil];
+    
+    _indexTag = 0;
+    _isSelectBtn = YES;
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(dismissSelf)];
     
     isClean = NO;
@@ -129,39 +163,65 @@ const NSInteger BottomLineTag = 59;
 }
 
 #pragma mark pickerView datasource delegate
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return 30;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return [NSString stringWithFormat:@"%d", (int)row+1];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
-{
-    pickViewSelected = (int)row;
-}
+//- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+//{
+//    return 1;
+//}
+//
+//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+//{
+//    return 30;
+//}
+//
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    return [NSString stringWithFormat:@"%d", (int)row+1];
+//}
+//
+//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+//{
+//    pickViewSelected = (int)row;
+//}
 
 //地区选择器按下确认按钮
 - (void)pickerPickEnd:(UIButton *)aBtn
 {
-    if (aBtn.tag == kButtonTag_Yes)
-    {
-        self.periodTextField.text = [NSString stringWithFormat:@"%d", pickViewSelected+1];
-    }
-    self.dayPickerView.top = kMainScreenHeight+30;
-    self.toolView.top = self.dayPickerView.top-30;
+//    if (aBtn.tag == kButtonTag_Yes)
+//    {
+        self.periodTextField.text = [NSString stringWithFormat:@"%@",_offerdateStr];
+//    }else if (aBtn.tag == kButtonTag_Yes+1){
+//        self.asofdateTextField.text = [NSString stringWithFormat:@"%@",_goodsdateStr];
+//    }
+    self.datePickerView.top = kMainScreenHeight+30;
+    self.toolView.top = self.datePickerView.top-30;
     [self.dayPickerView removeFromSuperview];
     [aBtn.superview removeFromSuperview];
 }
 
+- (void)pickersPickEnd:(UIButton *)aBtn
+{
+//    if (aBtn.tag == kButtonTag_Yes)
+//    {
+//        self.periodTextField.text = [NSString stringWithFormat:@"%@",_offerdateStr];
+//    }else if (aBtn.tag == kButtonTag_Yes+1){
+        self.asofdateTextField.text = [NSString stringWithFormat:@"%@",_goodsdateStr];
+//    }
+    self.datePickersView.top = kMainScreenHeight+30;
+    self.toolView.top = self.datePickersView.top-30;
+    [self.dayPickerView removeFromSuperview];
+    [aBtn.superview removeFromSuperview];
+}
+//- (void)pickerPickEnd:(UIButton *)aBtn
+//{
+//    if (aBtn.tag == kButtonTag_Yes)
+//    {
+//        self.periodTextField.text = [NSString stringWithFormat:@"%@", _dataStr];
+//    }
+//    self.dayPickerView.top = kMainScreenHeight+30;
+//    self.toolView.top = self.dayPickerView.top-30;
+//    [self.dayPickerView removeFromSuperview];
+//    [aBtn.superview removeFromSuperview];
+//}
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -189,8 +249,163 @@ const NSInteger BottomLineTag = 59;
         [self showDayPicker];
         return NO;
     }
+    else if (textField == _asofdateTextField){
+        [_currentTextField resignFirstResponder];
+        _currentTextField = nil;
+        [self showDayPickers];
+        return NO;
+    }
+    else if (textField == _addressTextField){
+        [_currentTextField resignFirstResponder];
+        _currentTextField = nil;
+        [self showAreaPickView];
+        return NO;
+    }
     _currentTextField = textField;
     return YES;
+}
+
+#pragma mark -地区选择
+- (UIPickerView *)areaPicker
+{
+    if (!_areaPicker) {
+        _areaPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 200)];
+        _areaPicker.backgroundColor = [UIColor whiteColor];
+        _areaPicker.dataSource =self;
+        _areaPicker.delegate = self;
+        _areaPicker.showsSelectionIndicator = YES;
+    }
+    return _areaPicker;
+}
+
+- (UIView *)clearView
+{
+    if (!_clearView) {
+        _clearView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth,kMainScreenHeight)];
+        _clearView.backgroundColor = [UIColor clearColor];
+    }
+    return _clearView;
+}
+
+- (void)showAreaPickView
+{
+    if (![self.areaPicker superview]) {
+        UIToolbar *toolView = [[UIToolbar alloc] initWithFrame:CGRectMake(0, _areaPicker.top-30, kMainScreenWidth, 40)];
+        toolView.backgroundColor = RGBCOLOR(240, 240, 240);
+        _tool = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 60, 0, 60, 40)];
+        [_tool setTitle:@"完成" forState:UIControlStateNormal];
+        _tool.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _tool.titleLabel.font = kFont15;
+        [_tool setTitleColor:RGBCOLOR(3, 122, 255) forState:UIControlStateNormal];
+        _tool.backgroundColor = [UIColor clearColor];
+        [_tool addTarget:self action:@selector(addresspickerPickEnd:) forControlEvents:UIControlEventTouchDown];
+        [toolView addSubview:_tool];
+        
+        _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        _cancelBtn.tag = kButtonTag_Cancel;
+        _cancelBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _cancelBtn.titleLabel.font = kFont15;
+        _cancelBtn.backgroundColor = [UIColor clearColor];
+        [_cancelBtn setTitleColor:RGBCOLOR(3, 122, 255) forState:UIControlStateNormal];
+        [_cancelBtn addTarget:self action:@selector(pickerPickEnd:) forControlEvents:UIControlEventTouchDown];
+        [toolView addSubview:_cancelBtn];
+        
+        [[UIApplication sharedApplication].keyWindow addSubview:self.clearView];
+        [[UIApplication sharedApplication].keyWindow addSubview:self.areaPicker];
+        [[UIApplication sharedApplication].keyWindow addSubview:toolView];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            _areaPicker.top = kMainScreenHeight - 180;
+            toolView.top = _areaPicker.top - 30;
+        }];
+    }
+}
+
+#pragma mark - pickerView delegate and datasource
+
+- (void)addresspickerPickEnd:(UIButton *)sender{
+    
+    //HbuAreaListModelAreas *area = self.cityArray[0];
+    [self.clearView removeFromSuperview];
+    //[self.tableView shouldScrolltoPointY:0];
+    if ([_areaPicker superview]) {
+        if (sender.tag != kButtonTag_Cancel) {
+//            [self pickedAreaToModelAndUI];
+        }else{
+            _selProvince = 0;
+            _selCity = 0;
+            [_areaPicker selectRow:0 inComponent:0 animated:NO];
+            [_areaPicker selectRow:0 inComponent:1 animated:NO];
+        }
+        [UIView animateWithDuration:0.2 animations:^{
+            _areaPicker.top = kMainScreenHeight;
+            [_areaPicker removeFromSuperview];
+            [sender.superview removeFromSuperview];
+        }];
+    }
+}
+
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return  2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+
+    if (component == 0) {
+        return self.areaArray.count+1;
+    }else{
+        if (_selProvince > 0) {
+            YHBAreaModel *area = self.areaArray[_selProvince-1];
+            return area.city.count + 1;
+        }else{
+            if (_selCity > 0) {
+//                YHBAreaModel *area = self.areaArray[_selProvince-1];
+//                YHBCity *city = 
+                
+            }
+            return 1;
+        }
+    }
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
+    return 140;
+    
+}
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+    return 30;
+}
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    if (component == 0) {
+        if (row == 0) {
+            return @"省份";
+        }else{
+            YHBAreaModel *model = self.areaArray[row-1];
+            return model.areaname;
+        }
+    }else if(component == 1){
+        if (row) {
+            YHBAreaModel *model = self.areaArray[_selProvince-1];
+            YHBCity *city = model.city[row-1];
+            return city.areaname;
+        }else return @"市区";
+        
+    }
+    return nil;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    if (component == 0) {
+        _selProvince = row;
+        [pickerView reloadComponent:1];
+        [pickerView selectRow:0 inComponent:1 animated:YES];
+    }else if(component == 1){
+        _selCity = row;
+    }
+    
 }
 
 #pragma mark - RecordEditViewDelegate
@@ -678,19 +893,31 @@ const NSInteger BottomLineTag = 59;
 
 - (void)showDayPicker
 {
-    if (self.dayPickerView.top != kMainScreenHeight-200)
+    if (self.datePickerView.top != kMainScreenHeight-200)
     {
-        [self.dayPickerView reloadAllComponents];
-        [self.view addSubview:self.dayPickerView];
+        [self.view addSubview:self.datePickerView];
         [self.view addSubview:self.toolView];
-        [self.dayPickerView selectRow:pickViewSelected inComponent:0 animated:NO];
         [UIView animateWithDuration:0.2 animations:^{
-            self.dayPickerView.top = kMainScreenHeight-200;
-            self.toolView.top = self.dayPickerView.top-30;
+            self.datePickerView.top = kMainScreenHeight-200;
+            self.toolView.top = self.datePickerView.top-30;
         }];
     }
 }
 
+- (void)showDayPickers
+{
+    if (self.datePickerView.top != kMainScreenHeight-200)
+    {
+        [self.view addSubview:self.datePickersView];
+        [self.view addSubview:self.toolViews];
+        [UIView animateWithDuration:0.2 animations:^{
+            self.datePickersView.top = kMainScreenHeight-200;
+            self.toolViews.top = self.datePickersView.top-30;
+        }];
+    }
+}
+
+#pragma mark - 编辑部分
 - (void)setupFormView
 {
     UIView *form0 = [self headForm:CGRectMake(0, 0, kMainScreenWidth, 30)];
@@ -698,23 +925,34 @@ const NSInteger BottomLineTag = 59;
     UIView *form2 = [self categoryForm:CGRectMake(0, form1.bottom, form1.width, form1.height)];
     UIView *form3 = [self quantityForm:CGRectMake(0, form2.bottom, form2.width, form2.height)];
     UIView *form4 = [self periodForm:CGRectMake(0, form3.bottom, form3.width, form3.height)];
-    UIView *form5 = [self describeForm:CGRectMake(0, form4.bottom, form4.width, 60)];
+    UIView *form5 = [self asofdateForm:CGRectMake(0, form4.bottom, form4.width, form4.height)];
+    UIView *form6 = [self isCutForm:CGRectMake(0, form5.bottom, form5.width, form5.height)];
+    UIView *form7 = [self invoiceRequirementsForm:CGRectMake(0, form6.bottom, form6.width, form6.height)];
+    UIView *form8 = [self describeForm:CGRectMake(0, form7.bottom, form7.width, 60)];
     [self.editFormView addSubview:form0];
     [self.editFormView addSubview:form1];
     [self.editFormView addSubview:form2];
     [self.editFormView addSubview:form3];
     [self.editFormView addSubview:form4];
+    [self.editFormView addSubview:form6];
     [self.editFormView addSubview:form5];
-    self.editFormView.frame = CGRectMake(0, self.pictureAdder.bottom, kMainScreenWidth, form5.bottom);
+    [self.editFormView addSubview:form7];
+    [self.editFormView addSubview:form8];
+    self.editFormView.frame = CGRectMake(0, self.pictureAdder.bottom, kMainScreenWidth, form8.bottom);
 }
 
+#pragma mark - 联系人
 - (void)setupContactView
 {
     UIView *form0 = [self contactNameForm:CGRectMake(0, 0, kMainScreenWidth, 40)];
     UIView *form1 = [self contactPhoneForm:CGRectMake(0, form0.bottom, form0.width, form0.height)];
+    UIView *form2 = [self shippingAddressForm:CGRectMake(0, form1.bottom, form1.width, form1.height)];
+    UIView *form3 = [self detailAddressForm:CGRectMake(0, form2.bottom, form2.width, form2.height)];
     [self.contactView addSubview:form0];
     [self.contactView addSubview:form1];
-    self.contactView.frame = CGRectMake(0, self.editFormView.bottom + 10, kMainScreenWidth, form1.bottom);
+    [self.contactView addSubview:form2];
+    [self.contactView addSubview:form3];
+    self.contactView.frame = CGRectMake(0, self.editFormView.bottom + 10, kMainScreenWidth, form3.bottom);
 }
 
 - (UIView *)headForm:(CGRect)frame
@@ -730,6 +968,7 @@ const NSInteger BottomLineTag = 59;
     return label;
 }
 
+#pragma mark -采购标题UI
 - (UIView *)productNameForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
@@ -741,6 +980,7 @@ const NSInteger BottomLineTag = 59;
     return view;
 }
 
+#pragma mark -布料分类UI
 - (UIView *)categoryForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
@@ -754,6 +994,7 @@ const NSInteger BottomLineTag = 59;
     return view;
 }
 
+#pragma mark -采购数量UI
 - (UIView *)quantityForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
@@ -767,10 +1008,11 @@ const NSInteger BottomLineTag = 59;
     return view;
 }
 
+#pragma mark - 报价截止日UI
 - (UIView *)periodForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
-    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 70, frame.size.height) title:@" 求购周期:"];
+    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 80, frame.size.height) title:@"报价截止日:"];
     self.periodTextField.frame = CGRectMake(label.right + 5, 0, view.width - 60, view.height);
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(view.width - 40, 0, 20, view.height)];
     label1.text = @"天";
@@ -779,12 +1021,62 @@ const NSInteger BottomLineTag = 59;
     UIImageView *arrowImageView = [self arrowImageView:CGRectMake(label1.right, 15, 5, 10)];
     [view addSubview:label];
     [view addSubview:self.periodTextField];
-    [view addSubview:label1];
+//    [view addSubview:label1];
     [view addSubview:arrowImageView];
     [self addBottomLine:view];
     return view;
 }
 
+#pragma mark - 收货截止日UI
+- (UIView *)asofdateForm:(CGRect)frame
+{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 80, frame.size.height) title:@"收货截止日:"];
+    self.asofdateTextField.frame = CGRectMake(label.right + 5, 0, view.width - 60, view.height);
+    [view addSubview:label];
+    [view addSubview:self.asofdateTextField];
+    [self addBottomLine:view];
+    return view;
+}
+
+#pragma mark - 是否剪样UI
+- (UIView *)isCutForm:(CGRect)frame
+{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 100, frame.size.height) title:@"是否需要剪样:"];
+    _cutYes = [[YHBRadioBox alloc] initWithFrame:CGRectMake(label.right+10, 0, 60, view.height) checkedImage:[UIImage imageNamed:_isSelectBtn? @"check_on":@"check_off"] uncheckedImage:[UIImage imageNamed:@"check_off"]title:@"是"];
+    _cutYes.tag = 1001;
+    
+    [_cutYes addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
+    _cutNo = [[YHBRadioBox alloc] initWithFrame:CGRectMake(_cutYes.right+10, 0, 60, view.height) checkedImage:[UIImage imageNamed:_isSelectBtn? @"check_on":@"check_off"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"否"];
+    _cutNo.tag = 1002;
+    [_cutNo addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
+    [view addSubview:_cutYes];
+    [view addSubview:_cutNo];
+    [view addSubview:label];
+    [self addBottomLine:view];
+    return view;
+}
+#pragma mark - 开票要求UI
+- (UIView *)invoiceRequirementsForm:(CGRect)frame
+{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 80, frame.size.height) title:@"发票要求:"];
+    YHBRadioBox *btn1 = [[YHBRadioBox alloc] initWithFrame:CGRectMake(label.right, 0, 80, view.height) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"普通发票"];
+    YHBRadioBox *btn2 = [[YHBRadioBox alloc] initWithFrame:CGRectMake(btn1.right+5, 0, 80, view.height) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"增值税发票"];
+    YHBRadioBox *btn3 = [[YHBRadioBox alloc] initWithFrame:CGRectMake(btn2.right+20, 0, 40, view.height) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"无"];
+    [btn1 addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
+    [btn2 addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
+    [btn3 addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
+    [view addSubview:btn1];
+    [view addSubview:btn2];
+    [view addSubview:btn3];
+    [view addSubview:label];
+    [self addBottomLine:view];
+    return view;
+}
+
+#pragma mark - 详情UI
 - (UIView *)describeForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
@@ -796,6 +1088,7 @@ const NSInteger BottomLineTag = 59;
     return view;
 }
 
+#pragma mark - 联系人UI
 - (UIView *)contactNameForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
@@ -807,15 +1100,42 @@ const NSInteger BottomLineTag = 59;
     return view;
 }
 
+#pragma mark - 联系电话UI
 - (UIView *)contactPhoneForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 70, frame.size.height) title:@"*联系电话:"];
     self.contactPhoneTextField.frame = CGRectMake(label.right + 5, 0, view.width - label.right - 80, view.height);
-    self.publicPhoneRadiBox.frame = CGRectMake(_contactPhoneTextField.right, 10, 60, 30);
+//    self.publicPhoneRadiBox.frame = CGRectMake(_contactPhoneTextField.right, 10, 60, view.height);
+    _publicPhoneRadiBox = [[YHBRadioBox alloc] initWithFrame:CGRectMake(_contactPhoneTextField.right+2, 0, 60, view.height) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"公开"];
+    [_publicPhoneRadiBox addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
     [view addSubview:label];
     [view addSubview:self.contactPhoneTextField];
-    [view addSubview:self.publicPhoneRadiBox];
+    [view addSubview:_publicPhoneRadiBox];
+    [self addBottomLine:view];
+    return view;
+}
+
+#pragma mark - 收货地址UI
+- (UIView *)shippingAddressForm:(CGRect)frame
+{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 80, view.height) title:@"*收货地址:"];
+    self.addressTextField.frame = CGRectMake(label.right+5, 0, view.width- 60, view.height);
+    [view addSubview:label];
+    [view addSubview:self.addressTextField];
+    [self addBottomLine:view];
+    return view;
+}
+
+#pragma mark - 详细地址UI
+- (UIView *)detailAddressForm:(CGRect)frame
+{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 80, view.height) title:@"*详细地址:"];
+    self.detailedAddressTextField.frame = CGRectMake(label.right+5, 0, view.width-10, view.height);
+    [view addSubview:label];
+    [view addSubview:self.detailedAddressTextField];
     [self addBottomLine:view];
     return view;
 }
@@ -911,12 +1231,84 @@ const NSInteger BottomLineTag = 59;
 //    return _netManage;
 //}
 
+- (UIDatePicker *)datePickerView
+{
+    if (!_datePickerView) {
+        
+        _datePickerView = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, kMainScreenHeight+30, kMainScreenWidth, 100)];
+        _datePickerView.backgroundColor = kNaviTitleColor;
+        
+        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+       
+        _datePickerView.locale = locale;
+        
+        NSDate *localeDate = [NSDate date];
+
+        [_datePickerView setDatePickerMode: UIDatePickerModeDate]; // 设置日期选择器模式
+        [_datePickerView setDate: localeDate animated: YES]; // 设置默认选中日期
+
+        _datePickerView.minimumDate = localeDate;
+        
+        NSDate *pickerDate = [_datePickerView date];
+        _pickerFormatter = [[NSDateFormatter alloc] init];
+        [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+        NSString *dateString = [_pickerFormatter stringFromDate:pickerDate];
+        _offerdateStr = dateString;
+        [_datePickerView addTarget: self action: @selector(onDatePickerChanged:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _datePickerView;
+}
+
+- (UIDatePicker *)datePickersView
+{
+    if (!_datePickersView) {
+        
+        _datePickersView = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, kMainScreenHeight+30, kMainScreenWidth, 100)];
+        _datePickersView.backgroundColor = kNaviTitleColor;
+        
+        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+        
+        _datePickersView.locale = locale;
+        
+        NSDate *localeDate = [NSDate date];
+        
+        [_datePickersView setDatePickerMode: UIDatePickerModeDate]; // 设置日期选择器模式
+        [_datePickersView setDate: localeDate animated: YES]; // 设置默认选中日期
+        
+        _datePickersView.minimumDate = localeDate;
+        
+        NSDate *pickerDate = [_datePickersView date];
+        _pickerFormatter = [[NSDateFormatter alloc] init];
+        [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+        NSString *dateString = [_pickerFormatter stringFromDate:pickerDate];
+        _goodsdateStr = dateString;
+        [_datePickerView addTarget: self action: @selector(onDatePickersChanged:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _datePickerView;
+}
+
+
+- (void)onDatePickerChanged: (UIDatePicker *)datePicker {
+
+    [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+    _offerdateStr = [_pickerFormatter stringFromDate:datePicker.date];
+}
+
+- (void)onDatePickersChanged: (UIDatePicker *)datePicker {
+    
+    [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+    _goodsdateStr = [_pickerFormatter stringFromDate:datePicker.date];
+}
+
 - (UIPickerView *)dayPickerView
 {
     if (!_dayPickerView)
     {
-        _dayPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight+30, kMainScreenWidth, 200)];
-        _dayPickerView.backgroundColor = [UIColor whiteColor];
+        _dayPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight+30, kMainScreenWidth, 100)];
+        _dayPickerView.backgroundColor = kNaviTitleColor;
+        
+        
+        
         _dayPickerView.dataSource = self;
         _dayPickerView.delegate = self;
     }
@@ -926,12 +1318,15 @@ const NSInteger BottomLineTag = 59;
 - (UIView *)toolView
 {
     if (!_toolView) {
+        
         _toolView = [[UIView alloc] initWithFrame:CGRectMake(0, self.dayPickerView.top-30, kMainScreenWidth, 40)];
         _toolView.backgroundColor = [UIColor lightGrayColor];
         UIButton *_tool = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 60, 0, 60, 40)];
         [_tool setTitle:@"完成" forState:UIControlStateNormal];
         _tool.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
         _tool.tag = kButtonTag_Yes;
+      
         _tool.titleLabel.font = kFont15;
         _tool.backgroundColor = [UIColor clearColor];
         [_tool addTarget:self action:@selector(pickerPickEnd:) forControlEvents:UIControlEventTouchDown];
@@ -946,6 +1341,34 @@ const NSInteger BottomLineTag = 59;
         [_toolView addSubview:_cancelBtn];
     }
     return _toolView;
+}
+
+- (UIView *)toolViews
+{
+    if (!_toolViews) {
+        
+        _toolViews = [[UIView alloc] initWithFrame:CGRectMake(0, self.dayPickerView.top-30, kMainScreenWidth, 40)];
+        _toolViews.backgroundColor = [UIColor lightGrayColor];
+        UIButton *_tool = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 60, 0, 60, 40)];
+        [_tool setTitle:@"完成" forState:UIControlStateNormal];
+        _tool.titleLabel.textAlignment = NSTextAlignmentCenter;
+        
+        _tool.tag = kButtonTag_Yes;
+        
+        _tool.titleLabel.font = kFont15;
+        _tool.backgroundColor = [UIColor clearColor];
+        [_tool addTarget:self action:@selector(pickersPickEnd:) forControlEvents:UIControlEventTouchDown];
+        [_toolViews addSubview:_tool];
+        
+        UIButton *_cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        _cancelBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _cancelBtn.titleLabel.font = kFont15;
+        _cancelBtn.backgroundColor = [UIColor clearColor];
+        [_cancelBtn addTarget:self action:@selector(pickersPickEnd:) forControlEvents:UIControlEventTouchDown];
+        [_toolViews addSubview:_cancelBtn];
+    }
+    return _toolViews;
 }
 
 - (UITextField *)productNameTextField
@@ -1004,9 +1427,23 @@ const NSInteger BottomLineTag = 59;
     if (_periodTextField == nil) {
         _periodTextField = [[UITextField alloc] initWithFrame:CGRectZero];
         _periodTextField.font = [UIFont systemFontOfSize:15.0];
+        _periodTextField.tag = kPeriodTextFieldTag;
+        _indexTag = _productNameTextField.tag;
         _periodTextField.delegate = self;
     }
     return _periodTextField;
+}
+
+- (UITextField *)asofdateTextField
+{
+    if (_asofdateTextField == nil) {
+        _asofdateTextField = [[UITextField alloc] initWithFrame:CGRectZero];
+        _asofdateTextField.font = [UIFont systemFontOfSize:15.0];
+        _asofdateTextField.tag = kAsofdateTextFieldTag;
+        _indexTag = _asofdateTextField.tag;
+        _asofdateTextField.delegate = self;
+    }
+    return _asofdateTextField;
 }
 
 - (UITextField *)contactNameTextField
@@ -1019,6 +1456,7 @@ const NSInteger BottomLineTag = 59;
     return _contactNameTextField;
 }
 
+
 - (UITextField *)contactPhoneTextField
 {
     if (_contactPhoneTextField == nil) {
@@ -1029,13 +1467,70 @@ const NSInteger BottomLineTag = 59;
     return _contactPhoneTextField;
 }
 
+- (UITextField *)addressTextField
+{
+    if (_addressTextField ==nil) {
+        _addressTextField = [[UITextField alloc] initWithFrame:CGRectZero];
+        _addressTextField.font = [UIFont systemFontOfSize:15.0];
+        _addressTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        _addressTextField.returnKeyType = UIReturnKeyDone;
+        _addressTextField.placeholder = @"请选择所在地区";
+        [_addressTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        _addressTextField.delegate = self;
+    }
+    return _addressTextField;
+}
+
+- (UITextField *)detailedAddressTextField
+{
+    if (_detailedAddressTextField == nil) {
+        _detailedAddressTextField = [[UITextField alloc] initWithFrame:CGRectZero];
+        _detailedAddressTextField.font = [UIFont systemFontOfSize:15.0];
+        _detailedAddressTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        _detailedAddressTextField.returnKeyType = UIReturnKeyDone;
+        _detailedAddressTextField.placeholder = @"请输入你的详细地址";
+        [_detailedAddressTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        _detailedAddressTextField.delegate = self;
+    }
+    return _detailedAddressTextField;
+}
+
+#pragma mark - 是否剪样按钮
+
+
+#pragma mark - 公开按钮
 - (YHBRadioBox *)publicPhoneRadiBox
 {
     if (_publicPhoneRadiBox == nil) {
-        _publicPhoneRadiBox = [[YHBRadioBox alloc] initWithFrame:CGRectMake(0, 0, 60, 20) checkedImage:[UIImage imageNamed:@"btnChoose"] uncheckedImage:[UIImage imageNamed:@"btnNotChoose"] title:@"公开"];
+        _publicPhoneRadiBox = [[YHBRadioBox alloc] initWithFrame:CGRectMake(0, 0, 60, 20) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"公开"];
         [_publicPhoneRadiBox addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
     }
     return _publicPhoneRadiBox;
+}
+#pragma mark - event response
+- (void)publicPhoneRadioBoxValueDidChanged:(YHBRadioBox *)radioBox
+{
+    
+    switch (radioBox.tag) {
+        case 1001:
+            if (_isSelectBtn) {
+//                _cutNo.userInteractionEnabled = YES;
+//                _cutYes.userInteractionEnabled = NO;
+                _isSelectBtn = !_isSelectBtn;
+                }
+//            NSLog(@"%d",radioBox.tag);
+            break;
+        case 1002:
+            if (_isSelectBtn) {
+//                _cutNo.userInteractionEnabled = YES;
+//                _cutYes.userInteractionEnabled = NO;
+                _isSelectBtn = !_isSelectBtn;}
+//            NSLog(@"%d",radioBox.tag);
+            break;
+        default:
+            break;
+    }
+
 }
 
 #pragma mark - UIScrollViewDelegate Methods
