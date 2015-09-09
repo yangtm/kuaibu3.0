@@ -214,6 +214,8 @@
 		1ED9228C1B8723660013AF29 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9228B1B8723660013AF29 /* OrderModel.m */; };
 		1ED9228F1B8724700013AF29 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9228E1B8724700013AF29 /* OrderDetailModel.m */; };
 		1ED922931B8725910013AF29 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED922921B8725910013AF29 /* AddressModel.m */; };
+		1EDC40BF1B9ECB1500622CCC /* TitleTagManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC40BC1B9ECB1500622CCC /* TitleTagManage.m */; };
+		1EDC40C01B9ECB1500622CCC /* TitleTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC40BE1B9ECB1500622CCC /* TitleTagViewController.m */; };
 		7F31EE671B9E7091008015D2 /* BannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE661B9E7091008015D2 /* BannerView.m */; };
 		7F31EE6B1B9E7191008015D2 /* PageIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE6A1B9E7191008015D2 /* PageIndex.m */; };
 		7F31EE6E1B9E71C3008015D2 /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE6D1B9E71C3008015D2 /* BannerModel.m */; };
@@ -701,6 +703,10 @@
 		1ED9228E1B8724700013AF29 /* OrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
 		1ED922911B8725910013AF29 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		1ED922921B8725910013AF29 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		1EDC40BB1B9ECB1500622CCC /* TitleTagManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTagManage.h; sourceTree = "<group>"; };
+		1EDC40BC1B9ECB1500622CCC /* TitleTagManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTagManage.m; sourceTree = "<group>"; };
+		1EDC40BD1B9ECB1500622CCC /* TitleTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTagViewController.h; sourceTree = "<group>"; };
+		1EDC40BE1B9ECB1500622CCC /* TitleTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTagViewController.m; sourceTree = "<group>"; };
 		7F31EE651B9E7091008015D2 /* BannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BannerView.h; path = RecordView/BannerView.h; sourceTree = "<group>"; };
 		7F31EE661B9E7091008015D2 /* BannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BannerView.m; path = RecordView/BannerView.m; sourceTree = "<group>"; };
 		7F31EE691B9E7191008015D2 /* PageIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageIndex.h; sourceTree = "<group>"; };
@@ -1846,6 +1852,7 @@
 		1E8469B31B9D547000842A51 /* Supply */ = {
 			isa = PBXGroup;
 			children = (
+				1EDC40BA1B9ECB1500622CCC /* YHBTitleTag */,
 				1E8469E21B9D5D9000842A51 /* SupplyModel */,
 				1E8469C41B9D597200842A51 /* YHBVariousView */,
 				1E8469B41B9D549700842A51 /* YHBVariousImageView */,
@@ -2096,6 +2103,17 @@
 			path = AddressModel;
 			sourceTree = "<group>";
 		};
+		1EDC40BA1B9ECB1500622CCC /* YHBTitleTag */ = {
+			isa = PBXGroup;
+			children = (
+				1EDC40BB1B9ECB1500622CCC /* TitleTagManage.h */,
+				1EDC40BC1B9ECB1500622CCC /* TitleTagManage.m */,
+				1EDC40BD1B9ECB1500622CCC /* TitleTagViewController.h */,
+				1EDC40BE1B9ECB1500622CCC /* TitleTagViewController.m */,
+			);
+			path = YHBTitleTag;
+			sourceTree = "<group>";
+		};
 		7F31EE681B9E716A008015D2 /* IndexModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2322,6 +2340,7 @@
 				1E8469581B9D3F5E00842A51 /* PSTCollectionViewData.m in Sources */,
 				1ED9227D1B871F630013AF29 /* FriendModel.m in Sources */,
 				1ED88FF61B953DF70020DFF3 /* WoWTabBarItem.m in Sources */,
+				1EDC40C01B9ECB1500622CCC /* TitleTagViewController.m in Sources */,
 				1E8469591B9D3F5E00842A51 /* PSTCollectionViewFlowLayout.m in Sources */,
 				7F31EE6E1B9E71C3008015D2 /* BannerModel.m in Sources */,
 				7F31EE761B9E72D8008015D2 /* HomePageBannerCell.m in Sources */,
@@ -2431,6 +2450,7 @@
 				1E8469AF1B9D441400842A51 /* RecordAudio.m in Sources */,
 				06706D9A1B85B2AA00F58ACC /* SDImageCache.m in Sources */,
 				1ED890591B9573F90020DFF3 /* AFHTTPSessionManager.m in Sources */,
+				1EDC40BF1B9ECB1500622CCC /* TitleTagManage.m in Sources */,
 				1ED8908F1B957F110020DFF3 /* MineHeadView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

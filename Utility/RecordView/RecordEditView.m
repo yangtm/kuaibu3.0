@@ -401,7 +401,7 @@
 {
     if (_switchButton == nil) {
         _switchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _switchButton.frame = CGRectMake(5, 0, 40, 40);
+        _switchButton.frame = CGRectMake(0, 0, 40, 40);
         [_switchButton setImage:[UIImage imageNamed:@"keyboard-button"] forState:UIControlStateNormal];
         _switchButton.imageEdgeInsets = UIEdgeInsetsMake(7, 7, 7, 7);
         _switchButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -414,8 +414,9 @@
 {
     if (_recordButton == nil) {
         _recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _recordButton.frame = CGRectMake(self.switchButton.right + 0, 0, self.width - self.switchButton.right - 10, 40);
+        _recordButton.frame = CGRectMake(self.switchButton.right + 0, 0, self.width - self.switchButton.right -10, 40);
         [_recordButton setTitle:@"按住说出面料详情" forState:UIControlStateNormal];
+        
         [_recordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _recordButton.backgroundColor = [UIColor colorWithRed:230/255.0 green:69/255.0 blue:14/255.0 alpha:1];
         _recordButton.layer.cornerRadius = 4.0;

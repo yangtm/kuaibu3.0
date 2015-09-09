@@ -174,13 +174,13 @@ typedef NS_ENUM(NSInteger, SectionTag) {
      
      NSString *adverturl= nil;
      kYHBRequestUrl(@"advert/getAdvert", adverturl);
-    NSLog(@"%@",adverturl);
+//    NSLog(@"%@",adverturl);
      [NetworkService postWithURL:adverturl paramters:dic success:^(NSData *receiveData) {
      if (receiveData.length>0) {
      id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
          
      
-     NSLog(@"result=%@",result);
+//     NSLog(@"result=%@",result);
      }
      
      

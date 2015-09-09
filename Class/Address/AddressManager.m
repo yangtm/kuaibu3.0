@@ -10,4 +10,9 @@
 
 @implementation AddressManager
 
+- (void)getAreaListWithSuccess:(void (^)(NSMutableArray *))sBlock failure:(void (^)(NSString *))fBlock
+{
+  
+}
+
 @end

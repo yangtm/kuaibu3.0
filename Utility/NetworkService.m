@@ -21,10 +21,10 @@
  */
 +(void)getDataWithURL:(NSString *)url withSucess:(void (^)(NSData *))success failure:(void (^)(NSError *))failure
 {
-    
+    NSMutableDictionary *postDic = [DicModel createPostDictionary];
     AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
     mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
-    [mgr GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [mgr GET:url parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(success)
             success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

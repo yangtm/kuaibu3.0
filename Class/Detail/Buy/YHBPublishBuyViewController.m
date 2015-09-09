@@ -8,7 +8,7 @@
 
 #import "YHBPublishBuyViewController.h"
 //#import "YHBBuyDetailViewController.h"
-//#import "TitleTagViewController.h"
+#import "TitleTagViewController.h"
 #import "SVProgressHUD.h"
 //#import "YHBPublishBuyManage.h"
 //#import "CategoryViewController.h"
@@ -27,6 +27,7 @@
 //#import "amrFileCodec.h"
 #import "YHBAreaModel.h"
 #import "YHBCity.h"
+#import "MyButton.h"
 
 
 const NSInteger BottomLineTag = 59;
@@ -76,11 +77,17 @@ const NSInteger BottomLineTag = 59;
 @property (nonatomic, strong) MeasurePicker *measurePicker;
 @property (nonatomic, strong) YHBRadioBox *publicPhoneRadiBox;
 
+@property (nonatomic, strong) MyButton *btn1;
+@property (nonatomic, strong) MyButton *btn2;
+@property (nonatomic, strong) MyButton *btn3;
+@property (nonatomic, strong) MyButton *btn4;
+@property (nonatomic, strong) MyButton *btn5;
+
 @property (strong, nonatomic) UIPickerView *areaPicker;
 @property (strong, nonatomic) UIButton *tool;
 @property (strong, nonatomic) UIView *clearView;
 @property (strong, nonatomic) NSMutableArray *areaArray;
-
+@property (strong, nonatomic) NSMutableArray *cityArray;
 @property (nonatomic, strong) RecordEditView *recordEditView;
 @property (nonatomic, strong) UIPickerView *dayPickerView;
 @property (nonatomic, strong) UIView *toolView;
@@ -117,11 +124,8 @@ const NSInteger BottomLineTag = 59;
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.edgesForExtendedLayout = UIRectEdgeBottom;
-    
-    
-//    _areaArray =  [[NSMutableArray alloc] initWithObjects:@"1",@"2",@"3", nil];
-    
-    _indexTag = 0;
+    [self createAreaArray];
+
     _isSelectBtn = YES;
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(dismissSelf)];
     
@@ -137,12 +141,47 @@ const NSInteger BottomLineTag = 59;
     
     [self setupFormView];
     [self setupContactView];
-    self.publishButton.frame = CGRectMake(10, self.contactView.bottom + 10, kMainScreenWidth - 20, 40);
+    self.publishButton.frame = CGRectMake(100, self.contactView.bottom + 10, kMainScreenWidth-200, 40);
     self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.publishButton.bottom + 20);
     [self.scrollView autoAdjust];
     
     [self renderView];
 }
+
+- (NSMutableArray *)createAreaArray
+{
+    _areaArray = [[NSMutableArray alloc] init];
+    _cityArray = [[NSMutableArray alloc] init];
+    NSString *getAddressInfoUrl = @"http://staging.51kuaibu.com/app/getAreaList.php";
+//    kYHBRequestUrl(@"addressInfo/getAddressInfo", getAddressInfoUrl);
+    NSLog(@"%@",getAddressInfoUrl);
+    [NetworkService postWithURL:getAddressInfoUrl paramters:nil success:^(NSData *receiveData) {
+        if (receiveData.length > 0) {
+            id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+//            NSLog(@"%@",result);
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                
+                    NSArray *array = result[@"data"];
+//                NSLog(@"%@",array);
+                for (NSDictionary *subdic in array) {
+                    YHBAreaModel *model = [[YHBAreaModel alloc] init];
+                    [model setValuesForKeysWithDictionary:subdic];
+                    [_areaArray addObject:model];
+//                    NSLog(@"%@",model.city);
+                }
+                
+                
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+    
+    return _areaArray;
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -162,36 +201,12 @@ const NSInteger BottomLineTag = 59;
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark pickerView datasource delegate
-//- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-//{
-//    return 1;
-//}
-//
-//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-//{
-//    return 30;
-//}
-//
-//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    return [NSString stringWithFormat:@"%d", (int)row+1];
-//}
-//
-//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
-//{
-//    pickViewSelected = (int)row;
-//}
 
 //地区选择器按下确认按钮
 - (void)pickerPickEnd:(UIButton *)aBtn
 {
-//    if (aBtn.tag == kButtonTag_Yes)
-//    {
-        self.periodTextField.text = [NSString stringWithFormat:@"%@",_offerdateStr];
-//    }else if (aBtn.tag == kButtonTag_Yes+1){
-//        self.asofdateTextField.text = [NSString stringWithFormat:@"%@",_goodsdateStr];
-//    }
+    self.periodTextField.text = [NSString stringWithFormat:@"%@",_offerdateStr];
+
     self.datePickerView.top = kMainScreenHeight+30;
     self.toolView.top = self.datePickerView.top-30;
     [self.dayPickerView removeFromSuperview];
@@ -200,28 +215,14 @@ const NSInteger BottomLineTag = 59;
 
 - (void)pickersPickEnd:(UIButton *)aBtn
 {
-//    if (aBtn.tag == kButtonTag_Yes)
-//    {
-//        self.periodTextField.text = [NSString stringWithFormat:@"%@",_offerdateStr];
-//    }else if (aBtn.tag == kButtonTag_Yes+1){
-        self.asofdateTextField.text = [NSString stringWithFormat:@"%@",_goodsdateStr];
-//    }
+    self.asofdateTextField.text = [NSString stringWithFormat:@"%@",_goodsdateStr];
+
     self.datePickersView.top = kMainScreenHeight+30;
     self.toolView.top = self.datePickersView.top-30;
     [self.dayPickerView removeFromSuperview];
     [aBtn.superview removeFromSuperview];
 }
-//- (void)pickerPickEnd:(UIButton *)aBtn
-//{
-//    if (aBtn.tag == kButtonTag_Yes)
-//    {
-//        self.periodTextField.text = [NSString stringWithFormat:@"%@", _dataStr];
-//    }
-//    self.dayPickerView.top = kMainScreenHeight+30;
-//    self.toolView.top = self.dayPickerView.top-30;
-//    [self.dayPickerView removeFromSuperview];
-//    [aBtn.superview removeFromSuperview];
-//}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -308,7 +309,7 @@ const NSInteger BottomLineTag = 59;
         _cancelBtn.titleLabel.font = kFont15;
         _cancelBtn.backgroundColor = [UIColor clearColor];
         [_cancelBtn setTitleColor:RGBCOLOR(3, 122, 255) forState:UIControlStateNormal];
-        [_cancelBtn addTarget:self action:@selector(pickerPickEnd:) forControlEvents:UIControlEventTouchDown];
+        [_cancelBtn addTarget:self action:@selector(addresspickerPickEnd:) forControlEvents:UIControlEventTouchDown];
         [toolView addSubview:_cancelBtn];
         
         [[UIApplication sharedApplication].keyWindow addSubview:self.clearView];
@@ -322,6 +323,19 @@ const NSInteger BottomLineTag = 59;
     }
 }
 
+#pragma 地区选择结果更新模型 ui
+- (void)pickedAreaToModelAndUI
+{
+    if (_selProvince && _selCity) {
+        YHBAreaModel *area = self.areaArray[_selProvince-1];
+        YHBCity *city = [[YHBCity alloc]initWithDictionary:area.city[_selCity-1]];
+        NSString *areaStr = [area.areaname stringByAppendingString:city.areaname];
+        _addressTextField.text=areaStr;
+        
+//        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
 #pragma mark - pickerView delegate and datasource
 
 - (void)addresspickerPickEnd:(UIButton *)sender{
@@ -331,7 +345,7 @@ const NSInteger BottomLineTag = 59;
     //[self.tableView shouldScrolltoPointY:0];
     if ([_areaPicker superview]) {
         if (sender.tag != kButtonTag_Cancel) {
-//            [self pickedAreaToModelAndUI];
+            [self pickedAreaToModelAndUI];
         }else{
             _selProvince = 0;
             _selCity = 0;
@@ -346,14 +360,12 @@ const NSInteger BottomLineTag = 59;
     }
 }
 
-
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     return  2;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    
     if (component == 0) {
         return self.areaArray.count+1;
     }else{
@@ -361,11 +373,6 @@ const NSInteger BottomLineTag = 59;
             YHBAreaModel *area = self.areaArray[_selProvince-1];
             return area.city.count + 1;
         }else{
-            if (_selCity > 0) {
-//                YHBAreaModel *area = self.areaArray[_selProvince-1];
-//                YHBCity *city = 
-                
-            }
             return 1;
         }
     }
@@ -381,18 +388,17 @@ const NSInteger BottomLineTag = 59;
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     if (component == 0) {
         if (row == 0) {
-            return @"省份";
+            return @"请选择省份";
         }else{
             YHBAreaModel *model = self.areaArray[row-1];
             return model.areaname;
         }
     }else if(component == 1){
-        if (row) {
+        if (row>0) {
             YHBAreaModel *model = self.areaArray[_selProvince-1];
-            YHBCity *city = model.city[row-1];
+            YHBCity *city = [[YHBCity alloc]initWithDictionary:model.city[row-1]];
             return city.areaname;
-        }else return @"市区";
-        
+        }else return @"请选择城市";
     }
     return nil;
 }
@@ -400,13 +406,47 @@ const NSInteger BottomLineTag = 59;
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if (component == 0) {
         _selProvince = row;
+
         [pickerView reloadComponent:1];
         [pickerView selectRow:0 inComponent:1 animated:YES];
+
     }else if(component == 1){
         _selCity = row;
+
     }
     
 }
+
+//- (void)pickerView:(UIPickerView *)pickerView
+//      didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+//    if (component == 0) {
+//        _selProvince = row;
+//        YHBAreaModel *model = _areaArray[row];
+//        _addressTextField.text = model.areaname;
+//        //重点！更新第二个轮子的数据
+//        [pickerView reloadComponent:1];
+//        
+//        NSInteger selectedCityIndex = [pickerView selectedRowInComponent:1];
+//        YHBCity *city = [[YHBCity alloc]initWithDictionary:model.city[selectedCityIndex-1]];
+//        _addressTextField.text = city.areaname;
+//    }else if(component == 1){
+//                _selCity = row;
+//                YHBAreaModel *model = _areaArray[row];
+//                YHBCity *city = [[YHBCity alloc]initWithDictionary:model.city[row]];
+//            }
+//        NSString *msg = [NSString stringWithFormat:@"province=%@,city=%@", seletedProvince,seletedCity];
+//        NSLog(@"%@",msg);
+//    }
+//    else {
+//        NSInteger selectedProvinceIndex = [self.pickerView selectedRowInComponent:0];
+//        NSString *seletedProvince = [provinceArray objectAtIndex:selectedProvinceIndex];
+//        
+//        NSString *seletedCity = [cityArray objectAtIndex:row];
+//        NSString *msg = [NSString stringWithFormat:@"province=%@,city=%@", seletedProvince,seletedCity];
+//        NSLog(@"%@",msg);
+//    }
+//}
+
 
 #pragma mark - RecordEditViewDelegate
 - (void)editViewSizeDidChanged:(RecordEditView *)view
@@ -478,16 +518,16 @@ const NSInteger BottomLineTag = 59;
 #pragma mark 发布
 - (void)TouchPublish
 {
-    if (![self checkMandatory]) {
-        [SVProgressHUD showErrorWithStatus:@"带星号的为必填项!!" cover:YES offsetY:kMainScreenHeight/2.0];
-        return;
-    }
-    if (![self checkoutImgae]) {
-        [SVProgressHUD showErrorWithStatus:@"请选择要上传的图片!!" cover:YES offsetY:kMainScreenHeight/2.0];
-        return;
-    }
-    [SVProgressHUD showWithStatus:@"图片正在上传中，请稍等..." cover:YES offsetY:kMainScreenHeight / 2.0];
-    
+//    if (![self checkMandatory]) {
+//        [SVProgressHUD showErrorWithStatus:@"带星号的为必填项!!" cover:YES offsetY:kMainScreenHeight/2.0];
+//        return;
+//    }
+//    if (![self checkoutImgae]) {
+//        [SVProgressHUD showErrorWithStatus:@"请选择要上传的图片!!" cover:YES offsetY:kMainScreenHeight/2.0];
+//        return;
+//    }
+//    [SVProgressHUD showWithStatus:@"图片正在上传中，请稍等..." cover:YES offsetY:kMainScreenHeight / 2.0];
+//    
     if ([self isAllWebImage]) {
         [self deleteDiscardPhoto];
     }
@@ -799,7 +839,7 @@ const NSInteger BottomLineTag = 59;
 //检查必填项是否不为空
 - (BOOL) checkMandatory
 {
-    if ([self isTextNotNil:_productNameTextField.text]&&[self isTextNotNil:_categoryTextField.text]&&[self isTextNotNil:_contactNameTextField.text]&&[self isTextNotNil:_contactPhoneTextField.text] && [self isTextNotNil:_quantityTextField.text]){
+    if ([self isTextNotNil:_productNameTextField.text]&&[self isTextNotNil:_categoryTextField.text]&&[self isTextNotNil:_contactNameTextField.text]&&[self isTextNotNil:_contactPhoneTextField.text] && [self isTextNotNil:_quantityTextField.text]&&[self isTextNotNil:_addressTextField.text]&&[self isTextNotNil:_detailedAddressTextField.text]){
         return YES;
     }
     return NO;
@@ -868,12 +908,12 @@ const NSInteger BottomLineTag = 59;
 
 - (void)showTitletTagView
 {
-//    TitleTagViewController *vc = [[TitleTagViewController alloc] init];
-//    vc.type = 1;
-//    [vc useBlock:^(NSString *title) {
-//        self.productNameTextField.text = title;
-//    }];
-//    [self.navigationController pushViewController:vc animated:YES];
+    TitleTagViewController *vc = [[TitleTagViewController alloc] init];
+    vc.type = 1;
+    [vc useBlock:^(NSString *title) {
+        self.productNameTextField.text = title;
+    }];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)showCategoryView
@@ -947,12 +987,12 @@ const NSInteger BottomLineTag = 59;
     UIView *form0 = [self contactNameForm:CGRectMake(0, 0, kMainScreenWidth, 40)];
     UIView *form1 = [self contactPhoneForm:CGRectMake(0, form0.bottom, form0.width, form0.height)];
     UIView *form2 = [self shippingAddressForm:CGRectMake(0, form1.bottom, form1.width, form1.height)];
-    UIView *form3 = [self detailAddressForm:CGRectMake(0, form2.bottom, form2.width, form2.height)];
+//    UIView *form3 = [self detailAddressForm:CGRectMake(0, form2.bottom, form2.width, form2.height)];
     [self.contactView addSubview:form0];
     [self.contactView addSubview:form1];
     [self.contactView addSubview:form2];
-    [self.contactView addSubview:form3];
-    self.contactView.frame = CGRectMake(0, self.editFormView.bottom + 10, kMainScreenWidth, form3.bottom);
+//    [self.contactView addSubview:form3];
+    self.contactView.frame = CGRectMake(0, self.editFormView.bottom + 10, kMainScreenWidth, form2.bottom);
 }
 
 - (UIView *)headForm:(CGRect)frame
@@ -1044,36 +1084,87 @@ const NSInteger BottomLineTag = 59;
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 100, frame.size.height) title:@"是否需要剪样:"];
-    _cutYes = [[YHBRadioBox alloc] initWithFrame:CGRectMake(label.right+10, 0, 60, view.height) checkedImage:[UIImage imageNamed:_isSelectBtn? @"check_on":@"check_off"] uncheckedImage:[UIImage imageNamed:@"check_off"]title:@"是"];
-    _cutYes.tag = 1001;
-    
-    [_cutYes addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
-    _cutNo = [[YHBRadioBox alloc] initWithFrame:CGRectMake(_cutYes.right+10, 0, 60, view.height) checkedImage:[UIImage imageNamed:_isSelectBtn? @"check_on":@"check_off"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"否"];
-    _cutNo.tag = 1002;
-    [_cutNo addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
-    [view addSubview:_cutYes];
-    [view addSubview:_cutNo];
+    _btn1 = [[MyButton alloc] initWithFrame:CGRectMake(label.right+5, 0, 60, view.height) imageName:@"check_off" text:@"是"];
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedBtn1:)];
+    [_btn1 addGestureRecognizer:tap1];
+
+    _btn2 = [[MyButton alloc] initWithFrame:CGRectMake(_btn1.right+20, 0, 60, view.height) imageName:@"check_off" text:@"否"];
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedBtn2:)];
+    [_btn2 addGestureRecognizer:tap2];
+
+    [view addSubview:_btn1];
+    [view addSubview:_btn2];
     [view addSubview:label];
     [self addBottomLine:view];
     return view;
 }
+
+- (void)selectedBtn1:(UIGestureRecognizer *)tap
+{
+    if (_btn1) {
+        _btn1.imageView.image =[UIImage imageNamed:@"check_on"];
+        _btn2.imageView.image =[UIImage imageNamed:@"check_off"];
+    }
+}
+
+- (void)selectedBtn2:(UIGestureRecognizer *)tap
+{
+    if (_btn2) {
+        _btn2.imageView.image =[UIImage imageNamed:@"check_on"];
+        _btn1.imageView.image =[UIImage imageNamed:@"check_off"];
+    }
+}
+
 #pragma mark - 开票要求UI
 - (UIView *)invoiceRequirementsForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 80, frame.size.height) title:@"发票要求:"];
-    YHBRadioBox *btn1 = [[YHBRadioBox alloc] initWithFrame:CGRectMake(label.right, 0, 80, view.height) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"普通发票"];
-    YHBRadioBox *btn2 = [[YHBRadioBox alloc] initWithFrame:CGRectMake(btn1.right+5, 0, 80, view.height) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"增值税发票"];
-    YHBRadioBox *btn3 = [[YHBRadioBox alloc] initWithFrame:CGRectMake(btn2.right+20, 0, 40, view.height) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"无"];
-    [btn1 addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
-    [btn2 addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
-    [btn3 addTarget:self action:@selector(publicPhoneRadioBoxValueDidChanged:) forControlEvents:UIControlEventValueChanged];
-    [view addSubview:btn1];
-    [view addSubview:btn2];
-    [view addSubview:btn3];
+    
+    _btn3 = [[MyButton alloc] initWithFrame:CGRectMake(label.right, 0, 80, view.height) imageName:@"check_off" text:@"普通发票"];
+    UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedBtn3:)];
+    [_btn3 addGestureRecognizer:tap3];
+    
+    _btn4 = [[MyButton alloc] initWithFrame:CGRectMake(_btn3.right+5, 0, 80, view.height) imageName:@"check_off" text:@"增值税发票"];
+    UITapGestureRecognizer *tap4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedBtn4:)];
+    [_btn4 addGestureRecognizer:tap4];
+    
+    _btn5 = [[MyButton alloc] initWithFrame:CGRectMake(_btn4.right+20, 0, 80, view.height) imageName:@"check_off" text:@"无"];
+    UITapGestureRecognizer *tap5 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedBtn5:)];
+    [_btn5 addGestureRecognizer:tap5];
+    [view addSubview:_btn3];
+    [view addSubview:_btn4];
+    [view addSubview:_btn5];
     [view addSubview:label];
     [self addBottomLine:view];
     return view;
+}
+
+- (void)selectedBtn3:(MyButton *)tap
+{
+    if (_btn3) {
+        _btn3.imageView.image =[UIImage imageNamed:@"check_on"];
+        _btn4.imageView.image =[UIImage imageNamed:@"check_off"];
+        _btn5.imageView.image =[UIImage imageNamed:@"check_off"];
+    }
+}
+
+- (void)selectedBtn4:(MyButton *)tap
+{
+    if (_btn4) {
+        _btn4.imageView.image =[UIImage imageNamed:@"check_on"];
+        _btn3.imageView.image =[UIImage imageNamed:@"check_off"];
+        _btn5.imageView.image =[UIImage imageNamed:@"check_off"];
+    }
+}
+
+- (void)selectedBtn5:(MyButton *)tap
+{
+    if (_btn5) {
+        _btn5.imageView.image =[UIImage imageNamed:@"check_on"];
+        _btn3.imageView.image =[UIImage imageNamed:@"check_off"];
+        _btn4.imageView.image =[UIImage imageNamed:@"check_off"];
+    }
 }
 
 #pragma mark - 详情UI
@@ -1349,24 +1440,24 @@ const NSInteger BottomLineTag = 59;
         
         _toolViews = [[UIView alloc] initWithFrame:CGRectMake(0, self.dayPickerView.top-30, kMainScreenWidth, 40)];
         _toolViews.backgroundColor = [UIColor lightGrayColor];
-        UIButton *_tool = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 60, 0, 60, 40)];
-        [_tool setTitle:@"完成" forState:UIControlStateNormal];
-        _tool.titleLabel.textAlignment = NSTextAlignmentCenter;
+        UIButton *_tools = [[UIButton alloc] initWithFrame:CGRectMake(kMainScreenWidth - 60, 0, 60, 40)];
+        [_tools setTitle:@"完成" forState:UIControlStateNormal];
+        _tools.titleLabel.textAlignment = NSTextAlignmentCenter;
         
-        _tool.tag = kButtonTag_Yes;
+        _tools.tag = kButtonTag_Yes;
         
-        _tool.titleLabel.font = kFont15;
-        _tool.backgroundColor = [UIColor clearColor];
-        [_tool addTarget:self action:@selector(pickersPickEnd:) forControlEvents:UIControlEventTouchDown];
-        [_toolViews addSubview:_tool];
+        _tools.titleLabel.font = kFont15;
+        _tools.backgroundColor = [UIColor clearColor];
+        [_tools addTarget:self action:@selector(pickersPickEnd:) forControlEvents:UIControlEventTouchDown];
+        [_toolViews addSubview:_tools];
         
-        UIButton *_cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
-        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-        _cancelBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _cancelBtn.titleLabel.font = kFont15;
-        _cancelBtn.backgroundColor = [UIColor clearColor];
-        [_cancelBtn addTarget:self action:@selector(pickersPickEnd:) forControlEvents:UIControlEventTouchDown];
-        [_toolViews addSubview:_cancelBtn];
+        UIButton *_cancelBtns = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+        [_cancelBtns setTitle:@"取消" forState:UIControlStateNormal];
+        _cancelBtns.titleLabel.textAlignment = NSTextAlignmentCenter;
+        _cancelBtns.titleLabel.font = kFont15;
+        _cancelBtns.backgroundColor = [UIColor clearColor];
+        [_cancelBtns addTarget:self action:@selector(pickersPickEnd:) forControlEvents:UIControlEventTouchDown];
+        [_toolViews addSubview:_cancelBtns];
     }
     return _toolViews;
 }
