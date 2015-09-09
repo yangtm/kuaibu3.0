@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     LatestBuySection,
 };
 */
-@interface HomePageViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BannerDelegate>
+@interface HomePageViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BannerDelegate,SlideSwitchViewDelegate>
 
 @property (assign, nonatomic) CGFloat alphaOfNavigationBar;
 @property (strong, nonatomic) UICollectionView *collectionView;
