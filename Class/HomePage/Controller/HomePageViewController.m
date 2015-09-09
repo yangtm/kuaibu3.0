@@ -15,7 +15,10 @@
 #import "HomePageBannerCell.h"
 #import "AFNetworking.h"
 #import "DicModel.h"
-
+#import "LoginViewController.h"
+#import "SlideSwitchView.h"
+#import "HomeMainPageViewController.h"
+/*
 NSString *const BannerCellIdentifier = @"BannerCellIdentifier";
 NSString *const PavilionCellIdentifier = @"PavilionCellIdentifier";
 NSString *const HotProductIdentifier = @"HotProductIdentifier";
@@ -31,7 +34,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     BandSection,
     LatestBuySection,
 };
-
+*/
 @interface HomePageViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BannerDelegate>
 
 @property (assign, nonatomic) CGFloat alphaOfNavigationBar;
@@ -45,8 +48,12 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 @property (strong, nonatomic) UIView *badgeView;
 @property (strong, nonatomic) PageIndex *pageIndex;
 @property (strong, nonatomic) HomePageSearchViewController *homePageSearchViewController;
-
-
+@property (strong, nonatomic) SlideSwitchView *slideSwitchView;
+@property (strong, nonatomic) HomeMainPageViewController *vc1;
+@property (strong, nonatomic) UIViewController *vc2;
+@property (strong, nonatomic) UIViewController *vc3;
+@property (strong, nonatomic) UIViewController *vc4;
+@property (strong, nonatomic) UIViewController *vc5;
 @end
 
 @implementation HomePageViewController
@@ -56,14 +63,94 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     self.view.backgroundColor = [UIColor whiteColor];
     self.ratio = kMainScreenWidth / 320;
     [self setupNormalNavBar];
+    self.automaticallyAdjustsScrollViewInsets =NO;
     
+    self.slideSwitchView.tabItemNormalColor = [SlideSwitchView colorFromHexRGB:@"868686"];
+    self.slideSwitchView.tabItemSelectedColor = [SlideSwitchView colorFromHexRGB:@"bb0b15"];
+    self.slideSwitchView.shadowImage = [[UIImage imageNamed:@"red_line_and_shadow.png"]
+                                        stretchableImageWithLeftCapWidth:59.0f topCapHeight:0.0f];
+    _vc1 =[[HomeMainPageViewController alloc]init];
+    _vc2 =[[UIViewController alloc]init];
+    _vc3 =[[UIViewController alloc]init];
+    _vc4 =[[UIViewController alloc]init];
+    _vc5 =[[UIViewController alloc]init];
+    //_vc1.view.backgroundColor = [UIColor redColor];
+    _vc2.view.backgroundColor = [UIColor greenColor];
+    _vc3.view.backgroundColor = [UIColor yellowColor];
+    _vc4.view.backgroundColor = [UIColor blueColor];
+    _vc5.view.backgroundColor = [UIColor grayColor];
+    _vc1.title = @"测试测试";
+    _vc2.title = @"测试测试";
+    _vc3.title = @"测试测试";
+    _vc4.title = @"测试测试";
+    _vc5.title = @"测试测试";
+    
+    UIButton *rightSideButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightSideButton setImage:[UIImage imageNamed:@"icon_rightarrow.png"] forState:UIControlStateNormal];
+    [rightSideButton setImage:[UIImage imageNamed:@"icon_rightarrow.png"]  forState:UIControlStateHighlighted];
+    rightSideButton.frame = CGRectMake(0, 0, 20.0f, 44.0f);
+    rightSideButton.userInteractionEnabled = NO;
+    self.slideSwitchView.rigthSideButton = rightSideButton;
+    
+    [self.slideSwitchView buildUI];
+    [self.view addSubview:self.slideSwitchView];
+    
+    /*
     self.collectionView.frame = CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64);
     [self registerCell];
     [self.view addSubview:self.collectionView];
-    
+    */
     //[self addPullToRefresh];
     [self reloadData];
     
+}
+- (NSUInteger)numberOfTab:(SlideSwitchView *)view
+{
+    // you can set the best you can do it ;
+    return 5;
+}
+
+- (UIViewController *)slideSwitchView:(SlideSwitchView *)view viewOfTab:(NSUInteger)number
+{
+    if (number == 0) {
+        return self.vc1;
+    } else if (number == 1) {
+        return self.vc2;
+    } else if (number == 2) {
+        return self.vc3;
+    } else if (number == 3) {
+        return self.vc4;
+    } else if (number == 4) {
+        return self.vc5;
+    }  else {
+        return nil;
+    }
+}
+
+- (void)slideSwitchView:(SlideSwitchView *)view didselectTab:(NSUInteger)number
+{
+    UIViewController *vc = nil;
+    if (number == 0) {
+        vc = self.vc1;
+    } else if (number == 1) {
+        vc = self.vc2;
+    } else if (number == 2) {
+        vc = self.vc3;
+    } else if (number == 3) {
+        vc = self.vc4;
+    } else if (number == 4) {
+        vc = self.vc5;
+    }
+}
+
+-(SlideSwitchView *)slideSwitchView
+{
+    if (_slideSwitchView == nil) {
+        _slideSwitchView = [[SlideSwitchView alloc]initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64)];
+        _slideSwitchView.slideSwitchViewDelegate = self;
+        
+    }
+    return _slideSwitchView;
 }
 
 #pragma mark -创建导航栏
@@ -180,7 +267,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
      id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
          
      
-     NSLog(@"result=%@",result);
+    // NSLog(@"result=%@",result);
      }
      
      
@@ -235,7 +322,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     //    vc.hidesBottomBarWhenPushed = YES;
     //    [self.navigationController pushViewController:vc animated:YES];
 }
-
+/*
 - (void)registerCell
 {
     [self registerCellWithNibName:@"HomePageBannerCell" identifier:BannerCellIdentifier];
@@ -295,7 +382,8 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     }
     return num;
 }
-
+*/
+/*
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = nil;
@@ -306,7 +394,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             [self configBannerCell:cell];
         }
             break;
-            /*
+ 
              case PavilionSection:
              {
              cell = [collectionView dequeueReusableCellWithReuseIdentifier:PavilionCellIdentifier forIndexPath:indexPath];
@@ -330,7 +418,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
              [self configHotPlateCell:cell indexPath:indexPath];
              }
              break;
-             */
+ 
         default:
             break;
     }
@@ -347,7 +435,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
         }
             break;
-            /*
+ 
              case PavilionSection:
              {
              if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
@@ -396,7 +484,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
              }
              }
              break;
-             */
+ 
         default:
             break;
     }
@@ -441,7 +529,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     return size;
 }
 
-
+*/
 
 - (void)setupSearchNavBar
 {
