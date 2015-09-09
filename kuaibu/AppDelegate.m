@@ -10,7 +10,6 @@
 #import "RootTabBarController.h"
 #import "MainTabBarController.h"
 
-
 @interface AppDelegate ()
 
 @end
@@ -24,6 +23,7 @@
     // Override point for customization after application launch.
     _isLoginedIn = NO;
     self.window.backgroundColor = [UIColor whiteColor];
+ 
     self.window.rootViewController = [[RootTabBarController alloc] init];
     return YES;
 }
