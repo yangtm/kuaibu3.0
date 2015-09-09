@@ -156,6 +156,11 @@
 		1E8469E71B9D5F2600842A51 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8469E61B9D5F2600842A51 /* CoreAudio.framework */; };
 		1E8469E91B9D5F4D00842A51 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8469E81B9D5F4D00842A51 /* CoreMedia.framework */; };
 		1E8469EB1B9D5F5900842A51 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8469EA1B9D5F5900842A51 /* AVFoundation.framework */; };
+		1ED67C341B9E86A8005EC831 /* check_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED67C321B9E86A8005EC831 /* check_on.png */; };
+		1ED67C351B9E86A8005EC831 /* check_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED67C331B9E86A8005EC831 /* check_off.png */; };
+		1ED67C381B9EAA88005EC831 /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67C371B9EAA88005EC831 /* MyButton.m */; };
+		1ED67C3D1B9EB9C6005EC831 /* YHBAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67C3A1B9EB9C6005EC831 /* YHBAreaModel.m */; };
+		1ED67C3E1B9EB9C6005EC831 /* YHBCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67C3C1B9EB9C6005EC831 /* YHBCity.m */; };
 		1ED7243E1B9D1AA80091890B /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7243D1B9D1AA80091890B /* UIImage+Extensions.m */; };
 		1ED724411B9D1AFC0091890B /* YHBAreaPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED724401B9D1AFC0091890B /* YHBAreaPicker.m */; };
 		1ED762E51B968165001727EA /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED762E41B968165001727EA /* RegisterViewController.m */; };
@@ -599,6 +604,14 @@
 		1E8469E61B9D5F2600842A51 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1E8469E81B9D5F4D00842A51 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		1E8469EA1B9D5F5900842A51 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1ED67C321B9E86A8005EC831 /* check_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_on.png; sourceTree = "<group>"; };
+		1ED67C331B9E86A8005EC831 /* check_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_off.png; sourceTree = "<group>"; };
+		1ED67C361B9EAA88005EC831 /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyButton.h; sourceTree = "<group>"; };
+		1ED67C371B9EAA88005EC831 /* MyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyButton.m; sourceTree = "<group>"; };
+		1ED67C391B9EB9C6005EC831 /* YHBAreaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBAreaModel.h; sourceTree = "<group>"; };
+		1ED67C3A1B9EB9C6005EC831 /* YHBAreaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBAreaModel.m; sourceTree = "<group>"; };
+		1ED67C3B1B9EB9C6005EC831 /* YHBCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBCity.h; sourceTree = "<group>"; };
+		1ED67C3C1B9EB9C6005EC831 /* YHBCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBCity.m; sourceTree = "<group>"; };
 		1ED7243C1B9D1AA80091890B /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
 		1ED7243D1B9D1AA80091890B /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
 		1ED7243F1B9D1AFC0091890B /* YHBAreaPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBAreaPicker.h; sourceTree = "<group>"; };
@@ -982,6 +995,10 @@
 		06706D251B85B2AA00F58ACC /* AreaModel */ = {
 			isa = PBXGroup;
 			children = (
+				1ED67C391B9EB9C6005EC831 /* YHBAreaModel.h */,
+				1ED67C3A1B9EB9C6005EC831 /* YHBAreaModel.m */,
+				1ED67C3B1B9EB9C6005EC831 /* YHBCity.h */,
+				1ED67C3C1B9EB9C6005EC831 /* YHBCity.m */,
 				06706DAF1B85B67500F58ACC /* AreaModel.h */,
 				06706DB01B85B67500F58ACC /* AreaModel.m */,
 			);
@@ -1734,6 +1751,10 @@
 			children = (
 				1E84696D1B9D416A00842A51 /* YHBPublishBuyViewController.h */,
 				1E84696E1B9D416A00842A51 /* YHBPublishBuyViewController.m */,
+				1ED67C321B9E86A8005EC831 /* check_on.png */,
+				1ED67C331B9E86A8005EC831 /* check_off.png */,
+				1ED67C361B9EAA88005EC831 /* MyButton.h */,
+				1ED67C371B9EAA88005EC831 /* MyButton.m */,
 			);
 			path = Buy;
 			sourceTree = "<group>";
@@ -2231,6 +2252,7 @@
 				0678C4951B8572DF0035660E /* Main.storyboard in Resources */,
 				1E84698B1B9D437000842A51 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
 				1E8469631B9D3F5E00842A51 /* sr_refresh@2X.png in Resources */,
+				1ED67C341B9E86A8005EC831 /* check_on.png in Resources */,
 				1E8469611B9D3F5E00842A51 /* MWPhotoBrowser.bundle in Resources */,
 				1E8469881B9D437000842A51 /* card_delete@2x.png in Resources */,
 				1ED762ED1B968E09001727EA /* tablecellbackground.png in Resources */,
@@ -2244,6 +2266,7 @@
 				0678C4971B8572DF0035660E /* Images.xcassets in Resources */,
 				7FD7B2BB1B9FB75300A4F911 /* red_line_and_shadow@2x.png in Resources */,
 				1ED890861B95796F0020DFF3 /* 8.png in Resources */,
+				1ED67C351B9E86A8005EC831 /* check_off.png in Resources */,
 				7FD55D5E1B9CA71300726E83 /* home_page_0.png in Resources */,
 				1E8469621B9D3F5E00842A51 /* sr_refresh.png in Resources */,
 				1E8469921B9D437000842A51 /* ReceiverVoiceNodePlaying@3x.png in Resources */,
@@ -2293,10 +2316,12 @@
 				1E84695C1B9D3F5E00842A51 /* PSTCollectionViewUpdateItem.m in Sources */,
 				1E8469BE1B9D549700842A51 /* YHBPhotoImageView.m in Sources */,
 				1E8468531B9D326F00842A51 /* AddressEditViewController.m in Sources */,
+				1ED67C3D1B9EB9C6005EC831 /* YHBAreaModel.m in Sources */,
 				1E8469E51B9D5DB500842A51 /* YHBSupplyDetailPic.m in Sources */,
 				06706D8A1B85B2AA00F58ACC /* BaseViewController.m in Sources */,
 				06706DAD1B85B2AA00F58ACC /* ViewInteraction.m in Sources */,
 				1ED890651B95754E0020DFF3 /* SVProgressHUD.m in Sources */,
+				1ED67C381B9EAA88005EC831 /* MyButton.m in Sources */,
 				1E8469481B9D3F5E00842A51 /* EMSDWebImageDownloaderOperation.m in Sources */,
 				1ED8905F1B9573F90020DFF3 /* AFURLSessionManager.m in Sources */,
 				1E8469AC1B9D441400842A51 /* amrFileCodec.m in Sources */,
@@ -2356,6 +2381,7 @@
 				1ED762F31B96E50E001727EA /* getTimestamp.m in Sources */,
 				06706D871B85B2AA00F58ACC /* HomePageViewController.m in Sources */,
 				06706DA51B85B2AA00F58ACC /* UIImageView+HighlightedWebCache.m in Sources */,
+				1ED67C3E1B9EB9C6005EC831 /* YHBCity.m in Sources */,
 				1E8469641B9D3F5E00842A51 /* SRRefreshView.m in Sources */,
 				1E84693C1B9D3F5E00842A51 /* MWGridCell.m in Sources */,
 				1ED890731B9579380020DFF3 /* MainTabBarController.m in Sources */,
