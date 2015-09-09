@@ -24,10 +24,10 @@
 @property (strong,nonatomic) NSString *ProcurementPrice;//报价
 @property (strong,nonatomic) NSString *recording;//录音
 @property (strong,nonatomic) NSString *details; //面料详情
-@property (assign,nonatomic) BOOL *isSampleCut; //是否裁剪
+@property (assign,nonatomic) BOOL isSampleCut; //是否裁剪
 @property (assign,nonatomic) NSInteger billingType; //发票类型
 @property (strong,nonatomic) NSArray *imageUrls;
-//@property (strong,nonatomic) NSString *
+@property (strong,nonatomic) NSString *district;
 //@property (strong,nonatomic) NSString *
 
 

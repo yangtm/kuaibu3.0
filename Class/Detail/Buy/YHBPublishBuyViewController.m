@@ -30,6 +30,7 @@
 #import "MyButton.h"
 
 
+
 const NSInteger BottomLineTag = 59;
 
 #define kButtonTag_Yes 100
@@ -42,7 +43,7 @@ const NSInteger BottomLineTag = 59;
     float price;
     int pickViewSelected;
     
-    ProcurementModel *myModel;
+    ProcurementModel *_myModel;
     BOOL isClean;
     BOOL _isSelectBtn;
     
@@ -50,14 +51,16 @@ const NSInteger BottomLineTag = 59;
     NSString *catidString;
     
     NSInteger _indexTag;
+    NSInteger _billType;
     UIButton *_cancelBtn;
     NSInteger _selProvince;
     NSInteger _selCity;
     
     
-    BOOL webEdit;
+    BOOL _webEdit;
     BOOL _isPublicPhone;
     BOOL _isPushed;
+    BOOL _isCut;
 }
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -112,14 +115,14 @@ const NSInteger BottomLineTag = 59;
     [self.scrollView removeAdjust];
 }
 
-//- (instancetype)initWithModel:(YHBBuyDetailData *)aModel
-//{
-//    if (self = [super init]) {
-//        myModel = aModel;
-//        webEdit = YES;
-//    }
-//    return self;
-//}
+- (instancetype)initWithModel:(ProcurementModel *)aModel
+{
+    if (self = [super init]) {
+        _myModel = aModel;
+        _webEdit = YES;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -152,8 +155,8 @@ const NSInteger BottomLineTag = 59;
 {
     _areaArray = [[NSMutableArray alloc] init];
     _cityArray = [[NSMutableArray alloc] init];
-    NSString *getAddressInfoUrl = @"http://staging.51kuaibu.com/app/getAreaList.php";
-//    kYHBRequestUrl(@"addressInfo/getAddressInfo", getAddressInfoUrl);
+    NSString *getAddressInfoUrl = nil;//@"http://staging.51kuaibu.com/app/getAreaList.php";
+    kYHBRequestUrl(@"addressInfo/getAddressInfo", getAddressInfoUrl);
     NSLog(@"%@",getAddressInfoUrl);
     [NetworkService postWithURL:getAddressInfoUrl paramters:nil success:^(NSData *receiveData) {
         if (receiveData.length > 0) {
@@ -161,7 +164,7 @@ const NSInteger BottomLineTag = 59;
 //            NSLog(@"%@",result);
             if ([result isKindOfClass:[NSDictionary class]]) {
                 
-                    NSArray *array = result[@"data"];
+                    NSArray *array = result[@"RESULT"];
 //                NSLog(@"%@",array);
                 for (NSDictionary *subdic in array) {
                     YHBAreaModel *model = [[YHBAreaModel alloc] init];
@@ -271,7 +274,7 @@ const NSInteger BottomLineTag = 59;
 {
     if (!_areaPicker) {
         _areaPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight, kMainScreenWidth, 200)];
-        _areaPicker.backgroundColor = [UIColor whiteColor];
+        _areaPicker.backgroundColor = kNaviTitleColor;
         _areaPicker.dataSource =self;
         _areaPicker.delegate = self;
         _areaPicker.showsSelectionIndicator = YES;
@@ -479,7 +482,7 @@ const NSInteger BottomLineTag = 59;
 
 - (void)editViewAudioData:(RecordEditView *)view audioData:(void (^)(NSData *))audioData
 {
-    NSString *str = myModel.recording;
+    NSString *str = _myModel.recording;
     str = [str substringFromIndex:1];
 //    NSString *url = [NSString stringWithFormat:@"%@%@", kYHBUrl, str];
 //    
@@ -505,7 +508,7 @@ const NSInteger BottomLineTag = 59;
 #pragma mark 返回
 - (void)dismissSelf
 {
-    if (!webEdit) {
+    if (!_webEdit) {
         [self saveBackup];
     }
 //    [[CategoryViewController sharedInstancetype] cleanAll];
@@ -527,30 +530,134 @@ const NSInteger BottomLineTag = 59;
 //        return;
 //    }
 //    [SVProgressHUD showWithStatus:@"图片正在上传中，请稍等..." cover:YES offsetY:kMainScreenHeight / 2.0];
-//    
-    if ([self isAllWebImage]) {
-        [self deleteDiscardPhoto];
-    }
-    else{
-        [self updatePhoto];
-    }
+
+    
+    NSString *procurementUrl = nil;
+    kYHBRequestUrl(@"procurement/createProcurement", procurementUrl);
+    NSDictionary *dic = [self createDictionary];
+    NSLog(@"%@",procurementUrl);
+    [FGGProgressHUD showLoadingOnView:self.view];
+    __weak typeof(self) weakSelf=self;
+    [NetworkService postWithURL:procurementUrl paramters:dic success:^(NSData *receiveData) {
+        if(receiveData.length>0)
+        {
+            id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+            if([result isKindOfClass:[NSDictionary class]])
+            {
+                NSDictionary *dictionary=result;
+                NSString *msg = dictionary[@"RESPMSG"];
+                NSString *status = dictionary[@"RESPCODE"];
+
+                NSLog(@"%@",result);
+                if([status integerValue] == 0)
+                {
+                    [weakSelf showAlertWithMessage:msg automaticDismiss:YES];
+                    
+                }
+                else if ([status integerValue] != 0)
+                {
+                    [FGGProgressHUD hideLoadingFromView:weakSelf.view];
+                    [weakSelf showAlertWithMessage:msg automaticDismiss:NO];
+                }
+            }
+        }
+    } failure:^(NSError *error) {
+        [FGGProgressHUD hideLoadingFromView:weakSelf.view];
+        [self showAlertWithMessage:error.localizedDescription automaticDismiss:NO];
+    }];
+    
+    
+//    if ([self isAllWebImage]) {
+//        [self deleteDiscardPhoto];
+//    }
+//    else{
+//        [self updatePhoto];
+//    }
+}
+/**
+ *  警告视图
+ *
+ *  @param message   警告信息
+ *  @param automatic 警告视图是否自动消失
+ */
+-(void)showAlertWithMessage:(NSString *)message automaticDismiss:(BOOL)automatic
+{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+    if(automatic)
+        [self performSelector:@selector(dismissAlertView:) withObject:alert afterDelay:1.0f];
+    
+}
+/**
+ *  消失警告视图
+ *
+ *  @param alert 警告视图
+ */
+-(void)dismissAlertView:(UIAlertView *)alert
+{
+    [alert dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+- (NSMutableDictionary *)createDictionary
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    
+    [dic setObject:_productNameTextField.text forKey:@"productName"];
+    [dic setObject:_quantityTextField.text forKey:@"amount"];
+    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"amountUnit"];
+    [dic setObject:_asofdateTextField.text forKey:@"takeDeliveryLastDate"];
+    [dic setObject:_periodTextField.text forKey:@"offerLastDate"];
+    [dic setObject:_contactNameTextField.text forKey:@"contactor"];
+    [dic setObject:_productNameTextField.text forKey:@"catId"];
+    [dic setObject:@(_publicPhoneRadiBox.isOn) forKey:@"PhonePublic"];
+    [dic setObject:_productNameTextField.text forKey:@"recording"];
+    [dic setObject:_recordEditView.text forKey:@"details"];
+    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
+    [dic setObject:@(_billType) forKey:@"billingType"];
+    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
+    
+    return dic;
+}
+
+//保存当前数据
+- (void)saveBackup
+{
+    ProcurementModel *backup = [[ProcurementModel alloc] init];
+    backup.imageUrls = _pictureAdder.imageArray;
+    backup.productName = _productNameTextField.text;
+    //    backup.catId = categoryArray;
+    backup.amount = _quantityTextField.text;
+    backup.offerLastDate = _periodTextField.text;
+    backup.takeDeliveryLastDate = _asofdateTextField.text;
+    backup.isSampleCut = _isCut;
+    backup.billingType = _billType;
+    
+    backup.amountUnit = _measurePicker.dataArray[_measurePicker.selectItem];
+        backup.details = _recordEditView.text;
+//        backup.voicePath = _recordEditView.filePath;
+//        backup.recording = _recordEditView.recordDuration;
+//        backup.recordViewMode = _recordEditView.editViewModel;
+    backup.contactor = _contactNameTextField.text;
+    backup.phone = _contactPhoneTextField.text;
+    backup.PhonePublic = _publicPhoneRadiBox.isOn;
+    
 }
 
 - (void)updatePhoto
 {
     NSArray *photoArray = self.pictureAdder.imageArray;
     NSString *uploadPhototUrl = nil;
-    kYHBRequestUrl(@"upload.php", uploadPhototUrl);
-    for (int i = 0; i < photoArray.count; i++) {
-        YHBPicture *picture = photoArray[i];
-        if (picture.type == YHBPictureTypeLocal) {
-//            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                 [YHBUser sharedYHBUser].token, @"token",
-//                                 [NSString stringWithFormat:@"%d", i], @"order",
-//                                 @"album", @"action",
-//                                 @"0", @"itemid",
-//                                 @"6", @"mid",
-//                                 nil];
+    kZXYRequestUrl(@"files/uploadPurchase", uploadPhototUrl);
+//    for (int i = 0; i < photoArray.count; i++) {
+//        YHBPicture *picture = photoArray[i];
+//        if (picture.type == YHBPictureTypeLocal) {
+////            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
+////                                 [YHBUser sharedYHBUser].token, @"token",
+////                                 [NSString stringWithFormat:@"%d", i], @"order",
+////                                 @"album", @"action",
+////                                 @"0", @"itemid",
+////                                 @"6", @"mid",
+////                                 nil];
 //            
 //            [UIImage imageWithUrl:picture.localImageUrl completed:^(UIImage *image, NSError *error) {
 //                
@@ -585,9 +692,9 @@ const NSInteger BottomLineTag = 59;
 //                }];
 //                
 //            }];
-            
-        }
-    }
+//            
+//        }
+//    }
 }
 
 - (void)uploadSoundWithSuccess:(void(^)(int soundId, NSString *path))cBlock failure:(void(^)(NSString *error))fBlock
@@ -598,7 +705,7 @@ const NSInteger BottomLineTag = 59;
     }
     
     if (_recordEditView.netAudio) {
-        cBlock(-1, myModel.recording);
+        cBlock(-1, _myModel.recording);
         return;
     }
     
@@ -797,25 +904,7 @@ const NSInteger BottomLineTag = 59;
 //    }
 }
 
-//保存当前数据
-- (void)saveBackup
-{
-//    YHBPublishBuyBackup *backup = [[YHBPublishBuyBackup alloc] init];
-//    backup.images = _pictureAdder.imageArray;
-//    backup.title = _productNameTextField.text;
-//    backup.category = categoryArray;
-//    backup.amount = _quantityTextField.text.integerValue;
-//    backup.validityPeriod = _periodTextField.text.integerValue;
-//    backup.unit = _measurePicker.dataArray[_measurePicker.selectItem];
-//    backup.introduce = _recordEditView.text;
-//    backup.voicePath = _recordEditView.filePath;
-//    backup.voiceSeconds = _recordEditView.recordDuration;
-//    backup.recordViewMode = _recordEditView.editViewModel;
-//    backup.userName = _contactNameTextField.text;
-//    backup.cellphone = _contactPhoneTextField.text;
-//    backup.isPublic = _publicPhoneRadiBox.isOn;
-//    [self.netManage saveBackup:backup];
-}
+
 
 //设置分类的数据和显示
 - (void)setupCategoryWithArray:(NSArray *)aArray
@@ -847,32 +936,17 @@ const NSInteger BottomLineTag = 59;
 
 - (void)renderView
 {
-    if (myModel)
+    if (_myModel)
     {
-        self.productNameTextField.text = myModel.productName;
-        self.categoryTextField.text = myModel.catId;
-        catidString = myModel.memberId;
-        self.quantityTextField.text = myModel.amount;
-//        self.periodTextField.text = myModel.today;
-//        self.contactNameTextField.text = myModel.truename;
-//        self.contactPhoneTextField.text = myModel.mobile;
-//        self.pictureAdder.imageArray = [self pictureArrayForAdder];
-//        self.publicPhoneRadiBox.isOn = !myModel.hidePhone;
-//        self.measurePicker.selectItem = [self selectUnit:myModel.unit];
-//        if (myModel.voicePath != nil && ![myModel.voicePath isEqualToString:@""]) {
-//            self.recordEditView.recordDuration = myModel.voiceSeconds;
-//            self.recordEditView.netAudio = YES;
-//        }
-//        else{
-//            self.recordEditView.text = myModel.introduce;
-//        }
-    }
-    else{
-//        self.periodTextField.text = @"30";
-//        YHBUser *user = [YHBUser sharedYHBUser];
-//        self.contactNameTextField.text = user.userInfo.truename;
-//        self.contactPhoneTextField.text = user.userInfo.telephone;
-//        [self restoreBackup];
+        self.productNameTextField.text = _myModel.productName;
+        self.categoryTextField.text = _myModel.catId;
+        catidString = _myModel.memberId;
+        self.quantityTextField.text = _myModel.amount;
+        self.periodTextField.text = _myModel.offerLastDate;
+        self.asofdateTextField.text = _myModel.takeDeliveryLastDate;
+        _isCut = _myModel.isSampleCut;
+        _billType = _myModel.billingType;
+        
     }
 }
 
@@ -1091,6 +1165,8 @@ const NSInteger BottomLineTag = 59;
     _btn2 = [[MyButton alloc] initWithFrame:CGRectMake(_btn1.right+20, 0, 60, view.height) imageName:@"check_off" text:@"否"];
     UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedBtn2:)];
     [_btn2 addGestureRecognizer:tap2];
+    
+//    _myModel.isSampleCut = _isCut;
 
     [view addSubview:_btn1];
     [view addSubview:_btn2];
@@ -1102,6 +1178,7 @@ const NSInteger BottomLineTag = 59;
 - (void)selectedBtn1:(UIGestureRecognizer *)tap
 {
     if (_btn1) {
+        _isCut = YES;
         _btn1.imageView.image =[UIImage imageNamed:@"check_on"];
         _btn2.imageView.image =[UIImage imageNamed:@"check_off"];
     }
@@ -1110,6 +1187,7 @@ const NSInteger BottomLineTag = 59;
 - (void)selectedBtn2:(UIGestureRecognizer *)tap
 {
     if (_btn2) {
+        _isCut = NO;
         _btn2.imageView.image =[UIImage imageNamed:@"check_on"];
         _btn1.imageView.image =[UIImage imageNamed:@"check_off"];
     }
@@ -1143,6 +1221,7 @@ const NSInteger BottomLineTag = 59;
 - (void)selectedBtn3:(MyButton *)tap
 {
     if (_btn3) {
+        _billType = 2;
         _btn3.imageView.image =[UIImage imageNamed:@"check_on"];
         _btn4.imageView.image =[UIImage imageNamed:@"check_off"];
         _btn5.imageView.image =[UIImage imageNamed:@"check_off"];
@@ -1152,6 +1231,7 @@ const NSInteger BottomLineTag = 59;
 - (void)selectedBtn4:(MyButton *)tap
 {
     if (_btn4) {
+        _billType = 3;
         _btn4.imageView.image =[UIImage imageNamed:@"check_on"];
         _btn3.imageView.image =[UIImage imageNamed:@"check_off"];
         _btn5.imageView.image =[UIImage imageNamed:@"check_off"];
@@ -1161,6 +1241,7 @@ const NSInteger BottomLineTag = 59;
 - (void)selectedBtn5:(MyButton *)tap
 {
     if (_btn5) {
+        _billType = 1;
         _btn5.imageView.image =[UIImage imageNamed:@"check_on"];
         _btn3.imageView.image =[UIImage imageNamed:@"check_off"];
         _btn4.imageView.image =[UIImage imageNamed:@"check_off"];

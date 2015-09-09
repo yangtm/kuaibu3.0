@@ -47,22 +47,22 @@
         return;
     }
 //    _label.hidden = YES;
-    
-    [UIView animateWithDuration:0.4 animations:^{
-        
-        _imageView.layer.transform = CATransform3DTranslate(_imageView.layer.transform, 0, 6, 0);
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            
-            _imageView.layer.transform = CATransform3DScale(_imageView.layer.transform, 1.5, 1.5, 1);
-            
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-    }];
+    _imageView.image = [UIImage imageNamed:@"55"];
+//    [UIView animateWithDuration:0.4 animations:^{
+//        
+//        _imageView.layer.transform = CATransform3DTranslate(_imageView.layer.transform, 0, 6, 0);
+//        
+//    } completion:^(BOOL finished) {
+//        
+//        [UIView animateWithDuration:0.3 animations:^{
+//            
+//            _imageView.layer.transform = CATransform3DScale(_imageView.layer.transform, 1.5, 1.5, 1);
+//            
+//        } completion:^(BOOL finished) {
+//            
+//        }];
+//        
+//    }];
 }
 
 - (void)setUnselect

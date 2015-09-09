@@ -28,6 +28,12 @@
   outUrl = [NSString stringWithFormat:@"%@%@",kYHBBaseUrl,path];\
 }while(0)
 
+#define kZXYFileUrl @"http://192.168.1.119:8080/kuaibu-fileService/"
+#define kZXYRequestUrl(path,outUrl) do{\
+outUrl = [NSString stringWithFormat:@"%@%@",kZXYFileUrl,path];\
+}while(0)
+
+
 #define isNull(a) [a isKindOfClass:[NSNull class]]
 
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:r/256.0 green:g/256.0 blue:b/256.0 alpha:1]

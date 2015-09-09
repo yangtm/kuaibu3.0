@@ -172,11 +172,11 @@
  */
 +(void)uploadFile:(NSString *)url paramters:(NSDictionary *)paramters file:(void (^)(id<AFMultipartFormData>))fileData success:(void (^)(NSData *))success failure:(void (^)(NSError *))failure
 {
-    NSMutableDictionary *postDic = [DicModel createPostDictionary];
-    [postDic addEntriesFromDictionary:paramters];
+//    NSMutableDictionary *postDic = [DicModel createPostDictionary];
+//    [postDic addEntriesFromDictionary:paramters];
     
     AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
-    [mgr POST:url parameters:postDic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [mgr POST:url parameters:paramters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         if(fileData)
             fileData(formData);
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -187,4 +187,59 @@
             failure(error);
     }];
 }
+
++(void)startMultiPartUploadTaskWithURL:(NSString *)url
+                           imagesArray:(NSArray *)images
+                     parameterOfimages:(NSString *)parameter
+                        parametersDict:(NSDictionary *)parameters
+                      compressionRatio:(float)ratio
+                          succeedBlock:(void (^)(id, id))succeedBlock
+                           failedBlock:(void (^)(id, NSError *))failedBlock
+                   uploadProgressBlock:(void (^)(float, long long, long long))uploadProgressBlock{
+    
+    if (images.count == 0) {
+        NSLog(@"上传内容没有包含图片");
+        return;
+    }
+    for (int i = 0; i < images.count; i++) {
+        if (![images isKindOfClass:[UIImage class]]) {
+            NSLog(@"images中第%d个元素不是UIImage对象",i+1);
+            return;
+        }
+    }
+    AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
+    [mgr POST:url parameters:parameter constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        int i = 0;
+        //根据当前系统时间生成图片名称
+        NSDate *date = [NSDate date];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"yyyy年MM月dd日"];
+        NSString *dateString = [formatter stringFromDate:date];
+        
+        for (UIImage *image in images) {
+            NSString *fileName = [NSString stringWithFormat:@"%@%d.png",dateString,i];
+            NSData *imageData;
+            if (ratio > 0.0f && ratio < 1.0f) {
+                imageData = UIImageJPEGRepresentation(image, ratio);
+            }else{
+                imageData = UIImageJPEGRepresentation(image, 1.0f);
+            }
+            
+            [formData appendPartWithFileData:imageData name:parameter fileName:fileName mimeType:@"image/jpg/png/jpeg"];
+        }
+
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        succeedBlock(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failedBlock(operation,error);
+    }];
+    
+//    [mgr setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+//        CGFloat percent = totalBytesWritten * 1.0 / totalBytesExpectedToWrite;
+//        uploadProgressBlock(percent,totalBytesWritten,totalBytesExpectedToWrite);
+//    }];
+    
+}
+
 @end
