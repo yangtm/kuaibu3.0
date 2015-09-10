@@ -106,6 +106,8 @@ const NSInteger BottomLineTag = 59;
 @property (nonatomic,strong) YHBRadioBox *cutYes;
 @property (nonatomic,strong) YHBRadioBox *cutNo;
 
+@property (nonatomic,strong) ProcurementModel *model;
+
 @end
 
 @implementation YHBPublishBuyViewController
@@ -530,7 +532,7 @@ const NSInteger BottomLineTag = 59;
 //        return;
 //    }
 //    [SVProgressHUD showWithStatus:@"图片正在上传中，请稍等..." cover:YES offsetY:kMainScreenHeight / 2.0];
-
+    [self saveBackup];
     
     NSString *procurementUrl = nil;
     kYHBRequestUrl(@"procurement/createProcurement", procurementUrl);
@@ -602,20 +604,21 @@ const NSInteger BottomLineTag = 59;
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     
-    [dic setObject:_productNameTextField.text forKey:@"productName"];
-    [dic setObject:_quantityTextField.text forKey:@"amount"];
-    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"amountUnit"];
-    [dic setObject:_asofdateTextField.text forKey:@"takeDeliveryLastDate"];
-    [dic setObject:_periodTextField.text forKey:@"offerLastDate"];
-    [dic setObject:_contactNameTextField.text forKey:@"contactor"];
-    [dic setObject:_productNameTextField.text forKey:@"catId"];
-    [dic setObject:@(_publicPhoneRadiBox.isOn) forKey:@"PhonePublic"];
-    [dic setObject:_productNameTextField.text forKey:@"recording"];
-    [dic setObject:_recordEditView.text forKey:@"details"];
-    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
-    [dic setObject:@(_billType) forKey:@"billingType"];
-    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
+//    [dic setObject:_productNameTextField.text forKey:@"productName"];
+//    [dic setObject:_quantityTextField.text forKey:@"amount"];
+//    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"amountUnit"];
+//    [dic setObject:_asofdateTextField.text forKey:@"takeDeliveryLastDate"];
+//    [dic setObject:_periodTextField.text forKey:@"offerLastDate"];
+//    [dic setObject:_contactNameTextField.text forKey:@"contactor"];
+//    [dic setObject:_productNameTextField.text forKey:@"catId"];
+//    [dic setObject:@(_publicPhoneRadiBox.isOn) forKey:@"PhonePublic"];
+//    [dic setObject:_productNameTextField.text forKey:@"recording"];
+//    [dic setObject:_recordEditView.text forKey:@"details"];
+//    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
+//    [dic setObject:@(_billType) forKey:@"billingType"];
+//    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
     
+    [dic setObject:_model forKey:@"procurement"];
     return dic;
 }
 
@@ -640,7 +643,9 @@ const NSInteger BottomLineTag = 59;
     backup.contactor = _contactNameTextField.text;
     backup.phone = _contactPhoneTextField.text;
     backup.PhonePublic = _publicPhoneRadiBox.isOn;
-    
+    NSLog(@"backup:::::%ld-----%@/%@/%@/%@%ld/%ld/%@/%ld/%@",(long)backup.PhonePublic,backup.takeDeliveryLastDate,backup.productName,backup.amount,backup.offerLastDate,backup.isSampleCut,backup.billingType,backup.phone,backup.PhonePublic,backup.contactor);
+    _model = [[ProcurementModel alloc] init];
+    _model = backup;
 }
 
 - (void)updatePhoto
