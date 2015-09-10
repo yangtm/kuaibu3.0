@@ -28,6 +28,7 @@
 #import "YHBAreaModel.h"
 #import "YHBCity.h"
 #import "MyButton.h"
+#import "ProcurementListController.h"
 
 
 
@@ -575,6 +576,10 @@ const NSInteger BottomLineTag = 59;
 //    else{
 //        [self updatePhoto];
 //    }
+    ProcurementListController *vc = [[ProcurementListController alloc] init];
+    [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
 }
 /**
  *  警告视图
@@ -617,9 +622,11 @@ const NSInteger BottomLineTag = 59;
 //    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
 //    [dic setObject:@(_billType) forKey:@"billingType"];
 //    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
-    
+    [dic setObject:_addressTextField.text forKey:@"district"];
     [dic setObject:_model forKey:@"procurement"];
+     NSLog(@"_model:%ld-----%@/%@/%@/%@%ld/%ld/%@/%ld/%@",(long)_model.PhonePublic,_model.takeDeliveryLastDate,_model.productName,_model.amount,_model.offerLastDate,_model.isSampleCut,_model.billingType,_model.phone,_model.PhonePublic,_model.contactor);
     return dic;
+    
 }
 
 //保存当前数据
@@ -643,7 +650,7 @@ const NSInteger BottomLineTag = 59;
     backup.contactor = _contactNameTextField.text;
     backup.phone = _contactPhoneTextField.text;
     backup.PhonePublic = _publicPhoneRadiBox.isOn;
-    NSLog(@"backup:::::%ld-----%@/%@/%@/%@%ld/%ld/%@/%ld/%@",(long)backup.PhonePublic,backup.takeDeliveryLastDate,backup.productName,backup.amount,backup.offerLastDate,backup.isSampleCut,backup.billingType,backup.phone,backup.PhonePublic,backup.contactor);
+   
     _model = [[ProcurementModel alloc] init];
     _model = backup;
 }

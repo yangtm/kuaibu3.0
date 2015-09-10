@@ -15,6 +15,7 @@
 #import "YHBPublishBuyViewController.h"
 #import "YHBPublishSupplyViewController.h"
 #import "ThirdViewController.h"
+#import "BuyDetailViewController.h"
 @interface MainTabBarController ()
 
 @end
@@ -38,7 +39,7 @@
     NSArray *vcArray = @[@"HomePageViewController",
                          @"FriendsViewController",
                          @"ThirdViewController",
-                         @"SearchViewController",
+                         @"BuyDetailViewController",
                          @"LoginViewController"];
     //tabbar按钮图片
     NSArray * imageArray = @[@"55副本",
