@@ -1452,7 +1452,8 @@ const NSInteger BottomLineTag = 59;
         
         NSDate *pickerDate = [_datePickerView date];
         _pickerFormatter = [[NSDateFormatter alloc] init];
-        [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+//        [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+        [_pickerFormatter setDateFormat:@"yyyy-MM-dd"];
         NSString *dateString = [_pickerFormatter stringFromDate:pickerDate];
         _offerdateStr = dateString;
         [_datePickerView addTarget: self action: @selector(onDatePickerChanged:) forControlEvents:UIControlEventValueChanged];
@@ -1480,7 +1481,8 @@ const NSInteger BottomLineTag = 59;
         
         NSDate *pickerDate = [_datePickersView date];
         _pickerFormatter = [[NSDateFormatter alloc] init];
-        [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+//        [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+        [_pickerFormatter setDateFormat:@"yyyy-MM-dd"];
         NSString *dateString = [_pickerFormatter stringFromDate:pickerDate];
         _goodsdateStr = dateString;
         [_datePickerView addTarget: self action: @selector(onDatePickersChanged:) forControlEvents:UIControlEventValueChanged];
@@ -1491,13 +1493,15 @@ const NSInteger BottomLineTag = 59;
 
 - (void)onDatePickerChanged: (UIDatePicker *)datePicker {
 
-    [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+//    [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+    [_pickerFormatter setDateFormat:@"yyyy-MM-dd"];
     _offerdateStr = [_pickerFormatter stringFromDate:datePicker.date];
 }
 
 - (void)onDatePickersChanged: (UIDatePicker *)datePicker {
     
-    [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+//    [_pickerFormatter setDateFormat:@"yyyy年MM月dd日 HH:mm:ss"];
+    [_pickerFormatter setDateFormat:@"yyyy-MM-dd"];
     _goodsdateStr = [_pickerFormatter stringFromDate:datePicker.date];
 }
 

@@ -17,6 +17,15 @@
 @property (nonatomic, strong) UIView *detailFormView;
 
 @property (nonatomic,strong) UILabel *nameLabel;
+@property (nonatomic,strong) UILabel *timeLabel;
+@property (nonatomic,strong) UILabel *typeLabel;
+@property (nonatomic,strong) UILabel *numberLabel;
+@property (nonatomic,strong) UILabel *offLastLabel;
+@property (nonatomic,strong) UILabel *takeDeliveryLabel;
+@property (nonatomic,strong) UILabel *cutLabel;
+@property (nonatomic,strong) UILabel *billingTypeLabel;
+@property (nonatomic,strong) UILabel *detailsLabel;
+@property (nonatomic,strong) UILabel *districtLabel;
 @end
 
 @implementation BuyDetailViewController
