@@ -17,6 +17,7 @@
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "YHBPublishBuyViewController.h"
+#import "YHBPublishSupplyViewController.h"
 
 
 
@@ -78,7 +79,7 @@
 - (void)initTabBarItem
 {
     self.itemArray = [NSMutableArray array];
-    NSArray *imgs = @[@"1",
+    NSArray *imgs = @[@"55",
                       @"2",
                       @"3",
                       @"4",
@@ -165,6 +166,13 @@
             }
             break;
         case 1:
+            {
+                YHBPublishSupplyViewController *supplyVC = [[YHBPublishSupplyViewController alloc] init];
+                
+                [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:supplyVC] animated:YES completion:^{
+                    
+                }];
+            }
             
             break;
         case 3:

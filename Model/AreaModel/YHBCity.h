@@ -9,13 +9,13 @@
 
 
 
-@interface YHBCity : NSObject <NSCoding, NSCopying>
+@interface YHBCity : NSObject //<NSCoding, NSCopying>
 
 @property (nonatomic, strong) NSString *areaname;
-@property (nonatomic, assign) double areaid;
+@property (nonatomic, strong) NSString * areaid;
 
-+ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
-- (NSDictionary *)dictionaryRepresentation;
+//+ (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
+-(instancetype)initWithDictionary:(NSDictionary *)dict;
+//- (NSDictionary *)dictionaryRepresentation;
 
 @end

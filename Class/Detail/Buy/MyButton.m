@@ -14,12 +14,13 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        _shareImageView = [MyUtil createImageView:CGRectMake(0, 3, 15, 15) imageName:imageName];
-        [self addSubview:_shareImageView];
-        
-        _titleLabel = [MyUtil createLabel:CGRectMake(0, 22, 100, 20) text:text alignment:NSTextAlignmentCenter fontSize:10];
+        _imageView = [MyUtil createImageView:CGRectMake(0, 12, 15, 15) imageName:imageName];
+        [self addSubview:_imageView];
+        _imageView.userInteractionEnabled = YES;
+        _titleLabel = [MyUtil createLabel:CGRectMake(17, 10, 80, 20) text:text alignment:NSTextAlignmentLeft fontSize:15.0];
         _titleLabel.numberOfLines = 0;
         [self addSubview:_titleLabel];
+        _titleLabel.userInteractionEnabled = YES;
     }
     return self;
 }

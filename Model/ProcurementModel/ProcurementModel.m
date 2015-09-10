@@ -9,5 +9,5 @@
 #import "ProcurementModel.h"
 
 @implementation ProcurementModel
-
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key{}
 @end

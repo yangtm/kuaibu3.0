@@ -11,7 +11,7 @@
 @interface MyButton : UIControl
 
 @property (nonatomic,strong) UILabel *titleLabel;
-@property (nonatomic,strong) UIImageView *shareImageView;
+@property (nonatomic,strong) UIImageView *imageView;
 
 /**按钮初始化方法*/
 -(instancetype)initWithFrame:(CGRect)frame imageName:(NSString *)imageName text:(NSString *)text;
