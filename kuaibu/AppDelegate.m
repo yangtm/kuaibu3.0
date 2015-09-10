@@ -24,7 +24,7 @@
     _isLoginedIn = NO;
     self.window.backgroundColor = [UIColor whiteColor];
  
-    self.window.rootViewController = [[RootTabBarController alloc] init];
+    self.window.rootViewController = [[MainTabBarController alloc] init];
     return YES;
 }
 

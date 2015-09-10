@@ -133,7 +133,7 @@ const NSInteger BottomLineTag = 59;
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(dismissSelf)];
     
     isClean = NO;
-    self.title = @"发布采购";
+    [self settitleLabel:@"发布采购"];
     self.view.backgroundColor = RGBCOLOR(241, 241, 241);
 
     [self.view addSubview:self.scrollView];

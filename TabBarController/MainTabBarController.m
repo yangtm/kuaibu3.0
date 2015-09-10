@@ -12,6 +12,9 @@
 #import "MineViewController.h"
 #import "SearchViewController.h"
 #import "LoginViewController.h"
+#import "YHBPublishBuyViewController.h"
+#import "YHBPublishSupplyViewController.h"
+#import "ThirdViewController.h"
 @interface MainTabBarController ()
 
 @end
@@ -34,21 +37,21 @@
     //视图控制器数组
     NSArray *vcArray = @[@"HomePageViewController",
                          @"FriendsViewController",
-                         @"",
+                         @"ThirdViewController",
                          @"SearchViewController",
                          @"LoginViewController"];
     //tabbar按钮图片
-    NSArray * imageArray = @[@"iconfont-home(1)",
+    NSArray * imageArray = @[@"55副本",
                              @"3",
-                             @"5",
-                             @"7",
-                             @"9"];
+                             @"60",
+                             @"62副本",
+                             @"64副本"];
     //tabbar选中按钮的图片
-    NSArray * clickImageArray = @[@"iconfont-home_on(1)",
+    NSArray * clickImageArray = @[@"55",
                                   @"4",
-                                  @"6",
-                                  @"8",
-                                  @"10"];
+                                  @"60",
+                                  @"62",
+                                  @"64"];
     NSArray * titleArray = @[@"首页",@"发现",@"布得了",@"朋友",@"我的"];
     
     NSMutableArray *array = [NSMutableArray array];
@@ -92,6 +95,50 @@
     {
         self.tabBar.hidden = YES;
     }
+}
+
+#pragma mark -UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            YHBPublishBuyViewController *supplyVC = [[YHBPublishBuyViewController alloc] init];
+            
+            [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:supplyVC] animated:YES completion:^{
+                
+            }];
+        }
+            break;
+        case 1:
+        {
+            YHBPublishSupplyViewController *supplyVC = [[YHBPublishSupplyViewController alloc] init];
+            
+            [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:supplyVC] animated:YES completion:^{
+                
+            }];
+        }
+            
+            break;
+        case 3:
+        {
+            //                HomePageViewController *vc = [[HomePageViewController alloc] init];
+            //                [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+            //                    self.tabBarController.tabBar.hidden = NO;
+            //                }];
+            
+        }
+            
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet
+{
+    NSLog(@"....");
+    
 }
 
 @end
