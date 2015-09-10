@@ -538,10 +538,15 @@ const NSInteger BottomLineTag = 59;
     NSString *procurementUrl = nil;
     kYHBRequestUrl(@"procurement/createProcurement", procurementUrl);
     NSDictionary *dic = [self createDictionary];
+    
+    NSString *str = [self dictionaryToJson:dic];
+    NSLog(@"****%@",str);
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:str,@"procurement", nil];
+    
     NSLog(@"%@",procurementUrl);
     [FGGProgressHUD showLoadingOnView:self.view];
     __weak typeof(self) weakSelf=self;
-    [NetworkService postWithURL:procurementUrl paramters:dic success:^(NSData *receiveData) {
+    [NetworkService postWithURL:procurementUrl paramters:dict success:^(NSData *receiveData) {
         if(receiveData.length>0)
         {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
@@ -609,23 +614,35 @@ const NSInteger BottomLineTag = 59;
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     
-//    [dic setObject:_productNameTextField.text forKey:@"productName"];
-//    [dic setObject:_quantityTextField.text forKey:@"amount"];
-//    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"amountUnit"];
-//    [dic setObject:_asofdateTextField.text forKey:@"takeDeliveryLastDate"];
-//    [dic setObject:_periodTextField.text forKey:@"offerLastDate"];
-//    [dic setObject:_contactNameTextField.text forKey:@"contactor"];
-//    [dic setObject:_productNameTextField.text forKey:@"catId"];
-//    [dic setObject:@(_publicPhoneRadiBox.isOn) forKey:@"PhonePublic"];
-//    [dic setObject:_productNameTextField.text forKey:@"recording"];
-//    [dic setObject:_recordEditView.text forKey:@"details"];
-//    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
-//    [dic setObject:@(_billType) forKey:@"billingType"];
-//    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
+    [dic setObject:_productNameTextField.text forKey:@"productName"];
+    [dic setObject:_quantityTextField.text forKey:@"amount"];
+    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"amountUnit"];
+    [dic setObject:_asofdateTextField.text forKey:@"takeDeliveryLastDate"];
+    [dic setObject:_periodTextField.text forKey:@"offerLastDate"];
+    [dic setObject:_contactNameTextField.text forKey:@"contactor"];
+    [dic setObject:_productNameTextField.text forKey:@"catId"];
+    [dic setObject:@(_publicPhoneRadiBox.isOn) forKey:@"PhonePublic"];
+    [dic setObject:_productNameTextField.text forKey:@"recording"];
+    [dic setObject:_recordEditView.text forKey:@"details"];
+    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
+    [dic setObject:@(_billType) forKey:@"billingType"];
+    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
     [dic setObject:_addressTextField.text forKey:@"district"];
-    [dic setObject:_model forKey:@"procurement"];
+//    [dic setObject:_model forKey:@"procurement"];
      NSLog(@"_model:%ld-----%@/%@/%@/%@%ld/%ld/%@/%ld/%@",(long)_model.PhonePublic,_model.takeDeliveryLastDate,_model.productName,_model.amount,_model.offerLastDate,_model.isSampleCut,_model.billingType,_model.phone,_model.PhonePublic,_model.contactor);
     return dic;
+    
+}
+
+- (NSString*)dictionaryToJson:(NSDictionary *)dic
+
+{
+    
+    NSError *parseError = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
 }
 
