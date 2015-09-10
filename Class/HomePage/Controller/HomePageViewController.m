@@ -18,38 +18,20 @@
 #import "LoginViewController.h"
 #import "SlideSwitchView.h"
 #import "HomeMainPageViewController.h"
-/*
-NSString *const BannerCellIdentifier = @"BannerCellIdentifier";
-NSString *const PavilionCellIdentifier = @"PavilionCellIdentifier";
-NSString *const HotProductIdentifier = @"HotProductIdentifier";
-NSString *const BandCellIdentifier = @"BandCellIdentifier";
-NSString *const LatestBuyIdentifier = @"LatestBuyIdentifier";
-NSString *const TitleHeadViewIdentifier = @"TitleHeadViewIdentifier";
-NSString *const BlankReuseViewIdentifier = @"BlankReuseViewIdentifier";
 
-typedef NS_ENUM(NSInteger, SectionTag) {
-    BannerSection,
-    PavilionSection,
-    HotProductSection,
-    BandSection,
-    LatestBuySection,
-};
-*/
-@interface HomePageViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BannerDelegate,SlideSwitchViewDelegate>
+@interface HomePageViewController ()<SlideSwitchViewDelegate>
 
 @property (assign, nonatomic) CGFloat alphaOfNavigationBar;
-@property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIButton *navBarCameraButton;
 @property (strong, nonatomic) UIButton *navBarSearchButton;
 @property (strong, nonatomic) UIButton *navBarMessageButton;
 @property (strong, nonatomic) UITextField *navBarSearchTextField;
 @property (strong, nonatomic) UIButton *navBarCancelButton;
-@property (assign, nonatomic) CGFloat ratio;
 @property (strong, nonatomic) UIView *badgeView;
-@property (strong, nonatomic) PageIndex *pageIndex;
 @property (strong, nonatomic) HomePageSearchViewController *homePageSearchViewController;
 @property (strong, nonatomic) SlideSwitchView *slideSwitchView;
-@property (strong, nonatomic) HomeMainPageViewController *vc1;
+@property (strong, nonatomic) HomeMainPageViewController *homeMainPageViewController;
+@property (strong, nonatomic) UINavigationController *homeNavigationViewControl;
 @property (strong, nonatomic) UIViewController *vc2;
 @property (strong, nonatomic) UIViewController *vc3;
 @property (strong, nonatomic) UIViewController *vc4;
@@ -61,29 +43,30 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.ratio = kMainScreenWidth / 320;
     [self setupNormalNavBar];
-    self.automaticallyAdjustsScrollViewInsets =NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.slideSwitchView.tabItemNormalColor = [SlideSwitchView colorFromHexRGB:@"868686"];
     self.slideSwitchView.tabItemSelectedColor = [SlideSwitchView colorFromHexRGB:@"bb0b15"];
     self.slideSwitchView.shadowImage = [[UIImage imageNamed:@"red_line_and_shadow.png"]
                                         stretchableImageWithLeftCapWidth:59.0f topCapHeight:0.0f];
-    _vc1 =[[HomeMainPageViewController alloc]init];
+    _homeMainPageViewController =[[HomeMainPageViewController alloc]init];
+    _homeMainPageViewController.title = @"商品推荐";
+    _homeNavigationViewControl=[[UINavigationController alloc]initWithRootViewController:_homeMainPageViewController];
+    _homeNavigationViewControl.navigationBar.hidden = YES;
+    
     _vc2 =[[UIViewController alloc]init];
     _vc3 =[[UIViewController alloc]init];
     _vc4 =[[UIViewController alloc]init];
     _vc5 =[[UIViewController alloc]init];
-    //_vc1.view.backgroundColor = [UIColor redColor];
     _vc2.view.backgroundColor = [UIColor greenColor];
     _vc3.view.backgroundColor = [UIColor yellowColor];
     _vc4.view.backgroundColor = [UIColor blueColor];
     _vc5.view.backgroundColor = [UIColor grayColor];
-    _vc1.title = @"测试测试";
-    _vc2.title = @"测试测试";
-    _vc3.title = @"测试测试";
-    _vc4.title = @"测试测试";
-    _vc5.title = @"测试测试";
+    _vc2.title = @"产品类目";
+    _vc3.title = @"实时促销";
+    _vc4.title = @"查看采购";
+    _vc5.title = @"店铺列表";
     
     UIButton *rightSideButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightSideButton setImage:[UIImage imageNamed:@"icon_rightarrow.png"] forState:UIControlStateNormal];
@@ -94,15 +77,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     
     [self.slideSwitchView buildUI];
     [self.view addSubview:self.slideSwitchView];
-    
-    /*
-    self.collectionView.frame = CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64);
-    [self registerCell];
-    [self.view addSubview:self.collectionView];
-    */
-    //[self addPullToRefresh];
-    [self reloadData];
-    
 }
 - (NSUInteger)numberOfTab:(SlideSwitchView *)view
 {
@@ -113,7 +87,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 - (UIViewController *)slideSwitchView:(SlideSwitchView *)view viewOfTab:(NSUInteger)number
 {
     if (number == 0) {
-        return self.vc1;
+        return self.homeNavigationViewControl;
     } else if (number == 1) {
         return self.vc2;
     } else if (number == 2) {
@@ -131,7 +105,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 {
     UIViewController *vc = nil;
     if (number == 0) {
-        vc = self.vc1;
+        vc = self.homeNavigationViewControl;
     } else if (number == 1) {
         vc = self.vc2;
     } else if (number == 2) {
@@ -160,21 +134,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     self.navigationItem.titleView = self.navBarSearchButton;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navBarMessageButton];
     [self.navBarSearchTextField resignFirstResponder];
-}
-
-#pragma mark - setters and getters
-- (UICollectionView *)collectionView
-{
-    if (_collectionView == nil) {
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor whiteColor];
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        _collectionView.alwaysBounceVertical = YES;
-        _collectionView.showsVerticalScrollIndicator = NO;
-    }
-    return _collectionView;
 }
 
 - (UIButton *)navBarCameraButton
@@ -226,7 +185,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     if (_navBarMessageButton == nil) {
         _navBarMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _navBarMessageButton.frame = CGRectMake(0, 0, 20, 25);
-        [_navBarMessageButton setImage:[UIImage imageNamed:@"home_page_3"] forState:UIControlStateNormal];
+        [_navBarMessageButton setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
         _navBarMessageButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_navBarMessageButton addTarget:self action:@selector(messageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         _badgeView = [[UIView alloc] initWithFrame:CGRectMake(13, 0, 10, 10)];
@@ -238,63 +197,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     return _navBarMessageButton;
 }
 
-- (void)configBannerCell:(UICollectionViewCell *)cell
-{
-    if (_pageIndex.banners == nil) {
-        return;
-    }
-    NSMutableArray *mutableArary = [NSMutableArray array];
-    for (BannerModel *item in _pageIndex.banners) {
-        [mutableArary addObject:item.thumb];
-    }
-    HomePageBannerCell *bannerCell = (HomePageBannerCell *)cell;
-    bannerCell.bannerView.delegate = self;
-    bannerCell.bannerView.isNeedCycle = YES;
-    bannerCell.bannerView.autoRoll = YES;
-    [bannerCell.bannerView resetUIWithUrlStrArray:mutableArary];
-}
-
-- (void)reloadData
-{
-    
-     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"001" forKey:@"advertSpaceNumber"];
-     
-     NSString *adverturl= nil;
-     kYHBRequestUrl(@"advert/getAdvert", adverturl);
-    NSLog(@"%@",adverturl);
-     [NetworkService postWithURL:adverturl paramters:dic success:^(NSData *receiveData) {
-     if (receiveData.length>0) {
-     id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-         
-     
-    // NSLog(@"result=%@",result);
-     }
-     
-     
-     
-     
-     }failure:^(NSError *error){
-     NSLog(@"下载数据失败");
-     }];
-    
-    
-    
-    /*
-     [self.indexManager getPageIndexWithSuccess:^(YHBPageIndex *model) {
-     
-     self.pageIndex = model;
-     [_collectionView.pullToRefreshView stopAnimating];
-     [self.collectionView reloadData];
-     
-     } failure:^(int result, NSString *errorString) {
-     
-     }];*/
-}
-
 #pragma mark -按钮响应事件
 - (void)searchButtonClick:(UIButton *)sender
 {
-    //    [self killScroll];
     //    [self setupSearchNavBar];
     HomePageSearchViewController *vc = [[HomePageSearchViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -309,7 +214,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 
 - (void)cameraButtonClick:(UIButton *)sender
 {
-    [self killScroll];
     //    ImageSearchViewController *imageSearchVC = [[ImageSearchViewController alloc] init];
     //    LSNavigationController *nav = [[LSNavigationController alloc] initWithRootViewController:imageSearchVC];
     //    [self presentViewController:nav animated:YES completion:nil];
@@ -317,219 +221,10 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 
 - (void)messageButtonClick:(UIButton *)sender
 {
-    [self killScroll];
     //    ChatListViewController *vc = [[ChatListViewController alloc] init];
     //    vc.hidesBottomBarWhenPushed = YES;
     //    [self.navigationController pushViewController:vc animated:YES];
 }
-/*
-- (void)registerCell
-{
-    [self registerCellWithNibName:@"HomePageBannerCell" identifier:BannerCellIdentifier];
-    // [self registerCellWithNibName:@"HomePagePavilionCell" identifier:PavilionCellIdentifier];
-    //[self registerCellWithNibName:@"HomePageHotProductCell" identifier:HotProductIdentifier];
-    // [self registerCellWithNibName:@"HomePageBandCell" identifier:BandCellIdentifier];
-    // [self registerCellWithNibName:@"HomePageLatestBuyCell" identifier:LatestBuyIdentifier];
-    
-    // [_collectionView registerNib:[UINib nibWithNibName:@"HomePageTitleHeadView" bundle:[NSBundle mainBundle]] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:TitleHeadViewIdentifier];
-    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:BlankReuseViewIdentifier];
-    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:BlankReuseViewIdentifier];
-    
-}
-
-- (void)registerCellWithNibName:(NSString *)nibName identifier:(NSString *)identifier
-{
-    [self.collectionView registerNib:[UINib nibWithNibName:nibName bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:identifier];
-}
-
-#pragma mark - UICollectionViewDataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    NSInteger num = 0;
-    switch (section) {
-        case BannerSection:
-        {
-            num = 1;
-        }
-            break;
-        case PavilionSection:
-        {
-            num = 8;
-        }
-            break;
-        case HotProductSection:
-        {
-            num = 4;
-        }
-            break;
-        case BandSection:
-        {
-            num = 6;
-        }
-            break;
-        case LatestBuySection:
-        {
-            num = 3;
-        }
-            break;
-        default:
-            break;
-    }
-    return num;
-}
-*/
-/*
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *cell = nil;
-    switch (indexPath.section) {
-        case BannerSection:
-        {
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:BannerCellIdentifier forIndexPath:indexPath];
-            [self configBannerCell:cell];
-        }
-            break;
- 
-             case PavilionSection:
-             {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:PavilionCellIdentifier forIndexPath:indexPath];
-             [self configCategoryCell:cell indexPath:indexPath];
-             }
-             case HotProductSection:
-             {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:HotProductIdentifier forIndexPath:indexPath];
-             [self configPavilionCell:cell indexPath:indexPath];
-             }
-             break;
-             case BandSection:
-             {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:BandCellIdentifier forIndexPath:indexPath];
-             [self configBandCell:cell indexPath:indexPath];
-             }
-             break;
-             case LatestBuySection:
-             {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:LatestBuyIdentifier forIndexPath:indexPath];
-             [self configHotPlateCell:cell indexPath:indexPath];
-             }
-             break;
- 
-        default:
-            break;
-    }
-    return cell;
-}
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionReusableView *reusableView  = nil;
-    switch (indexPath.section) {
-        case BannerSection:
-        {
-            reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-            reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-        }
-            break;
- 
-             case PavilionSection:
-             {
-             if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-             ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"产业带";
-             }
-             else{
-             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-             reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-             }
-             }
-             break;
-             case HotProductSection:
-             {
-             if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-             ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"热门板块";
-             }
-             else{
-             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-             reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-             }
-             }
-             break;
-             case BandSection:
-             {
-             if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-             ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"产业带";
-             }
-             else{
-             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-             reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-             }
-             }
-             break;
-             case LatestBuySection:
-             {
-             if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-             ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"产业带";
-             }
-             else{
-             reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-             reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-             }
-             }
-             break;
- 
-        default:
-            break;
-    }
-    return reusableView;
-}
-
-#pragma mark - UICollectionViewDelegateFlowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGSize size;
-    switch (indexPath.section) {
-        case BannerSection:
-        {
-            size = CGSizeMake(kMainScreenWidth, 200 * kRatio);
-        }
-            break;
-        case PavilionSection:
-        {
-            CGFloat width = kMainScreenWidth / 4.0;
-            size = CGSizeMake(width, width * 0.95);
-        }
-            break;
-        case HotProductSection:
-        {
-            size = CGSizeMake(kMainScreenWidth, 56 * _ratio);
-        }
-            break;
-        case BandSection:
-        {
-            size = CGSizeMake(kMainScreenWidth, 85 * _ratio);
-        }
-            break;
-        case LatestBuySection:
-        {
-            CGFloat width = (kMainScreenWidth - 15) / 3.0;
-            size = CGSizeMake(width, width);
-        }
-            break;
-        default:
-            break;
-    }
-    return size;
-}
-
-*/
 
 - (void)setupSearchNavBar
 {
@@ -537,13 +232,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     self.navigationItem.titleView = self.navBarSearchTextField;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navBarCancelButton];
     [self.navBarSearchTextField becomeFirstResponder];
-}
-
-- (void)killScroll
-{
-    CGPoint offset = _collectionView.contentOffset;
-    offset.y += 10.0;
-    [_collectionView setContentOffset:offset];
 }
 
 - (void)dismissSearchView

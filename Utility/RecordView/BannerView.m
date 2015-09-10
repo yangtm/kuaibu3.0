@@ -44,7 +44,7 @@
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.width,self.height)];
         _scrollView.delegate = self;
-        _scrollView.backgroundColor = [UIColor redColor];
+        _scrollView.backgroundColor = [UIColor whiteColor];
         _scrollView.alwaysBounceHorizontal = YES;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.pagingEnabled = YES;
