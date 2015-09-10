@@ -15,6 +15,9 @@
 #import "DicModel.h"
 #import "AdvertModel.h"
 #import "BannerDetailViewController.h"
+#import "HomePagePavilionCell.h"
+#import "PavilionModel.h"
+#import "UIImageView+WebCache.h"
 
 NSString *const BannerCellIdentifier = @"BannerCellIdentifier";
 NSString *const PavilionCellIdentifier = @"PavilionCellIdentifier";
@@ -74,18 +77,28 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"001" forKey:@"advertSpaceNumber"];
     
     NSString *adverturl= nil;
-    kYHBRequestUrl(@"advert/getAdvert", adverturl);
+    kYHBRequestUrl(@"index", adverturl);
     //NSLog(@"%@",adverturl);
     //kYHBRequestUrl(@"index", adverturl);
     [NetworkService postWithURL:adverturl paramters:dic success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-            //NSLog(@"result=%@",result);
+           // NSLog(@"result=%@",result);
             if([result isKindOfClass:[NSDictionary class]])
             {
-                NSDictionary *dictionary=result;
-                NSArray *advert = dictionary[@"RESULT"];
-                self.pageIndex.banners = advert;
+                NSDictionary *allresult=result;
+                NSDictionary *dictionary = allresult[@"RESULT"];
+                NSArray *adverts = dictionary[@"adverts"];
+                NSArray *pavilions = dictionary[@"stores"];
+                NSLog(@"store=%@",pavilions);
+                NSArray *hotProduct = dictionary[@"products"];
+                NSArray *bands = dictionary[@"industry"];
+                NSArray *latestBuy = dictionary[@"procurement"];
+                self.pageIndex.banners = adverts;
+                self.pageIndex.pavilions = pavilions;
+                self.pageIndex.hotProduct = hotProduct;
+                self.pageIndex.bands = bands;
+                self.pageIndex.latestBuy = latestBuy;
                 [self.collectionView reloadData];
             }
         }
@@ -115,6 +128,19 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     [bannerCell.bannerView resetUIWithUrlStrArray:mutableArary];
 }
 
+- (void) configPavilionCell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    HomePagePavilionCell *PavilionCell = (HomePagePavilionCell *)cell;
+    NSDictionary *item = _pageIndex.pavilions[indexPath.row];
+    //NSLog(@"item=%@",item);
+    PavilionModel *store = [[PavilionModel alloc]init];
+    NSString *url= @"upload/Member";
+    NSString *storelogo = [NSString stringWithFormat:@"%@%@",url,item[@"logo"]];
+    kZXYRequestUrl(storelogo, store.logo);
+    [PavilionCell.pavilionImageView sd_setImageWithURL:[NSURL URLWithString:store.logo]];
+}
+
+
 #pragma mark - YHBBannerDelegate
 - (void)touchBannerWithNum:(NSInteger)num
 {
@@ -123,23 +149,19 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     advert.advertUrl = bannerModel[@"advertUrl"];
     advert.advertTitle = bannerModel[@"advertTitle"];
     if (![advert.advertUrl isEqual:@""] && advert.advertUrl != nil) {
-        self.navigationController.navigationBar.hidden = NO;
-        self.navigationController.navigationBar.alpha = 1.f;
-        BannerDetailViewController *vc = [[BannerDetailViewController alloc] initWithUrl:advert.advertUrl title:advert.advertTitle];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.homeMainPageViewDelegate advertUrl:advert.advertUrl advertTitle:advert.advertTitle];
     }
 }
 
 - (void)registerCell
 {
     [self registerCellWithNibName:@"HomePageBannerCell" identifier:BannerCellIdentifier];
-    // [self registerCellWithNibName:@"HomePagePavilionCell" identifier:PavilionCellIdentifier];
+    [self registerCellWithNibName:@"HomePagePavilionCell" identifier:PavilionCellIdentifier];
     //[self registerCellWithNibName:@"HomePageHotProductCell" identifier:HotProductIdentifier];
     // [self registerCellWithNibName:@"HomePageBandCell" identifier:BandCellIdentifier];
     // [self registerCellWithNibName:@"HomePageLatestBuyCell" identifier:LatestBuyIdentifier];
     
-    // [_collectionView registerNib:[UINib nibWithNibName:@"HomePageTitleHeadView" bundle:[NSBundle mainBundle]] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:TitleHeadViewIdentifier];
+    [_collectionView registerNib:[UINib nibWithNibName:@"HomePageTitleHeadView" bundle:[NSBundle mainBundle]] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:TitleHeadViewIdentifier];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:BlankReuseViewIdentifier];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:BlankReuseViewIdentifier];
     
@@ -153,7 +175,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -165,12 +187,13 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             num = 1;
         }
             break;
-        /*
+        
         case PavilionSection:
         {
             num = 8;
         }
             break;
+        /*
         case HotProductSection:
         {
             num = 4;
@@ -203,30 +226,31 @@ typedef NS_ENUM(NSInteger, SectionTag) {
              [self configBannerCell:cell];
          }
              break;
- /*
+ 
         case PavilionSection:
- {
- cell = [collectionView dequeueReusableCellWithReuseIdentifier:PavilionCellIdentifier forIndexPath:indexPath];
- [self configCategoryCell:cell indexPath:indexPath];
- }
- case HotProductSection:
- {
- cell = [collectionView dequeueReusableCellWithReuseIdentifier:HotProductIdentifier forIndexPath:indexPath];
- [self configPavilionCell:cell indexPath:indexPath];
- }
- break;
- case BandSection:
- {
- cell = [collectionView dequeueReusableCellWithReuseIdentifier:BandCellIdentifier forIndexPath:indexPath];
- [self configBandCell:cell indexPath:indexPath];
- }
- break;
- case LatestBuySection:
- {
- cell = [collectionView dequeueReusableCellWithReuseIdentifier:LatestBuyIdentifier forIndexPath:indexPath];
- [self configHotPlateCell:cell indexPath:indexPath];
- }
- break;
+         {
+             cell = [collectionView dequeueReusableCellWithReuseIdentifier:PavilionCellIdentifier forIndexPath:indexPath];
+             [self configPavilionCell:cell indexPath:indexPath];
+         }
+          /*
+         case HotProductSection:
+         {
+             cell = [collectionView dequeueReusableCellWithReuseIdentifier:HotProductIdentifier forIndexPath:indexPath];
+             [self configPavilionCell:cell indexPath:indexPath];
+         }
+             break;
+         case BandSection:
+         {
+             cell = [collectionView dequeueReusableCellWithReuseIdentifier:BandCellIdentifier forIndexPath:indexPath];
+             [self configBandCell:cell indexPath:indexPath];
+         }
+             break;
+        case LatestBuySection:
+         {
+             cell = [collectionView dequeueReusableCellWithReuseIdentifier:LatestBuyIdentifier forIndexPath:indexPath];
+             [self configHotPlateCell:cell indexPath:indexPath];
+         }
+             break;
  */
          default:
              break;
@@ -244,7 +268,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
             }
                 break;
- /*
+            /*
             case PavilionSection:
             {
                 if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
@@ -255,8 +279,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                     reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
                     reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
                 }
-            }
+            }*/
                 break;
+                /*
             case HotProductSection:
             {
                 if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
