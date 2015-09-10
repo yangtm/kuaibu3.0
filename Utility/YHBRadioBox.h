@@ -16,9 +16,11 @@
     UILabel *_titleLabel;
     id _target;
     SEL _action;
+
 }
 
 @property (assign, nonatomic) BOOL isOn;
+@property (assign, nonatomic) NSInteger checked;
 
 - (instancetype)initWithFrame:(CGRect)frame checkedImage:(UIImage *)checkedImage uncheckedImage:(UIImage *)uncheckedImage title:(NSString *)title;
 
