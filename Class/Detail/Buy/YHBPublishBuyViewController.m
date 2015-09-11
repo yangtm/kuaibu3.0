@@ -628,8 +628,7 @@ const NSInteger BottomLineTag = 59;
     [dic setObject:@(_billType) forKey:@"billingType"];
     [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
     [dic setObject:_addressTextField.text forKey:@"district"];
-//    [dic setObject:_model forKey:@"procurement"];
-     NSLog(@"_model:%ld-----%@/%@/%@/%@%ld/%ld/%@/%ld/%@",(long)_model.PhonePublic,_model.takeDeliveryLastDate,_model.productName,_model.amount,_model.offerLastDate,_model.isSampleCut,_model.billingType,_model.phone,_model.PhonePublic,_model.contactor);
+    [dic setObject:_contactPhoneTextField.text forKey:@"phone"];
     return dic;
     
 }
