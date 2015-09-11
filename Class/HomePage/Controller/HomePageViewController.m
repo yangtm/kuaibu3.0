@@ -12,14 +12,15 @@
 #import "PageIndex.h"
 #import "MenuModel.h"
 #import "BannerModel.h"
-#import "HomePageBannerCell.h"
 #import "AFNetworking.h"
 #import "DicModel.h"
 #import "LoginViewController.h"
 #import "SlideSwitchView.h"
 #import "HomeMainPageViewController.h"
+#import "BannerDetailViewController.h"
+#import "HomePageBannerCell.h"
 
-@interface HomePageViewController ()<SlideSwitchViewDelegate>
+@interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate>
 
 @property (assign, nonatomic) CGFloat alphaOfNavigationBar;
 @property (strong, nonatomic) UIButton *navBarCameraButton;
@@ -29,9 +30,8 @@
 @property (strong, nonatomic) UIButton *navBarCancelButton;
 @property (strong, nonatomic) UIView *badgeView;
 @property (strong, nonatomic) HomePageSearchViewController *homePageSearchViewController;
-@property (strong, nonatomic) SlideSwitchView *slideSwitchView;
 @property (strong, nonatomic) HomeMainPageViewController *homeMainPageViewController;
-@property (strong, nonatomic) UINavigationController *homeNavigationViewControl;
+@property (strong, nonatomic) SlideSwitchView *slideSwitchView;
 @property (strong, nonatomic) UIViewController *vc2;
 @property (strong, nonatomic) UIViewController *vc3;
 @property (strong, nonatomic) UIViewController *vc4;
@@ -50,10 +50,10 @@
     self.slideSwitchView.tabItemSelectedColor = [SlideSwitchView colorFromHexRGB:@"bb0b15"];
     self.slideSwitchView.shadowImage = [[UIImage imageNamed:@"red_line_and_shadow.png"]
                                         stretchableImageWithLeftCapWidth:59.0f topCapHeight:0.0f];
+    
     _homeMainPageViewController =[[HomeMainPageViewController alloc]init];
     _homeMainPageViewController.title = @"商品推荐";
-    _homeNavigationViewControl=[[UINavigationController alloc]initWithRootViewController:_homeMainPageViewController];
-    _homeNavigationViewControl.navigationBar.hidden = YES;
+    _homeMainPageViewController.homeMainPageViewDelegate = self;
     
     _vc2 =[[UIViewController alloc]init];
     _vc3 =[[UIViewController alloc]init];
@@ -73,11 +73,22 @@
     [rightSideButton setImage:[UIImage imageNamed:@"icon_rightarrow.png"]  forState:UIControlStateHighlighted];
     rightSideButton.frame = CGRectMake(0, 0, 20.0f, 44.0f);
     rightSideButton.userInteractionEnabled = NO;
-    self.slideSwitchView.rigthSideButton = rightSideButton;
     
+    self.slideSwitchView.rigthSideButton = rightSideButton;
     [self.slideSwitchView buildUI];
     [self.view addSubview:self.slideSwitchView];
+   
 }
+
+#pragma mark -HomeMainPageViewControllerDelegate
+-(void)advertUrl:(NSString *)advertUrl  advertTitle:(NSString *)advertTitle
+{
+     self.navigationController.navigationBar.alpha = 1.f;
+    BannerDetailViewController *vc = [[BannerDetailViewController alloc] initWithUrl:advertUrl  title:advertTitle];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (NSUInteger)numberOfTab:(SlideSwitchView *)view
 {
     // you can set the best you can do it ;
@@ -87,7 +98,7 @@
 - (UIViewController *)slideSwitchView:(SlideSwitchView *)view viewOfTab:(NSUInteger)number
 {
     if (number == 0) {
-        return self.homeNavigationViewControl;
+        return self.homeMainPageViewController;
     } else if (number == 1) {
         return self.vc2;
     } else if (number == 2) {
@@ -105,7 +116,7 @@
 {
     UIViewController *vc = nil;
     if (number == 0) {
-        vc = self.homeNavigationViewControl;
+        vc = self.homeMainPageViewController;
     } else if (number == 1) {
         vc = self.vc2;
     } else if (number == 2) {
@@ -126,6 +137,7 @@
     }
     return _slideSwitchView;
 }
+
 
 #pragma mark -创建导航栏
 - (void)setupNormalNavBar

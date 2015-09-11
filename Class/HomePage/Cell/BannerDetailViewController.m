@@ -11,7 +11,6 @@
 @interface BannerDetailViewController ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (strong, nonatomic) NSString *url;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-
 @end
 
 @implementation BannerDetailViewController
@@ -33,11 +32,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [super.navigationController setToolbarHidden:YES animated:TRUE];
+    super.navigationController.hidesBottomBarWhenPushed = YES;
+    //self.view=[[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    self.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:_url]];
     [request setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
+    self.webView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
     [self.webView loadRequest:request];
     self.webView.delegate = self;
-    
+     
     self.webView.scrollView.delegate = self;
     self.webView.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.webView.scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
@@ -48,7 +52,7 @@
     [btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn1 addTarget:self action: @selector(backAction) forControlEvents: UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn1];
-    self.navigationItem.leftBarButtonItem = item;
+    //self.navigationItem.leftBarButtonItem = item;
     
     
     [FGGProgressHUD showLoadingOnView:self.view];

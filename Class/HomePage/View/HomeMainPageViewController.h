@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
-@interface HomeMainPageViewController : BaseViewController
+@protocol HomeMainPageViewControllerDelegate <NSObject>
+-(void)advertUrl:(NSString *)advertUrl  advertTitle:(NSString *)advertTitle;
+@end
 
+@interface HomeMainPageViewController : BaseViewController
+@property(strong,nonatomic) id<HomeMainPageViewControllerDelegate>homeMainPageViewDelegate;
 @end

@@ -11,10 +11,10 @@
 @interface PageIndex : NSObject
 
 @property (strong, nonatomic) NSArray *banners;
-@property (strong, nonatomic) NSArray *menus;
 @property (strong, nonatomic) NSArray *pavilions;
+@property (strong, nonatomic) NSArray *hotProduct;
 @property (strong, nonatomic) NSArray *bands;
-@property (strong, nonatomic) NSArray *hotPlates;
+@property (strong, nonatomic) NSArray *latestBuy;
 
 - (instancetype)initWithDic:(NSDictionary *)dic;
 
