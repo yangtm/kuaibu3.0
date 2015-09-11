@@ -28,6 +28,7 @@
 #import "YHBAreaModel.h"
 #import "YHBCity.h"
 #import "MyButton.h"
+#import "ProcurementListController.h"
 
 
 
@@ -106,6 +107,8 @@ const NSInteger BottomLineTag = 59;
 @property (nonatomic,strong) YHBRadioBox *cutYes;
 @property (nonatomic,strong) YHBRadioBox *cutNo;
 
+@property (nonatomic,strong) ProcurementModel *model;
+
 @end
 
 @implementation YHBPublishBuyViewController
@@ -133,7 +136,7 @@ const NSInteger BottomLineTag = 59;
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(dismissSelf)];
     
     isClean = NO;
-    self.title = @"发布采购";
+    [self settitleLabel:@"发布采购"];
     self.view.backgroundColor = RGBCOLOR(241, 241, 241);
 
     [self.view addSubview:self.scrollView];
@@ -530,7 +533,7 @@ const NSInteger BottomLineTag = 59;
 //        return;
 //    }
 //    [SVProgressHUD showWithStatus:@"图片正在上传中，请稍等..." cover:YES offsetY:kMainScreenHeight / 2.0];
-
+    [self saveBackup];
     
     NSString *procurementUrl = nil;
     kYHBRequestUrl(@"procurement/createProcurement", procurementUrl);
@@ -573,6 +576,10 @@ const NSInteger BottomLineTag = 59;
 //    else{
 //        [self updatePhoto];
 //    }
+    ProcurementListController *vc = [[ProcurementListController alloc] init];
+    [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
 }
 /**
  *  警告视图
@@ -602,21 +609,24 @@ const NSInteger BottomLineTag = 59;
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     
-    [dic setObject:_productNameTextField.text forKey:@"productName"];
-    [dic setObject:_quantityTextField.text forKey:@"amount"];
-    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"amountUnit"];
-    [dic setObject:_asofdateTextField.text forKey:@"takeDeliveryLastDate"];
-    [dic setObject:_periodTextField.text forKey:@"offerLastDate"];
-    [dic setObject:_contactNameTextField.text forKey:@"contactor"];
-    [dic setObject:_productNameTextField.text forKey:@"catId"];
-    [dic setObject:@(_publicPhoneRadiBox.isOn) forKey:@"PhonePublic"];
-    [dic setObject:_productNameTextField.text forKey:@"recording"];
-    [dic setObject:_recordEditView.text forKey:@"details"];
-    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
-    [dic setObject:@(_billType) forKey:@"billingType"];
-    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
-    
+//    [dic setObject:_productNameTextField.text forKey:@"productName"];
+//    [dic setObject:_quantityTextField.text forKey:@"amount"];
+//    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"amountUnit"];
+//    [dic setObject:_asofdateTextField.text forKey:@"takeDeliveryLastDate"];
+//    [dic setObject:_periodTextField.text forKey:@"offerLastDate"];
+//    [dic setObject:_contactNameTextField.text forKey:@"contactor"];
+//    [dic setObject:_productNameTextField.text forKey:@"catId"];
+//    [dic setObject:@(_publicPhoneRadiBox.isOn) forKey:@"PhonePublic"];
+//    [dic setObject:_productNameTextField.text forKey:@"recording"];
+//    [dic setObject:_recordEditView.text forKey:@"details"];
+//    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
+//    [dic setObject:@(_billType) forKey:@"billingType"];
+//    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrls"];
+    [dic setObject:_addressTextField.text forKey:@"district"];
+    [dic setObject:_model forKey:@"procurement"];
+     NSLog(@"_model:%ld-----%@/%@/%@/%@%ld/%ld/%@/%ld/%@",(long)_model.PhonePublic,_model.takeDeliveryLastDate,_model.productName,_model.amount,_model.offerLastDate,_model.isSampleCut,_model.billingType,_model.phone,_model.PhonePublic,_model.contactor);
     return dic;
+    
 }
 
 //保存当前数据
@@ -640,7 +650,9 @@ const NSInteger BottomLineTag = 59;
     backup.contactor = _contactNameTextField.text;
     backup.phone = _contactPhoneTextField.text;
     backup.PhonePublic = _publicPhoneRadiBox.isOn;
-    
+   
+    _model = [[ProcurementModel alloc] init];
+    _model = backup;
 }
 
 - (void)updatePhoto

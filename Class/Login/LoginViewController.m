@@ -66,7 +66,7 @@ enum TextField_Type
     
     [self.view addSubview:self.loginView];
     
-    [self setRightButton:[UIImage imageNamed:@"1"] title:nil target:self action:@selector(showRegister)];
+    [self setRightButton:[UIImage imageNamed:nil] title:@"注册" target:self action:@selector(showRegister)];
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tap

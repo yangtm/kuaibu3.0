@@ -64,7 +64,7 @@
     UIView *view = [[UIView alloc]initWithFrame:viewFrame];
     if(aImg)
     {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 11, 13, 22)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 9, 30, 30)];
         [imageView setContentMode:UIViewContentModeScaleToFill];
         imageView.image = aImg;
         [view addSubview:imageView];
@@ -103,7 +103,7 @@
 {
     CGRect buttonFrame = CGRectMake(5, 0, 59.0f, 44.0f);
     UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [button addTarget:aTarget action:aSelector forControlEvents:UIControlEventTouchUpInside];
     
     
