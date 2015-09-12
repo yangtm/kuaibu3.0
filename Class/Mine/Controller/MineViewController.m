@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     [self settitleLabel:@"用户中心"];
-    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.translucent = NO;
 //    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
 //    self.navigationItem.leftBarButtonItem = item;
     
@@ -31,7 +31,7 @@
     self.view.backgroundColor = kViewBackgroundColor;
     self.mineHeadView = [[MineHeadView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 180) type:MineHeadViewTypeBuyer];
     self.mineHeadView.nameLabel.text = _userName;
-    self.functionsView = [[FunctionsView alloc] initWithFrame:CGRectMake(0, self.mineHeadView.bottom, kMainScreenWidth, kMainScreenHeight-self.mineHeadView.height)];
+    self.functionsView = [[FunctionsView alloc] initWithFrame:CGRectMake(0, self.mineHeadView.bottom, kMainScreenWidth, kMainScreenHeight-self.mineHeadView.height-49)];
     //    self.mineHeadView.frame = CGRectMake(0, 0, kMainScreenWidth, 220);
     [self.view addSubview:self.mineHeadView];
     [self.view addSubview:self.functionsView];

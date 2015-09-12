@@ -83,14 +83,14 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     [NetworkService postWithURL:adverturl paramters:dic success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-           // NSLog(@"result=%@",result);
+//            NSLog(@"result=%@",result);
             if([result isKindOfClass:[NSDictionary class]])
             {
                 NSDictionary *allresult=result;
                 NSDictionary *dictionary = allresult[@"RESULT"];
                 NSArray *adverts = dictionary[@"adverts"];
                 NSArray *pavilions = dictionary[@"stores"];
-                NSLog(@"store=%@",pavilions);
+//                NSLog(@"store=%@",pavilions);
                 NSArray *hotProduct = dictionary[@"products"];
                 NSArray *bands = dictionary[@"industry"];
                 NSArray *latestBuy = dictionary[@"procurement"];

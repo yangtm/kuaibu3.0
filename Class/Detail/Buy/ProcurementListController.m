@@ -8,15 +8,17 @@
 
 #import "ProcurementListController.h"
 #import "SVProgressHUD.h"
-#import "ProcurementListCell.h"
+#import "ListCell.h"
 #import "BuyDetailViewController.h"
+#import "ProcurementModel.h"
 
 @interface ProcurementListController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    UITableView *_tableView;
-    NSMutableArray *_dataArray;
+    NSInteger _page;
+    BOOL _isLoading;
 }
-
+@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) NSMutableArray *dataArray;
 @end
 
 @implementation ProcurementListController
@@ -25,8 +27,10 @@
     [super viewDidLoad];
     [self settitleLabel:@"我的采购"];
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(dismissSelf)];
+    _page = 1;
+
+    self.dataArray  = [[NSMutableArray alloc] init];
     
-    [self prepareData];
     [self showData];
     [self createTableView];
     
@@ -57,52 +61,106 @@
 
 
 #pragma mark - 初始化数据
-- (void)prepareData
-{
-    if (_dataArray == nil) {
-        _dataArray = [NSMutableArray array];
-    }
-}
-
+//- (NSMutableArray *)dataArray
+//{
+//    if (_dataArray == nil) {
+//        _dataArray = [[NSMutableArray alloc] init];
+//    }
+//    return _dataArray;
+//}
 #pragma mark - 请求数据
 - (void)showData
 {
+//    _isLoading = YES;
+    NSString *url = nil;
+    kYHBRequestUrl(@"procurement/memberPurchaseList", url);
+    NSLog(@"%@",url);
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_page),@"pageIndex", nil];
     
+    __weak ProcurementListController *weakSelf = self;
+    [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+        id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+        
+        if ([result isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = result;
+            NSLog(@"result:%@",dic);
+            NSArray *array = dic[@"RESULT"];
+            for (NSDictionary *subDic in array) {
+                ProcurementModel *model = [[ProcurementModel alloc] init];
+                model.amount = [subDic[@"amount"] doubleValue];
+                model.offerLastDate = subDic[@"offerLastDate"];
+                model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
+                [_dataArray addObject:model];
+            }
+            [weakSelf.tableView reloadData];
+        }
+//        _isLoading = NO;
+    } failure:^(NSError *error) {
+//        _isLoading = NO;
+        NSLog(@"%@",error);
+    }];
 }
 
 #pragma mark -UI
 - (void)createTableView
 {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64) style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
-    _tableView.tableFooterView = [[UIView alloc] init];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight-64) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+//    _tableView.tableFooterView = [[UIView alloc] init];
 }
 
 #pragma mark - UITableViewDelegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return 1;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellid = @"ProcurementListCellid";
-    ProcurementListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
-    if (!cell) {
-        cell = [[NSBundle mainBundle] loadNibNamed:@"ProcurementListCell" owner:nil options:nil][0];
+    static NSString *cellid = @"cellid";
+    ListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+    if (cell == nil) {
+        cell = [[ListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-//    ProcurementModel *model = _dataArray[indexPath.row];
-//    [cell configModel:model];
+    [self configCell:cell withIndexPath:indexPath];
     return cell;
 }
+
+- (void)configCell:(ListCell *)cell withIndexPath:(NSIndexPath *)indexPath
+{
+    ProcurementModel *model = self.dataArray[indexPath.row];
+    cell.numberStr = model.amount;
+    cell.indexStr = [NSString stringWithFormat:@"报价次数 : %@",@"1"];
+    cell.typeStr = @"寻找中";
+    cell.dataStr = [NSString stringWithFormat:@"发布时间 : %@",[self timeFormatted:[model.offerLastDate doubleValue]/1000]];
+    NSLog(@"offerLastDate:%@",model.offerLastDate);
+    NSLog(@"%@",[self timeFormatted:[model.offerLastDate doubleValue]/1000]);
+    cell.cycleStr = [NSString stringWithFormat:@"报价截止时间 : %@",[self timeFormatted:[model.takeDeliveryLastDate doubleValue]/1000]];
+    NSLog(@"*************offerLastDate:%@",model.takeDeliveryLastDate);
+    NSLog(@"*************takeDeliveryLastDate:%@",[self timeFormatted:[model.takeDeliveryLastDate doubleValue]/1000]);
+}
+//时间戳转换为时间
+- (NSString *)timeFormatted:(int)totalSeconds
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate  *date = [NSDate dateWithTimeIntervalSince1970:totalSeconds];
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: date];
+    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+    NSString *strDate = [dateFormatter stringFromDate:localeDate];
+
+    return strDate;
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

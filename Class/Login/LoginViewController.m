@@ -138,6 +138,9 @@ enum TextField_Type
                         MineViewController *vc = [[MineViewController alloc] init];
                         vc.userName = _phoneNumberTextField.text;
 //                        self.tabBarController.tabBar.hidden = YES;
+//                        [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+//                            
+//                        }];
                         [self.navigationController pushViewController:vc animated:YES];
                     }
                     else if ([status integerValue] != 0)
