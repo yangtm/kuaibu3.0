@@ -48,9 +48,11 @@
         _isOn = isOn;
         if (_isOn) {
             _imageView.image = _checkedImage;
+            _checked = 1;
         }
         else{
             _imageView.image = _uncheckedImage;
+            _checked = 0;
         }
     }
 }
