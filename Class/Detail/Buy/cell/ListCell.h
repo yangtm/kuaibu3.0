@@ -17,6 +17,7 @@
 @property (nonatomic,strong) UILabel *typeLabel;
 @property (nonatomic,strong) UILabel *indexLabel;
 @property (nonatomic,strong) UIButton *clickBtn;
+@property (nonatomic,strong) UILabel *offLabel;
 
 @property (nonatomic,strong) NSString *cycleStr;
 @property (assign,nonatomic) double numberStr;

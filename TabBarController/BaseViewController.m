@@ -25,10 +25,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    if (self != [self.navigationController.viewControllers objectAtIndex:0])
-    {
-        [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(back)];
-    }
+//    if (self != [self.navigationController.viewControllers objectAtIndex:0])
+//    {
+//        [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(back)];
+//    }
 }
 
 - (void)didReceiveMemoryWarning

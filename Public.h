@@ -52,13 +52,14 @@ outUrl = [NSString stringWithFormat:@"%@%@",kZXYFileUrl,path];\
 #define NSLog(...)
 #endif
 
+#define kBackgroundColor RGBCOLOR(248,76,75)
 #define kNaviTitleColor RGBCOLOR(80,180,220) // 导航栏标题颜色
 #define kViewBackgroundColor RGBCOLOR(240,240,240) // 所有屏幕底色
 #define kTabbarBackgroundColor RGBCOLOR(249,249,249) //tabbar的背景色
 #define kIconNorColor RGBCOLOR(153,153,153) //所有icon未选中的颜色
 #define kIconSelectColor RGBCOLOR(254,65,2) //所有icon选中的颜色
 #define kLineColor RGBCOLOR(204,204,204) //所有线条的颜色
-
+//[UIColor colorWithRed:248/255.f green:76/255.f blue:75/255.f alpha:1];
 #define kClearColor [UIColor clearColor]
 
 #define kFont10 [UIFont systemFontOfSize:10]

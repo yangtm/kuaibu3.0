@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MainTabBarController : UITabBarController<UITabBarControllerDelegate,UITabBarDelegate,UIActionSheetDelegate>
-
+@property(strong,nonatomic) UITabBarController *controller;
 -(void) showTabBarController;
 
 -(void) hiddenTabBarController;
