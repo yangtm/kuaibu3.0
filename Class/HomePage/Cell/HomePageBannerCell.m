@@ -14,7 +14,7 @@
 - (void)awakeFromNib {
     // Initialization code
     self.contentView.backgroundColor = [UIColor whiteColor];
-    self.bannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 150 * kRatio)];
+    self.bannerView = [[BannerView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 120 * kRatio)];
     [self.contentView addSubview:_bannerView];
     
 }

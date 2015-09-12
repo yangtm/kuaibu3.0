@@ -11,7 +11,8 @@
 @implementation HomePagePavilionCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    self.pavilionImageView.layer.masksToBounds = YES;
+    self.pavilionImageView.layer.cornerRadius = 5;
 }
 
 @end

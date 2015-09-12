@@ -10,4 +10,9 @@
 
 @interface HomePageTitleHeadView : UICollectionReusableView
 
+@property (assign, nonatomic) NSInteger collectViewNum;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *titleButton;
+
+
 @end

@@ -12,7 +12,7 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_Pavilion_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="0NA-ci-a3b">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_page_0.png" translatesAutoresizingMaskIntoConstraints="NO" id="0NA-ci-a3b">
                         <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
                     </imageView>
                 </subviews>
@@ -32,6 +32,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="home_Pavilion_1.png" width="530" height="416"/>
+        <image name="home_page_0.png" width="236" height="216"/>
     </resources>
 </document>
