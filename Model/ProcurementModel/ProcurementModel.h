@@ -13,7 +13,7 @@
 @property (strong,nonatomic) NSString *memberId;//会员ID（发起采购信息的人
 @property (strong,nonatomic) NSString *procurementId;
 @property (strong,nonatomic) NSString *productName;//标题
-@property (strong,nonatomic) NSString *amount;//数量
+@property (assign,nonatomic) double amount;//数量
 @property (strong,nonatomic) NSString *amountUnit;//单位
 @property (strong,nonatomic) NSString *takeDeliveryLastDate;//收货
 @property (strong,nonatomic) NSString *offerLastDate; //报价

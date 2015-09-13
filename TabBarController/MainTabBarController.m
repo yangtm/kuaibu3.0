@@ -37,9 +37,9 @@
 {
     //视图控制器数组
     NSArray *vcArray = @[@"HomePageViewController",
-                         @"FriendsViewController",
+                         @"SearchViewController",
                          @"ThirdViewController",
-                         @"BuyDetailViewController",
+                         @"FriendsViewController",
                          @"LoginViewController"];
     //tabbar按钮图片
     NSArray * imageArray = @[@"55副本",
@@ -123,10 +123,10 @@
             break;
         case 3:
         {
-            //                HomePageViewController *vc = [[HomePageViewController alloc] init];
-            //                [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-            //                    self.tabBarController.tabBar.hidden = NO;
-            //                }];
+//            BuyDetailViewController *vc = [[BuyDetailViewController alloc] init];
+//            [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+//                
+//            }];
             
         }
             

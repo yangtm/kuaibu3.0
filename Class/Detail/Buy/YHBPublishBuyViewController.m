@@ -533,17 +533,17 @@ const NSInteger BottomLineTag = 59;
 //        return;
 //    }
 //    [SVProgressHUD showWithStatus:@"图片正在上传中，请稍等..." cover:YES offsetY:kMainScreenHeight / 2.0];
-    [self saveBackup];
+//    [self saveBackup];
     
     NSString *procurementUrl = nil;
     kYHBRequestUrl(@"procurement/createProcurement", procurementUrl);
     NSDictionary *dic = [self createDictionary];
     
     NSString *str = [self dictionaryToJson:dic];
-    NSLog(@"****%@",str);
+//    NSLog(@"****%@",str);
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:str,@"procurement", nil];
     
-    NSLog(@"%@",procurementUrl);
+//    NSLog(@"%@",procurementUrl);
     [FGGProgressHUD showLoadingOnView:self.view];
     __weak typeof(self) weakSelf=self;
     [NetworkService postWithURL:procurementUrl paramters:dict success:^(NSData *receiveData) {
@@ -574,17 +574,17 @@ const NSInteger BottomLineTag = 59;
         [self showAlertWithMessage:error.localizedDescription automaticDismiss:NO];
     }];
     
-    
+    ProcurementListController *vc = [[ProcurementListController alloc] init];
+    [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
 //    if ([self isAllWebImage]) {
 //        [self deleteDiscardPhoto];
 //    }
 //    else{
 //        [self updatePhoto];
 //    }
-    ProcurementListController *vc = [[ProcurementListController alloc] init];
-    [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-        
-    }];
+    
 }
 /**
  *  警告视图
@@ -622,7 +622,7 @@ const NSInteger BottomLineTag = 59;
     [dic setObject:_contactNameTextField.text forKey:@"contactor"];
     [dic setObject: @3 forKey:@"catId"];
     [dic setObject:@(_publicPhoneRadiBox.checked) forKey:@"PhonePublic"];
-    [dic setObject:_periodTextField.text forKey:@"recording"];
+    [dic setObject:_recordEditView.filePath forKey:@"recording"];
     [dic setObject:_recordEditView.text forKey:@"details"];
     [dic setObject:@(_isCut) forKey:@"isSampleCut"];
     [dic setObject:@(_billType) forKey:@"billingType"];
@@ -652,7 +652,7 @@ const NSInteger BottomLineTag = 59;
     backup.imageUrls = _pictureAdder.imageArray;
     backup.productName = _productNameTextField.text;
     //    backup.catId = categoryArray;
-    backup.amount = _quantityTextField.text;
+//    backup.amount = _quantityTextField.text;
     backup.offerLastDate = _periodTextField.text;
     backup.takeDeliveryLastDate = _asofdateTextField.text;
     backup.isSampleCut = _isCut;
@@ -969,7 +969,7 @@ const NSInteger BottomLineTag = 59;
         self.productNameTextField.text = _myModel.productName;
         self.categoryTextField.text = _myModel.catId;
         catidString = _myModel.memberId;
-        self.quantityTextField.text = _myModel.amount;
+//        self.quantityTextField.text = _myModel.amount;
         self.periodTextField.text = _myModel.offerLastDate;
         self.asofdateTextField.text = _myModel.takeDeliveryLastDate;
         _isCut = _myModel.isSampleCut;

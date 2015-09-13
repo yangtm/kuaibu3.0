@@ -92,6 +92,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 NSDictionary *dictionary = allresult[@"RESULT"];
                 NSArray *adverts = dictionary[@"adverts"];
                 NSArray *pavilions = dictionary[@"stores"];
+//                NSLog(@"store=%@",pavilions);
                 NSArray *hotProduct = dictionary[@"products"];
                 NSArray *bands = dictionary[@"industry"];
                 NSArray *latestBuy = dictionary[@"procurement"];

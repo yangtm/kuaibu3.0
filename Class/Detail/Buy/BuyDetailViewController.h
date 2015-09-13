@@ -8,6 +8,15 @@
 
 #import "BaseViewController.h"
 
+@class BuyDetailViewController;
+@protocol BuyDetailViewDelegate <NSObject>
+
+- (void)buyDetailViewDidBeginPalySound:(BuyDetailViewController *)detailView;
+- (void)buyDetailViewDidSEndPalySound:(BuyDetailViewController *)detailView;
+
+@end
 @interface BuyDetailViewController : BaseViewController
+
+@property (nonatomic, assign) id<BuyDetailViewDelegate> delegate;
 
 @end
