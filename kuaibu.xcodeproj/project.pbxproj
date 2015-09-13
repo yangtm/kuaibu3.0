@@ -1152,6 +1152,7 @@
 		06706D311B85B2AA00F58ACC /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				7FD7759E1BA4F9D9004F6A55 /* PullToRefresh */,
 				1E8469D11B9D5CB500842A51 /* WoWPhotoBrowser */,
 				1E84699D1B9D441400842A51 /* arm */,
 				1E8469991B9D43EA00842A51 /* SZTextView */,
@@ -2324,6 +2325,13 @@
 				7FD55D5D1B9CA71300726E83 /* home_page_1.png */,
 			);
 			name = homepage;
+			sourceTree = "<group>";
+		};
+		7FD7759E1BA4F9D9004F6A55 /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PullToRefresh;
 			sourceTree = "<group>";
 		};
 		7FE5C9EA1B9F5473006FB3E5 /* pic */ = {
