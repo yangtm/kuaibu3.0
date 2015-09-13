@@ -254,6 +254,13 @@
 		7FD590071BA0CC330026E4EA /* message.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD590061BA0CC330026E4EA /* message.png */; };
 		7FD5900B1BA10F840026E4EA /* BannerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD590091BA10F840026E4EA /* BannerDetailViewController.m */; };
 		7FD5900C1BA10F840026E4EA /* BannerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD5900A1BA10F840026E4EA /* BannerDetailViewController.xib */; };
+		7FD7758F1BA4967D004F6A55 /* home_attention.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD7758D1BA4967D004F6A55 /* home_attention.png */; };
+		7FD775901BA4967D004F6A55 /* home_time.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD7758E1BA4967D004F6A55 /* home_time.png */; };
+		7FD775941BA4BD44004F6A55 /* HomePageBandCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD775921BA4BD44004F6A55 /* HomePageBandCell.m */; };
+		7FD775951BA4BD44004F6A55 /* HomePageBandCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD775931BA4BD44004F6A55 /* HomePageBandCell.xib */; };
+		7FD775981BA4C015004F6A55 /* BandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD775971BA4C015004F6A55 /* BandModel.m */; };
+		7FD7759B1BA4D0B8004F6A55 /* HomePageLatestBuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7759A1BA4D0B8004F6A55 /* HomePageLatestBuyCell.m */; };
+		7FD7759D1BA4F1A6004F6A55 /* home_label.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD7759C1BA4F1A6004F6A55 /* home_label.png */; };
 		7FD7B2B91B9FB17800A4F911 /* SlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7B2B81B9FB17800A4F911 /* SlideSwitchView.m */; };
 		7FD7B2BB1B9FB75300A4F911 /* red_line_and_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD7B2BA1B9FB75300A4F911 /* red_line_and_shadow@2x.png */; };
 		7FD7B2BE1B9FC55200A4F911 /* HomeMainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7B2BD1B9FC55200A4F911 /* HomeMainPageViewController.m */; };
@@ -800,6 +807,16 @@
 		7FD590081BA10F840026E4EA /* BannerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerDetailViewController.h; sourceTree = "<group>"; };
 		7FD590091BA10F840026E4EA /* BannerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerDetailViewController.m; sourceTree = "<group>"; };
 		7FD5900A1BA10F840026E4EA /* BannerDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BannerDetailViewController.xib; sourceTree = "<group>"; };
+		7FD7758D1BA4967D004F6A55 /* home_attention.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_attention.png; sourceTree = "<group>"; };
+		7FD7758E1BA4967D004F6A55 /* home_time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_time.png; sourceTree = "<group>"; };
+		7FD775911BA4BD44004F6A55 /* HomePageBandCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageBandCell.h; sourceTree = "<group>"; };
+		7FD775921BA4BD44004F6A55 /* HomePageBandCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageBandCell.m; sourceTree = "<group>"; };
+		7FD775931BA4BD44004F6A55 /* HomePageBandCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageBandCell.xib; sourceTree = "<group>"; };
+		7FD775961BA4C015004F6A55 /* BandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BandModel.h; sourceTree = "<group>"; };
+		7FD775971BA4C015004F6A55 /* BandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BandModel.m; sourceTree = "<group>"; };
+		7FD775991BA4D0B8004F6A55 /* HomePageLatestBuyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageLatestBuyCell.h; sourceTree = "<group>"; };
+		7FD7759A1BA4D0B8004F6A55 /* HomePageLatestBuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageLatestBuyCell.m; sourceTree = "<group>"; };
+		7FD7759C1BA4F1A6004F6A55 /* home_label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_label.png; sourceTree = "<group>"; };
 		7FD7B2B71B9FB17800A4F911 /* SlideSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideSwitchView.h; sourceTree = "<group>"; };
 		7FD7B2B81B9FB17800A4F911 /* SlideSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideSwitchView.m; sourceTree = "<group>"; };
 		7FD7B2BA1B9FB75300A4F911 /* red_line_and_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_line_and_shadow@2x.png"; sourceTree = "<group>"; };
@@ -2267,6 +2284,8 @@
 				7F31EE701B9E71DF008015D2 /* MenuModel.m */,
 				7FE02E1F1BA24578005E6C72 /* PavilionModel.h */,
 				7FE02E201BA24578005E6C72 /* PavilionModel.m */,
+				7FD775961BA4C015004F6A55 /* BandModel.h */,
+				7FD775971BA4C015004F6A55 /* BandModel.m */,
 			);
 			path = IndexModel;
 			sourceTree = "<group>";
@@ -2288,6 +2307,11 @@
 				7FE02E241BA26754005E6C72 /* HomePageTitleHeadView.xib */,
 				7FD8A3141BA3990C001DD580 /* HomePageHotProductCell.h */,
 				7FD8A3151BA3990C001DD580 /* HomePageHotProductCell.m */,
+				7FD775911BA4BD44004F6A55 /* HomePageBandCell.h */,
+				7FD775921BA4BD44004F6A55 /* HomePageBandCell.m */,
+				7FD775931BA4BD44004F6A55 /* HomePageBandCell.xib */,
+				7FD775991BA4D0B8004F6A55 /* HomePageLatestBuyCell.h */,
+				7FD7759A1BA4D0B8004F6A55 /* HomePageLatestBuyCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2305,6 +2329,9 @@
 		7FE5C9EA1B9F5473006FB3E5 /* pic */ = {
 			isa = PBXGroup;
 			children = (
+				7FD7759C1BA4F1A6004F6A55 /* home_label.png */,
+				7FD7758D1BA4967D004F6A55 /* home_attention.png */,
+				7FD7758E1BA4967D004F6A55 /* home_time.png */,
 				7FE02E1D1BA2397E005E6C72 /* home_Pavilion_1.png */,
 				7FD7B2BA1B9FB75300A4F911 /* red_line_and_shadow@2x.png */,
 				7FE5C9EB1B9F5473006FB3E5 /* icon_rightarrow.png */,
@@ -2428,10 +2455,13 @@
 				1E8469911B9D437000842A51 /* ReceiverVoiceNodePlaying@2x.png in Resources */,
 				1EDDDAE31BA046C7005DCA1C /* 快布切图_56 2.png in Resources */,
 				0678C49A1B8572DF0035660E /* LaunchScreen.xib in Resources */,
+				7FD775901BA4967D004F6A55 /* home_time.png in Resources */,
+				7FD775951BA4BD44004F6A55 /* HomePageBandCell.xib in Resources */,
 				1EDDDAD51BA046C7005DCA1C /* 快布3［方案二］_39.png in Resources */,
 				1EDDDADA1BA046C7005DCA1C /* 62副本.png in Resources */,
 				0678C4971B8572DF0035660E /* Images.xcassets in Resources */,
 				7FD7B2BB1B9FB75300A4F911 /* red_line_and_shadow@2x.png in Resources */,
+				7FD7758F1BA4967D004F6A55 /* home_attention.png in Resources */,
 				1EDDDADD1BA046C7005DCA1C /* 快布切图_09.png in Resources */,
 				1ED890861B95796F0020DFF3 /* 8.png in Resources */,
 				1ED67C351B9E86A8005EC831 /* check_off.png in Resources */,
@@ -2462,6 +2492,7 @@
 				1EDDDAD21BA046C7005DCA1C /* 快布3［方案二］_06.png in Resources */,
 				7FE5C9ED1B9F5473006FB3E5 /* icon_rightarrow.png in Resources */,
 				1EDDDAD61BA046C7005DCA1C /* 55.png in Resources */,
+				7FD7759D1BA4F1A6004F6A55 /* home_label.png in Resources */,
 				1ED890811B95796F0020DFF3 /* 3.png in Resources */,
 				1EDDDAD71BA046C7005DCA1C /* 55副本.png in Resources */,
 				1E84698C1B9D437000842A51 /* ReceiverVoiceNodePlaying001@3x.png in Resources */,
@@ -2488,6 +2519,7 @@
 				1E8469651B9D3F5E00842A51 /* SRSlimeView.m in Sources */,
 				1E8469601B9D3F5E00842A51 /* PSTGridLayoutSection.m in Sources */,
 				06706DA21B85B2AA00F58ACC /* UIImage+GIF.m in Sources */,
+				7FD775981BA4C015004F6A55 /* BandModel.m in Sources */,
 				06706DAB1B85B2AA00F58ACC /* UIViewAdditions.m in Sources */,
 				06706D861B85B2AA00F58ACC /* FriendsViewController.m in Sources */,
 				1E84695E1B9D3F5E00842A51 /* PSTGridLayoutItem.m in Sources */,
@@ -2571,6 +2603,7 @@
 				1E8469641B9D3F5E00842A51 /* SRRefreshView.m in Sources */,
 				1E84693C1B9D3F5E00842A51 /* MWGridCell.m in Sources */,
 				1ED890731B9579380020DFF3 /* MainTabBarController.m in Sources */,
+				7FD775941BA4BD44004F6A55 /* HomePageBandCell.m in Sources */,
 				1E84693A1B9D3F5E00842A51 /* MBProgressHUD.m in Sources */,
 				1ED890571B9573F90020DFF3 /* AFHTTPRequestOperation.m in Sources */,
 				1E84693B1B9D3F5E00842A51 /* MWCaptionView.m in Sources */,
@@ -2578,6 +2611,7 @@
 				1ED9228F1B8724700013AF29 /* OrderDetailModel.m in Sources */,
 				1ED922881B8722BB0013AF29 /* MemberModel.m in Sources */,
 				1ED762EB1B968C06001727EA /* MyUtil.m in Sources */,
+				7FD7759B1BA4D0B8004F6A55 /* HomePageLatestBuyCell.m in Sources */,
 				1ED896C21BA17C8A00BB9F1C /* BuyDetailViewController.m in Sources */,
 				1ED762E51B968165001727EA /* RegisterViewController.m in Sources */,
 				1E8469981B9D437000842A51 /* WoWAudioRecord.m in Sources */,

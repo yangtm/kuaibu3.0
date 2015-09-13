@@ -15,4 +15,7 @@
 @property (strong, nonatomic) UILabel *priceLabel;
 @property (strong, nonatomic) UILabel *attention;
 @property (strong, nonatomic) UILabel *time;
+@property (strong, nonatomic) UILabel *unitLabel;
+
+-(void)configWithPrice:(NSString *)price;
 @end

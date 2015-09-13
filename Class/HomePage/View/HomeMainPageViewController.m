@@ -21,6 +21,8 @@
 #import "HomePageTitleHeadView.h"
 #import "HomePageHotProductCell.h"
 #import "ProductModel.h"
+#import "HomePageBandCell.h"
+#import "HomePageLatestBuyCell.h"
 
 NSString *const BannerCellIdentifier = @"BannerCellIdentifier";
 NSString *const PavilionCellIdentifier = @"PavilionCellIdentifier";
@@ -51,7 +53,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     self.view.backgroundColor = [UIColor whiteColor];
     self.ratio = kMainScreenWidth / 320;
     self.pageIndex = [[PageIndex alloc]init];
-    self.collectionView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight - 64);
+    self.collectionView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight -150);
     [self registerCell];
     [self.view addSubview:self.collectionView];
     
@@ -81,12 +83,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     
     NSString *adverturl= nil;
     kYHBRequestUrl(@"index", adverturl);
-    //NSLog(@"%@",adverturl);
-    //kYHBRequestUrl(@"index", adverturl);
     [NetworkService postWithURL:adverturl paramters:dic success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-           // NSLog(@"result=%@",result);
             if([result isKindOfClass:[NSDictionary class]])
             {
                 NSDictionary *allresult=result;
@@ -94,9 +93,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 NSArray *adverts = dictionary[@"adverts"];
                 NSArray *pavilions = dictionary[@"stores"];
                 NSArray *hotProduct = dictionary[@"products"];
-                NSLog(@"store=%@",hotProduct);
                 NSArray *bands = dictionary[@"industry"];
                 NSArray *latestBuy = dictionary[@"procurement"];
+                //NSLog(@"latesrbuy=%@",pavilions);
                 self.pageIndex.banners = adverts;
                 self.pageIndex.pavilions = pavilions;
                 self.pageIndex.hotProduct = hotProduct;
@@ -117,7 +116,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     }
     NSMutableArray *mutableArary = [NSMutableArray array];
     for (NSDictionary *item in _pageIndex.banners) {
-        //NSLog(@"item=%@",item);
         AdvertModel *advert =[[AdvertModel alloc]init];
         advert.advertImage = item[@"advertImage"];
         advert.advertUrl = item[@"advertUrl"];
@@ -133,9 +131,11 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 
 - (void) configPavilionCell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath
 {
+    if (_pageIndex.pavilions == nil) {
+        return;
+    }
     HomePagePavilionCell *PavilionCell = (HomePagePavilionCell *)cell;
     NSDictionary *item = _pageIndex.pavilions[indexPath.row];
-    //NSLog(@"item=%@",item);
     PavilionModel *store = [[PavilionModel alloc]init];
     NSString *url= @"upload/Member";
     NSString *storelogo = [NSString stringWithFormat:@"%@%@",url,item[@"logo"]];
@@ -145,17 +145,53 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 
 - (void) configHotProductCell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath
 {
+    if (_pageIndex.hotProduct ==nil) {
+        return;
+    }
     HomePageHotProductCell *ProductCell = (HomePageHotProductCell *)cell;
     NSDictionary *item = _pageIndex.hotProduct[indexPath.row];
     ProductModel *product = [[ProductModel alloc]init];
     NSString *url= item[@"productImage"];
     kZXYRequestUrl(url, product.productImage);
     [ProductCell.pruductImageView sd_setImageWithURL:[NSURL URLWithString:product.productImage]];
+    [ProductCell configWithPrice:[NSString stringWithFormat:@"%@",item[@"price"]]];
     ProductCell.titleLabel.text = item[@"productName"];
-    ProductCell.priceLabel.text = [NSString stringWithFormat:@"%@",item[@"price"]];
-  
+    ProductCell.attention.text = @"123456";
+    //NSLog(@"time=%@",[NSString stringWithFormat:@"%@",item[@"createDatetime"]]);
+    ProductCell.time.text = @"11小时前";
+    
+}
+- (void) configBandCell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    if (_pageIndex.bands == nil) {
+        return;
+    }
+    HomePageBandCell *bandCell = (HomePageBandCell *)cell;
+    NSDictionary *item = _pageIndex.bands[indexPath.row];
+    NSString *url= @"upload/Member/";
+    NSString *bandlogo = [NSString stringWithFormat:@"%@%@",url,item[@"logo"]];
+    NSString *bandurl = nil;
+    kZXYRequestUrl(bandlogo, bandurl);
+    [bandCell.bandImageView sd_setImageWithURL:[NSURL URLWithString:bandurl]];
 }
 
+- (void) configLatestBuyCell:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    if (_pageIndex.latestBuy == nil) {
+        return;
+    }
+    HomePageLatestBuyCell *buyCell = (HomePageLatestBuyCell *)cell;
+    NSDictionary *item = _pageIndex.latestBuy[indexPath.row];
+   // NSString *url= @"upload/Member/";
+   // NSString *bandlogo = [NSString stringWithFormat:@"%@%@",url,item[@"logo"]];
+   // NSString *bandurl = nil;
+    //kZXYRequestUrl(bandlogo, bandurl);
+    //[bandCell.bandImageView sd_setImageWithURL:[NSURL URLWithString:bandurl]];
+    buyCell.pruductImageView.image = [UIImage imageNamed:@"home_Pavilion_1"];
+    buyCell.titleLabel.text = @"购买涤纶材质的布匹";
+    [buyCell configWithLength:[NSString stringWithFormat:@"%@",item[@"amount"]]];
+    
+}
 #pragma mark - YHBBannerDelegate
 - (void)touchBannerWithNum:(NSInteger)num
 {
@@ -172,14 +208,12 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 {
     [self registerCellWithNibName:@"HomePageBannerCell" identifier:BannerCellIdentifier];
     [self registerCellWithNibName:@"HomePagePavilionCell" identifier:PavilionCellIdentifier];
+    [self registerCellWithNibName:@"HomePageBandCell" identifier:BandCellIdentifier];
     [_collectionView registerClass:[HomePageHotProductCell class]forCellWithReuseIdentifier:HotProductIdentifier];
-    // [self registerCellWithNibName:@"HomePageBandCell" identifier:BandCellIdentifier];
-    // [self registerCellWithNibName:@"HomePageLatestBuyCell" identifier:LatestBuyIdentifier];
-    
+    [_collectionView registerClass:[HomePageLatestBuyCell class]forCellWithReuseIdentifier:LatestBuyIdentifier];
     [_collectionView registerNib:[UINib nibWithNibName:@"HomePageTitleHeadView" bundle:[NSBundle mainBundle]] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:TitleHeadViewIdentifier];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:BlankReuseViewIdentifier];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:BlankReuseViewIdentifier];
-    
 }
 
 - (void)registerCellWithNibName:(NSString *)nibName identifier:(NSString *)identifier
@@ -190,7 +224,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 3;
+    return 5;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -220,13 +254,11 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             num = 6;
         }
             break;
-            /*
         case LatestBuySection:
         {
             num = 3;
         }
             break;
-         */
         default:
             break;
     }
@@ -256,20 +288,18 @@ typedef NS_ENUM(NSInteger, SectionTag) {
              [self configHotProductCell:cell indexPath:indexPath];
          }
              break;
-             /*
          case BandSection:
          {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:HotProductIdentifier forIndexPath:indexPath];
-             [self configHotProductCell:cell indexPath:indexPath];
+             cell = [collectionView dequeueReusableCellWithReuseIdentifier:BandCellIdentifier forIndexPath:indexPath];
+             [self configBandCell:cell indexPath:indexPath];
          }
              break;
         case LatestBuySection:
          {
              cell = [collectionView dequeueReusableCellWithReuseIdentifier:LatestBuyIdentifier forIndexPath:indexPath];
-             [self configHotPlateCell:cell indexPath:indexPath];
+             [self configLatestBuyCell:cell indexPath:indexPath];
          }
              break;
- */
          default:
              break;
      }
@@ -313,12 +343,12 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 }
             }
                 break;
-                /*
             case BandSection:
             {
                 if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
                     reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
                     ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"产业带";
+                    ((HomePageTitleHeadView *)reusableView).collectViewNum = BandSection;
                 }
                 else{
                     reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
@@ -330,7 +360,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             {
                 if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
                     reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-                    ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"产业带";
+                    ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"最新采购";
                 }
                 else{
                     reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
@@ -338,7 +368,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 }
             }
                 break;
-*/
             default:
                 break;
         }
@@ -361,6 +390,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             break;
         case 3:
         {
+            NSLog(@"点击产业带");
             //TODO 产业带界面
             //            [self addMerchantView];
             /*
@@ -423,7 +453,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 break;
             case HotProductSection:
             {
-                CGFloat width = (kMainScreenWidth - 30) / 2.0;
+                CGFloat width = (kMainScreenWidth - 15) / 2.0;
                 size = CGSizeMake(width, width - 100);
             }
                 break;
@@ -435,8 +465,8 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 break;
             case LatestBuySection:
             {
-                CGFloat width = (kMainScreenWidth - 15) / 3.0;
-                size = CGSizeMake(width, width);
+                CGFloat width = (kMainScreenWidth - 20) / 3.0;
+                size = CGSizeMake(width, width+50);
             }
                 break;
             default:
@@ -456,22 +486,22 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             break;
         case PavilionSection:
         {
-            size = CGSizeMake(kMainScreenWidth, 35);
+            size = CGSizeMake(kMainScreenWidth, 30);
         }
             break;
         case HotProductSection:
         {
-            size = CGSizeMake(kMainScreenWidth, 35);
+            size = CGSizeMake(kMainScreenWidth, 30);
         }
             break;
         case BandSection:
         {
-            
+            size = CGSizeMake(kMainScreenWidth, 30);
         }
             break;
         case LatestBuySection:
         {
-            size = CGSizeMake(kMainScreenWidth, 28);
+            size = CGSizeMake(kMainScreenWidth, 30);
         }
             break;
         default:
@@ -537,7 +567,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             break;
         case 3:
         {
-            
+            space = 4.f;
         }
             break;
         case 4:
@@ -572,7 +602,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             break;
         case 3:
         {
-            
+            space = 0.f;
         }
             break;
         case 4:

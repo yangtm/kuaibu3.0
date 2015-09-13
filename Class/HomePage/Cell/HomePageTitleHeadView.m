@@ -22,10 +22,10 @@
             NSLog(@"热门列表");
             break;
         case 3:
-            NSLog(@"精品店铺列表");
+            NSLog(@"产业带列表");
             break;
         case 4:
-            NSLog(@"精品店铺列表");
+            NSLog(@"最新采购列表");
             break;
         default:
             break;
