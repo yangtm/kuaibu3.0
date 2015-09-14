@@ -41,15 +41,11 @@
 #pragma mark 返回
 - (void)dismissSelf
 {
-    [self dismissFlower];
+    self.tabBarController.selectedIndex = 4;
     [self dismissViewControllerAnimated:YES completion:^{
-        
+      
     }];
-}
-
-- (void)dismissFlower
-{
-    [SVProgressHUD dismiss];
+    
 }
 
 
@@ -109,7 +105,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-//    _tableView.tableFooterView = [[UIView alloc] init];
+    _tableView.tableFooterView = [[UIView alloc] init];
 }
 
 #pragma mark - UITableViewDelegate
@@ -171,7 +167,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

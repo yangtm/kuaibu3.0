@@ -171,6 +171,8 @@
 		1ED7FF261BA6645800CDFF92 /* MyheaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF251BA6645800CDFF92 /* MyheaderCell.m */; };
 		1ED7FF2B1BA66FAD00CDFF92 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1ED7FF281BA66FAD00CDFF92 /* ProgressHUD.bundle */; };
 		1ED7FF2C1BA66FAD00CDFF92 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF2A1BA66FAD00CDFF92 /* ProgressHUD.m */; };
+		1ED7FF351BA6CF7000CDFF92 /* OrderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF341BA6CF7000CDFF92 /* OrderUtil.m */; };
+		1ED7FF391BA6D29500CDFF92 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF381BA6D29500CDFF92 /* FXBlurView.m */; };
 		1ED88FEC1B9533770020DFF3 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */; };
 		1ED88FF01B95348B0020DFF3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FEF1B95348B0020DFF3 /* LoginViewController.m */; };
 		1ED88FF61B953DF70020DFF3 /* WoWTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FF51B953DF70020DFF3 /* WoWTabBarItem.m */; };
@@ -677,6 +679,10 @@
 		1ED7FF281BA66FAD00CDFF92 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		1ED7FF291BA66FAD00CDFF92 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		1ED7FF2A1BA66FAD00CDFF92 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
+		1ED7FF331BA6CF7000CDFF92 /* OrderUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderUtil.h; sourceTree = "<group>"; };
+		1ED7FF341BA6CF7000CDFF92 /* OrderUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderUtil.m; sourceTree = "<group>"; };
+		1ED7FF371BA6D29500CDFF92 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		1ED7FF381BA6D29500CDFF92 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		1ED88FEA1B9533770020DFF3 /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
 		1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
 		1ED88FEE1B95348B0020DFF3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -1165,6 +1171,7 @@
 		06706D311B85B2AA00F58ACC /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				1ED7FF361BA6D29500CDFF92 /* FXBlurView */,
 				1ED7FF271BA66FAD00CDFF92 /* ProgressHUD */,
 				7FD7759E1BA4F9D9004F6A55 /* PullToRefresh */,
 				1E8469D11B9D5CB500842A51 /* WoWPhotoBrowser */,
@@ -1326,6 +1333,8 @@
 				1E6BC99D1B9C366A00B726DA /* DicModel.m */,
 				7F31EE651B9E7091008015D2 /* BannerView.h */,
 				7F31EE661B9E7091008015D2 /* BannerView.m */,
+				1ED7FF331BA6CF7000CDFF92 /* OrderUtil.h */,
+				1ED7FF341BA6CF7000CDFF92 /* OrderUtil.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -2100,6 +2109,15 @@
 			path = ProgressHUD;
 			sourceTree = "<group>";
 		};
+		1ED7FF361BA6D29500CDFF92 /* FXBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				1ED7FF371BA6D29500CDFF92 /* FXBlurView.h */,
+				1ED7FF381BA6D29500CDFF92 /* FXBlurView.m */,
+			);
+			path = FXBlurView;
+			sourceTree = "<group>";
+		};
 		1ED88FED1B9534650020DFF3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -2603,6 +2621,7 @@
 				1ED8905B1B9573F90020DFF3 /* AFSecurityPolicy.m in Sources */,
 				1ED8906A1B95785E0020DFF3 /* HZCookie.m in Sources */,
 				1E8469DE1B9D5CB500842A51 /* WoWPhotoBrowserCell.m in Sources */,
+				1ED7FF351BA6CF7000CDFF92 /* OrderUtil.m in Sources */,
 				7FD8A3161BA3990C001DD580 /* HomePageHotProductCell.m in Sources */,
 				06706D881B85B2AA00F58ACC /* MineViewController.m in Sources */,
 				1ED890701B9578AE0020DFF3 /* NetworkService.m in Sources */,
@@ -2701,6 +2720,7 @@
 				1E8469491B9D3F5E00842A51 /* EMSDWebImageManager.m in Sources */,
 				1ED88FFC1B9552390020DFF3 /* HomePageSearchViewController.m in Sources */,
 				1E8468431B9D20B900842A51 /* AddressListViewController.m in Sources */,
+				1ED7FF391BA6D29500CDFF92 /* FXBlurView.m in Sources */,
 				1E8469541B9D3F5E00842A51 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				1E6BC99B1B9BDF5D00B726DA /* FindPswViewController.m in Sources */,
 				1E8469D01B9D5A4C00842A51 /* YHBRadioBox.m in Sources */,

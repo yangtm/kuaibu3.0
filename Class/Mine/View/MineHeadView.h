@@ -19,13 +19,11 @@ typedef NS_ENUM(NSInteger, MineHeadViewType) {
 @interface MineHeadView : UIView
 
 @property (assign, nonatomic) id<MineHeadViewDelegate> delegate;
-@property (strong, nonatomic) UIImageView *backgroudImageView;
-@property (strong, nonatomic) UIImageView *portraitImageView;
 @property (assign, nonatomic) BOOL isLogin;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) NSArray *numOfOrderArray;
 @property (assign, nonatomic) MineHeadViewType type;
-@property (strong, nonatomic) UIImageView *titleImageView;
+
 
 - (instancetype)initWithFrame:(CGRect)frame type:(MineHeadViewType)type;
 
@@ -34,7 +32,7 @@ typedef NS_ENUM(NSInteger, MineHeadViewType) {
 @protocol MineHeadViewDelegate <NSObject>
 
 @optional
-- (void) mineHeadViewPortraitDidTap:(MineHeadView *)headView;
+
 - (void) mineHeadViewButtonDidTap:(MineHeadView *)headView buttonNum:(NSInteger)num;
 
 @end

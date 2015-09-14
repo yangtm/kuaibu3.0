@@ -544,7 +544,7 @@ const NSInteger BottomLineTag = 59;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:str,@"procurement", nil];
     
 //    NSLog(@"%@",procurementUrl);
-    [FGGProgressHUD showLoadingOnView:self.view];
+//    [FGGProgressHUD showLoadingOnView:self.view];
     __weak typeof(self) weakSelf=self;
     [NetworkService postWithURL:procurementUrl paramters:dict success:^(NSData *receiveData) {
         if(receiveData.length>0)
@@ -564,7 +564,7 @@ const NSInteger BottomLineTag = 59;
                 }
                 else if ([status integerValue] != 0)
                 {
-                    [FGGProgressHUD hideLoadingFromView:weakSelf.view];
+//                    [FGGProgressHUD hideLoadingFromView:weakSelf.view];
                     [weakSelf showAlertWithMessage:msg automaticDismiss:NO];
                 }
             }

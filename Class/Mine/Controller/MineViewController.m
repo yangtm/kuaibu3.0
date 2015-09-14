@@ -16,16 +16,30 @@
 #import "MainTabBarController.h"
 #import "LoginViewController.h"
 #import "HZCookie.h"
+#import "MineHeadView.h"
+#import "ProcurementListController.h"
+#import "FXBlurView.h"
 
 
 #define WORLD (@"world")
 
-@interface MineViewController ()<UITableViewDataSource,UITableViewDelegate,MyheaderCellDelagate,UIActionSheetDelegate>
+typedef NS_ENUM(NSInteger, MineViewType) {
+    MineViewTypeSeller,
+    MineViewTypeBuyller
+};
 
-@property (nonatomic,strong) UITableView *tableView;
+@interface MineViewController ()<UITableViewDataSource,UITableViewDelegate,MyheaderCellDelagate,UIActionSheetDelegate,MineHeadViewDelegate>
+
+@property (nonatomic,strong) UITableView *buyerView;
+@property (nonatomic,strong) UITableView *sellerView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,strong) UIButton *messageBtn;
-
+@property (nonatomic,strong) MineHeadView *myView;
+@property (strong, nonatomic) FXBlurView *blurView;
+@property (assign, nonatomic) BOOL isBlur;
+@property (assign, nonatomic) TradingRole role;
+@property (assign, nonatomic) MineViewType type;
+@property (strong, nonatomic) MineHeadView *headView;
 @end
 
 
@@ -33,35 +47,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    self.blurView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
+//    [self.view addSubview:self.blurView];
+    self.blurView.hidden = YES;
+    
+    if (_type == MineViewTypeBuyller) {
+        _headView.numOfOrderArray = @[@"1", @"2", @"3", @"4"];
+    }
     [self settitleLabel:@"用户中心"];
-//    [self setRightButton:[UIImage imageNamed:@"message"] title:nil target:self action:@selector(messageButtonClick)];
-//    [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(save:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setLogin)];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.messageBtn];
     self.view.backgroundColor = kViewBackgroundColor;
     [self prepareData];
     [self createTabelView];
     
-
+    
 }
 
-- (UIButton *)navBarMessageButton
-{
-    if (_messageBtn == nil) {
-        _messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _messageBtn.frame = CGRectMake(0, 0, 20, 25);
-        [_messageBtn setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
-        _messageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [_messageBtn addTarget:self action:@selector(messageButtonClick) forControlEvents:UIControlEventTouchUpInside];
-//        UIView * badgeView = [[UIView alloc] initWithFrame:CGRectMake(13, 0, 10, 10)];
-//        badgeView.layer.cornerRadius = 5.0;
-//        badgeView.layer.masksToBounds = YES;
-//        badgeView.backgroundColor = [UIColor redColor];
-//        [_messageBtn addSubview:badgeView];
-    }
-    return _messageBtn;
-}
+//- (UIButton *)navBarMessageButton
+//{
+//    if (_messageBtn == nil) {
+//        _messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _messageBtn.frame = CGRectMake(0, 0, 20, 25);
+//        [_messageBtn setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+//        _messageBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//        [_messageBtn addTarget:self action:@selector(messageButtonClick) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _messageBtn;
+//}
 
 
 
@@ -69,16 +83,15 @@
 - (void)setLogin
 {
     SettingViewController *vc = [[SettingViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
         
     }];
 }
 
-- (void)messageButtonClick
-{
-    self.tabBarController.selectedIndex = 3;
-}
+//- (void)messageButtonClick
+//{
+//    self.tabBarController.selectedIndex = 3;
+//}
 
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -127,13 +140,15 @@
 - (void)createTabelView
 {
 //    self.automaticallyAdjustsScrollViewInsets = NO;
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenWidth)];
+//    [self.view addSubview:view];
+    self.buyerView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight) style:UITableViewStylePlain];
+    self.buyerView.delegate = self;
+    self.buyerView.dataSource = self;
+    self.buyerView.backgroundColor = kViewBackgroundColor;
+    self.buyerView.tableFooterView = [[UIView alloc] init];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight-64-49) style:UITableViewStylePlain];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.backgroundColor = kViewBackgroundColor;
-    self.tableView.tableFooterView = [[UIView alloc] init];
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.buyerView];
 }
 
 
@@ -171,18 +186,20 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone; 
         return cell;
     }else if (indexPath.section == 1){
-        
-        static NSString *cellid = @"cellid";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+        static NSString *orderCellid = @"orderCellid";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:orderCellid];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellid];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:orderCellid];
         }
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"全部订单";
-//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//            cell.userInteractionEnabled = YES;
-        }else if (indexPath.row == 1){
             
+            cell.textLabel.text = @"全部订单";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }else if (indexPath.row == 1){
+            _myView = [[MineHeadView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60) type:MineHeadViewTypeBuyer];
+            _myView.delegate = self;
+//            _myView.backgroundColor = [UIColor redColor];
+            [cell addSubview:_myView];
         }
         return cell;
         
@@ -215,11 +232,63 @@
     return nil;
 }
 
+#pragma mark - private methods
+
+- (FXBlurView *)blurView
+{
+    if (_blurView == nil) {
+        _blurView = [[FXBlurView alloc] initWithFrame:CGRectZero];
+        _blurView.dynamic = NO;
+        _blurView.blurEnabled = YES;
+        _blurView.blurRadius = 10.0;
+        _blurView.tintColor = [UIColor clearColor];
+    }
+    return _blurView;
+}
+- (void)setIsBlur:(BOOL)isBlur
+{
+    _isBlur = isBlur;
+    [self.view bringSubviewToFront:self.blurView];
+    self.blurView.hidden = !_isBlur;
+    [self.blurView setNeedsDisplay];
+}
+
+
+- (void)transitionShowView
+{
+    UITableView *frontView = (_role == Buyer ? _buyerView : _sellerView);
+    UITableView *backView = (_role == Buyer ? _sellerView : _buyerView);
+    
+    backView.layer.transform = CATransform3DScale(backView.layer.transform, 2.0, 2.0, 1);
+    self.isBlur = YES;
+    [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        
+        backView.layer.transform = CATransform3DIdentity;
+        frontView.layer.transform = CATransform3DTranslate(frontView.layer.transform, 0, kMainScreenHeight, 0);
+        
+    } completion:^(BOOL finished) {
+        
+        frontView.layer.transform = CATransform3DIdentity;
+        self.isBlur = NO;
+        [self.view bringSubviewToFront:backView];
+        
+        if (_role == Buyer) {
+            _role = Seller;
+        }
+        else{
+            _role = Buyer;
+        }
+        
+    }];
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
         return 0;
+    }else if (section == 1){
+        return 5;
     }
     return 10;
 }
@@ -231,7 +300,7 @@
         number = 100;
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            number = 44;
+            number = 40;
         }else if (indexPath.row == 1){
             number = 60;
         }
@@ -246,6 +315,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            ProcurementListController *vc = [[ProcurementListController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+                
+            }];
+
+        }
+    }else if (indexPath.section == 3){
+//        [self transitionShowView];
+    }
 }
 
 
@@ -257,7 +337,7 @@
 
 -(void)clickPortraitImageView:(MyheaderCell *)cell
 {
-    
+    NSLog(@"上传头像");
 }
 
 -(void)clickSettingBtn:(MyheaderCell *)cell
@@ -267,6 +347,51 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+
+#pragma mark - MineHeadViewDelegate
+- (void)mineHeadViewButtonDidTap:(MineHeadView *)headView buttonNum:(NSInteger)num
+{
+    OrderType type;
+    if (_role == Seller) {
+        switch (num) {
+            case 0:
+                type = OrderTypeWatiPay;
+                break;
+            case 1:
+                type = OrderTypePaied;
+                break;
+            case 2:
+                type = OrderTypeDelivered;
+                break;
+            case 3:
+                type = OrderTypeRefunding;
+                break;
+                
+            default:
+                break;
+        }
+    }
+    else{
+        switch (num) {
+            case 0:
+                type = OrderTypeWatiPay;
+                break;
+            case 1:
+                type = OrderTypePaied;
+                break;
+            case 2:
+                type = OrderTypeDelivered;
+                break;
+            case 3:
+                type = OrderTypeRefunding;
+                break;
+                
+            default:
+                break;
+        }
+    }
+    NSLog(@"%ld",type);
+}
 
 
 
