@@ -10,7 +10,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "NSString+MD5.h"
 #import "SettingViewController.h"
-#import "HeaderSectionCell.h"
+#import "MyheaderCell.h"
 #import "FriendsViewController.h"
 #import "AppDelegate.h"
 #import "MainTabBarController.h"
@@ -18,7 +18,7 @@
 
 #define WORLD (@"world")
 
-@interface MineViewController ()<UITableViewDataSource,UITableViewDelegate,HeaderSectionCellDelagate>
+@interface MineViewController ()<UITableViewDataSource,UITableViewDelegate,MyheaderCellDelagate>
 
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
@@ -95,13 +95,12 @@
 {
     if (indexPath.section == 0) {
 //        cell.backgroundColor = kBackgroundColor;
-        static NSString *cellid = @"HeaderSectionCell";
-        HeaderSectionCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+        static NSString *myheaderId = @"myheaderId";
+        MyheaderCell *cell = [tableView dequeueReusableCellWithIdentifier:myheaderId];
         if (!cell) {
-            cell = [[HeaderSectionCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellid];
+            cell = [[MyheaderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:myheaderId];
+            cell.delegate = self;
         }
-        
-        cell.delegate = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone; 
         return cell;
     }else if (indexPath.section == 1){
@@ -184,17 +183,17 @@
 
 
 #pragma mark - HeaderSectionCellDelagate
-- (void)clickMessageImageView:(HeaderSectionCell *)cell
+- (void)clickMessageImageView:(MyheaderCell *)cell
 {
     self.tabBarController.selectedIndex = 3;
 }
 
--(void)clickPortraitImageView:(HeaderSectionCell *)cell
+-(void)clickPortraitImageView:(MyheaderCell *)cell
 {
     
 }
 
--(void)clickSettingBtn:(HeaderSectionCell *)cell
+-(void)clickSettingBtn:(MyheaderCell *)cell
 {
     NSLog(@"设置");
     SettingViewController *vc = [[SettingViewController alloc] init];
