@@ -8,6 +8,7 @@
 
 #import "BuyDetailViewController.h"
 #import "YHBPictureAdder.h"
+#import "OfferDetailController.h"
 
 #define kBottomLineTag 99
 @interface BuyDetailViewController ()<UIScrollViewDelegate>
@@ -258,7 +259,11 @@
 
 - (void)clickOffBtn
 {
-    NSLog(@"我要报价");
+//    NSLog(@"我要报价");
+    OfferDetailController *vc = [[OfferDetailController alloc] init];
+    [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - 播放按钮UI

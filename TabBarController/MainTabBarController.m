@@ -16,11 +16,33 @@
 #import "YHBPublishSupplyViewController.h"
 #import "ThirdViewController.h"
 #import "BuyDetailViewController.h"
+
+
 @interface MainTabBarController ()
 
 @end
 
 @implementation MainTabBarController
+
+
+//@synthesize controller;
+//
+//
+//-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    UIViewController *first=[[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
+//    UIViewController *second=[[MineViewController alloc]initWithNibName:@"MineViewController" bundle:nil];
+//    controller=[[MainTabBarController alloc]init];
+//    controller.viewControllers=[NSArray arrayWithObjects:first,second,nil];
+//    [self.view addSubview:controller.view];
+//    if(self){
+//        
+//    }
+//    return self;
+//}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,7 +60,7 @@
     //视图控制器数组
     NSArray *vcArray = @[@"HomePageViewController",
                          @"SearchViewController",
-                         @"ThirdViewController",
+                         @"",
                          @"FriendsViewController",
                          @"LoginViewController"];
     //tabbar按钮图片
@@ -75,12 +97,13 @@
 {
     //    _oldSelectIndex = tabBar.selectedItem;
     if (item.tag == 2) {
-        
+        self.tabBarController.selectedIndex = 1;
         UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"发布采购",@"发布商品",@"以图搜布", nil];
         [sheet showInView:[UIApplication sharedApplication].keyWindow];
         
     }
 }
+
 
 -(void) showTabBarController
 {

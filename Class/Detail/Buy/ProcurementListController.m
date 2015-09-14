@@ -140,12 +140,14 @@
     cell.numberStr = model.amount;
     cell.indexStr = [NSString stringWithFormat:@"报价次数 : %@",@"1"];
     cell.typeStr = @"寻找中";
-    cell.dataStr = [NSString stringWithFormat:@"发布时间 : %@",[self timeFormatted:[model.offerLastDate doubleValue]/1000]];
-    NSLog(@"offerLastDate:%@",model.offerLastDate);
-    NSLog(@"%@",[self timeFormatted:[model.offerLastDate doubleValue]/1000]);
-    cell.cycleStr = [NSString stringWithFormat:@"报价截止时间 : %@",[self timeFormatted:[model.takeDeliveryLastDate doubleValue]/1000]];
-    NSLog(@"*************offerLastDate:%@",model.takeDeliveryLastDate);
-    NSLog(@"*************takeDeliveryLastDate:%@",[self timeFormatted:[model.takeDeliveryLastDate doubleValue]/1000]);
+//    cell.dataStr = [NSString stringWithFormat:@"发布时间 : %@",[self timeFormatted:[model.offerLastDate doubleValue]/1000]];
+//    NSLog(@"offerLastDate:%@",model.offerLastDate);
+//    NSLog(@"%@",[self timeFormatted:[model.offerLastDate doubleValue]/1000]);
+//    cell.cycleStr = [NSString stringWithFormat:@"报价截止时间 : %@",[self timeFormatted:[model.takeDeliveryLastDate doubleValue]/1000]];
+//    NSLog(@"*************offerLastDate:%@",model.takeDeliveryLastDate);
+//    NSLog(@"*************takeDeliveryLastDate:%@",[self timeFormatted:[model.takeDeliveryLastDate doubleValue]/1000]);
+    cell.cycleStr = model.takeDeliveryLastDate;
+    cell.dataStr = [NSString stringWithFormat:@"报价截止时间 : %@",model.offerLastDate];
 }
 //时间戳转换为时间
 - (NSString *)timeFormatted:(int)totalSeconds
@@ -174,7 +176,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 140;
+    return 120;
 }
 
 

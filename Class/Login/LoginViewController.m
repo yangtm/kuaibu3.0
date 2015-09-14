@@ -16,6 +16,7 @@
 #import "MineViewController.h"
 #import "RegisterViewController.h"
 #import "FindPswViewController.h"
+#import "MainTabBarController.h"
 
 
 
@@ -136,12 +137,21 @@ enum TextField_Type
                                             app.token = token;
                                             app.isLoginedIn = YES;
                         MineViewController *vc = [[MineViewController alloc] init];
-                        vc.userName = _phoneNumberTextField.text;
+//                        vc.userName = _phoneNumberTextField.text;
 //                        self.tabBarController.tabBar.hidden = YES;
 //                        [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
 //                            
 //                        }];
+//                        self.tabBarController.selectedIndex
+//                        MainTabBarController *controller=[[MainTabBarController alloc]init];
+//                        [self presentModalViewController:vc animated:YES];
                         [self.navigationController pushViewController:vc animated:YES];
+                        
+//                        UIViewController *controller=[[MainTabBarController alloc]init];
+//                        [self presentModalViewController:controller animated:YES];
+                        
+//                        [self dismissModalViewControllerAnimated:YES];
+                        
                     }
                     else if ([status integerValue] != 0)
                     {

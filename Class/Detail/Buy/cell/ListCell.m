@@ -32,13 +32,14 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    _rightImageView.frame = CGRectMake(10, 10, 120, 120);
-    _cycleLabel.frame = CGRectMake(_rightImageView.right + 10, 10, kMainScreenWidth - 20, 20);
-    _numberLabel.frame = CGRectMake(_rightImageView.right + 10, _cycleLabel.bottom + 5, kMainScreenWidth - 20, 20);
-    _dateLabel.frame = CGRectMake(_rightImageView.right + 10, _numberLabel.bottom + 5, kMainScreenWidth - 20, 20);
-    _indexLabel.frame = CGRectMake(_rightImageView.right + 10, _dateLabel.bottom + 5, kMainScreenWidth - 20, 20);
-    _typeLabel.frame = CGRectMake(_rightImageView.right + 10, _indexLabel.bottom + 5, 70, 20);
-    _clickBtn.frame = CGRectMake(_typeLabel.right + 30, _indexLabel.bottom + 5, 70, 20);
+    _rightImageView.frame = CGRectMake(10, 10, 100, 100);
+    _cycleLabel.frame = CGRectMake(_rightImageView.right + 10, 10, 75, 20);
+    _offLabel.frame = CGRectMake(_cycleLabel.right-5, 10, kMainScreenWidth-30-_rightImageView.width-_cycleLabel.width, 20);
+    _numberLabel.frame = CGRectMake(_rightImageView.right + 10, _cycleLabel.bottom, kMainScreenWidth - 20, 20);
+    _dateLabel.frame = CGRectMake(_rightImageView.right + 10, _numberLabel.bottom, kMainScreenWidth - 20, 20);
+    _indexLabel.frame = CGRectMake(_rightImageView.right + 10, _dateLabel.bottom , kMainScreenWidth - 20, 20);
+    _typeLabel.frame = CGRectMake(_rightImageView.right + 10, _indexLabel.bottom, 70, 20);
+    _clickBtn.frame = CGRectMake(self.right - 90, _indexLabel.bottom , 70, 20);
 }
 
 - (void)setup
@@ -49,13 +50,18 @@
     _rightImageView.backgroundColor = [UIColor orangeColor];
     [self.contentView addSubview:_rightImageView];
     
-    _cycleLabel = [self formTitleLabel:CGRectZero title:nil];
+    _cycleLabel = [self formTitleLabel:CGRectZero title:@"发布时间 : "];
+//    _cycleLabel.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:_cycleLabel];
+    _offLabel = [self formTitleLabel:CGRectZero title:nil];
+    _offLabel.adjustsFontSizeToFitWidth = YES;
+    [self.contentView addSubview:_offLabel];
     
     _numberLabel = [self formTitleLabel:CGRectZero title:nil];
     [self.contentView addSubview:_numberLabel];
     
     _dateLabel = [self formTitleLabel:CGRectZero title:nil];
+    _dateLabel.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:_dateLabel];
     
     _indexLabel = [self formTitleLabel:CGRectZero title:nil];
@@ -79,8 +85,9 @@
 
 - (void)setCycleStr:(NSString *)cycleStr{
     _cycleStr = cycleStr;
-    _cycleLabel.text = _cycleStr;
+    _offLabel.text = _cycleStr;
 }
+
 
 - (void)setDataStr:(NSString *)dataStr
 {

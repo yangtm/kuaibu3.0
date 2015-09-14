@@ -8,6 +8,8 @@
 
 #import "FunctionsView.h"
 #import "Public.h"
+#import "ProcurementListController.h"
+
 #define WORLD (@"文字")
 @implementation FunctionsView
 
@@ -101,6 +103,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            ProcurementListController *vc = [[ProcurementListController alloc] init];
+        }
+    }
 }
 
 @end

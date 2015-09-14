@@ -60,7 +60,7 @@
     _friendsVC = [[FriendsViewController alloc] init];
     _mineVC = [[MineViewController alloc] init];
     _loginVC = [[LoginViewController alloc] init];
-    AppDelegate *app= DefaultAppDelegate;
+//    AppDelegate *app= DefaultAppDelegate;
     LSNavigationController *nav0 = [[LSNavigationController alloc] initWithRootViewController:_homePageVC];
     LSNavigationController *nav1 = [[LSNavigationController alloc] initWithRootViewController:_searchVC];
     LSNavigationController *nav2 = [[LSNavigationController alloc] init];
@@ -121,8 +121,10 @@
 //        YHBSelectMenuView *menuView = [[YHBSelectMenuView alloc] init];
 //        menuView.delegate = self;
 //        [menuView showView:self];
+//        self.tabBarController.selectedIndex = 1;
         UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"发布采购",@"发布商品",@"以图搜布", nil];
-        [sheet showInView:[UIApplication sharedApplication].keyWindow];
+//        [sheet showInView:[UIApplication sharedApplication].keyWindow];
+        [sheet showFromTabBar:(UITabBar *) self.tabBarController.view];
         return NO;
     }
     
@@ -131,12 +133,12 @@
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
-//    _oldSelectIndex = tabBar.selectedItem;
+    _oldSelectIndex = tabBar.selectedItem;
     if (item.tag == 2) {
-        
+        self.tabBarController.selectedIndex = 1;
         UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"请选择" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"发布采购",@"发布商品",@"以图搜布", nil];
         [sheet showInView:[UIApplication sharedApplication].keyWindow];
-        
+//        [sheet showFromTabBar:(UITabBar *) self.tabBarController.view];
     }
 }
 
