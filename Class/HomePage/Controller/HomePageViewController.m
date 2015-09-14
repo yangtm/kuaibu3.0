@@ -153,7 +153,7 @@
     if (_navBarCameraButton == nil) {
         _navBarCameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _navBarCameraButton.frame = CGRectMake(0, 0, 20, 25);
-        [_navBarCameraButton setImage:[UIImage imageNamed:@"home_camera"] forState:UIControlStateNormal];
+        [_navBarCameraButton setImage:[UIImage imageNamed:@"home_label"] forState:UIControlStateNormal];
         _navBarCameraButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_navBarCameraButton addTarget:self action:@selector(cameraButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
