@@ -14,6 +14,8 @@
 #import "PasswordManagerViewController.h"
 #import "MineInfoSetViewController.h"
 #import "SDImageCache.h"
+#import "HZCookie.h"
+#import "HomePageViewController.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 {
@@ -46,14 +48,23 @@
 - (void)createNavi
 {
     [self settitleLabel:@"设置"];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
-    self.navigationItem.leftBarButtonItem = item;
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(back)];
+//    self.navigationItem.leftBarButtonItem = item;
+    [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(dismissSelf)];
+}
+
+#pragma mark 返回
+- (void)dismissSelf
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - 列表
 - (void)createTableView
 {
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -65,7 +76,7 @@
 #pragma mark - 退出按钮
 - (void)exitAction
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, kMainScreenHeight/2, kMainScreenWidth-40, 40)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, kMainScreenHeight-49, kMainScreenWidth, 49)];
     label.backgroundColor = [UIColor orangeColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = @"退出登入";
@@ -79,62 +90,44 @@
 - (void)clickAction:(UIGestureRecognizer *)btn
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定退出登录吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定退出", nil];
-    alertView.tag = 10;
     [alertView show];
 }
 
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == 10) {
-        if (buttonIndex == 1) {
-            NSString *loginUrl = [NSString stringWithFormat:@"%@member/outlogin",kYHBBaseUrl];
-            NSString *nonce = [NSString stringWithFormat:@"%d",arc4random_uniform(1000)+1];
+    if (buttonIndex == 1) {
+        
+        NSString *url = nil;
+        kYHBRequestUrl(@"member/outlogin", url);
+        __weak typeof(self) weakSelf=self;
+        [NetworkService postWithURL:url paramters:nil success:^(NSData *receiveData) {
             
-            NSString *sign = [[NSString stringWithFormat:@"%@||%@||%@||%@",kAPPID,nonce,[getTimestamp getcurrentTimestamp],kAPPKEY] MD5Hash];
-            //    NSLog(@"sign:%@",sign);
-            //    NSString *signs = [sign MD5Hash];
-            //    NSLog(@"sign:%@",signs);
-            NSString *newSign = [sign substringWithRange:NSMakeRange(12, 8)];
-            NSDictionary *postDic =@{@"app_id":kAPPID,@"timestamp":[getTimestamp getcurrentTimestamp],@"nonce":nonce,@"sign":newSign, @"phone":@"",@"zone":@""};
-            [FGGProgressHUD showLoadingOnView:self.view];
-            __weak typeof(self) weakSelf=self;
-            [NetworkService postWithURL:loginUrl paramters:postDic success:^(NSData *receiveData) {
-                [FGGProgressHUD hideLoadingFromView:weakSelf.view];
-                if(receiveData.length>0)
-                {
-                    id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-                    if([result isKindOfClass:[NSDictionary class]])
-                    {
-                        NSDictionary *dictionary=result;
-                        NSString *msg=dictionary[@"RESPMSG"];
-                        NSString *status=dictionary[@"RESPCODE"];
-                        NSLog(@"%@",result);
-                        if([status integerValue] == 0)
-                        {
-                            [weakSelf showAlertWithMessage:msg automaticDismiss:YES];
-                            LoginViewController *vc = [[LoginViewController alloc] init];
-                            [self.navigationController pushViewController:vc animated:YES];
-                        }
-                        else if ([status integerValue] != 0)
-                        {
-                            [FGGProgressHUD hideLoadingFromView:weakSelf.view];
-                            [weakSelf showAlertWithMessage:msg automaticDismiss:NO];
-                        }
-                    }
+            id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                if ([result[@"RESPCODE"] integerValue] == 0) {
+                    [weakSelf showAlertWithMessage:@"退出成功" automaticDismiss:YES];
+                    
+                    [HZCookie removeCookie];
+                    [HZCookie setCookie];
+                    self.tabBarController.selectedIndex = 0;
+                    LoginViewController *vc = [[LoginViewController alloc] init];
+                    UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:vc];
+                  
+                    [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"password"];
+                    [self presentViewController:navi animated:YES completion:^{
+                        
+                    }];
                 }
-            } failure:^(NSError *error) {
-                [FGGProgressHUD hideLoadingFromView:weakSelf.view];
-                [self showAlertWithMessage:error.localizedDescription automaticDismiss:NO];
-            }];
-        }
+            }
+            
+        } failure:^(NSError *error) {
+            self.tabBarController.selectedIndex = 0;
+        }];
     }
+
 }
 
-- (void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -214,7 +207,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10;
+    return 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -238,6 +231,9 @@
         {
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             _label = (UILabel *)[cell viewWithTag:190];
+            [[SDImageCache sharedImageCache] clearDisk];
+            
+            _label.text = @"0 B";
             
             UIAlertView * alert  = [[UIAlertView alloc] initWithTitle:nil message:@"缓存清除成功" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
             [alert show];

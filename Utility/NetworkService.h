@@ -31,6 +31,9 @@
 //获取验证码
 +(void)getCheckCodeWithPhone:(NSString *)phone smstpl:(NSString *)sms success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure;
 
+////获取用户信息
+//+(void)getMemberWithUrl:(NSString *)phone smstpl:(NSString *)sms success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure;
+
 //修改密码
 +(void)changePassWordWithOldPwd:(NSString *)oldpwd andNewPwd:(NSString *)newpwd success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure;
 

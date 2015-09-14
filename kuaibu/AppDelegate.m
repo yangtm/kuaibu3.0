@@ -9,9 +9,11 @@
 #import "AppDelegate.h"
 #import "RootTabBarController.h"
 #import "MainTabBarController.h"
-#import "LoginViewController.h"
+
+
 
 @interface AppDelegate ()
+
 
 @end
 
@@ -24,11 +26,17 @@
     // Override point for customization after application launch.
     _isLoginedIn = NO;
     self.window.backgroundColor = [UIColor whiteColor];
-
-    self.window.rootViewController = [[RootTabBarController alloc] init];
+    MainTabBarController *tabbar = [[MainTabBarController alloc] init];
+    self.window.rootViewController = tabbar;
     
     return YES;
 }
+
+
+
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

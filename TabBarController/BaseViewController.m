@@ -119,6 +119,7 @@
     if(aTitle)
     {
         [button setTitle:aTitle forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
     }
     
     

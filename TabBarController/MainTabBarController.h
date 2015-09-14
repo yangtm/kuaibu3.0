@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainTabBarController : UITabBarController<UITabBarControllerDelegate,UITabBarDelegate,UIActionSheetDelegate>
-@property(strong,nonatomic) UITabBarController *controller;
+@interface MainTabBarController : UITabBarController
+@property (nonatomic,assign) NSInteger newSelectIndex;
 -(void) showTabBarController;
 
 -(void) hiddenTabBarController;

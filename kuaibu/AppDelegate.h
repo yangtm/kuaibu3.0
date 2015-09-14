@@ -13,7 +13,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-//@property(strong,nonatomic) MainTabBarController *controller;
+@property(strong,nonatomic) MainTabBarController *tabBarVC;
 
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

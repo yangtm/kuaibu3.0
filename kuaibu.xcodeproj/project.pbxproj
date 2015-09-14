@@ -169,6 +169,8 @@
 		1ED762ED1B968E09001727EA /* tablecellbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED762EC1B968E09001727EA /* tablecellbackground.png */; };
 		1ED762F31B96E50E001727EA /* getTimestamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED762F21B96E50E001727EA /* getTimestamp.m */; };
 		1ED7FF261BA6645800CDFF92 /* MyheaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF251BA6645800CDFF92 /* MyheaderCell.m */; };
+		1ED7FF2B1BA66FAD00CDFF92 /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1ED7FF281BA66FAD00CDFF92 /* ProgressHUD.bundle */; };
+		1ED7FF2C1BA66FAD00CDFF92 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF2A1BA66FAD00CDFF92 /* ProgressHUD.m */; };
 		1ED88FEC1B9533770020DFF3 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */; };
 		1ED88FF01B95348B0020DFF3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FEF1B95348B0020DFF3 /* LoginViewController.m */; };
 		1ED88FF61B953DF70020DFF3 /* WoWTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FF51B953DF70020DFF3 /* WoWTabBarItem.m */; };
@@ -672,6 +674,9 @@
 		1ED762F21B96E50E001727EA /* getTimestamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getTimestamp.m; sourceTree = "<group>"; };
 		1ED7FF241BA6645800CDFF92 /* MyheaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyheaderCell.h; sourceTree = "<group>"; };
 		1ED7FF251BA6645800CDFF92 /* MyheaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyheaderCell.m; sourceTree = "<group>"; };
+		1ED7FF281BA66FAD00CDFF92 /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		1ED7FF291BA66FAD00CDFF92 /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		1ED7FF2A1BA66FAD00CDFF92 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		1ED88FEA1B9533770020DFF3 /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
 		1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
 		1ED88FEE1B95348B0020DFF3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -1160,6 +1165,7 @@
 		06706D311B85B2AA00F58ACC /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				1ED7FF271BA66FAD00CDFF92 /* ProgressHUD */,
 				7FD7759E1BA4F9D9004F6A55 /* PullToRefresh */,
 				1E8469D11B9D5CB500842A51 /* WoWPhotoBrowser */,
 				1E84699D1B9D441400842A51 /* arm */,
@@ -2084,6 +2090,16 @@
 			path = SupplyModel;
 			sourceTree = "<group>";
 		};
+		1ED7FF271BA66FAD00CDFF92 /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1ED7FF281BA66FAD00CDFF92 /* ProgressHUD.bundle */,
+				1ED7FF291BA66FAD00CDFF92 /* ProgressHUD.h */,
+				1ED7FF2A1BA66FAD00CDFF92 /* ProgressHUD.m */,
+			);
+			path = ProgressHUD;
+			sourceTree = "<group>";
+		};
 		1ED88FED1B9534650020DFF3 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -2499,6 +2515,7 @@
 				7FD7758F1BA4967D004F6A55 /* home_attention.png in Resources */,
 				1EDDDADD1BA046C7005DCA1C /* 快布切图_09.png in Resources */,
 				1ED890861B95796F0020DFF3 /* 8.png in Resources */,
+				1ED7FF2B1BA66FAD00CDFF92 /* ProgressHUD.bundle in Resources */,
 				1ED67C351B9E86A8005EC831 /* check_off.png in Resources */,
 				7FD55D5E1B9CA71300726E83 /* home_page_0.png in Resources */,
 				1EDDDAD91BA046C7005DCA1C /* 62.png in Resources */,
@@ -2637,6 +2654,7 @@
 				1E8469641B9D3F5E00842A51 /* SRRefreshView.m in Sources */,
 				1E84693C1B9D3F5E00842A51 /* MWGridCell.m in Sources */,
 				1ED890731B9579380020DFF3 /* MainTabBarController.m in Sources */,
+				1ED7FF2C1BA66FAD00CDFF92 /* ProgressHUD.m in Sources */,
 				7FD775941BA4BD44004F6A55 /* HomePageBandCell.m in Sources */,
 				1E84693A1B9D3F5E00842A51 /* MBProgressHUD.m in Sources */,
 				1ED890571B9573F90020DFF3 /* AFHTTPRequestOperation.m in Sources */,

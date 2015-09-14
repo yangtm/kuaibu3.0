@@ -35,8 +35,8 @@
     _portraitImageView.frame = CGRectMake(20, 20, 60, 60);
     _nameLabel.frame = CGRectMake(_portraitImageView.right+10, 25, kMainScreenWidth-_portraitImageView.width-_messageImageView.width-_settingButton.width-20, 20);
     _integralLabel.frame = CGRectMake(_portraitImageView.right+10, _nameLabel.bottom+15, kMainScreenWidth-_portraitImageView.width-_settingButton.width -20, 20);
-    _settingButton.frame = CGRectMake(self.right - 65, 20, 50, 30);
-    _messageImageView.frame = CGRectMake(self.right - _settingButton.width-60, 20, 25, 25);
+//    _settingButton.frame = CGRectMake(self.right - 65, 20, 50, 30);
+    _messageImageView.frame = CGRectMake(self.right-60, 20, 25, 25);
     
 }
 
@@ -65,7 +65,7 @@
     [_settingButton setTitle:@"设置" forState:UIControlStateNormal];
     [_settingButton setTitleColor:kBackgroundColor forState:UIControlStateNormal];
     [_settingButton addTarget:self action:@selector(settingBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:_settingButton];
+//    [self.contentView addSubview:_settingButton];
 }
 
 - (void)settingBtn

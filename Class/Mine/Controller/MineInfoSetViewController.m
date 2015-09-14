@@ -48,6 +48,7 @@
     self.edgesForExtendedLayout = UIRectEdgeBottom;
     
     [self settitleLabel:@"个人设置"];
+    [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(back)];
     self.companyName.text = @"";
     self.cellphoneTextField.text = @"";
     self.addressTextField.text = @"";
@@ -82,6 +83,10 @@
 //    }];
 }
 
+- (void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

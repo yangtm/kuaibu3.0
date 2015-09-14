@@ -67,7 +67,26 @@ enum TextField_Type
     
     [self.view addSubview:self.loginView];
     
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
     [self setRightButton:[UIImage imageNamed:nil] title:@"注册" target:self action:@selector(showRegister)];
+    [self setLeftButton:[UIImage imageNamed:app.isLoginedIn?@"":@"back"] title:nil target:self action:@selector(back)];
+}
+
+- (void)back{
+     AppDelegate *app = [UIApplication sharedApplication].delegate;
+    if (app.isLoginedIn) {
+        
+    }else{
+    
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            
+            AppDelegate *appDele = [[UIApplication sharedApplication] delegate];
+            appDele.tabBarVC.selectedIndex =0;
+    //        appDele.tabBarVC.newSelectIndex = 4;
+            
+        }];
+        
+    }
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tap
@@ -117,6 +136,7 @@ enum TextField_Type
    
         [FGGProgressHUD showLoadingOnView:self.view];
         __weak typeof(self) weakSelf=self;
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
         [NetworkService loginWithphone:_phoneNumberTextField.text password:_passwordTextField.text success:^(NSData *receiveData) {
             [FGGProgressHUD hideLoadingFromView:weakSelf.view];
             if(receiveData.length>0)
@@ -127,46 +147,47 @@ enum TextField_Type
                     NSDictionary *dictionary=result;
                     NSString *msg = dictionary[@"RESPMSG"];
                     NSString *status = dictionary[@"RESPCODE"];
-                    NSString *token = dictionary[@"RESULT"];
+//                    NSString *token = dictionary[@"RESULT"];
                     NSLog(@"%@",result);
                     if([status integerValue] == 0)
                     {
                         [weakSelf showAlertWithMessage:msg automaticDismiss:YES];
-                                            AppDelegate *app= DefaultAppDelegate;
-                                            //保存Token
-                                            app.token = token;
-                                            app.isLoginedIn = YES;
-                        MineViewController *vc = [[MineViewController alloc] init];
-//                        vc.userName = _phoneNumberTextField.text;
-//                        self.tabBarController.tabBar.hidden = YES;
-//                        [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-//                            
-//                        }];
-//                        self.tabBarController.selectedIndex
-//                        MainTabBarController *controller=[[MainTabBarController alloc]init];
-//                        [self presentModalViewController:vc animated:YES];
-                        [self.navigationController pushViewController:vc animated:YES];
+                        [HZCookie saveCookie];
+                        [[NSUserDefaults standardUserDefaults]setObject:_phoneNumberTextField.text forKey:@"username"];
+                        [[NSUserDefaults standardUserDefaults]setObject:_passwordTextField.text forKey:@"password"];
+                        [[NSUserDefaults standardUserDefaults]synchronize];
                         
-//                        UIViewController *controller=[[MainTabBarController alloc]init];
-//                        [self presentModalViewController:controller animated:YES];
+                        //dismiss登录界面，显示用户中心。
                         
-//                        [self dismissModalViewControllerAnimated:YES];
+                        appDelegate.tabBarVC.selectedIndex =0;
+                        appDelegate.isLoginedIn =1;
                         
+                        [self dismissViewControllerAnimated:YES completion:^{
+                            
+                        }];
                     }
                     else if ([status integerValue] != 0)
                     {
                         [FGGProgressHUD hideLoadingFromView:weakSelf.view];
                         [weakSelf showAlertWithMessage:msg automaticDismiss:NO];
+                        appDelegate.tabBarVC.selectedIndex =0;
+                        appDelegate.isLoginedIn = 0;
+                        [HZCookie removeCookie];
                     }
                 }
             }
         } failure:^(NSError *error) {
             [FGGProgressHUD hideLoadingFromView:weakSelf.view];
             [self showAlertWithMessage:error.localizedDescription automaticDismiss:NO];
+            AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+            appDelegate.tabBarVC.selectedIndex =0;
+            appDelegate.isLoginedIn =1;
+            [[[UIAlertView alloc]initWithTitle:nil message:@"网络错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil] show];
         }];
-
     }
 }
+
+
 
 #pragma mark - UITextField代理方法
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
