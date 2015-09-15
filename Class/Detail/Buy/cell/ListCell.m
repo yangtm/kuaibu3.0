@@ -77,10 +77,17 @@
     _clickBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
     _clickBtn.backgroundColor = RGBCOLOR(250, 228, 182);
     _clickBtn.layer.cornerRadius = 6.0;
-    [_clickBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_clickBtn addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_clickBtn];
     
     
+}
+
+- (void)buttonClick
+{
+    if ([_delegate respondsToSelector:@selector(cilckOfferManagerBtn)]) {
+        [_delegate cilckOfferManagerBtn];
+    }
 }
 
 - (void)setCycleStr:(NSString *)cycleStr{

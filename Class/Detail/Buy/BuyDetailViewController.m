@@ -10,7 +10,21 @@
 #import "YHBPictureAdder.h"
 #import "OfferDetailController.h"
 
+
 #define kBottomLineTag 99
+
+//typedef NS_ENUM(NSInteger, ProcurementStatusType) {
+//
+//    ON,//("寻找中", 1)
+//
+//    INVALID,//("已失效", 2)
+// 
+//    FINISH,//("已找到", 3)
+//
+//    CANCEL,//("已取消", 4)
+//};
+
+
 @interface BuyDetailViewController ()<UIScrollViewDelegate>
 {
     UIImageView *_playImageView;
@@ -44,6 +58,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+   
+    [self showData];
     [self settitleLabel:@"采购详情"];
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(back)];
     self.view.backgroundColor = RGBCOLOR(241, 241, 241);
@@ -58,14 +75,60 @@
     [self setFootView];
     
     self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.footFormView.bottom );
-    [self showData];
+   
+    
 }
 
 - (void)showData
 {
+    
+    
     NSString *url = nil;
-    kYHBRequestUrl(@"open/procurementDetail", url);
-    NSLog(@"%@",url);
+    kYHBRequestUrl(@"procurement/open/procurementDetail", url);
+//    NSLog(@"%d",_ListId);
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_ListId),@"procurementId", nil];
+    
+    [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+        id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+        
+        if ([result isKindOfClass:[NSDictionary class]]) {
+            
+            NSDictionary *dic = result[@"RESULT"];
+            NSLog(@"%@",dic);
+            _nameLabel.text = dic[@"productName"];
+            _timeLabel.text = [NSString stringWithFormat:@"发布时间 : %@",dic[@"createDate"]];
+            if ([dic[@"procurementStatus"] integerValue] == 1) {
+                _typeLabel.text = @"状态 : 寻找中";
+            }else if ([dic[@"procurementStatus"] integerValue] == 2){
+                _typeLabel.text = @"状态 : 已失效";
+            }else if ([dic[@"procurementStatus"] integerValue] == 3){
+                _typeLabel.text = @"状态 : 已找到";
+            }else if ([dic[@"procurementStatus"] integerValue] == 4){
+                _typeLabel.text = @"状态 : 已取消";
+            }
+            _categoryLabel.text = [NSString stringWithFormat:@"分类 : %@",dic[@"catId"]];
+            _numberLabel.text = [NSString stringWithFormat:@"采购数量 : %@%@",dic[@"amount"],dic[@"amountUnit"]];
+            _offLastLabel.text = [NSString stringWithFormat:@"报价截止时间 : %@",dic[@"offerLastDate"]];
+            _takeDeliveryLabel.text = [NSString stringWithFormat:@"收货截止时间 : %@",dic[@"takeDeliveryLastDate"]];
+            _cutLabel.text = [NSString stringWithFormat:@"是否需要剪样 : %@",dic[@"isSampleCut"]?@"是":@"否"];
+            if ([dic[@"billingType"] integerValue] == 3) {
+                _billingTypeLabel.text = [NSString stringWithFormat:@"发票类型 : %@",@"增值税发票"];
+            }else if ([dic[@"billingType"] integerValue] == 1){
+                _billingTypeLabel.text = [NSString stringWithFormat:@"发票类型 : %@",@"无"];
+            }else if ([dic[@"billingType"] integerValue] == 2){
+                _billingTypeLabel.text = [NSString stringWithFormat:@"发票类型 : %@",@"普通发票"];
+            }
+            _detailsView.text = [NSString stringWithFormat:@"面料详情 : %@",dic[@"details"]];
+            
+            
+        }
+
+    } failure:^(NSError *error) {
+
+        NSLog(@"%@",error);
+    }];
+    
+   
 }
 
 - (void)back
@@ -106,9 +169,9 @@
 
 - (void)setFootView
 {
-    UIView *view = [self footViewFrom:CGRectMake(0,0, kMainScreenWidth, 44)];
+    UIView *view = [self footViewFrom:CGRectMake(0,0, kMainScreenWidth, 49)];
     [_footFormView addSubview:view];
-    _footFormView.frame = CGRectMake(0, self.detailFormView.bottom+10, kMainScreenWidth, 44);
+    _footFormView.frame = CGRectMake(0, self.detailFormView.bottom+10, kMainScreenWidth, 49);
 }
 
 #pragma mark -标题UI
@@ -121,6 +184,7 @@
     topLineView.backgroundColor = [UIColor lightGrayColor];
     [view addSubview:topLineView];
     _nameLabel = [self formTitleLabel:CGRectMake(10, topLineView.bottom+10, kMainScreenWidth-60 , 18) title:@"商品名 : "];
+//    _nameLabel.text = _procModel.productName;
 //    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, topLineView.bottom+10, kMainScreenWidth-80, 18)];
 //    nameLabel.backgroundColor = [UIColor clearColor];
     [view addSubview:_nameLabel];
@@ -130,6 +194,7 @@
     _timeLabel.textColor = [UIColor lightGrayColor];
     _timeLabel.backgroundColor = [UIColor clearColor];
     _timeLabel.text = @"发布时间 : ";
+//    _timeLabel.text = [NSString stringWithFormat:@"发布时间 : %@",_procModel.offerLastDate];
     [view addSubview:_timeLabel];
     [self addBottomLine:view];
     return view;
@@ -140,6 +205,16 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
     _typeLabel = [self formTitleLabel:CGRectMake(10, 0, kMainScreenWidth-60, view.height) title:@"状态 : "];
+//    if ([_procModel.procurementStatus integerValue] == 1) {
+//        _typeLabel.text = @"寻找中";
+//    }else if ([_procModel.procurementStatus integerValue] == 2){
+//        _typeLabel.text = @"已失效";
+//    }else if ([_procModel.procurementStatus integerValue] == 3){
+//        _typeLabel.text = @"已找到";
+//    }else if ([_procModel.procurementStatus integerValue] == 4){
+//        _typeLabel.text = @"已取消";
+//    }
+//    _typeLabel.text = []
     [view addSubview:_typeLabel];
     [self addBottomLine:view];
     return view;
@@ -261,6 +336,7 @@
 {
 //    NSLog(@"我要报价");
     OfferDetailController *vc = [[OfferDetailController alloc] init];
+    vc.number = [_numberLabel.text integerValue];
     [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
         
     }];

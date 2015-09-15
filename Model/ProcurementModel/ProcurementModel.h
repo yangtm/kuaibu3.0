@@ -27,7 +27,7 @@
 @property (assign,nonatomic) BOOL isSampleCut; //是否裁剪
 @property (assign,nonatomic) NSInteger billingType; //发票类型
 @property (strong,nonatomic) NSArray *imageUrls;
-
+@property (strong,nonatomic) NSString *procurementStatus;
 @property (strong,nonatomic) NSString *district;
 //@property (strong,nonatomic) NSString *
 

@@ -7,6 +7,7 @@
 //
 
 #import "BaseViewController.h"
+#import "ProcurementModel.h"
 
 @class BuyDetailViewController;
 @protocol BuyDetailViewDelegate <NSObject>
@@ -18,5 +19,9 @@
 @interface BuyDetailViewController : BaseViewController
 
 @property (nonatomic, assign) id<BuyDetailViewDelegate> delegate;
+
+@property (nonatomic, assign) NSInteger ListId;
+
+@property (nonatomic, strong) ProcurementModel *procModel;
 
 @end

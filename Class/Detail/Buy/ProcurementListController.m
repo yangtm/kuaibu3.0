@@ -11,8 +11,9 @@
 #import "ListCell.h"
 #import "BuyDetailViewController.h"
 #import "ProcurementModel.h"
+#import "OfferListController.h"
 
-@interface ProcurementListController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ProcurementListController ()<UITableViewDataSource,UITableViewDelegate,ListCellDelagate>
 {
     NSInteger _page;
     BOOL _isLoading;
@@ -56,14 +57,7 @@
 
 
 
-#pragma mark - 初始化数据
-//- (NSMutableArray *)dataArray
-//{
-//    if (_dataArray == nil) {
-//        _dataArray = [[NSMutableArray alloc] init];
-//    }
-//    return _dataArray;
-//}
+
 #pragma mark - 请求数据
 - (void)showData
 {
@@ -79,13 +73,14 @@
         
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
-            NSLog(@"result:%@",dic);
+//            NSLog(@"result:%@",dic);
             NSArray *array = dic[@"RESULT"];
             for (NSDictionary *subDic in array) {
                 ProcurementModel *model = [[ProcurementModel alloc] init];
                 model.amount = [subDic[@"amount"] doubleValue];
                 model.offerLastDate = subDic[@"offerLastDate"];
                 model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
+                model.procurementId = subDic[@"procurementId"];
                 [_dataArray addObject:model];
             }
             [weakSelf.tableView reloadData];
@@ -126,6 +121,7 @@
     if (cell == nil) {
         cell = [[ListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    cell.delegate = self;
     [self configCell:cell withIndexPath:indexPath];
     return cell;
 }
@@ -133,7 +129,9 @@
 - (void)configCell:(ListCell *)cell withIndexPath:(NSIndexPath *)indexPath
 {
     ProcurementModel *model = self.dataArray[indexPath.row];
+    
     cell.numberStr = model.amount;
+    
     cell.indexStr = [NSString stringWithFormat:@"报价次数 : %@",@"1"];
     cell.typeStr = @"寻找中";
 //    cell.dataStr = [NSString stringWithFormat:@"发布时间 : %@",[self timeFormatted:[model.offerLastDate doubleValue]/1000]];
@@ -180,6 +178,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     BuyDetailViewController *vc = [[BuyDetailViewController alloc] init];
+    ProcurementModel *model = _dataArray[indexPath.row];
+    vc.ListId = [model.procurementId integerValue];
+    vc.procModel = model;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - ListCellDelagate
+- (void)cilckOfferManagerBtn
+{
+    OfferListController *vc = [[OfferListController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

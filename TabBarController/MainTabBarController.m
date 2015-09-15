@@ -84,8 +84,8 @@
         //先检查用户是否保存了账号密码
         //        [ProgressHUD show:@"加载中..."];
         tabBarController.selectedIndex =0;
-        NSString *usernameInfile = [[NSUserDefaults standardUserDefaults]stringForKey:@"username"];
-        NSString *passwordInfile = [[NSUserDefaults standardUserDefaults]stringForKey:@"password"];
+        NSString *usernameInfile = [[NSUserDefaults standardUserDefaults]valueForKey:@"username"];
+        NSString *passwordInfile = [[NSUserDefaults standardUserDefaults]valueForKey:@"password"];
         if([usernameInfile isEqualToString:@""]||[passwordInfile isEqualToString:@""])
         {
             //如果用户名或密码为空,那用户可能是第一次登录，或者没有记住用户名密码
@@ -111,6 +111,7 @@
                 
                 NSDictionary *resDic =[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
                 if ([resDic[@"RESPCODE"] integerValue] == 0) {
+//                    NSLog(@"*************%@",resDic);
                     app.isLoginedIn = 1;
                     tabBarController.selectedIndex = 4;
                 }else{

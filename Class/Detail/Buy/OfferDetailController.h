@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface OfferDetailController : BaseViewController
-
+@property (nonatomic,assign) NSInteger number; //数量
 @end

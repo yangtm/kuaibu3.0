@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class ListCell;
+@protocol ListCellDelagate <NSObject>
+
+- (void)cilckOfferManagerBtn;
+
+@end
+
 @interface ListCell : UITableViewCell
 
 @property (nonatomic,strong) UIImageView *rightImageView;
@@ -24,5 +31,5 @@
 @property (nonatomic,strong) NSString *dataStr;
 @property (nonatomic,strong) NSString *typeStr;
 @property (nonatomic,strong) NSString *indexStr;
-
+@property (assign, nonatomic) id<ListCellDelagate> delegate;
 @end
