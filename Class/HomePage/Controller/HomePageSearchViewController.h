@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HomePageSearchViewControllerDelegate;
+
 @interface HomePageSearchViewController : UIViewController
+
+@property (assign, nonatomic) id<HomePageSearchViewControllerDelegate> delegate;
+
+@end
+
+@protocol HomePageSearchViewControllerDelegate <NSObject>
+
+- (void)searchViewControllerDidSelectKeyword:(NSString *)keyword;
 
 @end

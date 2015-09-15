@@ -23,6 +23,7 @@
 #import "ProductModel.h"
 #import "HomePageBandCell.h"
 #import "HomePageLatestBuyCell.h"
+#import "SVPullToRefresh.h"
 
 NSString *const BannerCellIdentifier = @"BannerCellIdentifier";
 NSString *const PavilionCellIdentifier = @"PavilionCellIdentifier";
@@ -57,7 +58,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     [self registerCell];
     [self.view addSubview:self.collectionView];
     
-    //[self addPullToRefresh];
+    [self addPullToRefresh];
     [self reloadData];
 }
 
@@ -92,7 +93,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 NSDictionary *dictionary = allresult[@"RESULT"];
                 NSArray *adverts = dictionary[@"adverts"];
                 NSArray *pavilions = dictionary[@"stores"];
-//                NSLog(@"store=%@",pavilions);
                 NSArray *hotProduct = dictionary[@"products"];
                 NSArray *bands = dictionary[@"industry"];
                 NSArray *latestBuy = dictionary[@"procurement"];
@@ -102,6 +102,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 self.pageIndex.hotProduct = hotProduct;
                 self.pageIndex.bands = bands;
                 self.pageIndex.latestBuy = latestBuy;
+                [_collectionView.pullToRefreshView stopAnimating];
                 [self.collectionView reloadData];
             }
         }
@@ -138,9 +139,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     HomePagePavilionCell *PavilionCell = (HomePagePavilionCell *)cell;
     NSDictionary *item = _pageIndex.pavilions[indexPath.row];
     PavilionModel *store = [[PavilionModel alloc]init];
-    NSString *url= @"upload/Member";
-    NSString *storelogo = [NSString stringWithFormat:@"%@%@",url,item[@"logo"]];
+    NSString *storelogo = item[@"logo"];
     kZXYRequestUrl(storelogo, store.logo);
+    //NSLog(@"pavilio=%@",store.logo);
     [PavilionCell.pavilionImageView sd_setImageWithURL:[NSURL URLWithString:store.logo]];
 }
 
@@ -183,9 +184,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     }
     HomePageLatestBuyCell *buyCell = (HomePageLatestBuyCell *)cell;
     NSDictionary *item = _pageIndex.latestBuy[indexPath.row];
-   // NSString *url= @"upload/Member/";
-   // NSString *bandlogo = [NSString stringWithFormat:@"%@%@",url,item[@"logo"]];
-   // NSString *bandurl = nil;
+    // NSString *url= @"upload/Member/";
+    // NSString *bandlogo = [NSString stringWithFormat:@"%@%@",url,item[@"logo"]];
+    // NSString *bandurl = nil;
     //kZXYRequestUrl(bandlogo, bandurl);
     //[bandCell.bandImageView sd_setImageWithURL:[NSURL URLWithString:bandurl]];
     buyCell.pruductImageView.image = [UIImage imageNamed:@"home_Pavilion_1"];
@@ -193,6 +194,17 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     [buyCell configWithLength:[NSString stringWithFormat:@"%@",item[@"amount"]]];
     
 }
+
+- (void)addPullToRefresh
+{
+    __weak HomeMainPageViewController *weakSelf = self;
+    [self.collectionView addPullToRefreshWithActionHandler:^{
+        
+        [weakSelf reloadData];
+        
+    }];
+}
+
 #pragma mark - YHBBannerDelegate
 - (void)touchBannerWithNum:(NSInteger)num
 {
@@ -237,13 +249,13 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             num = 1;
         }
             break;
-        
+            
         case PavilionSection:
         {
             num = 8;
         }
             break;
-        
+            
         case HotProductSection:
         {
             num = 4;
@@ -266,114 +278,114 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     return num;
 }
 
- - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
- {
-     UICollectionViewCell *cell = nil;
-     switch (indexPath.section) {
-         case BannerSection:
-         {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:BannerCellIdentifier     forIndexPath:indexPath];
-             [self configBannerCell:cell];
-         }
-             break;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *cell = nil;
+    switch (indexPath.section) {
+        case BannerSection:
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:BannerCellIdentifier     forIndexPath:indexPath];
+            [self configBannerCell:cell];
+        }
+            break;
         case PavilionSection:
-         {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:PavilionCellIdentifier forIndexPath:indexPath];
-             [self configPavilionCell:cell indexPath:indexPath];
-         }
-             break;
-         case HotProductSection:
-         {
-             
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:HotProductIdentifier forIndexPath:indexPath];
-             [self configHotProductCell:cell indexPath:indexPath];
-         }
-             break;
-         case BandSection:
-         {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:BandCellIdentifier forIndexPath:indexPath];
-             [self configBandCell:cell indexPath:indexPath];
-         }
-             break;
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:PavilionCellIdentifier forIndexPath:indexPath];
+            [self configPavilionCell:cell indexPath:indexPath];
+        }
+            break;
+        case HotProductSection:
+        {
+            
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:HotProductIdentifier forIndexPath:indexPath];
+            [self configHotProductCell:cell indexPath:indexPath];
+        }
+            break;
+        case BandSection:
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:BandCellIdentifier forIndexPath:indexPath];
+            [self configBandCell:cell indexPath:indexPath];
+        }
+            break;
         case LatestBuySection:
-         {
-             cell = [collectionView dequeueReusableCellWithReuseIdentifier:LatestBuyIdentifier forIndexPath:indexPath];
-             [self configLatestBuyCell:cell indexPath:indexPath];
-         }
-             break;
-         default:
-             break;
-     }
-     return cell;
- }
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:LatestBuyIdentifier forIndexPath:indexPath];
+            [self configLatestBuyCell:cell indexPath:indexPath];
+        }
+            break;
+        default:
+            break;
+    }
+    return cell;
+}
 
 
- - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-    {
-        UICollectionReusableView *reusableView  = nil;
-        switch (indexPath.section) {
-            case BannerSection:
-            {
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *reusableView  = nil;
+    switch (indexPath.section) {
+        case BannerSection:
+        {
+            reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
+            reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
+        }
+            break;
+        case PavilionSection:
+        {
+            if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+                reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
+                ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"精品店铺";
+                ((HomePageTitleHeadView *)reusableView).collectViewNum = PavilionSection;
+            }
+            else{
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
                 reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
             }
-                break;
-            case PavilionSection:
-            {
-                if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-                    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-                    ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"精品店铺";
-                    ((HomePageTitleHeadView *)reusableView).collectViewNum = PavilionSection;
-                }
-                else{
-                    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-                    reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-                }
-            }
-                break;
-            case HotProductSection:
-            {
-                if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-                    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-                    ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"热门商品";
-                    ((HomePageTitleHeadView *)reusableView).collectViewNum = HotProductSection;
-                }
-                else{
-                    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-                    reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-                }
-            }
-                break;
-            case BandSection:
-            {
-                if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-                    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-                    ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"产业带";
-                    ((HomePageTitleHeadView *)reusableView).collectViewNum = BandSection;
-                }
-                else{
-                    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-                    reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-                }
-            }
-                break;
-            case LatestBuySection:
-            {
-                if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-                    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
-                    ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"最新采购";
-                }
-                else{
-                    reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
-                    reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
-                }
-            }
-                break;
-            default:
-                break;
         }
-        return reusableView;
- }
+            break;
+        case HotProductSection:
+        {
+            if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+                reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
+                ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"热门商品";
+                ((HomePageTitleHeadView *)reusableView).collectViewNum = HotProductSection;
+            }
+            else{
+                reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
+                reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
+            }
+        }
+            break;
+        case BandSection:
+        {
+            if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+                reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
+                ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"产业带";
+                ((HomePageTitleHeadView *)reusableView).collectViewNum = BandSection;
+            }
+            else{
+                reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
+                reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
+            }
+        }
+            break;
+        case LatestBuySection:
+        {
+            if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+                reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
+                ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"最新采购";
+            }
+            else{
+                reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
+                reusableView.backgroundColor = RGBCOLOR(234, 234, 234);
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    return reusableView;
+}
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -381,7 +393,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     switch (indexPath.section) {
         case 1:
         {
-             NSLog(@"点击店铺");
+            NSLog(@"点击店铺");
         }
             break;
         case 2:
@@ -395,10 +407,10 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             //TODO 产业带界面
             //            [self addMerchantView];
             /*
-            YHBBandModel *band = _pageIndex.bands[indexPath.row];
-            IndustrialBeltViewController *vc = [[IndustrialBeltViewController alloc] initWithTitle:band.title itemId:band.itemId];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+             YHBBandModel *band = _pageIndex.bands[indexPath.row];
+             IndustrialBeltViewController *vc = [[IndustrialBeltViewController alloc] initWithTitle:band.title itemId:band.itemId];
+             vc.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:vc animated:YES];
              */
         }
             break;
@@ -406,10 +418,10 @@ typedef NS_ENUM(NSInteger, SectionTag) {
         {
             //TODO 热门板块界面
             /*
-            HotPartsViewController *hotParts = [[HotPartsViewController alloc] initWithNibName:@"HotPartsViewController" bundle:nil];
-            hotParts.hotPlateModel = _pageIndex.hotPlates[indexPath.row];
-            hotParts.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:hotParts animated:YES];
+             HotPartsViewController *hotParts = [[HotPartsViewController alloc] initWithNibName:@"HotPartsViewController" bundle:nil];
+             hotParts.hotPlateModel = _pageIndex.hotPlates[indexPath.row];
+             hotParts.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:hotParts animated:YES];
              */
         }
             break;
@@ -436,46 +448,46 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     }
 }
 
- #pragma mark - UICollectionViewDelegateFlowLayout
- - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-    {
-        CGSize size;
-        switch (indexPath.section) {
-            case BannerSection:
-            {
-                size = CGSizeMake(kMainScreenWidth, 120 * kRatio);
-            }
-                break;
-            case PavilionSection:
-            {
-                CGFloat width = (kMainScreenWidth - 15) / 4.0;
-                size = CGSizeMake(width, width - 10);
-            }
-                break;
-            case HotProductSection:
-            {
-                CGFloat width = (kMainScreenWidth - 15) / 2.0;
-                size = CGSizeMake(width, width - 100);
-            }
-                break;
-            case BandSection:
-            {
-                CGFloat width = (kMainScreenWidth - 15) / 3.0;
-                size = CGSizeMake(width, width);
-            }
-                break;
-            case LatestBuySection:
-            {
-                CGFloat width = (kMainScreenWidth - 20) / 3.0;
-                size = CGSizeMake(width, width+50);
-            }
-                break;
-            default:
-                break;
+#pragma mark - UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGSize size;
+    switch (indexPath.section) {
+        case BannerSection:
+        {
+            size = CGSizeMake(kMainScreenWidth, 120 * kRatio);
         }
-        return size;
- }
- 
+            break;
+        case PavilionSection:
+        {
+            CGFloat width = (kMainScreenWidth - 15) / 4.0;
+            size = CGSizeMake(width, width - 10);
+        }
+            break;
+        case HotProductSection:
+        {
+            CGFloat width = (kMainScreenWidth - 15) / 2.0;
+            size = CGSizeMake(width, width - 100);
+        }
+            break;
+        case BandSection:
+        {
+            CGFloat width = (kMainScreenWidth - 15) / 3.0;
+            size = CGSizeMake(width, width);
+        }
+            break;
+        case LatestBuySection:
+        {
+            CGFloat width = (kMainScreenWidth - 20) / 3.0;
+            size = CGSizeMake(width, width+50);
+        }
+            break;
+        default:
+            break;
+    }
+    return size;
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     CGSize size = CGSizeMake(0, 0);
@@ -540,7 +552,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             size = CGSizeMake(kMainScreenWidth, 5);
         }
             break;
-      
+            
         default:
             break;
     }
@@ -642,13 +654,13 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

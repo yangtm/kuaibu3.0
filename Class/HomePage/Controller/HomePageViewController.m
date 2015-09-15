@@ -20,7 +20,7 @@
 #import "BannerDetailViewController.h"
 #import "HomePageBannerCell.h"
 
-@interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate>
+@interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate>
 
 @property (assign, nonatomic) CGFloat alphaOfNavigationBar;
 @property (strong, nonatomic) UIButton *navBarCameraButton;
@@ -28,6 +28,7 @@
 @property (strong, nonatomic) UIButton *navBarMessageButton;
 @property (strong, nonatomic) UITextField *navBarSearchTextField;
 @property (strong, nonatomic) UIButton *navBarCancelButton;
+@property (strong, nonatomic) UIButton *navBarDownButton;
 @property (strong, nonatomic) UIView *badgeView;
 @property (strong, nonatomic) HomePageSearchViewController *homePageSearchViewController;
 @property (strong, nonatomic) HomeMainPageViewController *homeMainPageViewController;
@@ -42,7 +43,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    //self.view.backgroundColor = [UIColor whiteColor];
     [self setupNormalNavBar];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -52,7 +53,7 @@
                                         stretchableImageWithLeftCapWidth:59.0f topCapHeight:0.0f];
     
     _homeMainPageViewController =[[HomeMainPageViewController alloc]init];
-    _homeMainPageViewController.title = @"商品推荐";
+    _homeMainPageViewController.title = @"热卖推荐";
     _homeMainPageViewController.homeMainPageViewDelegate = self;
     
     _vc2 =[[UIViewController alloc]init];
@@ -77,13 +78,13 @@
     self.slideSwitchView.rigthSideButton = rightSideButton;
     [self.slideSwitchView buildUI];
     [self.view addSubview:self.slideSwitchView];
-   
+    
 }
 
 #pragma mark -HomeMainPageViewControllerDelegate
 -(void)advertUrl:(NSString *)advertUrl  advertTitle:(NSString *)advertTitle
 {
-     self.navigationController.navigationBar.alpha = 1.f;
+    self.navigationController.navigationBar.alpha = 1.f;
     BannerDetailViewController *vc = [[BannerDetailViewController alloc] initWithUrl:advertUrl  title:advertTitle];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
@@ -148,6 +149,14 @@
     [self.navBarSearchTextField resignFirstResponder];
 }
 
+- (void)setupSearchNavBar
+{
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navBarCancelButton];
+    self.navigationItem.titleView = self.navBarSearchTextField;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navBarDownButton];
+    [self.navBarSearchTextField becomeFirstResponder];
+}
+
 - (UIButton *)navBarCameraButton
 {
     if (_navBarCameraButton == nil) {
@@ -166,10 +175,16 @@
         _navBarSearchButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _navBarSearchButton.frame = CGRectMake(0, 0, 220 * kRatio, 25);
         _navBarSearchButton.backgroundColor = [UIColor whiteColor];
-        _navBarSearchButton.layer.cornerRadius = 4.0;
+        _navBarSearchButton.layer.cornerRadius = 2.0;
         _navBarSearchButton.layer.masksToBounds = YES;
-        [_navBarSearchButton setImage:[UIImage imageNamed:@"home_search_icn"] forState:UIControlStateNormal];
-        [_navBarSearchButton setImage:[UIImage imageNamed:@"home_search_icn"] forState:UIControlStateHighlighted];
+        _navBarSearchButton.layer.borderWidth = 0.6;
+        
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){0.8118,0.8157,0.8196,1 });
+        _navBarSearchButton.layer.borderColor = colorref;
+        
+        [_navBarSearchButton setImage:[UIImage imageNamed:@"home_search"] forState:UIControlStateNormal];
+        [_navBarSearchButton setImage:[UIImage imageNamed:@"home_search"] forState:UIControlStateHighlighted];
         [_navBarSearchButton setTitle:@"请输入关键词搜索" forState:UIControlStateNormal];
         _navBarSearchButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
         [_navBarSearchButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
@@ -183,15 +198,26 @@
 {
     if (_navBarCancelButton == nil) {
         _navBarCancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _navBarCancelButton.frame = CGRectMake(0, 0, 35, 30);
-        [_navBarCancelButton setTitle:@"取消" forState:UIControlStateNormal];
-        [_navBarCancelButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        _navBarCancelButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
+        _navBarCancelButton.frame = CGRectMake(0, 0, 30, 30);
+        [_navBarCancelButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        [_navBarCancelButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateHighlighted];
         [_navBarCancelButton addTarget:self action:@selector(cancelButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _navBarCancelButton;
 }
 
+- (UIButton *)navBarDownButton
+{
+    if (_navBarDownButton == nil) {
+        _navBarDownButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _navBarDownButton.frame = CGRectMake(0, 0, 35, 30);
+        [_navBarDownButton setTitle:@"搜索" forState:UIControlStateNormal];
+        [_navBarDownButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _navBarDownButton.titleLabel.font = [UIFont systemFontOfSize:16.0];
+        [_navBarDownButton addTarget:self action:@selector(toSearch) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _navBarDownButton;
+}
 - (UIButton *)navBarMessageButton
 {
     if (_navBarMessageButton == nil) {
@@ -209,14 +235,42 @@
     return _navBarMessageButton;
 }
 
+- (UITextField *)navBarSearchTextField
+{
+    if (_navBarSearchTextField == nil) {
+        _navBarSearchTextField = [[UITextField alloc] init];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 17)];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.image = [UIImage imageNamed:@"home_search_icn"];
+        _navBarSearchTextField.leftView = imageView;
+        _navBarSearchTextField.leftViewMode = UITextFieldViewModeAlways;
+        _navBarSearchTextField.backgroundColor = [UIColor whiteColor];
+        _navBarSearchTextField.layer.cornerRadius = 4.0;
+        _navBarSearchTextField.layer.masksToBounds = YES;
+        _navBarSearchTextField.placeholder = @"使用关键字词搜商品/店铺";
+        _navBarSearchTextField.font = [UIFont systemFontOfSize:12.0];
+        _navBarSearchTextField.returnKeyType = UIReturnKeySearch;
+        _navBarSearchTextField.clearButtonMode = UITextFieldViewModeAlways;
+        _navBarSearchTextField.delegate = self;
+    }
+    _navBarSearchTextField.frame = CGRectMake(0, 0, 250 * kRatio, 25);
+    return _navBarSearchTextField;
+}
+
+- (HomePageSearchViewController *)homePageSearchViewController
+{
+    if (_homePageSearchViewController == nil) {
+        _homePageSearchViewController = [[HomePageSearchViewController alloc] init];
+        _homePageSearchViewController.delegate = self;
+    }
+    return _homePageSearchViewController;
+}
 #pragma mark -按钮响应事件
 - (void)searchButtonClick:(UIButton *)sender
 {
-    //    [self setupSearchNavBar];
-    HomePageSearchViewController *vc = [[HomePageSearchViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-    //    self.homePageSearchViewController.view.frame  = self.view.bounds;
-    //    [self.view addSubview:self.homePageSearchViewController.view];
+    [self setupSearchNavBar];
+    self.homePageSearchViewController.view.frame  = self.view.bounds;
+    [self.view addSubview:self.homePageSearchViewController.view];
 }
 
 - (void)cancelButtonClick:(UIButton *)sender
@@ -238,14 +292,6 @@
     //    [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)setupSearchNavBar
-{
-    self.navigationItem.leftBarButtonItem = nil;
-    self.navigationItem.titleView = self.navBarSearchTextField;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.navBarCancelButton];
-    [self.navBarSearchTextField becomeFirstResponder];
-}
-
 - (void)dismissSearchView
 {
     [self setupNormalNavBar];
@@ -253,6 +299,18 @@
     [self.homePageSearchViewController.view removeFromSuperview];
     self.homePageSearchViewController = nil;
     _navBarSearchTextField.text = @"";
+}
+
+#pragma mark - UITextFieldDelegate
+- (void)toSearch
+{
+    NSLog(@"搜索");
+    //    NSString *keyword = [_navBarSearchTextField.text copy];
+    //    [self dismissSearchView];
+    //    [self saveSearchWord:keyword];
+    //    YHBRecProductListViewController *vc = [[YHBRecProductListViewController alloc] initWithKeyword:keyword];
+    //    vc.hidesBottomBarWhenPushed = YES;
+    //    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
