@@ -38,7 +38,7 @@
 +(void)changePassWordWithOldPwd:(NSString *)oldpwd andNewPwd:(NSString *)newpwd success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure;
 
 //忘记密码
-+(void)findPasswordWithPhone:(NSString *)phone newPassword:(NSString *)new checkcode:(NSString *)checkcode success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure;
++(void)findPasswordWithPhone:(NSString *)phone newPassword:(NSString *)newpwd checkcode:(NSString *)checkcode success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure;
 
 //文件上传
 +(void)uploadFile:(NSString *)url paramters:(NSDictionary *)paramters file:(void (^)(id <AFMultipartFormData> formData))fileData success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure;
