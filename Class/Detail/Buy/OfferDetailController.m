@@ -78,8 +78,9 @@
 - (UIView *)priceForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
-    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 60, view.height) title:@"样张 : "];
-//    _priceTextField
+    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 60, view.height) title:@"单价 : "];
+    _priceTextField.frame = CGRectMake(label.right+5,0, 80, view.height);
+    [view addSubview:_priceTextField];
     [view addSubview:label];
     return view;
 }
