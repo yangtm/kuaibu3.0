@@ -14,7 +14,7 @@
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *lengthLabel;
 @property (strong, nonatomic) UILabel *unitLabel;
--(void)configWithLength:(NSString *)price;
+-(void)configWithLength:(NSString *)length;
 @end
 
 

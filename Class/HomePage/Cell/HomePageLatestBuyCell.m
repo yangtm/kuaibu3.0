@@ -27,7 +27,7 @@
         
         self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, self.bounds.size.height/2+35, self.bounds.size.width-20, 20)];
         self.titleLabel.font = [UIFont systemFontOfSize:14];
-        //self.titleLabel.backgroundColor = [UIColor redColor];
+
         
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, self.bounds.size.height/2+55,28,20)];
         label.text = @"采购";

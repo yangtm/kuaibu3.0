@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 #import "LookBuyAllShowCell.h"
+#import "MyLookBuyShowCell.h"
+
 #define topViewHeight 40
 
 @interface LookSupplyViewController ()<UIScrollViewDelegate,AVAudioPlayerDelegate,UITableViewDataSource, UITableViewDelegate>
@@ -29,7 +31,7 @@
 //@property (nonatomic, strong) YHBLookBuyManage *buyManage;
 //@property (nonatomic, strong) YHBSupplyDataSource *dataSource;
 @property (nonatomic, strong) NSMutableArray *tableViewArray;
-@property (nonatomic, assign) NSInteger pageId;
+@property (nonatomic, assign) NSInteger page;
 
 @property (nonatomic, strong) NSArray *catIds;
 @property (nonatomic, assign) BOOL isAll;
@@ -53,7 +55,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.edgesForExtendedLayout = UIRectEdgeBottom;
     _isVip = NO;
-    
+    _page = 1;
     self.title =@"查看采购";
     //[self setRightButton:nil title:@"筛选" target:self action:@selector(rightBarButtonClick:)];
     
@@ -72,9 +74,137 @@
     
     //[self addTableViewTrag];
     //[self showFlower];
-    //[self getData];
+    [self getData];
     [self addScrollToTopButton];
 }
+- (void)addTableViewTrag
+{
+    __weak LookSupplyViewController *weakself = self;
+    [weakself.supplyTableView addPullToRefreshWithActionHandler:^{
+            if (_isAll) {
+                [self stopPlaySound];
+                NSString *url = nil;
+                kYHBRequestUrl(@"procurement/open/getProcurementList", url);
+                NSLog(@"*******%@",url);
+                NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_page),@"pageIndex", nil];
+                
+                [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+                    id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+                    
+                    if ([result isKindOfClass:[NSDictionary class]]) {
+                        NSDictionary *dic = result;
+                        NSLog(@"result:%@",dic);
+//                        NSArray *array = dic[@"RESULT"];
+//                        for (NSDictionary *subDic in array) {
+//                            ProcurementModel *model = [[ProcurementModel alloc] init];
+//                            model.amount = [subDic[@"amount"] doubleValue];
+//                            model.offerLastDate = subDic[@"offerLastDate"];
+//                            model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
+//                            model.procurementId = subDic[@"procurementId"];
+//                            [_dataArray addObject:model];
+//                        }
+                        [weakself.supplyTableView reloadData];
+                        _page++;
+                    }
+                } failure:^(NSError *error) {
+                    NSLog(@"%@",error);
+                }];
+            }
+            else{
+//                _pageId = 1;
+//                [[KBServiceEngine shareInstance] getRelatedBuyWithSort:@"" pageId:_pageId size:20 successBk:^(id result) {
+//                    
+//                    [self.supplyTableView.pullToRefreshView stopAnimating];
+//                    _tableViewArray = [NSMutableArray arrayWithArray:result];
+//                    [self.supplyTableView reloadData];
+//                    _pageId++;
+//                    
+//                } failureBk:^(NSString *error) {
+//                    
+//                }];
+            }
+        
+    }];
+    
+    
+    [weakself.supplyTableView addInfiniteScrollingWithActionHandler:^{
+//        if (self.dataSource.hasMore) {
+//                if (_isAll) {
+//                    [self.buyManage getNextBuyArrayWithKeyword:_keyword typeId:_typeid complete:^(YHBSupplyDataSource *dataSource) {
+//                        
+//                        [weakself.supplyTableView.infiniteScrollingView stopAnimating];
+//                        self.dataSource = dataSource;
+//                        [self.supplyTableView reloadData];
+//                    } andFail:^(NSString *aStr) {
+//                        [weakself.supplyTableView.infiniteScrollingView stopAnimating];
+//                    }];
+//                }
+//                else{
+//                    [[KBServiceEngine shareInstance] getRelatedBuyWithSort:@"" pageId:_pageId size:20 successBk:^(id result) {
+//                        
+//                        [self.supplyTableView.infiniteScrollingView stopAnimating];
+//                        [_tableViewArray addObjectsFromArray:result];
+//                        [self.supplyTableView reloadData];
+//                        _pageId++;
+//                        
+//                    } failureBk:^(NSString *error) {
+//                        
+//                    }];
+//            }
+//        }
+//        else{
+//            [weakself.supplyTableView.infiniteScrollingView stopAnimating];
+//        }
+    }];
+}
+
+- (void)getData
+{
+    if (_isAll) {
+        NSString *url = nil;
+        kYHBRequestUrl(@"procurement/open/getProcurementList", url);
+        NSLog(@"%@",url);
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_page),@"pageIndex", nil];
+        
+        [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+            [self dismissFlower];
+            id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dic = result;
+                NSLog(@"result:%@",dic);
+                //                        NSArray *array = dic[@"RESULT"];
+                //                        for (NSDictionary *subDic in array) {
+                //                            ProcurementModel *model = [[ProcurementModel alloc] init];
+                //                            model.amount = [subDic[@"amount"] doubleValue];
+                //                            model.offerLastDate = subDic[@"offerLastDate"];
+                //                            model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
+                //                            model.procurementId = subDic[@"procurementId"];
+                //                            [_dataArray addObject:model];
+                //                        }
+                [self.supplyTableView reloadData];
+                _page++;
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [self dismissFlower];
+        }];
+;
+    }
+    else{
+//        _page = 1;
+//        [[KBServiceEngine shareInstance] getRelatedBuyWithSort:@"" pageId:_pageId size:20 successBk:^(id result) {
+//            
+//            [self dismissFlower];
+//            _tableViewArray = [NSMutableArray arrayWithArray:result];
+//            [self.supplyTableView reloadData];
+//            _page++;
+//            
+//        } failureBk:^(NSString *error) {
+//            
+//        }];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -195,15 +325,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150;
+    return 140;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!_isAll){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
+        MyLookBuyShowCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
+            cell = [[MyLookBuyShowCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         return cell;
