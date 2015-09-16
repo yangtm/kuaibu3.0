@@ -29,6 +29,7 @@
 {
     UIImageView *_playImageView;
     BOOL _isPlaying;
+    float _numbers;
 }
 
 @property (nonatomic,strong) UIScrollView *scrollView;
@@ -52,6 +53,7 @@
 @property (nonatomic,strong) UIButton *likeButton;
 @property (nonatomic,strong) UIButton *contactButton;
 @property (nonatomic,strong) UIButton *offButton;
+
 @end
 
 @implementation BuyDetailViewController
@@ -94,7 +96,7 @@
         if ([result isKindOfClass:[NSDictionary class]]) {
             
             NSDictionary *dic = result[@"RESULT"];
-            NSLog(@"%@",dic);
+//            NSLog(@"%@",dic);
             _nameLabel.text = dic[@"productName"];
             _timeLabel.text = [NSString stringWithFormat:@"发布时间 : %@",dic[@"createDate"]];
             if ([dic[@"procurementStatus"] integerValue] == 1) {
@@ -108,6 +110,7 @@
             }
             _categoryLabel.text = [NSString stringWithFormat:@"分类 : %@",dic[@"catId"]];
             _numberLabel.text = [NSString stringWithFormat:@"采购数量 : %@%@",dic[@"amount"],dic[@"amountUnit"]];
+            _numbers = [dic[@"amount"] floatValue];
             _offLastLabel.text = [NSString stringWithFormat:@"报价截止时间 : %@",dic[@"offerLastDate"]];
             _takeDeliveryLabel.text = [NSString stringWithFormat:@"收货截止时间 : %@",dic[@"takeDeliveryLastDate"]];
             _cutLabel.text = [NSString stringWithFormat:@"是否需要剪样 : %@",dic[@"isSampleCut"]?@"是":@"否"];
@@ -336,7 +339,8 @@
 {
 //    NSLog(@"我要报价");
     OfferDetailController *vc = [[OfferDetailController alloc] init];
-    vc.number = [_numberLabel.text integerValue];
+    vc.number = _numbers;
+    vc.offerDetailId = _ListId;
     [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
         
     }];

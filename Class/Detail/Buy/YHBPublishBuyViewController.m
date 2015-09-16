@@ -543,7 +543,7 @@ const NSInteger BottomLineTag = 59;
 //    NSLog(@"****%@",str);
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:str,@"procurement", nil];
     
-//    NSLog(@"%@",procurementUrl);
+//    NSLog(@"%@",dict);
 //    [FGGProgressHUD showLoadingOnView:self.view];
     __weak typeof(self) weakSelf=self;
     [NetworkService postWithURL:procurementUrl paramters:dict success:^(NSData *receiveData) {

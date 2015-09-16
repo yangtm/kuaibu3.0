@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MobClick.h"
+#import "MJRefresh.h"
 
 @interface BaseViewController : UIViewController
-
+{
+    MJRefreshHeaderView *_headerView;
+    MJRefreshFooterView *_footerView;
+}
 @property (nonatomic, assign) CGFloat g_OffsetY;
 @property (nonatomic, strong) UIImage *backgroundimg;
 @property (nonatomic ,strong) UIButton *rightButton;

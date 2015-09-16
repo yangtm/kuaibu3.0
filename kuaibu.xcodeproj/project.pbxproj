@@ -157,6 +157,17 @@
 		1E8469E91B9D5F4D00842A51 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8469E81B9D5F4D00842A51 /* CoreMedia.framework */; };
 		1E8469EB1B9D5F5900842A51 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8469EA1B9D5F5900842A51 /* AVFoundation.framework */; };
 		1ECDCF6C1BA3C54700C1BF9C /* OfferDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDCF6B1BA3C54700C1BF9C /* OfferDetailController.m */; };
+		1ED5F5C91BA92154007AEE9F /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED5F5B91BA92154007AEE9F /* blackArrow.png */; };
+		1ED5F5CA1BA92154007AEE9F /* blackArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED5F5BA1BA92154007AEE9F /* blackArrow@2x.png */; };
+		1ED5F5CB1BA92154007AEE9F /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED5F5BB1BA92154007AEE9F /* blueArrow.png */; };
+		1ED5F5CC1BA92154007AEE9F /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED5F5BC1BA92154007AEE9F /* blueArrow@2x.png */; };
+		1ED5F5CD1BA92154007AEE9F /* grayArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED5F5BD1BA92154007AEE9F /* grayArrow.png */; };
+		1ED5F5CE1BA92154007AEE9F /* grayArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED5F5BE1BA92154007AEE9F /* grayArrow@2x.png */; };
+		1ED5F5CF1BA92154007AEE9F /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1ED5F5BF1BA92154007AEE9F /* MJRefresh.bundle */; };
+		1ED5F5D01BA92154007AEE9F /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5C21BA92154007AEE9F /* MJRefreshBaseView.m */; };
+		1ED5F5D11BA92154007AEE9F /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5C41BA92154007AEE9F /* MJRefreshConst.m */; };
+		1ED5F5D21BA92154007AEE9F /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5C61BA92154007AEE9F /* MJRefreshFooterView.m */; };
+		1ED5F5D31BA92154007AEE9F /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5C81BA92154007AEE9F /* MJRefreshHeaderView.m */; };
 		1ED67C341B9E86A8005EC831 /* check_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED67C321B9E86A8005EC831 /* check_on.png */; };
 		1ED67C351B9E86A8005EC831 /* check_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED67C331B9E86A8005EC831 /* check_off.png */; };
 		1ED67C381B9EAA88005EC831 /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67C371B9EAA88005EC831 /* MyButton.m */; };
@@ -668,6 +679,22 @@
 		1E8469EA1B9D5F5900842A51 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1ECDCF6A1BA3C54600C1BF9C /* OfferDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferDetailController.h; sourceTree = "<group>"; };
 		1ECDCF6B1BA3C54700C1BF9C /* OfferDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferDetailController.m; sourceTree = "<group>"; };
+		1ED5F5B91BA92154007AEE9F /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
+		1ED5F5BA1BA92154007AEE9F /* blackArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blackArrow@2x.png"; sourceTree = "<group>"; };
+		1ED5F5BB1BA92154007AEE9F /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		1ED5F5BC1BA92154007AEE9F /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
+		1ED5F5BD1BA92154007AEE9F /* grayArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayArrow.png; sourceTree = "<group>"; };
+		1ED5F5BE1BA92154007AEE9F /* grayArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grayArrow@2x.png"; sourceTree = "<group>"; };
+		1ED5F5BF1BA92154007AEE9F /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
+		1ED5F5C01BA92154007AEE9F /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
+		1ED5F5C11BA92154007AEE9F /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
+		1ED5F5C21BA92154007AEE9F /* MJRefreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshBaseView.m; sourceTree = "<group>"; };
+		1ED5F5C31BA92154007AEE9F /* MJRefreshConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshConst.h; sourceTree = "<group>"; };
+		1ED5F5C41BA92154007AEE9F /* MJRefreshConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshConst.m; sourceTree = "<group>"; };
+		1ED5F5C51BA92154007AEE9F /* MJRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshFooterView.h; sourceTree = "<group>"; };
+		1ED5F5C61BA92154007AEE9F /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
+		1ED5F5C71BA92154007AEE9F /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
+		1ED5F5C81BA92154007AEE9F /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
 		1ED67C321B9E86A8005EC831 /* check_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_on.png; sourceTree = "<group>"; };
 		1ED67C331B9E86A8005EC831 /* check_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_off.png; sourceTree = "<group>"; };
 		1ED67C361B9EAA88005EC831 /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyButton.h; sourceTree = "<group>"; };
@@ -1208,6 +1235,7 @@
 		06706D311B85B2AA00F58ACC /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				1ED5F5B81BA92154007AEE9F /* MJRefresh */,
 				7FD335B51BA87E59009EFC61 /* SVPullToRefresh */,
 				1ED7FF361BA6D29500CDFF92 /* FXBlurView */,
 				1ED7FF271BA66FAD00CDFF92 /* ProgressHUD */,
@@ -2141,6 +2169,29 @@
 			path = SupplyModel;
 			sourceTree = "<group>";
 		};
+		1ED5F5B81BA92154007AEE9F /* MJRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				1ED5F5B91BA92154007AEE9F /* blackArrow.png */,
+				1ED5F5BA1BA92154007AEE9F /* blackArrow@2x.png */,
+				1ED5F5BB1BA92154007AEE9F /* blueArrow.png */,
+				1ED5F5BC1BA92154007AEE9F /* blueArrow@2x.png */,
+				1ED5F5BD1BA92154007AEE9F /* grayArrow.png */,
+				1ED5F5BE1BA92154007AEE9F /* grayArrow@2x.png */,
+				1ED5F5BF1BA92154007AEE9F /* MJRefresh.bundle */,
+				1ED5F5C01BA92154007AEE9F /* MJRefresh.h */,
+				1ED5F5C11BA92154007AEE9F /* MJRefreshBaseView.h */,
+				1ED5F5C21BA92154007AEE9F /* MJRefreshBaseView.m */,
+				1ED5F5C31BA92154007AEE9F /* MJRefreshConst.h */,
+				1ED5F5C41BA92154007AEE9F /* MJRefreshConst.m */,
+				1ED5F5C51BA92154007AEE9F /* MJRefreshFooterView.h */,
+				1ED5F5C61BA92154007AEE9F /* MJRefreshFooterView.m */,
+				1ED5F5C71BA92154007AEE9F /* MJRefreshHeaderView.h */,
+				1ED5F5C81BA92154007AEE9F /* MJRefreshHeaderView.m */,
+			);
+			path = MJRefresh;
+			sourceTree = "<group>";
+		};
 		1ED7FF271BA66FAD00CDFF92 /* ProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -2567,6 +2618,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ED890851B95796F0020DFF3 /* 7.png in Resources */,
+				1ED5F5CE1BA92154007AEE9F /* grayArrow@2x.png in Resources */,
 				1E8469901B9D437000842A51 /* ReceiverVoiceNodePlaying003@3x.png in Resources */,
 				7FE02E1C1BA238D5005E6C72 /* HomePagePavilionCell.xib in Resources */,
 				0678C4B61B85A2800035660E /* .gitignore in Resources */,
@@ -2588,8 +2640,11 @@
 				1E8469631B9D3F5E00842A51 /* sr_refresh@2X.png in Resources */,
 				1ED67C341B9E86A8005EC831 /* check_on.png in Resources */,
 				7FE02E1E1BA2397E005E6C72 /* home_Pavilion_1.png in Resources */,
+				1ED5F5CF1BA92154007AEE9F /* MJRefresh.bundle in Resources */,
+				1ED5F5CD1BA92154007AEE9F /* grayArrow.png in Resources */,
 				7FD5900C1BA10F840026E4EA /* BannerDetailViewController.xib in Resources */,
 				1E8469611B9D3F5E00842A51 /* MWPhotoBrowser.bundle in Resources */,
+				1ED5F5CC1BA92154007AEE9F /* blueArrow@2x.png in Resources */,
 				1E8469881B9D437000842A51 /* card_delete@2x.png in Resources */,
 				1ED762ED1B968E09001727EA /* tablecellbackground.png in Resources */,
 				1ED890801B95796F0020DFF3 /* 2.png in Resources */,
@@ -2609,6 +2664,7 @@
 				1EDDDAD51BA046C7005DCA1C /* 快布3［方案二］_39.png in Resources */,
 				1EDDDADA1BA046C7005DCA1C /* 62副本.png in Resources */,
 				0678C4971B8572DF0035660E /* Images.xcassets in Resources */,
+				1ED5F5C91BA92154007AEE9F /* blackArrow.png in Resources */,
 				7FD7B2BB1B9FB75300A4F911 /* red_line_and_shadow@2x.png in Resources */,
 				7FD7758F1BA4967D004F6A55 /* home_attention.png in Resources */,
 				1EDDDADD1BA046C7005DCA1C /* 快布切图_09.png in Resources */,
@@ -2624,9 +2680,11 @@
 				1EDDDADB1BA046C7005DCA1C /* 64.png in Resources */,
 				1E8469891B9D437000842A51 /* keyboard-button.png in Resources */,
 				1ED8907F1B95796F0020DFF3 /* 1.png in Resources */,
+				1ED5F5CB1BA92154007AEE9F /* blueArrow.png in Resources */,
 				1EDDDADC1BA046C7005DCA1C /* 64副本.png in Resources */,
 				1ED890881B95796F0020DFF3 /* 10.png in Resources */,
 				1E8469931B9D437000842A51 /* Record_voice_disable@2x.png in Resources */,
+				1ED5F5CA1BA92154007AEE9F /* blackArrow@2x.png in Resources */,
 				1E84698D1B9D437000842A51 /* ReceiverVoiceNodePlaying002@2x.png in Resources */,
 				7FD590071BA0CC330026E4EA /* message.png in Resources */,
 				1E8469951B9D437000842A51 /* RecordCancel@3x.png in Resources */,
@@ -2682,6 +2740,7 @@
 				1ED67C3D1B9EB9C6005EC831 /* YHBAreaModel.m in Sources */,
 				1E8469E51B9D5DB500842A51 /* YHBSupplyDetailPic.m in Sources */,
 				06706D8A1B85B2AA00F58ACC /* BaseViewController.m in Sources */,
+				1ED5F5D31BA92154007AEE9F /* MJRefreshHeaderView.m in Sources */,
 				06706DAD1B85B2AA00F58ACC /* ViewInteraction.m in Sources */,
 				1ED890651B95754E0020DFF3 /* SVProgressHUD.m in Sources */,
 				1ED67C381B9EAA88005EC831 /* MyButton.m in Sources */,
@@ -2753,6 +2812,7 @@
 				1ED67C3E1B9EB9C6005EC831 /* YHBCity.m in Sources */,
 				1E8469641B9D3F5E00842A51 /* SRRefreshView.m in Sources */,
 				1E84693C1B9D3F5E00842A51 /* MWGridCell.m in Sources */,
+				1ED5F5D01BA92154007AEE9F /* MJRefreshBaseView.m in Sources */,
 				1ED890731B9579380020DFF3 /* MainTabBarController.m in Sources */,
 				1ED7FF2C1BA66FAD00CDFF92 /* ProgressHUD.m in Sources */,
 				7FD775941BA4BD44004F6A55 /* HomePageBandCell.m in Sources */,
@@ -2766,6 +2826,7 @@
 				7FD7759B1BA4D0B8004F6A55 /* HomePageLatestBuyCell.m in Sources */,
 				7FD335C61BA88792009EFC61 /* LookSupplyViewController.m in Sources */,
 				1ED896C21BA17C8A00BB9F1C /* BuyDetailViewController.m in Sources */,
+				1ED5F5D11BA92154007AEE9F /* MJRefreshConst.m in Sources */,
 				1ED762E51B968165001727EA /* RegisterViewController.m in Sources */,
 				1E8469981B9D437000842A51 /* WoWAudioRecord.m in Sources */,
 				7FD335F51BA8DFF6009EFC61 /* LookBuyAllShowCell.m in Sources */,
@@ -2793,6 +2854,7 @@
 				7FD335BF1BA87E59009EFC61 /* DataCenterDeal.mm in Sources */,
 				1E8469361B9D3F5E00842A51 /* EmojiEmoticons.m in Sources */,
 				1E8469351B9D3F5E00842A51 /* Emoji.m in Sources */,
+				1ED5F5D21BA92154007AEE9F /* MJRefreshFooterView.m in Sources */,
 				1ED890011B956D230020DFF3 /* NSString+MD5.m in Sources */,
 				1E8469971B9D437000842A51 /* WoWAudioPlayer.m in Sources */,
 				1E84695B1B9D3F5E00842A51 /* PSTCollectionViewLayout.m in Sources */,

@@ -10,18 +10,18 @@
 
 @interface OfferListModle : NSObject
 
-@property (nonatomic,strong) NSString *procurement_price_id;//采购报价表ID
-@property (nonatomic,strong) NSString *product_price;//报价
-@property (nonatomic,strong) NSString *transport_price;//运费
-@property (nonatomic,strong) NSString *total_price;//合计价格
-@property (nonatomic,strong) NSString *product_status;//货源状态1现货2预定
-@property (nonatomic,strong) NSString *seller_member_id;//报价人
-@property (nonatomic,strong) NSString *product_image;//报价图片
+@property (nonatomic,strong) NSString *procurementPriceId;//采购报价表ID
+@property (nonatomic,strong) NSString *productPrice;//报价
+@property (nonatomic,strong) NSString *transportPrice;//运费
+@property (nonatomic,strong) NSString *totalPrice;//合计价格
+@property (nonatomic,strong) NSString *productStatus;//货源状态1现货2预定
+@property (nonatomic,strong) NSString *sellerMemberId;//报价人
+@property (nonatomic,strong) NSString *productImage;//报价图片
 @property (nonatomic,strong) NSString *remark;//备注
-@property (nonatomic,strong) NSString *create_date;
-@property (nonatomic,strong) NSString *update_date;
-@property (nonatomic,strong) NSString *price_count;//报价次数
-@property (nonatomic,strong) NSString *is_enable;//是否有效
-@property (nonatomic,strong) NSString *is_cancel;//是否取消
-@property (nonatomic,strong) NSString *delivery_district;
+@property (nonatomic,strong) NSString *createDate;
+@property (nonatomic,strong) NSString *updateDate;
+@property (nonatomic,strong) NSString *priceCount;//报价次数
+@property (nonatomic,strong) NSString *isEnable;//是否有效
+@property (nonatomic,strong) NSString *isCancel;//是否取消
+@property (nonatomic,strong) NSString *deliveryDistrict;
 @end
