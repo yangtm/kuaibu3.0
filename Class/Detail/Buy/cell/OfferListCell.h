@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface OfferListCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *LogoImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *certLabel;
+@property (weak, nonatomic) IBOutlet UILabel *offLabel;
+@property (weak, nonatomic) IBOutlet UILabel *offTimeLabel;
 
 @end
