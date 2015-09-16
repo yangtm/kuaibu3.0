@@ -299,9 +299,11 @@
                 
                 
                 if([status integerValue] == 0)
-                {    NSLog(@"%@",result);
+                {
                     [weakSelf showAlertWithMessage:msg automaticDismiss:YES];
-                    
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
                 }
                 else if ([status integerValue] != 0)
                 {

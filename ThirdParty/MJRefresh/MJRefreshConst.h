@@ -15,8 +15,9 @@
 #endif
 
 // 文字颜色
-#define MJRefreshLabelTextColor [UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1.0]
-
+//#define MJRefreshLabelTextColor [UIColor colorWithRed:150/255.0 green:150/255.0 blue:150/255.0 alpha:1.0]
+#define MJRefreshLabelTextColor [UIColor colorWithRed:248/255.0 green:76/255.0 blue:75/255.0 alpha:1.0]
+//#define MJRefreshLabelTextColor [UIColor redColor]
 extern const CGFloat MJRefreshViewHeight;
 extern const CGFloat MJRefreshAnimationDuration;
 

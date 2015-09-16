@@ -117,6 +117,7 @@
             CGPoint tempOffset;
             
             if (MJRefreshStateRefreshing == oldState && deltaH > 0 && !_withoutIdle) {
+                
                 tempOffset = _scrollView.contentOffset;
                 animDuration = 0;
             }
@@ -125,6 +126,7 @@
                 _arrowImage.transform = CGAffineTransformMakeRotation(M_PI);
                 UIEdgeInsets inset = _scrollView.contentInset;
                 inset.bottom = _scrollViewInitInset.bottom;
+               
                 _scrollView.contentInset = inset;
             }];
             
@@ -139,6 +141,7 @@
             _statusLabel.text = MJRefreshFooterRefreshing;
             _arrowImage.transform = CGAffineTransformMakeRotation(M_PI);
             [UIView animateWithDuration:MJRefreshAnimationDuration animations:^{
+//                 [NSThread sleepForTimeInterval:2];
                 UIEdgeInsets inset = _scrollView.contentInset;
                 CGFloat bottom = MJRefreshViewHeight + _scrollViewInitInset.bottom;
                 CGFloat deltaH = [self contentBreakView];
