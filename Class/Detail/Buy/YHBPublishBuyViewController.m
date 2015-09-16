@@ -1186,6 +1186,7 @@ const NSInteger BottomLineTag = 59;
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 100, frame.size.height) title:@"是否需要剪样:"];
+    label.userInteractionEnabled = YES;
     _btn1 = [[MyButton alloc] initWithFrame:CGRectMake(label.right+5, 0, 60, view.height) imageName:@"check_off" text:@"是"];
     UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectedBtn1:)];
     [_btn1 addGestureRecognizer:tap1];

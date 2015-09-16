@@ -20,7 +20,7 @@
         _label.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_label];
         _imageView = [[UIImageView alloc] init];
-        _imageView.image = [UIImage imageNamed:@"indicate-arrow"];
+        _imageView.image = [UIImage imageNamed:@"sanjiao_16"];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_imageView];
         _lineView = [[UIView alloc] init];
