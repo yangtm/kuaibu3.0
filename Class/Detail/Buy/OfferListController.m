@@ -7,6 +7,7 @@
 //
 
 #import "OfferListController.h"
+#import "OfferListCell.h"
 
 @interface OfferListController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -59,11 +60,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellid = @"cellid";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+    static NSString *cellid = @"offerListCellid";
+    OfferListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"OfferListCell" owner:nil options:nil]lastObject];
     }
+    
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
 }
 @end
