@@ -224,27 +224,30 @@ enum TextField_Type
 - (void)getCheckCode
 {
     if (self.rgPhoneNumberTextField.text && self.rgPhoneNumberTextField.text.length) {
+//
+//        [SVProgressHUD showWithStatus:@"验证码发送中" cover:YES offsetY:kMainScreenHeight/2.0];
         
-        [SVProgressHUD showWithStatus:@"验证码发送中" cover:YES offsetY:kMainScreenHeight/2.0];
-        
-        [NetworkService getCheckCodeWithPhone:_rgPhoneNumberTextField.text smstpl:_checkCodeTextField.text success:^(NSData *receiveData) {
-            id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-            if ([result[@"RESPCODE"] integerValue]==0) {
-                [SVProgressHUD dismissWithSuccess:@"验证码已发送到您的手机"];
-                self.checkCodeButton.enabled = NO;
-                _secondCountDown = ksecond;
-                if (!self.checkCodeTimer) {
-                    self.checkCodeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timeClicked) userInfo:nil repeats:YES];
-                }
-                _verifyCode = [NSString stringWithFormat:@"%@",result[@"RESULT"]] ;
-                
-                NSLog(@"************************************");
-                NSLog(@"_verifyCode%@:",_verifyCode);
-            }
-        } failure:^(NSError *error) {
-            
-        }];
-        
+//        [NetworkService getCheckCodeWithPhone:_rgPhoneNumberTextField.text smstpl:nil success:^(NSData *receiveData) {
+//            id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+//            if ([result[@"RESPCODE"] integerValue]==0) {
+//                NSLog(@"%@",result);
+//                [SVProgressHUD dismissWithSuccess:@"验证码已发送到您的手机"];
+//                self.checkCodeButton.enabled = NO;
+//                _secondCountDown = ksecond;
+//                if (!self.checkCodeTimer) {
+//                    self.checkCodeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timeClicked) userInfo:nil repeats:YES];
+//                }
+//                _verifyCode = [NSString stringWithFormat:@"%@",result[@"RESULT"]] ;
+//                
+//                NSLog(@"************************************");
+//                NSLog(@"_verifyCode%@:",_verifyCode);
+//            }
+//        } failure:^(NSError *error) {
+//            
+//        }];
+            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:_rgPhoneNumberTextField.text,@"phone",nil];
+            NSMutableDictionary *postDic = [DicModel createPostDictionary];
+            [postDic addEntriesFromDictionary:dic];
 //        NSString *nonce = [NSString stringWithFormat:@"%d",arc4random_uniform(1000)+1];
 //        NSString *timestamp = [self getcurrentTimestamp];
 //        NSString *sign = [[NSString stringWithFormat:@"%@||%@||%@||%@",kAPPID,nonce,timestamp,kAPPKEY] MD5Hash];
@@ -253,31 +256,31 @@ enum TextField_Type
 //        //    NSLog(@"sign:%@",signs);
 //        NSString *newSign = [sign substringWithRange:NSMakeRange(12, 8)];
 //        NSDictionary *postDic =@{@"app_id":kAPPID,@"timestamp":timestamp,@"nonce":nonce,@"sign":newSign, @"phone":_rgPhoneNumberTextField.text,@"zone":@""};
-//        NSString *registeUrl = [NSString stringWithFormat:@"%@sendSms/getCheckCode",kYHBBaseUrl];
-//        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//        //                manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//        //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-//        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html", nil];
-//        
-//        [manager POST:registeUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            NSLog(@"%@",responseObject);
-//            NSLog(@"%@",responseObject[@"RESPMSG"]);
-//            if ([responseObject[@"RESPCODE"] integerValue]==0) {
-//                [SVProgressHUD dismissWithSuccess:@"验证码已发送到您的手机"];
-//                self.checkCodeButton.enabled = NO;
-//                _secondCountDown = ksecond;
-//                if (!self.checkCodeTimer) {
-//                    self.checkCodeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timeClicked) userInfo:nil repeats:YES];
-//                }
-//                _verifyCode = [NSString stringWithFormat:@"%@",responseObject[@"RESULT"]] ;
-//                
-//                NSLog(@"************************************");
-//                NSLog(@"_verifyCode%@:",_verifyCode);
-//            }
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"%@",error);
-//            
-//        }];
+        NSString *registeUrl = [NSString stringWithFormat:@"%@sendSms/getCheckCode",kYHBBaseUrl];
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        //                manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html", nil];
+        
+        [manager POST:registeUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"%@",responseObject);
+            NSLog(@"%@",responseObject[@"RESPMSG"]);
+            if ([responseObject[@"RESPCODE"] integerValue]==0) {
+                [SVProgressHUD dismissWithSuccess:@"验证码已发送到您的手机"];
+                self.checkCodeButton.enabled = NO;
+                _secondCountDown = ksecond;
+                if (!self.checkCodeTimer) {
+                    self.checkCodeTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timeClicked) userInfo:nil repeats:YES];
+                }
+                _verifyCode = [NSString stringWithFormat:@"%@",responseObject[@"RESULT"]] ;
+                
+                NSLog(@"************************************");
+                NSLog(@"_verifyCode%@:",_verifyCode);
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@",error);
+            
+        }];
     }
     
 }

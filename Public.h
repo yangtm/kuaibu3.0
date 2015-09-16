@@ -22,7 +22,7 @@
 //#define EMAppKey @"yibu2015#kuaibudev"
 //#define WeixinAppID @"wxdf71533663734340"
 #define __hzUserCookieKey @"coolieKey"
-
+//#define kYHBBaseUrl @"http://192.168.1.111:8080/kuaibu-appService/"
 #define kYHBBaseUrl @"http://apitest.51kuaibu.com/"
 #define kYHBRequestUrl(path,outUrl) do{\
   outUrl = [NSString stringWithFormat:@"%@%@",kYHBBaseUrl,path];\

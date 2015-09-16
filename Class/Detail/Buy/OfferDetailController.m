@@ -19,9 +19,9 @@
 {
     BOOL _isSelect;
     NSInteger _isSpot;
-    double _total;
-    double _price;
-    double _freight;
+    float _total;
+    float _price;
+    float _freight;
 }
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIView *offerDetailFormView;
@@ -125,7 +125,14 @@
     UIView *view = [[UIView alloc] initWithFrame:frame];
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 70, view.height) title:@"单价 : "];
     self.priceTextField.frame = CGRectMake(label.right,0, 120, view.height);
-    _price = [self.priceTextField.text doubleValue];
+    
+    
+//    [self.priceTextField addObserver:self forKeyPath:@"text" options:0 context:nil];
+
+    
+    [self.priceTextField addTarget:self  action:@selector(priceTextFieldValueChanged)  forControlEvents:UIControlEventAllEditingEvents];
+    
+    
     UILabel *label1 = [self formTitleLabel:CGRectMake(_priceTextField.right+5, 0, 70, view.height) title:@"元/单位"];
     [view addSubview:label1];
     [view addSubview:_priceTextField];
@@ -134,6 +141,7 @@
     return view;
 }
 
+
 #pragma mark - 运费UI
 - (UIView *)freightForm:(CGRect)frame
 {
@@ -141,6 +149,7 @@
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 70, view.height) title:@"运费 : "];
     self.freightTextField.frame = CGRectMake(label.right,0, 120, view.height);
     _freight = [self.freightTextField.text doubleValue];
+    [self.freightTextField addTarget:self  action:@selector(freightTextFieldValueChanged)  forControlEvents:UIControlEventAllEditingEvents];
     _isPayFor = [[YHBRadioBox alloc] initWithFrame:CGRectMake(_freightTextField.right+5, 0, 70, view.height) checkedImage:[UIImage imageNamed:@"check_on"] uncheckedImage:[UIImage imageNamed:@"check_off"] title:@"到付"];
     [_isPayFor addTarget:self action:@selector(isPayForDidChanged:) forControlEvents:UIControlEventValueChanged];
     [view addSubview:_isPayFor];
@@ -160,13 +169,17 @@
     return _isPayFor;
 }
 
+
+
+
 #pragma mark - 合计UI
 - (UIView *)combinedForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
     
     _total = _number * _price + _freight;
-    NSString *title = [NSString stringWithFormat:@"合计 : %lf",_total];
+    NSString *title = [NSString stringWithFormat:@"合计 : %.2f",_total];
+    self.combinedLabel.text = title;
     self.combinedLabel = [self formTitleLabel:CGRectMake(10, 0, kMainScreenWidth, 60) title:title];
     self.combinedLabel.textAlignment = NSTextAlignmentCenter;
     self.combinedLabel.font = [UIFont systemFontOfSize:20];
@@ -175,6 +188,36 @@
     [self addBottomLine:view];
     return view;
 }
+
+- (void)priceTextFieldValueChanged{
+    _price = [self.priceTextField.text floatValue];
+    _total = _number * _price;
+    NSString *title = [NSString stringWithFormat:@"合计 : %.2f",_total];
+    self.combinedLabel.text = title;
+}
+
+- (void)freightTextFieldValueChanged{
+    _price = [self.priceTextField.text floatValue];
+    _freight = [self.freightTextField.text floatValue];
+    _total = (_number * _price) + _freight;
+    NSString *title = [NSString stringWithFormat:@"合计 : %.2f",_total];
+    self.combinedLabel.text = title;
+}
+
+//kvo
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if ([keyPath isEqualToString:@"text"]&& object == self.priceTextField) {
+//        _total = _number * _price + _freight;
+//        NSString *title = [NSString stringWithFormat:@"合计 : %lf",_total];
+//        self.combinedLabel.text = title;
+//        NSLog(@"***");
+//    }
+//}
+//
+//- (void)dealloc{
+//    [_priceTextField removeObserver:self forKeyPath:@"price"];
+//}
 
 #pragma mark - 货源状态UI
 - (UIView *)SupplyTypeForm:(CGRect)frame
@@ -235,12 +278,14 @@
 {
 //    NSLog(@"提交报价");
     NSString *url = nil;
-    kYHBRequestUrl(@"procurement/seller/ ProcurementPriceDetail", url);
+    kYHBRequestUrl(@"procurement/seller/addProcurementPrice", url);
+    
     NSDictionary *dic = [self createDictionary];
     
     NSString *str = [self dictionaryToJson:dic];
-    //    NSLog(@"****%@",str);
+//    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@(_offerDetailId),@"procurementId", nil];
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:str,@"procurementPrice", nil];
+//     NSLog(@"****%@",dict);
     __weak typeof(self) weakSelf=self;
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if(receiveData.length>0)
@@ -252,11 +297,13 @@
                 NSString *msg = dictionary[@"RESPMSG"];
                 NSString *status = dictionary[@"RESPCODE"];
                 
-                NSLog(@"%@",result);
+                
                 if([status integerValue] == 0)
                 {
                     [weakSelf showAlertWithMessage:msg automaticDismiss:YES];
-                    
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
                 }
                 else if ([status integerValue] != 0)
                 {
@@ -296,11 +343,12 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     
-    [dic setObject:_uploadButton.image forKey:@"product_image"];
-    [dic setObject:_priceTextField.text forKey:@"product_price"];
-    [dic setObject:_freightTextField.text forKey:@"transport_price"];
-    [dic setObject:_freightTextField.text forKey:@"total_price"];
-    [dic setObject:_isPayFor forKey:@"product_status"];
+    [dic setObject:@(_offerDetailId) forKey:@"procurementId"];
+//    [dic setObject:_uploadButton.image forKey:@"productImage"];
+    [dic setObject:_priceTextField.text forKey:@"productPrice"];
+    [dic setObject:_freightTextField.text forKey:@"transportPrice"];
+    [dic setObject:_freightTextField.text forKey:@"totalPrice"];
+    [dic setObject:@(_isSpot) forKey:@"productStatus"];
     [dic setObject:_noteEditView.text forKey:@"remark"];
     return dic;
     
@@ -353,7 +401,7 @@
 
 - (void)selected1:(UIGestureRecognizer *)tap
 {
-    NSLog(@"asd");
+//    NSLog(@"asd");
     if (_spotBtn) {
         _isSpot = YES;
         _spotBtn.imageView.image =[UIImage imageNamed:@"check_on"];

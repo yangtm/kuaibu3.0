@@ -13,7 +13,7 @@
 #import "ProcurementModel.h"
 #import "OfferListController.h"
 
-@interface ProcurementListController ()<UITableViewDataSource,UITableViewDelegate,ListCellDelagate>
+@interface ProcurementListController ()<UITableViewDataSource,UITableViewDelegate,ListCellDelagate,MJRefreshBaseViewDelegate>
 {
     NSInteger _page;
     BOOL _isLoading;
@@ -61,7 +61,6 @@
 #pragma mark - 请求数据
 - (void)showData
 {
-//    _isLoading = YES;
     NSString *url = nil;
     kYHBRequestUrl(@"procurement/memberPurchaseList", url);
     NSLog(@"%@",url);
@@ -70,7 +69,7 @@
     __weak ProcurementListController *weakSelf = self;
     [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-        
+        _isLoading = YES;
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
 //            NSLog(@"result:%@",dic);
@@ -85,9 +84,11 @@
             }
             [weakSelf.tableView reloadData];
         }
-//        _isLoading = NO;
+        _isLoading = NO;
+        [_headerView endRefreshing];
+        [_footerView endRefreshing];
     } failure:^(NSError *error) {
-//        _isLoading = NO;
+        _isLoading = NO;
         NSLog(@"%@",error);
     }];
 }
@@ -100,7 +101,37 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    _tableView.tableFooterView = [[UIView alloc] init];
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    //下拉刷新，上拉加载
+    _headerView = [MJRefreshHeaderView header];
+    _headerView.delegate = self;
+    _headerView.scrollView = self.tableView;
+    
+    _footerView = [MJRefreshFooterView footer];
+    _footerView.delegate = self;
+    _footerView.scrollView = self.tableView;
+}
+
+- (void)dealloc
+{
+    _headerView.scrollView = nil;
+    _footerView.scrollView = nil;
+}
+
+#pragma mark - MJ代理
+- (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
+{
+    if (_isLoading) {
+        return;
+    }
+    if (refreshView == _headerView) {
+        _page = 1;
+        [self showData];
+    }else if (refreshView == _footerView){
+        _page++;
+        [self showData];
+    }
 }
 
 #pragma mark - UITableViewDelegate

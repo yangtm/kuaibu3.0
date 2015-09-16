@@ -101,13 +101,13 @@
 //获取验证码
 +(void)getCheckCodeWithPhone:(NSString *)phone smstpl:(NSString *)sms success:(void (^)(NSData *receiveData))success failure:(void (^)(NSError *error))failure
 {
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:phone,@"memberNameTel",sms,@"zone",nil];
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:phone,@"memberNameTel",@"",@"zone",nil];
     NSMutableDictionary *postDic = [DicModel createPostDictionary];
     [postDic addEntriesFromDictionary:dic];
 
     NSString *checkCodeUrl = nil;
     kYHBRequestUrl(@"sendSms/getCheckCode", checkCodeUrl);
-    
+    NSLog(@"checkCodeUrl:%@",checkCodeUrl);
     AFHTTPRequestOperationManager *mgr=[AFHTTPRequestOperationManager manager];
     mgr.responseSerializer=[AFHTTPResponseSerializer serializer];
     [mgr POST:checkCodeUrl parameters:postDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
