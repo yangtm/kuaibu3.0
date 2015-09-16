@@ -9,5 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface MyLookBuyShowCell : UITableViewCell
-
+@property (nonatomic,strong) UIImageView *rightImageView;
+@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *amountLabel;
+@property (nonatomic,strong) UILabel *amountStoreLabel;
+@property (nonatomic,strong) UILabel *creatdateLabel;
+@property (nonatomic,strong) UILabel *statusLabel;
+@property (nonatomic,strong) UILabel *unitLabel1;
+@property (nonatomic,strong) UILabel *unitLabel2;
+-(void)configWithAmount:(NSString *)amount storenum:(NSString *)number unit:(NSString *)unit;
 @end
