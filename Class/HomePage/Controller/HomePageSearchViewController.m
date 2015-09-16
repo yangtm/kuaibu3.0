@@ -59,7 +59,7 @@
     hotwordslabel.font = [UIFont systemFontOfSize:14];
     [_HotWordsView addSubview:hotwordslabel];
     
-    UIButton *wordsFirst = [[UIButton alloc]initWithFrame:CGRectMake(10 + hotwordslabel.width + 10 , 20, 0, 0)];
+    UIButton *wordsFirst = [[UIButton alloc]initWithFrame:CGRectMake(10 + hotwordslabel.width , 20, 0, 0)];
     
     //NSLog(@"first=%f",wordsFirst.frame.origin.x);
     for (NSInteger i = 0; i < self.hotWords.count; i++) {
@@ -68,7 +68,7 @@
         [words setTitle:[_hotWords objectAtIndex:i] forState:UIControlStateNormal];
         [words setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         NSLog(@"%@",words.titleLabel.text);
-        words.backgroundColor = [UIColor redColor];
+       // words.backgroundColor = [UIColor redColor];
         CGSize textBlockMinSize = {130, 25};
         CGSize pricesize = [words.titleLabel.text sizeWithFont:words.titleLabel.font constrainedToSize:textBlockMinSize lineBreakMode:NSLineBreakByCharWrapping];
         [words setFrame:CGRectMake(pricesize.width + wordsFirst.frame.origin.x, 20, pricesize.width, pricesize.height)];

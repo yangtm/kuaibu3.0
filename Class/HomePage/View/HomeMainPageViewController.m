@@ -24,6 +24,7 @@
 #import "HomePageBandCell.h"
 #import "HomePageLatestBuyCell.h"
 #import "SVPullToRefresh.h"
+#import "LookSupplyViewController.h"
 
 NSString *const BannerCellIdentifier = @"BannerCellIdentifier";
 NSString *const PavilionCellIdentifier = @"PavilionCellIdentifier";
@@ -41,7 +42,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     LatestBuySection,
 };
 
-@interface HomeMainPageViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BannerDelegate>
+@interface HomeMainPageViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BannerDelegate,HomePageTitleHeadViewDelegate>
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) PageIndex *pageIndex;
 @property (assign, nonatomic) CGFloat ratio;
@@ -374,6 +375,8 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
                 ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"最新采购";
+                ((HomePageTitleHeadView *)reusableView).collectViewNum = LatestBuySection;
+                ((HomePageTitleHeadView *)reusableView).HomePageTitleHeadViewDelegate = self;
             }
             else{
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
@@ -647,6 +650,29 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     return edgeInsets;
 }
 
+-(void)selectTag:(NSInteger ) tag
+{
+    switch (tag) {
+        case 1:
+            NSLog(@"精品店铺列表");
+            break;
+        case 2:
+            NSLog(@"热门列表");
+            break;
+        case 3:
+            NSLog(@"产业带列表");
+            break;
+        case 4:
+        {
+            if ([_homeMainPageViewDelegate respondsToSelector:@selector(selectBtn:)]) {
+                [_homeMainPageViewDelegate selectBtn:4];
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

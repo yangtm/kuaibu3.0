@@ -19,6 +19,7 @@
 #import "HomeMainPageViewController.h"
 #import "BannerDetailViewController.h"
 #import "HomePageBannerCell.h"
+#import "LookSupplyViewController.h"
 
 @interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate>
 
@@ -90,6 +91,30 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+-(void)selectBtn:(NSInteger )tag
+{
+    switch (tag) {
+        case 1:
+            NSLog(@"精品店铺列表");
+            break;
+        case 2:
+             NSLog(@"热门列表");
+            break;
+        case 3:
+            NSLog(@"产业带列表");
+            break;
+        case 4:
+        {
+            self.navigationController.navigationBar.alpha = 1.f;
+            LookSupplyViewController *vc = [[LookSupplyViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
 - (NSUInteger)numberOfTab:(SlideSwitchView *)view
 {
     // you can set the best you can do it ;

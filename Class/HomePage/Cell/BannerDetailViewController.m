@@ -27,7 +27,6 @@
 
 - (void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
-    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -47,12 +46,13 @@
     self.webView.scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     
     //返回按钮
-    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0,0, 100, 20)];
-    [btn1 setTitle:@"返回" forState:UIControlStateNormal];
+    UIButton *btn1 = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    //[btn1 setTitle:@"返回" forState:UIControlStateNormal];
     [btn1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn1 addTarget:self action: @selector(backAction) forControlEvents: UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn1];
-    //self.navigationItem.leftBarButtonItem = item;
+    [btn1 setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = item;
     
     
     [FGGProgressHUD showLoadingOnView:self.view];

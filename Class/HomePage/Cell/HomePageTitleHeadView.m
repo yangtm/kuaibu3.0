@@ -25,7 +25,12 @@
             NSLog(@"产业带列表");
             break;
         case 4:
-            NSLog(@"最新采购列表");
+        {
+           //NSLog(@"最新采购列表");
+            if ([_HomePageTitleHeadViewDelegate respondsToSelector:@selector(selectTag:)]) {
+                [_HomePageTitleHeadViewDelegate selectTag:4];
+            }
+        }
             break;
         default:
             break;

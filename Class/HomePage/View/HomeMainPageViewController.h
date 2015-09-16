@@ -11,6 +11,7 @@
 
 @protocol HomeMainPageViewControllerDelegate <NSObject>
 -(void)advertUrl:(NSString *)advertUrl  advertTitle:(NSString *)advertTitle;
+-(void)selectBtn:(NSInteger )tag;
 @end
 
 @interface HomeMainPageViewController : BaseViewController

@@ -257,6 +257,10 @@
 		7FD335C01BA87E59009EFC61 /* DataOC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7FD335B91BA87E59009EFC61 /* DataOC.mm */; };
 		7FD335C11BA87E59009EFC61 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD335BC1BA87E59009EFC61 /* UIScrollView+SVInfiniteScrolling.m */; };
 		7FD335C21BA87E59009EFC61 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD335BE1BA87E59009EFC61 /* UIScrollView+SVPullToRefresh.m */; };
+		7FD335C61BA88792009EFC61 /* LookSupplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD335C51BA88792009EFC61 /* LookSupplyViewController.m */; };
+		7FD335C91BA8A1ED009EFC61 /* YHBSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD335C81BA8A1ED009EFC61 /* YHBSegmentView.m */; };
+		7FD335F51BA8DFF6009EFC61 /* LookBuyAllShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD335F41BA8DFF6009EFC61 /* LookBuyAllShowCell.m */; };
+		7FD335F81BA8E017009EFC61 /* MyLookBuyShowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD335F71BA8E017009EFC61 /* MyLookBuyShowCell.m */; };
 		7FD55D5E1B9CA71300726E83 /* home_page_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD55D5C1B9CA71300726E83 /* home_page_0.png */; };
 		7FD55D5F1B9CA71300726E83 /* home_page_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD55D5D1B9CA71300726E83 /* home_page_1.png */; };
 		7FD55D641B9CC44B00726E83 /* CategoryPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD55D631B9CC44B00726E83 /* CategoryPageViewController.m */; };
@@ -829,6 +833,14 @@
 		7FD335BC1BA87E59009EFC61 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		7FD335BD1BA87E59009EFC61 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		7FD335BE1BA87E59009EFC61 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		7FD335C41BA88792009EFC61 /* LookSupplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookSupplyViewController.h; sourceTree = "<group>"; };
+		7FD335C51BA88792009EFC61 /* LookSupplyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookSupplyViewController.m; sourceTree = "<group>"; };
+		7FD335C71BA8A1ED009EFC61 /* YHBSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBSegmentView.h; sourceTree = "<group>"; };
+		7FD335C81BA8A1ED009EFC61 /* YHBSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBSegmentView.m; sourceTree = "<group>"; };
+		7FD335F31BA8DFF6009EFC61 /* LookBuyAllShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookBuyAllShowCell.h; sourceTree = "<group>"; };
+		7FD335F41BA8DFF6009EFC61 /* LookBuyAllShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookBuyAllShowCell.m; sourceTree = "<group>"; };
+		7FD335F61BA8E017009EFC61 /* MyLookBuyShowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLookBuyShowCell.h; sourceTree = "<group>"; };
+		7FD335F71BA8E017009EFC61 /* MyLookBuyShowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLookBuyShowCell.m; sourceTree = "<group>"; };
 		7FD55D5C1B9CA71300726E83 /* home_page_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home_page_0.png; path = homepage/home_page_0.png; sourceTree = "<group>"; };
 		7FD55D5D1B9CA71300726E83 /* home_page_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = home_page_1.png; path = homepage/home_page_1.png; sourceTree = "<group>"; };
 		7FD55D621B9CC44B00726E83 /* CategoryPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPageViewController.h; sourceTree = "<group>"; };
@@ -1317,6 +1329,8 @@
 		06706D851B85B2AA00F58ACC /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7FD335C71BA8A1ED009EFC61 /* YHBSegmentView.h */,
+				7FD335C81BA8A1ED009EFC61 /* YHBSegmentView.m */,
 				1E8469DF1B9D5CE200842A51 /* UIImageView+Extensions.h */,
 				1E8469E01B9D5CE200842A51 /* UIImageView+Extensions.m */,
 				1E8469CE1B9D5A4C00842A51 /* YHBRadioBox.h */,
@@ -2018,6 +2032,7 @@
 		1E8469B31B9D547000842A51 /* Supply */ = {
 			isa = PBXGroup;
 			children = (
+				7FD335C31BA88769009EFC61 /* LookSupply */,
 				1EDDDA921BA01802005DCA1C /* YHBPublishSupplyViewController.h */,
 				1EDDDA931BA01802005DCA1C /* YHBPublishSupplyViewController.m */,
 				1EDC40BA1B9ECB1500622CCC /* YHBTitleTag */,
@@ -2407,6 +2422,27 @@
 			path = SVPullToRefresh;
 			sourceTree = "<group>";
 		};
+		7FD335C31BA88769009EFC61 /* LookSupply */ = {
+			isa = PBXGroup;
+			children = (
+				7FD335F21BA8DF4F009EFC61 /* cell */,
+				7FD335C41BA88792009EFC61 /* LookSupplyViewController.h */,
+				7FD335C51BA88792009EFC61 /* LookSupplyViewController.m */,
+			);
+			path = LookSupply;
+			sourceTree = "<group>";
+		};
+		7FD335F21BA8DF4F009EFC61 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				7FD335F31BA8DFF6009EFC61 /* LookBuyAllShowCell.h */,
+				7FD335F41BA8DFF6009EFC61 /* LookBuyAllShowCell.m */,
+				7FD335F61BA8E017009EFC61 /* MyLookBuyShowCell.h */,
+				7FD335F71BA8E017009EFC61 /* MyLookBuyShowCell.m */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		7FD55D5B1B9CA6F600726E83 /* homepage */ = {
 			isa = PBXGroup;
 			children = (
@@ -2707,14 +2743,17 @@
 				1ED922881B8722BB0013AF29 /* MemberModel.m in Sources */,
 				1ED762EB1B968C06001727EA /* MyUtil.m in Sources */,
 				7FD7759B1BA4D0B8004F6A55 /* HomePageLatestBuyCell.m in Sources */,
+				7FD335C61BA88792009EFC61 /* LookSupplyViewController.m in Sources */,
 				1ED896C21BA17C8A00BB9F1C /* BuyDetailViewController.m in Sources */,
 				1ED762E51B968165001727EA /* RegisterViewController.m in Sources */,
 				1E8469981B9D437000842A51 /* WoWAudioRecord.m in Sources */,
+				7FD335F51BA8DFF6009EFC61 /* LookBuyAllShowCell.m in Sources */,
 				7FD7B2B91B9FB17800A4F911 /* SlideSwitchView.m in Sources */,
 				1ED896BF1BA170FE00BB9F1C /* ProcurementListController.m in Sources */,
 				0678C48F1B8572DF0035660E /* kuaibu.xcdatamodeld in Sources */,
 				1ED8905E1B9573F90020DFF3 /* AFURLResponseSerialization.m in Sources */,
 				06706DA71B85B2AA00F58ACC /* UIView+WebCacheOperation.m in Sources */,
+				7FD335C91BA8A1ED009EFC61 /* YHBSegmentView.m in Sources */,
 				06706D9B1B85B2AA00F58ACC /* SDWebImageCompat.m in Sources */,
 				0678C4921B8572DF0035660E /* ViewController.m in Sources */,
 				06706D981B85B2AA00F58ACC /* MKAnnotationView+WebCache.m in Sources */,
@@ -2723,6 +2762,7 @@
 				06706D891B85B2AA00F58ACC /* SearchViewController.m in Sources */,
 				1ED890581B9573F90020DFF3 /* AFHTTPRequestOperationManager.m in Sources */,
 				1E8469671B9D3F5E00842A51 /* TTGlobalUICommon.m in Sources */,
+				7FD335F81BA8E017009EFC61 /* MyLookBuyShowCell.m in Sources */,
 				1E8469DC1B9D5CB500842A51 /* WoWPhoto.m in Sources */,
 				1E8469421B9D3F5E00842A51 /* MWZoomingScrollView.m in Sources */,
 				1E84699C1B9D43EA00842A51 /* SZTextView.m in Sources */,
