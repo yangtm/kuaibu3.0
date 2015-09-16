@@ -8,11 +8,16 @@
 
 #import "OfferListController.h"
 #import "OfferListCell.h"
+#import "OfferModle.h"
+#import "BuyOfferListDetailController.h"
 
-@interface OfferListController ()<UITableViewDataSource,UITableViewDelegate>
-
+@interface OfferListController ()<UITableViewDataSource,UITableViewDelegate,MJRefreshBaseViewDelegate>
+{
+    NSInteger _page;
+}
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
+
 
 @end
 
@@ -20,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _page = 1;
     [self settitleLabel:@"报价列表"];
     [self showData];
     [self createTabelView];
@@ -35,6 +41,32 @@
 - (void)showData
 {
     self.dataArray = [[NSMutableArray alloc] init];
+    
+    NSString *url = nil;
+    kYHBRequestUrl(@"procurement/getPurchasePrices", url);
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_offerListId),@"procurementId",@(_page),@"pageIndex", nil];
+    __weak OfferListController *weakSelf = self;
+    [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+        id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+        _isLoading = YES;
+        if ([result isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = result;
+            //            NSLog(@"result:%@",dic);
+            NSArray *array = dic[@"RESULT"];
+            for (NSDictionary *subDic in array) {
+                OfferModle *model = [[OfferModle alloc] init];
+                [model setValuesForKeysWithDictionary:subDic];
+                [_dataArray addObject:model];
+            }
+            [weakSelf.tableView reloadData];
+        }
+        _isLoading = NO;
+        [_headerView endRefreshing];
+        [_footerView endRefreshing];
+    } failure:^(NSError *error) {
+        _isLoading = NO;
+        NSLog(@"%@",error);
+    }];;
 }
 
 #pragma mark - UI
@@ -44,7 +76,31 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    self.tableView.tableFooterView = [[UIView alloc] init];
+//    self.tableView.tableFooterView = [[UIView alloc] init];
+    
+    //下拉刷新，上拉加载
+    _headerView = [MJRefreshHeaderView header];
+    _headerView.delegate = self;
+    _headerView.scrollView = self.tableView;
+    
+    _footerView = [MJRefreshFooterView footer];
+    _footerView.delegate = self;
+    _footerView.scrollView = self.tableView;
+}
+
+#pragma mark - MJ代理
+- (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
+{
+    if (_isLoading) {
+        return;
+    }
+    if (refreshView == _headerView) {
+        _page = 1;
+        [self showData];
+    }else if (refreshView == _footerView){
+        _page++;
+        [self showData];
+    }
 }
 
 #pragma mark - UITabelView代理
@@ -55,7 +111,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,12 +121,22 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"OfferListCell" owner:nil options:nil]lastObject];
     }
-    
+//    OfferModle *model = self.dataArray[indexPath.row];
+//    [cell configOfferListModel:model];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 100;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    BuyOfferListDetailController *vc = [[BuyOfferListDetailController alloc] init];
+//    OfferModle *model = self.dataArray[indexPath.row];
+//    vc.buyOfferListDetailId = [model.procurementId integerValue];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

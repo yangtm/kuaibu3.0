@@ -308,18 +308,32 @@
     [_likeButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
     [_likeButton addTarget:self action:@selector(clickLikeBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_likeButton];
+    
+    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(_likeButton.right, 10, 1, 30)];
+    line1.backgroundColor = kNaviTitleColor;
+    [view addSubview:line1];
+    
     _contactButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _contactButton.frame = CGRectMake(_likeButton.right, 0, kMainScreenWidth/3, view.height);
     [_contactButton setTitle:@"联系卖家" forState:UIControlStateNormal];
     [_contactButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
     [_contactButton addTarget:self action:@selector(clickContactBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_contactButton];
+    
+    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(_contactButton.right, 10, 1, 30)];
+    line2.backgroundColor = kNaviTitleColor;
+    [view addSubview:line2];
+    
     _offButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _offButton.frame = CGRectMake(_contactButton.right, 0, kMainScreenWidth/3, view.height);
     [_offButton setTitle:@"我要报价" forState:UIControlStateNormal];
     [_offButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
     [_offButton addTarget:self action:@selector(clickOffBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_offButton];
+    
+    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(_offButton.right, 10, 1, 30)];
+    line3.backgroundColor = kNaviTitleColor;
+    [view addSubview:line3];
     
     return view;
 }

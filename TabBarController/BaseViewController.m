@@ -31,6 +31,12 @@
 //    }
 }
 
+- (void)dealloc
+{
+    _headerView.scrollView = nil;
+    _footerView.scrollView = nil;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -168,6 +168,8 @@
 		1ED5F5D11BA92154007AEE9F /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5C41BA92154007AEE9F /* MJRefreshConst.m */; };
 		1ED5F5D21BA92154007AEE9F /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5C61BA92154007AEE9F /* MJRefreshFooterView.m */; };
 		1ED5F5D31BA92154007AEE9F /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5C81BA92154007AEE9F /* MJRefreshHeaderView.m */; };
+		1ED5F5D61BA951CC007AEE9F /* OfferModle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5D51BA951CC007AEE9F /* OfferModle.m */; };
+		1ED5F5D91BA95C3E007AEE9F /* BuyOfferListDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED5F5D81BA95C3E007AEE9F /* BuyOfferListDetailController.m */; };
 		1ED67C341B9E86A8005EC831 /* check_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED67C321B9E86A8005EC831 /* check_on.png */; };
 		1ED67C351B9E86A8005EC831 /* check_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED67C331B9E86A8005EC831 /* check_off.png */; };
 		1ED67C381B9EAA88005EC831 /* MyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67C371B9EAA88005EC831 /* MyButton.m */; };
@@ -695,6 +697,10 @@
 		1ED5F5C61BA92154007AEE9F /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
 		1ED5F5C71BA92154007AEE9F /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
 		1ED5F5C81BA92154007AEE9F /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
+		1ED5F5D41BA951CC007AEE9F /* OfferModle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferModle.h; sourceTree = "<group>"; };
+		1ED5F5D51BA951CC007AEE9F /* OfferModle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferModle.m; sourceTree = "<group>"; };
+		1ED5F5D71BA95C3E007AEE9F /* BuyOfferListDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyOfferListDetailController.h; sourceTree = "<group>"; };
+		1ED5F5D81BA95C3E007AEE9F /* BuyOfferListDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyOfferListDetailController.m; sourceTree = "<group>"; };
 		1ED67C321B9E86A8005EC831 /* check_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_on.png; sourceTree = "<group>"; };
 		1ED67C331B9E86A8005EC831 /* check_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_off.png; sourceTree = "<group>"; };
 		1ED67C361B9EAA88005EC831 /* MyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyButton.h; sourceTree = "<group>"; };
@@ -1966,6 +1972,8 @@
 				1ECDCF6B1BA3C54700C1BF9C /* OfferDetailController.m */,
 				1ED9E0511BA7DFED000864F3 /* OfferListController.h */,
 				1ED9E0521BA7DFED000864F3 /* OfferListController.m */,
+				1ED5F5D71BA95C3E007AEE9F /* BuyOfferListDetailController.h */,
+				1ED5F5D81BA95C3E007AEE9F /* BuyOfferListDetailController.m */,
 			);
 			path = Buy;
 			sourceTree = "<group>";
@@ -2379,6 +2387,8 @@
 				1ED98EF31BA2B72C00827E4D /* procurement.m */,
 				1ED9E0541BA7E724000864F3 /* OfferListModle.h */,
 				1ED9E0551BA7E724000864F3 /* OfferListModle.m */,
+				1ED5F5D41BA951CC007AEE9F /* OfferModle.h */,
+				1ED5F5D51BA951CC007AEE9F /* OfferModle.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -2803,6 +2813,7 @@
 				7F31EE671B9E7091008015D2 /* BannerView.m in Sources */,
 				1E8469521B9D3F5E00842A51 /* UIImageView+EMWebCache.m in Sources */,
 				06706D971B85B2AA00F58ACC /* LSNavigationController.m in Sources */,
+				1ED5F5D61BA951CC007AEE9F /* OfferModle.m in Sources */,
 				1E8469661B9D3F5E00842A51 /* THProgressView.m in Sources */,
 				1E8469471B9D3F5E00842A51 /* EMSDWebImageDownloader.m in Sources */,
 				1E84684C1B9D269100842A51 /* PasswordManagerViewController.m in Sources */,
@@ -2886,6 +2897,7 @@
 				7FD7B2BE1B9FC55200A4F911 /* HomeMainPageViewController.m in Sources */,
 				06706DB11B85B67500F58ACC /* AreaModel.m in Sources */,
 				1E6BC99E1B9C366A00B726DA /* DicModel.m in Sources */,
+				1ED5F5D91BA95C3E007AEE9F /* BuyOfferListDetailController.m in Sources */,
 				1ED922751B86C5530013AF29 /* ProductModel.m in Sources */,
 				1ED7FF261BA6645800CDFF92 /* MyheaderCell.m in Sources */,
 				1ED8905D1B9573F90020DFF3 /* AFURLRequestSerialization.m in Sources */,
