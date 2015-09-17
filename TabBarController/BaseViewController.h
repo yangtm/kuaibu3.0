@@ -14,6 +14,7 @@
 {
     MJRefreshHeaderView *_headerView;
     MJRefreshFooterView *_footerView;
+     BOOL _isLoading;
 }
 @property (nonatomic, assign) CGFloat g_OffsetY;
 @property (nonatomic, strong) UIImage *backgroundimg;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OfferModle.h"
 
 @interface OfferListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *LogoImageView;
@@ -14,5 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *certLabel;
 @property (weak, nonatomic) IBOutlet UILabel *offLabel;
 @property (weak, nonatomic) IBOutlet UILabel *offTimeLabel;
+
+- (void)configOfferListModel:(OfferModle *)model;
 
 @end

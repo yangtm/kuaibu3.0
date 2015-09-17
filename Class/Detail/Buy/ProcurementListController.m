@@ -16,7 +16,8 @@
 @interface ProcurementListController ()<UITableViewDataSource,UITableViewDelegate,ListCellDelagate,MJRefreshBaseViewDelegate>
 {
     NSInteger _page;
-    BOOL _isLoading;
+   
+    NSInteger _offerList;
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
@@ -80,6 +81,8 @@
                 model.offerLastDate = subDic[@"offerLastDate"];
                 model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
                 model.procurementId = subDic[@"procurementId"];
+                _offerList = [model.procurementId integerValue];
+//                NSLog(@"_offerList:%ld",_offerList);
                 [_dataArray addObject:model];
             }
             [weakSelf.tableView reloadData];
@@ -113,11 +116,7 @@
     _footerView.scrollView = self.tableView;
 }
 
-- (void)dealloc
-{
-    _headerView.scrollView = nil;
-    _footerView.scrollView = nil;
-}
+
 
 #pragma mark - MJ代理
 - (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
@@ -219,6 +218,8 @@
 - (void)cilckOfferManagerBtn
 {
     OfferListController *vc = [[OfferListController alloc] init];
+    
+    vc.offerListId = _offerList;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface OfferListController : BaseViewController
-
+@property (nonatomic,assign) NSInteger offerListId;
 @end

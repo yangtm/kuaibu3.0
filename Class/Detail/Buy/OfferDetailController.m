@@ -178,7 +178,7 @@
     UIView *view = [[UIView alloc] initWithFrame:frame];
     
     _total = _number * _price + _freight;
-    NSString *title = [NSString stringWithFormat:@"合计 : %.2f",_total];
+    NSString *title = [NSString stringWithFormat:@"合计 : %.2f 元",_total];
     self.combinedLabel.text = title;
     self.combinedLabel = [self formTitleLabel:CGRectMake(10, 0, kMainScreenWidth, 60) title:title];
     self.combinedLabel.textAlignment = NSTextAlignmentCenter;
@@ -192,7 +192,7 @@
 - (void)priceTextFieldValueChanged{
     _price = [self.priceTextField.text floatValue];
     _total = _number * _price;
-    NSString *title = [NSString stringWithFormat:@"合计 : %.2f",_total];
+    NSString *title = [NSString stringWithFormat:@"合计 : %.2f 元",_total];
     self.combinedLabel.text = title;
 }
 
@@ -200,7 +200,7 @@
     _price = [self.priceTextField.text floatValue];
     _freight = [self.freightTextField.text floatValue];
     _total = (_number * _price) + _freight;
-    NSString *title = [NSString stringWithFormat:@"合计 : %.2f",_total];
+    NSString *title = [NSString stringWithFormat:@"合计 : %.2f 元",_total];
     self.combinedLabel.text = title;
 }
 
