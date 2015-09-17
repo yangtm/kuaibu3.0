@@ -23,9 +23,12 @@
 
 - (void)configOfferListModel:(OfferModle *)model
 {
-    [_LogoImageView sd_setImageWithURL:[NSURL URLWithString:model.LogoUrl]];
+    [_LogoImageView sd_setImageWithURL:[NSURL URLWithString:model.logoUrl]];
+    _LogoImageView.layer.masksToBounds = YES;
+    _LogoImageView.layer.cornerRadius = 5;
+    
     _nameLabel.text = model.supplier;
-    _certLabel.text = model.certification;
+    _certLabel.text = model.authenticationName;
     _offLabel.text = model.offer;
     _offTimeLabel.text = model.offerTime;
 }

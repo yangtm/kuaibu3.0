@@ -34,6 +34,20 @@
 
 - (void)popView:(UIView*)aView completeBlock:(void(^)(BOOL isComplete))aCompleteblock;
 
+/**
+ *  警告视图
+ *
+ *  @param message   警告信息
+ *  @param automatic 警告视图是否自动消失
+ */
+-(void)showAlertWithMessage:(NSString *)message automaticDismiss:(BOOL)automatic;
+
+/**
+ *  消失警告视图
+ *
+ *  @param alert 警告视图
+ */
+-(void)dismissAlertView:(UIAlertView *)alert;
 
 
 @end

@@ -172,9 +172,9 @@
 
 - (void)setFootView
 {
-    UIView *view = [self footViewFrom:CGRectMake(0,0, kMainScreenWidth, 49)];
+    UIView *view = [self footViewFrom:CGRectMake(0,0, kMainScreenWidth, 44)];
     [_footFormView addSubview:view];
-    _footFormView.frame = CGRectMake(0, self.detailFormView.bottom+10, kMainScreenWidth, 49);
+    _footFormView.frame = CGRectMake(0, self.detailFormView.bottom+10, kMainScreenWidth, 44);
 }
 
 #pragma mark -标题UI
@@ -309,7 +309,7 @@
     [_likeButton addTarget:self action:@selector(clickLikeBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_likeButton];
     
-    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(_likeButton.right, 10, 1, 30)];
+    UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(_likeButton.right, 12, 1, 20)];
     line1.backgroundColor = kNaviTitleColor;
     [view addSubview:line1];
     
@@ -320,7 +320,7 @@
     [_contactButton addTarget:self action:@selector(clickContactBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_contactButton];
     
-    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(_contactButton.right, 10, 1, 30)];
+    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(_contactButton.right, 12, 1, 20)];
     line2.backgroundColor = kNaviTitleColor;
     [view addSubview:line2];
     
@@ -331,7 +331,7 @@
     [_offButton addTarget:self action:@selector(clickOffBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_offButton];
     
-    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(_offButton.right, 10, 1, 30)];
+    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(_offButton.right, 12, 1, 20)];
     line3.backgroundColor = kNaviTitleColor;
     [view addSubview:line3];
     

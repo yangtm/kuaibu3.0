@@ -200,8 +200,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 {
     __weak HomeMainPageViewController *weakSelf = self;
     [self.collectionView addPullToRefreshWithActionHandler:^{
-        
-        [weakSelf reloadData];
+                [weakSelf reloadData];
         
     }];
 }
