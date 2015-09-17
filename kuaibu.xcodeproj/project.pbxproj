@@ -294,6 +294,11 @@
 		7FD7B2BB1B9FB75300A4F911 /* red_line_and_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD7B2BA1B9FB75300A4F911 /* red_line_and_shadow@2x.png */; };
 		7FD7B2BE1B9FC55200A4F911 /* HomeMainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7B2BD1B9FC55200A4F911 /* HomeMainPageViewController.m */; };
 		7FD8A3161BA3990C001DD580 /* HomePageHotProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD8A3151BA3990C001DD580 /* HomePageHotProductCell.m */; };
+		7FDDB0C61BAA260700FEAA86 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDDB0BF1BAA260700FEAA86 /* NSDate+Utilities.m */; };
+		7FDDB0C81BAA260700FEAA86 /* YHBSupplyDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDDB0C31BAA260700FEAA86 /* YHBSupplyDataSource.m */; };
+		7FDDB0CB1BAA26F700FEAA86 /* YHBSupplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDDB0CA1BAA26F700FEAA86 /* YHBSupplyModel.m */; };
+		7FDDB0D81BAA2D3D00FEAA86 /* NSDate+extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDDB0D71BAA2D3D00FEAA86 /* NSDate+extensions.m */; };
+		7FDDB0DC1BAA2E3600FEAA86 /* YHBLookBuyManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDDB0DB1BAA2E3600FEAA86 /* YHBLookBuyManage.m */; };
 		7FE02E1B1BA238D5005E6C72 /* HomePagePavilionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE02E191BA238D5005E6C72 /* HomePagePavilionCell.m */; };
 		7FE02E1C1BA238D5005E6C72 /* HomePagePavilionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE02E1A1BA238D5005E6C72 /* HomePagePavilionCell.xib */; };
 		7FE02E1E1BA2397E005E6C72 /* home_Pavilion_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE02E1D1BA2397E005E6C72 /* home_Pavilion_1.png */; };
@@ -905,6 +910,16 @@
 		7FD7B2BD1B9FC55200A4F911 /* HomeMainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMainPageViewController.m; sourceTree = "<group>"; };
 		7FD8A3141BA3990C001DD580 /* HomePageHotProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageHotProductCell.h; sourceTree = "<group>"; };
 		7FD8A3151BA3990C001DD580 /* HomePageHotProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageHotProductCell.m; sourceTree = "<group>"; };
+		7FDDB0BE1BAA260700FEAA86 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		7FDDB0BF1BAA260700FEAA86 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
+		7FDDB0C21BAA260700FEAA86 /* YHBSupplyDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBSupplyDataSource.h; sourceTree = "<group>"; };
+		7FDDB0C31BAA260700FEAA86 /* YHBSupplyDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBSupplyDataSource.m; sourceTree = "<group>"; };
+		7FDDB0C91BAA26F700FEAA86 /* YHBSupplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBSupplyModel.h; sourceTree = "<group>"; };
+		7FDDB0CA1BAA26F700FEAA86 /* YHBSupplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBSupplyModel.m; sourceTree = "<group>"; };
+		7FDDB0D61BAA2D3D00FEAA86 /* NSDate+extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+extensions.h"; sourceTree = "<group>"; };
+		7FDDB0D71BAA2D3D00FEAA86 /* NSDate+extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+extensions.m"; sourceTree = "<group>"; };
+		7FDDB0DA1BAA2E3600FEAA86 /* YHBLookBuyManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBLookBuyManage.h; sourceTree = "<group>"; };
+		7FDDB0DB1BAA2E3600FEAA86 /* YHBLookBuyManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBLookBuyManage.m; sourceTree = "<group>"; };
 		7FE02E181BA238D5005E6C72 /* HomePagePavilionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePagePavilionCell.h; sourceTree = "<group>"; };
 		7FE02E191BA238D5005E6C72 /* HomePagePavilionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePagePavilionCell.m; sourceTree = "<group>"; };
 		7FE02E1A1BA238D5005E6C72 /* HomePagePavilionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePagePavilionCell.xib; sourceTree = "<group>"; };
@@ -2495,6 +2510,7 @@
 		7FD335C31BA88769009EFC61 /* LookSupply */ = {
 			isa = PBXGroup;
 			children = (
+				7FDDB0B91BAA260700FEAA86 /* BuyNetManage */,
 				7FD335F21BA8DF4F009EFC61 /* cell */,
 				7FD335C41BA88792009EFC61 /* LookSupplyViewController.h */,
 				7FD335C51BA88792009EFC61 /* LookSupplyViewController.m */,
@@ -2521,6 +2537,23 @@
 				7FD55D5D1B9CA71300726E83 /* home_page_1.png */,
 			);
 			name = homepage;
+			sourceTree = "<group>";
+		};
+		7FDDB0B91BAA260700FEAA86 /* BuyNetManage */ = {
+			isa = PBXGroup;
+			children = (
+				7FDDB0D61BAA2D3D00FEAA86 /* NSDate+extensions.h */,
+				7FDDB0D71BAA2D3D00FEAA86 /* NSDate+extensions.m */,
+				7FDDB0C91BAA26F700FEAA86 /* YHBSupplyModel.h */,
+				7FDDB0CA1BAA26F700FEAA86 /* YHBSupplyModel.m */,
+				7FDDB0BE1BAA260700FEAA86 /* NSDate+Utilities.h */,
+				7FDDB0BF1BAA260700FEAA86 /* NSDate+Utilities.m */,
+				7FDDB0C21BAA260700FEAA86 /* YHBSupplyDataSource.h */,
+				7FDDB0C31BAA260700FEAA86 /* YHBSupplyDataSource.m */,
+				7FDDB0DA1BAA2E3600FEAA86 /* YHBLookBuyManage.h */,
+				7FDDB0DB1BAA2E3600FEAA86 /* YHBLookBuyManage.m */,
+			);
+			path = BuyNetManage;
 			sourceTree = "<group>";
 		};
 		7FE5C9EA1B9F5473006FB3E5 /* pic */ = {
@@ -2823,6 +2856,7 @@
 				1ED9228F1B8724700013AF29 /* OrderDetailModel.m in Sources */,
 				1ED922881B8722BB0013AF29 /* MemberModel.m in Sources */,
 				1ED762EB1B968C06001727EA /* MyUtil.m in Sources */,
+				7FDDB0D81BAA2D3D00FEAA86 /* NSDate+extensions.m in Sources */,
 				7FD7759B1BA4D0B8004F6A55 /* HomePageLatestBuyCell.m in Sources */,
 				7FD335C61BA88792009EFC61 /* LookSupplyViewController.m in Sources */,
 				1ED896C21BA17C8A00BB9F1C /* BuyDetailViewController.m in Sources */,
@@ -2840,6 +2874,7 @@
 				0678C4921B8572DF0035660E /* ViewController.m in Sources */,
 				06706D981B85B2AA00F58ACC /* MKAnnotationView+WebCache.m in Sources */,
 				1ED7243E1B9D1AA80091890B /* UIImage+Extensions.m in Sources */,
+				7FDDB0CB1BAA26F700FEAA86 /* YHBSupplyModel.m in Sources */,
 				06706DB41B85BB2200F58ACC /* CartModel.m in Sources */,
 				06706D891B85B2AA00F58ACC /* SearchViewController.m in Sources */,
 				1ED890581B9573F90020DFF3 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -2869,6 +2904,7 @@
 				1E8469491B9D3F5E00842A51 /* EMSDWebImageManager.m in Sources */,
 				1ED88FFC1B9552390020DFF3 /* HomePageSearchViewController.m in Sources */,
 				1E8468431B9D20B900842A51 /* AddressListViewController.m in Sources */,
+				7FDDB0DC1BAA2E3600FEAA86 /* YHBLookBuyManage.m in Sources */,
 				1ED7FF391BA6D29500CDFF92 /* FXBlurView.m in Sources */,
 				1E8469541B9D3F5E00842A51 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				1E6BC99B1B9BDF5D00B726DA /* FindPswViewController.m in Sources */,
@@ -2898,6 +2934,7 @@
 				7FE02E211BA24578005E6C72 /* PavilionModel.m in Sources */,
 				1E8469391B9D3F5E00842A51 /* MBProgressHUD+Add.m in Sources */,
 				1E8468381B9D1CCF00842A51 /* MineInfoSetViewController.m in Sources */,
+				7FDDB0C61BAA260700FEAA86 /* NSDate+Utilities.m in Sources */,
 				1ED9E0531BA7DFED000864F3 /* OfferListController.m in Sources */,
 				1ED9228C1B8723660013AF29 /* OrderModel.m in Sources */,
 				1ED922931B8725910013AF29 /* AddressModel.m in Sources */,
@@ -2910,6 +2947,7 @@
 				7F31EE711B9E71DF008015D2 /* MenuModel.m in Sources */,
 				1E84694E1B9D3F5E00842A51 /* UIImage+EMGIF.m in Sources */,
 				1E8469451B9D3F5E00842A51 /* EMSDWebImageCompat.m in Sources */,
+				7FDDB0C81BAA260700FEAA86 /* YHBSupplyDataSource.m in Sources */,
 				1E8469411B9D3F5E00842A51 /* MWTapDetectingView.m in Sources */,
 				1E8469AF1B9D441400842A51 /* RecordAudio.m in Sources */,
 				1ECDCF6C1BA3C54700C1BF9C /* OfferDetailController.m in Sources */,
