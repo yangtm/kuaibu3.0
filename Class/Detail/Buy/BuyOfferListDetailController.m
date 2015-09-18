@@ -7,6 +7,7 @@
 //
 
 #import "BuyOfferListDetailController.h"
+#import "OrderDetailController.h"
 
 @interface BuyOfferListDetailController ()<UIScrollViewDelegate>
 @property (nonatomic,strong) UIScrollView *scrollView;
@@ -22,6 +23,7 @@
 @property (nonatomic,strong) UILabel *addressLabel;
 @property (nonatomic,strong) UIButton *leftBtn;
 @property (nonatomic,strong) UIButton *rightBtn;
+@property (nonatomic,strong) UILabel *isPayFor;
 
 @end
 
@@ -52,7 +54,7 @@
 - (void)setupFormView
 {
     UIView *view1 = [self supplierForm:CGRectMake(0, 0, kMainScreenWidth, 160)];
-    UIView *view2 = [self detailForm:CGRectMake(0, view1.bottom, kMainScreenWidth, 405)];
+    UIView *view2 = [self detailForm:CGRectMake(0, view1.bottom, kMainScreenWidth, 560)];
     UIView *view3 = [self buttonForm:CGRectMake(0, view2.bottom, kMainScreenWidth, 44)];
     [self.buyOfferListDetailFormView addSubview:view1];
     [self.buyOfferListDetailFormView addSubview:view2];
@@ -66,8 +68,12 @@
 - (UIView *)supplierForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
+    view.backgroundColor = kViewBackgroundColor;
     _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 120, 120)];
     _logoImageView.backgroundColor = [UIColor purpleColor];
+    _logoImageView.layer.borderWidth = 5;
+    _logoImageView.layer.masksToBounds = YES;
+    _logoImageView.layer.cornerRadius = 5;
     [view addSubview:_logoImageView];
     
     _supplyNameLabel = [self formTitleLabel:CGRectMake(_logoImageView.right + 20, 20, kMainScreenWidth - 60 - _logoImageView.width, 20) title:@"供应商名字"];
@@ -78,13 +84,25 @@
     label1.textColor = [UIColor grayColor];
     [view addSubview:label1];
     
+    UIImageView *backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(label1.right-10, _supplyNameLabel.bottom + 7, 65, 23)];
+    backImageView.image = [UIImage imageNamed:@"StarsBackground"];
+    [view addSubview:backImageView];
+    
     UILabel *label2 = [self formTitleLabel:CGRectMake(_logoImageView.right + 20, label1.bottom + 5, 60, 20) title:@"服务 : "];
     label2.textColor = [UIColor grayColor];
     [view addSubview:label2];
     
+    UIImageView *backImageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(label2.right-10, label1.bottom + 7, 65, 23)];
+    backImageView1.image = [UIImage imageNamed:@"StarsBackground"];
+    [view addSubview:backImageView1];
+    
     UILabel *label3 = [self formTitleLabel:CGRectMake(_logoImageView.right + 20, label2.bottom + 5, 60, 20) title:@"物流 : "];
     label3.textColor = [UIColor grayColor];
     [view addSubview:label3];
+    
+    UIImageView *backImageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(label3.right-10, label2.bottom + 7, 65, 23)];
+    backImageView2.image = [UIImage imageNamed:@"StarsBackground"];
+    [view addSubview:backImageView2];
     
     UILabel *label4 = [self formTitleLabel:CGRectMake(_logoImageView.right + 20, label3.bottom + 5, 100, 20) title:@"认证标识"];
     label4.textColor = kNaviTitleColor;
@@ -98,26 +116,33 @@
 - (UIView *)detailForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
+    view.backgroundColor = kViewBackgroundColor;
     _patternImageView = [[UIImageView alloc] initWithFrame:CGRectMake(60, 20, kMainScreenWidth - 120, 200)];
     _patternImageView.backgroundColor = [UIColor orangeColor];
+    _patternImageView.layer.masksToBounds = YES;
+    _patternImageView.layer.cornerRadius = 5;
+    _patternImageView.image = [UIImage imageNamed:@"快布3［方案二］_39"];
     [view addSubview:_patternImageView];
     
-    _titleLabel = [self formTitleLabel:CGRectMake(40, _patternImageView.bottom + 20, kMainScreenWidth, 20) title:@"采购标题 : XXXXXXXXXXXXX"];
+    _titleLabel = [self formTitleLabel:CGRectMake(40, _patternImageView.bottom + 20, kMainScreenWidth, 40) title:@"采购标题 : XXXXXXXXXXXXX"];
     [view addSubview:_titleLabel];
     
-    _offerLabel = [self formTitleLabel:CGRectMake(40, _titleLabel.bottom + 5, kMainScreenWidth, 20) title:@"供应商的报价 : $$$$$$$$$$$"];
+    _offerLabel = [self formTitleLabel:CGRectMake(40, _titleLabel.bottom + 5, kMainScreenWidth, 40) title:@"供应商的报价 : $$$$$$$$$$$"];
     [view addSubview:_offerLabel];
     
-    _typeLabel = [self formTitleLabel:CGRectMake(40, _offerLabel.bottom + 5, kMainScreenWidth, 20) title:@"货源状态 : 现货／期货"];
+    _typeLabel = [self formTitleLabel:CGRectMake(40, _offerLabel.bottom + 5, kMainScreenWidth, 40) title:@"货源状态 : 现货／期货"];
     [view addSubview:_typeLabel];
     
-    _freightLabel = [self formTitleLabel:CGRectMake(40, _typeLabel.bottom + 5 , kMainScreenWidth, 20) title:@"运费 : $$$$$$$$$$$$$"];
+    _freightLabel = [self formTitleLabel:CGRectMake(40, _typeLabel.bottom + 5 , kMainScreenWidth, 40) title:@"运费 : $$$$$$$$$$$$$"];
     [view addSubview:_freightLabel];
     
-    _totalLabel = [self formTitleLabel:CGRectMake(40, _freightLabel.bottom + 5, kMainScreenWidth, 20) title:@"费用合计 : $$$$$$$$$$$"];
+    _isPayFor = [self formTitleLabel:CGRectMake(40, _freightLabel.bottom+5, kMainScreenWidth, 40) title:@"是否到付 : "];
+    [view addSubview:_isPayFor];
+    
+    _totalLabel = [self formTitleLabel:CGRectMake(40, _isPayFor.bottom + 5, kMainScreenWidth, 40) title:@"费用合计 : $$$$$$$$$$$"];
     [view addSubview:_totalLabel];
     
-    _addressLabel = [self formTitleLabel:CGRectMake(40, _totalLabel.bottom + 5, kMainScreenWidth, 20) title:@"收货地址 : 只显示省市"];
+    _addressLabel = [self formTitleLabel:CGRectMake(40, _totalLabel.bottom + 5, kMainScreenWidth, 40) title:@"收货地址 : 只显示省市"];
     [view addSubview:_addressLabel];
     
     [self addBottomLine:view];
@@ -137,7 +162,7 @@
     [_leftBtn addTarget:self action:@selector(clickLeftBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_leftBtn];
     
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(_leftBtn.right + 1, 7, 1, 30)];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(_leftBtn.right + 1, 12, 1, 20)];
     line.backgroundColor = kNaviTitleColor;
     [view addSubview:line];
     
@@ -154,7 +179,14 @@
 #pragma mark - 点击事件
 - (void)clickLeftBtn
 {
+//    [self showAlertWithMessage:@"生成订单中..." automaticDismiss:YES];
+    UIAlertView *view = [[UIAlertView alloc] initWithTitle:nil message:@"订单生成中..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    [view show];
+    [view dismissWithClickedButtonIndex:1 animated:YES];
+    OrderDetailController *vc = [[OrderDetailController alloc] init];
     
+    [self.navigationController pushViewController:vc animated:YES];
+//     [NSThread sleepForTimeInterval:2.0f];
 }
 
 - (void)clickRightBtn

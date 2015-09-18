@@ -149,6 +149,28 @@
     }];
 }
 
-
+/**
+ *  警告视图
+ *
+ *  @param message   警告信息
+ *  @param automatic 警告视图是否自动消失
+ */
+-(void)showAlertWithMessage:(NSString *)message automaticDismiss:(BOOL)automatic
+{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+    if(automatic)
+        [self performSelector:@selector(dismissAlertView:) withObject:alert afterDelay:2.0f];
+    
+}
+/**
+ *  消失警告视图
+ *
+ *  @param alert 警告视图
+ */
+-(void)dismissAlertView:(UIAlertView *)alert
+{
+    [alert dismissWithClickedButtonIndex:0 animated:YES];
+}
 
 @end

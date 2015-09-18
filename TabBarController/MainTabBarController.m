@@ -15,7 +15,7 @@
 #import "ThirdViewController.h"
 #import "BuyDetailViewController.h"
 #import "YHBPublishBuyViewController.h"
-#import "YHBPublishSupplyViewController.h"
+#import "PublishSupplyViewController.h"
 #import "LoginViewController.h"
 #import "ProgressHUD.h"
 #import "HZCookie.h"
@@ -168,7 +168,8 @@
         case 1:
         {
             if (app.isLoginedIn) {
-                YHBPublishSupplyViewController *supplyVC = [[YHBPublishSupplyViewController alloc] init];
+                PublishSupplyViewController *supplyVC = [[PublishSupplyViewController alloc] init];
+                
                 
                 [self presentViewController:[[LSNavigationController alloc] initWithRootViewController:supplyVC] animated:YES completion:^{
                     
