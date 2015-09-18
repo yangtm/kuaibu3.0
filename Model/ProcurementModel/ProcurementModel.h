@@ -16,7 +16,7 @@
 @property (assign,nonatomic) double amount;//数量
 @property (strong,nonatomic) NSString *amountUnit;//单位
 @property (strong,nonatomic) NSString *takeDeliveryLastDate;//收货
-@property (strong,nonatomic) NSString *offerLastDate; //报价
+@property (strong,nonatomic) NSString *offerLastDate; //报价时间
 @property (strong,nonatomic) NSString *phone;//电话
 @property (strong,nonatomic) NSString *catId;//采购的类型
 @property (strong,nonatomic) NSString *contactor;//联系人

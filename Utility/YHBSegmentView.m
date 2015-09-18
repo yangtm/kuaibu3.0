@@ -90,7 +90,7 @@
             button.titleLabel.font = kFont16;
             break;
         case YHBSegmentViewStyleArrow:
-            button.backgroundColor = [UIColor clearColor];
+            button.backgroundColor = [UIColor colorWithRed:0.9725 green:0.9725 blue:0.9725 alpha:1];
             [button setTitleColor:[UIColor colorWithRed:0.7882 green:0.7882 blue:0.7882 alpha:1] forState:UIControlStateNormal];
             button.titleLabel.font = kFont16;
             break;
