@@ -11,26 +11,30 @@
 
 @interface YHBSupplyModel : NSObject <NSCoding, NSCopying>
 
-@property (nonatomic, strong) NSString *typename;
-@property (nonatomic, assign) int itemid;
-@property (nonatomic, strong) NSString *catname;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *editdate;
+@property (strong,nonatomic) NSString *memberId;//会员ID（发起采购信息的人
+@property (strong,nonatomic) NSString *procurementId;
+@property (strong,nonatomic) NSString *productName;//标题
+@property (assign,nonatomic) double amount;//数量
+@property (strong,nonatomic) NSString *amountUnit;//单位
+@property (strong,nonatomic) NSString *takeDeliveryLastDate;//收货
+@property (strong,nonatomic) NSString *offerLastDate; //报价时间
+@property (strong,nonatomic) NSString *phone;//电话
+@property (strong,nonatomic) NSString *catId;//采购的类型
+@property (strong,nonatomic) NSString *contactor;//联系人
+@property (assign,nonatomic) NSInteger PhonePublic; //公开
+@property (strong,nonatomic) NSString *ProcurementPrice;//报价
+@property (strong,nonatomic) NSString *recording;//录音
+@property (strong,nonatomic) NSString *details; //面料详情
+@property (assign,nonatomic) BOOL isSampleCut; //是否裁剪
+@property (assign,nonatomic) NSInteger billingType; //发票类型
+@property (strong,nonatomic) NSArray *imageUrls;
+@property (strong,nonatomic) NSString *procurementStatus;
+@property (strong,nonatomic) NSString *district;
+@property (strong,nonatomic) NSString *imageurl;
 @property (nonatomic, strong) NSDate *date;
-@property (nonatomic, strong) NSString *thumb;
-@property (nonatomic, assign) int vip;
-@property (nonatomic, strong) NSString *edittime;
-@property(nonatomic, strong) NSString *amount;
-@property(nonatomic, strong) NSString *unit;
-@property(nonatomic, strong) NSString *today;
-@property (nonatomic, assign) int hits;
-@property (nonatomic, strong) NSString *voicePath;
-@property (nonatomic, assign) NSInteger voiceSeconds;
-@property (nonatomic, strong) NSString *amontUnit;
-@property (nonatomic, strong) NSString *creatDate;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;
-- (NSDictionary *)dictionaryRepresentation;
+- (id)objectOrNilForKey:(id)aKey fromDictionary:(NSDictionary *)dict;
 
 @end

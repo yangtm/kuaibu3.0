@@ -18,6 +18,5 @@
 - (NSInteger)rowsOfSection:(NSInteger)section;
 - (id) objectForSection:(NSInteger)section andRow:(NSInteger)row;
 - (void) appendData:(id)dataArray;
-- (NSString *)titleForSection:(NSInteger)section;
 
 @end

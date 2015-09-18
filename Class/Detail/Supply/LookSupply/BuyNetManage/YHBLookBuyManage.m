@@ -86,15 +86,15 @@ int pagetotal;
     pageid = 1;
     self.catIds = catIds;
     NSMutableDictionary *dict;
-    if (isVip)
-    {
-        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", pageid],@"pageid",[NSString stringWithFormat:@"%d", pagesize],@"pagesize",@"1",@"vip",@"0",@"typeid", keyword, @"keyword",
-                [NSNumber numberWithInteger:typeId], @"typeid", nil];
-    }
-    else
-    {
-        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", pageid],@"pageid",[NSString stringWithFormat:@"%d", pagesize],@"pagesize",@"0",@"typeid", keyword, @"keyword", [NSNumber numberWithInteger:typeId], @"typeid", nil];
-    }
+//    if (isVip)
+//    {
+//        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", pageid],@"pageid",[NSString stringWithFormat:@"%d", pagesize],@"pagesize",@"1",@"vip",@"0",@"typeid", keyword, @"keyword",
+//                [NSNumber numberWithInteger:typeId], @"typeid", nil];
+//    }
+//    else
+//    {
+//        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", pageid],@"pageid",[NSString stringWithFormat:@"%d", pagesize],@"pagesize",@"0",@"typeid", keyword, @"keyword", [NSNumber numberWithInteger:typeId], @"typeid", nil];
+//    }
     
     if (catIds != nil) {
         NSString *catIdsStr = @"";
@@ -107,24 +107,29 @@ int pagetotal;
     
     NSString *url = nil;
     kYHBRequestUrl(@"procurement/open/getProcurementList", url);
-    NSLog(@"%@",url);
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@"1",@"pageIndex", nil];
+    //NSLog(@"%@",url);
+    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"1",@"pageIndex", nil];
     
-    [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+    [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
-                    NSLog(@"result:%@",dic);
-            NSArray *array = dic[@"RESULT"];
-//            for (NSDictionary *subDic in array) {
-//                ProcurementModel *model = [[ProcurementModel alloc] init];
-//                model.amount = [subDic[@"amount"] doubleValue];
-//                model.offerLastDate = subDic[@"offerLastDate"];
-//                model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
-//                model.procurementId = subDic[@"procurementId"];
-//                [_dataArray addObject:model];
-//            }
-//         //[self.dataSource appendData:resultArray];
+           // NSLog(@"result:%@",dic);
+            NSArray *rslistArray = dic[@"RESULT"];
+            NSMutableArray *resultArray = [NSMutableArray new];
+            self.dataSource.totalNum = rslistArray.count;
+            for (int i=0; i<rslistArray.count; i++)
+            {
+                NSDictionary *dict = [rslistArray objectAtIndex:i];
+               // NSLog(@"dict=%@",dict);
+                YHBSupplyModel *model = [YHBSupplyModel modelObjectWithDictionary:dict];
+                
+               // NSLog(@"#####model=%@",model);
+                [resultArray addObject:model];
+            }
+            //NSLog(@"result=%@",resultArray);
+            self.dataSource.dataArray = resultArray;
+            aSuccBlock(self.dataSource);
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);

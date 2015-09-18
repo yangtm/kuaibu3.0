@@ -54,16 +54,6 @@
     return self.sectionArray.count;
 }
 
-- (NSString *)titleForSection:(NSInteger)section
-{
-    NSInteger num = [self.offsetArray[section] integerValue];
-    YHBSupplyModel *model = self.dataArray[num];
-    if ([model.date isToday]) {
-        return @"最新";
-    }
-    return model.editdate;
-}
-
 - (void) sort
 {
     NSMutableArray *array = [NSMutableArray array];
