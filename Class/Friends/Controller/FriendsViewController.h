@@ -7,7 +7,19 @@
 //
 
 #import "BaseViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface FriendsViewController : BaseViewController
-
+{
+    
+    NSURL *tmpFile;
+    AVAudioRecorder *recorder;
+    BOOL recording;
+    AVAudioPlayer *audioPlayer;
+    UIButton*LuBut;
+    
+}
+-(void)setlable:(id)inder;
+-(void)jian;
+-(void)biaoqing;
 @end

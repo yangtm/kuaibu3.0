@@ -84,7 +84,11 @@
                                        [NSNumber numberWithBool:NO],AVLinearPCMIsFloatKey,
                                        [NSNumber numberWithBool:NO], AVLinearPCMIsBigEndianKey,
                                        nil];
-        
+//        _filePath = [NSURL fileURLWithPath:
+//                   [NSTemporaryDirectory() stringByAppendingPathComponent:
+//                    [NSString stringWithFormat: @"%@.%@",
+//                     @"wangshuo",
+//                     @"caf"]]];
         _recorder = [[AVAudioRecorder alloc] initWithURL:[NSURL URLWithString:_filePath] settings:recordSetting error:nil];
     }
     return _recorder;

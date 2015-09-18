@@ -304,6 +304,21 @@
         [_audioPlayer stop];
         _audioPlayer = nil;
     }
+    
+//    NSError *error;
+//    _audioPlayer=[[AVAudioPlayer alloc]initWithContentsOfURL:_audioRecord.filePath
+//                                                      error:&error];
+//    
+//    _audioPlayer.volume=1;
+//    if (error) {
+//        NSLog(@"error:%@",[error description]);
+//        return;
+//    }
+//    //准备播放
+//    [_audioPlayer prepareToPlay];
+//    //播放
+//    [_audioPlayer play];
+    
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
     if (_netAudio) {
