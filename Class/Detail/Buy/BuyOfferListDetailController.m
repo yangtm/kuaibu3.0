@@ -37,7 +37,8 @@
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.buyOfferListDetailFormView];
     [self setupFormView];
-    self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.buyOfferListDetailFormView.bottom);
+    [self.view addSubview:[self buttonForm:CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44)]];
+    self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.buyOfferListDetailFormView.bottom + 60);
 }
 
 - (void)back
@@ -55,11 +56,11 @@
 {
     UIView *view1 = [self supplierForm:CGRectMake(0, 0, kMainScreenWidth, 160)];
     UIView *view2 = [self detailForm:CGRectMake(0, view1.bottom, kMainScreenWidth, 560)];
-    UIView *view3 = [self buttonForm:CGRectMake(0, view2.bottom, kMainScreenWidth, 44)];
+//    UIView *view3 = [self buttonForm:CGRectMake(0, view2.bottom, kMainScreenWidth, 44)];
     [self.buyOfferListDetailFormView addSubview:view1];
     [self.buyOfferListDetailFormView addSubview:view2];
-    [self.buyOfferListDetailFormView addSubview:view3];
-    self.buyOfferListDetailFormView.frame = CGRectMake(0, 0, kMainScreenWidth, view3.bottom);
+//    [self.buyOfferListDetailFormView addSubview:view3];
+    self.buyOfferListDetailFormView.frame = CGRectMake(0, 0, kMainScreenWidth, view2.bottom );
 }
 
 
@@ -154,10 +155,11 @@
 - (UIView *)buttonForm:(CGRect)frame
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
-    
+    view.backgroundColor = KColor;
     _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_leftBtn setTitle:@"采纳报价" forState:UIControlStateNormal];
-    [_leftBtn setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+//    [_leftBtn setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+    [_leftBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
     _leftBtn.frame = CGRectMake(0, 0, kMainScreenWidth/2, 44);
     [_leftBtn addTarget:self action:@selector(clickLeftBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_leftBtn];
@@ -169,7 +171,8 @@
     _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_rightBtn setTitle:@"联系卖家" forState:UIControlStateNormal];
     _rightBtn.frame = CGRectMake(line.right, 0, kMainScreenWidth/2, 44);
-    [_rightBtn setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+//    [_rightBtn setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+    [_rightBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
     [_rightBtn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_rightBtn];
     

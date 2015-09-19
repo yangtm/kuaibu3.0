@@ -57,6 +57,7 @@
             for (NSDictionary *subDic in array) {
                 OfferModle *model = [[OfferModle alloc] init];
                 [model setValuesForKeysWithDictionary:subDic];
+                
                 [_dataArray addObject:model];
             }
             [weakSelf.tableView reloadData];

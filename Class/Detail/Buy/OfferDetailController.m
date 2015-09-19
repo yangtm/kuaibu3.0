@@ -34,7 +34,7 @@
 @property (nonatomic,strong) MyButton *spotBtn;
 @property (nonatomic,strong) MyButton *reservationBtn;
 @property (nonatomic, strong) UITextView *noteEditView;
-
+@property (nonatomic, strong) UIButton *publishButton;
 
 @end
 
@@ -48,7 +48,10 @@
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.offerDetailFormView];
     [self setupFormView];
-    [self exitAction];
+    
+    [self.view addSubview:self.publishButton];
+    self.publishButton.frame = CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44);
+//    [self exitAction];
     
 }
 
@@ -263,14 +266,29 @@
 #pragma mark - 报价按钮
 - (void)exitAction
 {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, kMainScreenHeight-49, kMainScreenWidth, 49)];
-    label.backgroundColor = [UIColor orangeColor];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, kMainScreenHeight-44, kMainScreenWidth, 44)];
+    label.backgroundColor = KColor;
+    label.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = @"提交报价";
     [self.view addSubview:label];
     label.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAction:)];
     [label addGestureRecognizer:tap];
+}
+
+- (UIButton *)publishButton
+{
+    if (_publishButton == nil) {
+        _publishButton = [[UIButton alloc] initWithFrame:CGRectZero];
+        _publishButton.layer.cornerRadius = 2.5;
+        _publishButton.backgroundColor = KColor;
+        [_publishButton setTitle:@"提 交 报 价" forState:UIControlStateNormal];
+        [_publishButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
+        [_publishButton addTarget:self action:@selector(clickAction:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _publishButton;
 }
 
 #pragma mark - 按钮点击响应事件

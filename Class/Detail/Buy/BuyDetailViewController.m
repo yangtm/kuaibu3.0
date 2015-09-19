@@ -72,11 +72,13 @@
     [self.scrollView addSubview:self.pictureAdder];
 
     [self.scrollView addSubview:self.detailFormView];
-    [self.scrollView addSubview:self.footFormView];
+//    [self.scrollView addSubview:self.footFormView];
     [self setupFormView];
     [self setFootView];
+//    _footFormView.frame = CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44);
+    [self.view addSubview:self.footFormView];
     
-    self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.footFormView.bottom );
+    self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.detailFormView.bottom +60);
    
     
 }
@@ -173,8 +175,8 @@
 - (void)setFootView
 {
     UIView *view = [self footViewFrom:CGRectMake(0,0, kMainScreenWidth, 44)];
-    [_footFormView addSubview:view];
-    _footFormView.frame = CGRectMake(0, self.detailFormView.bottom+10, kMainScreenWidth, 44);
+    [self.footFormView addSubview:view];
+    
 }
 
 #pragma mark -标题UI
@@ -305,7 +307,8 @@
     _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _likeButton.frame = CGRectMake(0, 0, kMainScreenWidth/3, view.height);
     [_likeButton setTitle:@"收藏" forState:UIControlStateNormal];
-    [_likeButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+//    [_likeButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+    [_likeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
     [_likeButton addTarget:self action:@selector(clickLikeBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_likeButton];
     
@@ -316,7 +319,8 @@
     _contactButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _contactButton.frame = CGRectMake(_likeButton.right, 0, kMainScreenWidth/3, view.height);
     [_contactButton setTitle:@"联系卖家" forState:UIControlStateNormal];
-    [_contactButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+//    [_contactButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+    [_contactButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
     [_contactButton addTarget:self action:@selector(clickContactBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_contactButton];
     
@@ -327,7 +331,8 @@
     _offButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _offButton.frame = CGRectMake(_contactButton.right, 0, kMainScreenWidth/3, view.height);
     [_offButton setTitle:@"我要报价" forState:UIControlStateNormal];
-    [_offButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+//    [_offButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
+    [_offButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
     [_offButton addTarget:self action:@selector(clickOffBtn) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_offButton];
     
@@ -467,8 +472,8 @@
 - (UIView *)footFormView
 {
     if (_footFormView == nil) {
-        _footFormView = [[UIView alloc] initWithFrame:CGRectZero];
-        _footFormView.backgroundColor = [UIColor whiteColor];
+        _footFormView = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight-44, kMainScreenWidth, 44)];
+        _footFormView.backgroundColor = KColor;
     }
     return _footFormView;
 }

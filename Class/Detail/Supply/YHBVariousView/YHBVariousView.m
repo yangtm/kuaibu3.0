@@ -117,7 +117,7 @@
 - (UIImageView *)indicateImageView
 {
     if (_indicateImageView == nil) {
-        _indicateImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"indicate-arrow"]];
+        _indicateImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sanjiao_16"]];
         _indicateImageView.frame = CGRectMake(self.width - 15, 8, 8, 4);
     }
     return _indicateImageView;

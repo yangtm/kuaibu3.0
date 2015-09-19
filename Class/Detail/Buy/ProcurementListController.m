@@ -13,7 +13,7 @@
 #import "ProcurementModel.h"
 #import "OfferListController.h"
 
-@interface ProcurementListController ()<UITableViewDataSource,UITableViewDelegate,ListCellDelagate,MJRefreshBaseViewDelegate>
+@interface ProcurementListController ()<UITableViewDataSource,UITableViewDelegate,ListCellDelagate,MJRefreshBaseViewDelegate,UIScrollViewDelegate>
 {
     NSInteger _page;
    
@@ -21,6 +21,8 @@
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
+
+@property (nonatomic, strong) UIButton *scrollToTopButton;
 @end
 
 @implementation ProcurementListController
@@ -35,7 +37,7 @@
     
     [self showData];
     [self createTableView];
-    
+    [self addScrollToTopButton];
 }
 
 
@@ -77,6 +79,7 @@
             NSArray *array = dic[@"RESULT"];
             for (NSDictionary *subDic in array) {
                 ProcurementModel *model = [[ProcurementModel alloc] init];
+//                [model setValuesForKeysWithDictionary:subDic];
                 model.amount = [subDic[@"amount"] doubleValue];
                 model.offerLastDate = subDic[@"offerLastDate"];
                 model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
@@ -221,6 +224,45 @@
     
     vc.offerListId = _offerList;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+-(void)addScrollToTopButton
+{
+    _scrollToTopButton = [[UIButton alloc] initWithFrame:CGRectMake(self.navigationController.view.frame.size.width - 50 - 20, self.navigationController.view.frame.size.height - 50 - 30, 50, 50)];
+    [_scrollToTopButton setImage:[UIImage imageNamed:@"快布3［方案二］_03"] forState:UIControlStateNormal];
+    [_scrollToTopButton addTarget:self action:@selector(scrollToTop) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.view addSubview:_scrollToTopButton];
+    _scrollToTopButton.hidden = YES;
+}
+
+-(void)removeScrollToTopButton
+{
+    [_scrollToTopButton removeFromSuperview];
+    _scrollToTopButton = nil;
+}
+
+-(void)scrollToTop
+{
+    if (self.tableView.contentSize.height <= self.tableView.frame.size.height)
+    {
+        return;
+    }
+    else
+    {
+        [self.tableView setContentOffset:CGPointZero animated:YES];
+    }
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y >= 300.f) {
+        _scrollToTopButton.hidden = NO;
+    }
+    else{
+        _scrollToTopButton.hidden = YES;
+    }
 }
 
 @end

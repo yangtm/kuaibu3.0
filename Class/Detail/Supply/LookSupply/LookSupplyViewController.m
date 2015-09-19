@@ -408,7 +408,7 @@
 
 - (void)MycellDidBeginPlaySound:(MyLookBuyShowCell *)cell
 {
-    NSLog(@"begin");
+//    NSLog(@"begin");
     NSIndexPath *indexPath = [_supplyTableView indexPathForCell:cell];
     
     YHBSupplyModel *model = nil;

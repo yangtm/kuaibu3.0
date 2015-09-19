@@ -143,12 +143,12 @@ const NSInteger BottomLineTag = 59;
     [self.scrollView addSubview:self.pictureAdder];
     [self.scrollView addSubview:self.editFormView];
     [self.scrollView addSubview:self.contactView];
-    [self.scrollView addSubview:self.publishButton];
+    [self.view addSubview:self.publishButton];
     
     [self setupFormView];
     [self setupContactView];
-    self.publishButton.frame = CGRectMake(100, self.contactView.bottom + 10, kMainScreenWidth-200, 40);
-    self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.publishButton.bottom + 20);
+    self.publishButton.frame = CGRectMake(0, kMainScreenHeight-44, kMainScreenWidth, 44);
+    self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.contactView.bottom + 60);
     [self.scrollView autoAdjust];
     
     [self renderView];
