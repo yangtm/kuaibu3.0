@@ -31,7 +31,7 @@
 @property (strong,nonatomic) NSString *procurementStatus;
 @property (strong,nonatomic) NSString *district;
 @property (strong,nonatomic) NSString *imageurl;
-@property (nonatomic, strong) NSDate *date;
+@property (strong,nonatomic) NSDate *date;
 
 + (instancetype)modelObjectWithDictionary:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

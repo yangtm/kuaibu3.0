@@ -13,7 +13,7 @@
 @property (assign, nonatomic) NSInteger numberOfSections;
 @property (strong, nonatomic) NSMutableArray *dataArray;
 @property (assign, nonatomic) BOOL hasMore;
-@property (assign, nonatomic) NSInteger totalNum;
+@property (assign, nonatomic) int totalNum;
 
 - (NSInteger)rowsOfSection:(NSInteger)section;
 - (id) objectForSection:(NSInteger)section andRow:(NSInteger)row;
