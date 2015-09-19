@@ -19,7 +19,8 @@
 #import "YHBSupplyModel.h"
 #import "UIImageView+WebCache.h"
 #import "BuyDetailViewController.h"
-
+#import "ProcurementModel.h"
+#import "CategoryViewController.h"
 #define topViewHeight 40
 
 @interface LookSupplyViewController ()<UIScrollViewDelegate,AVAudioPlayerDelegate,UITableViewDataSource, UITableViewDelegate,LookBuyAllShowCellDelegate,MyLookBuyShowCellDelegate>
@@ -35,7 +36,7 @@
 
 @property (nonatomic, strong) YHBLookBuyManage *buyManage;
 @property (nonatomic, strong) YHBSupplyDataSource *dataSource;
-@property (nonatomic, strong) NSMutableArray *tableViewArray;
+//@property (nonatomic, strong) NSMutableArray *tableViewArray;
 @property (nonatomic, assign) NSInteger pageId;
 
 @property (nonatomic, strong) NSArray *catIds;
@@ -76,40 +77,38 @@
     
     _isAll = YES;
     
-    //[self addTableViewTrag];
-    //[self showFlower];
+    [self addTableViewTrag];
+    [self showFlower];
     [self getData];
     [self addScrollToTopButton];
 }
 
-//#pragma mark - event response
-//- (void)rightBarButtonClick:(UIButton *)button
-//{
-//    //打开筛选器
-//    LSNavigationController *navVc = [[LSNavigationController alloc] initWithRootViewController:[CategoryViewController sharedInstancetype]];
-//    [CategoryViewController sharedInstancetype].hidesBottomBarWhenPushed = YES;
-//    //navVc.hidesBottomBarWhenPushed = YES;
-//    [[CategoryViewController sharedInstancetype] cleanAll];
-//    [CategoryViewController sharedInstancetype].isPushed = NO;
-//    [CategoryViewController sharedInstancetype].isSingleSelect = NO;
-//    [[CategoryViewController sharedInstancetype] setBlock:^(NSArray *aArray) {
-//        
-//        if (aArray.count > 0) {
-//            NSMutableArray *array = [NSMutableArray array];
-//            for (NSDictionary *dic in aArray) {
-//                [array addObject:[dic valueForKey:@"catid"]];
-//            }
-//            self.catIds = array;
-//        }
-//        else{
-//            self.catIds = nil;
-//        }
-//        
-//        [self getData];
-//        
-//    }];
-//    [self presentViewController:navVc animated:YES completion:nil];
-//}
+#pragma mark - event response
+- (void)rightBarButtonClick:(UIButton *)button
+{
+    //打开筛选器
+    LSNavigationController *navVc = [[LSNavigationController alloc] initWithRootViewController:[CategoryViewController sharedInstancetype]];
+    [CategoryViewController sharedInstancetype].hidesBottomBarWhenPushed = YES;
+    //navVc.hidesBottomBarWhenPushed = YES;
+    [[CategoryViewController sharedInstancetype] cleanAll];
+    [CategoryViewController sharedInstancetype].isPushed = NO;
+    [CategoryViewController sharedInstancetype].isSingleSelect = NO;
+    [[CategoryViewController sharedInstancetype] setBlock:^(NSArray *aArray) {
+       // NSLog(@"%@",aArray);
+        if (aArray.count > 0) {
+            NSMutableArray *array = [NSMutableArray array];
+            for (NSDictionary *dic in aArray) {
+                [array addObject:[dic valueForKey:@"categoryId"]];
+            }
+            self.catIds = array;
+        }
+        else{
+            self.catIds = nil;
+        }
+        [self getData];
+    }];
+    [self presentViewController:navVc animated:YES completion:nil];
+}
 
 - (void)getData
 {
@@ -125,7 +124,7 @@
         } isVip:_isVip];
     }
     else{
-        [self.buyManage getBuyArrayWithKeyword:_keyword typeId:_typeid catIds: self.catIds complete:^(YHBSupplyDataSource *dataSource) {
+        [self.buyManage getBuyArrayWithKeyword:@"my" typeId:_typeid catIds: self.catIds complete:^(YHBSupplyDataSource *dataSource) {
             
             [self dismissFlower];
             self.dataSource = dataSource;
@@ -135,6 +134,63 @@
             [SVProgressHUD showErrorWithStatus:aStr cover:YES offsetY:kMainScreenHeight/2.0];
         } isVip:_isVip];    }
 }
+
+- (void)addTableViewTrag
+{
+    __weak LookSupplyViewController *weakself = self;
+    [weakself.supplyTableView addPullToRefreshWithActionHandler:^{
+            if (_isAll) {
+                [self stopPlaySound];
+                [self.buyManage getBuyArrayWithKeyword:_keyword typeId:_typeid  catIds:self.catIds complete:^(YHBSupplyDataSource *dataSource) {
+                    [weakself.supplyTableView.pullToRefreshView stopAnimating];
+                    self.dataSource = dataSource;
+                    [self.supplyTableView reloadData];
+                } andFail:^(NSString *aStr) {
+                    [weakself.supplyTableView.pullToRefreshView stopAnimating];
+                    [SVProgressHUD showErrorWithStatus:aStr cover:YES offsetY:kMainScreenHeight/2.0];
+                } isVip:_isVip];
+            }
+            else{
+                [self stopPlaySound];
+                [self.buyManage getBuyArrayWithKeyword:@"my" typeId:_typeid  catIds:self.catIds complete:^(YHBSupplyDataSource *dataSource) {
+                    [weakself.supplyTableView.pullToRefreshView stopAnimating];
+                    self.dataSource = dataSource;
+                    [self.supplyTableView reloadData];
+                } andFail:^(NSString *aStr) {
+                    [weakself.supplyTableView.pullToRefreshView stopAnimating];
+                    [SVProgressHUD showErrorWithStatus:aStr cover:YES offsetY:kMainScreenHeight/2.0];
+                } isVip:_isVip];
+            }
+    }];
+    [weakself.supplyTableView addInfiniteScrollingWithActionHandler:^{
+        if (self.dataSource.hasMore) {
+                if (_isAll) {
+                    [self.buyManage getNextBuyArrayWithKeyword:_keyword typeId:_typeid complete:^(YHBSupplyDataSource *dataSource) {
+                        
+                        [weakself.supplyTableView.infiniteScrollingView stopAnimating];
+                        self.dataSource = dataSource;
+                        [self.supplyTableView reloadData];
+                    } andFail:^(NSString *aStr) {
+                        [weakself.supplyTableView.infiniteScrollingView stopAnimating];
+                    }];
+                }
+                else{
+                    [self.buyManage getNextBuyArrayWithKeyword:@"my" typeId:_typeid complete:^(YHBSupplyDataSource *dataSource) {
+                        
+                        [weakself.supplyTableView.infiniteScrollingView stopAnimating];
+                        self.dataSource = dataSource;
+                        [self.supplyTableView reloadData];
+                    } andFail:^(NSString *aStr) {
+                        [weakself.supplyTableView.infiniteScrollingView stopAnimating];
+                    }];
+            }
+        }
+        else{
+            [weakself.supplyTableView.infiniteScrollingView stopAnimating];
+        }
+    }];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -219,7 +275,7 @@
     if (_isPlaying) {
         [_audioPlayer stop];
         LookBuyAllShowCell *cell = (LookBuyAllShowCell *)[_supplyTableView cellForRowAtIndexPath:_playSoundIndexPath];
-        //cell.isPlay = NO;
+        cell.isPlay = NO;
         _isPlaying = NO;
         _playSoundIndexPath = nil;
     }
@@ -254,18 +310,11 @@
 #pragma mark - tableView datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (!_isAll) {
-        return 1;
-    }
     return self.dataSource.numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (!_isAll) {
-        return 5;
-    //return self.tableViewArray.count;
-    }
     return [self.dataSource rowsOfSection:section];
 }
 
@@ -312,7 +361,7 @@
     }
     BuyDetailViewController *vc = [[BuyDetailViewController alloc] init];
     vc.ListId = [model.procurementId integerValue];
-    vc.procModel = model;
+    vc.procModel = (ProcurementModel *)model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -337,11 +386,11 @@
 
 - (void)configShowCell:(MyLookBuyShowCell *)cell indexPath:(NSIndexPath *)indexPath
 {
-    YHBSupplyModel *model = self.tableViewArray[indexPath.row];
+    YHBSupplyModel *model = [self.dataSource objectForSection:indexPath.section andRow:indexPath.row];
    //[cell.rightImageView sd_setImageWithURL:[NSURL URLWithString:model.imageurl]];
     cell.titleLabel.text = model.productName;
-    [cell configWithAmount:[NSString stringWithFormat:@"%0.2f",model.amount] storenum:@"200" unit:model.amountUnit type:[model.procurementStatus integerValue]];
-    
+    [cell configWithAmount:[NSString stringWithFormat:@"%0.2f",model.amount] storenum:@"20" unit:model.amountUnit type:[model.procurementStatus integerValue]];
+    cell.creatdateLabel.text = model.offerLastDate;
     if ([model.recording isEqualToString:@""] || model.recording == nil) {
         cell.hasSound = NO;
     }
@@ -385,7 +434,7 @@
         model = [self.dataSource objectForSection:indexPath.section andRow:indexPath.row];
     }
     else{
-        model = _tableViewArray[indexPath.row];
+        model = [self.dataSource objectForSection:indexPath.section andRow:indexPath.row];
     }
     
     NSString *str = model.recording;
@@ -416,7 +465,7 @@
         model = [self.dataSource objectForSection:indexPath.section andRow:indexPath.row];
     }
     else{
-        model = _tableViewArray[indexPath.row];
+        model = [self.dataSource objectForSection:indexPath.section andRow:indexPath.row];
     }
     
     NSString *str = model.recording;

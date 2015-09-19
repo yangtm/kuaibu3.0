@@ -52,7 +52,7 @@
         _isLoading = YES;
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
-                        NSLog(@"result:%@",dic);
+                      //  NSLog(@"result:%@",dic);
             NSArray *array = dic[@"RESULT"];
             for (NSDictionary *subDic in array) {
                 OfferModle *model = [[OfferModle alloc] init];

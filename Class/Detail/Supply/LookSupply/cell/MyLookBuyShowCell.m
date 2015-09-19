@@ -34,7 +34,6 @@
         self.amountLabel.font = [UIFont systemFontOfSize:14];
         
         self.unitLabel1 = [[UILabel alloc]init];
-      //  self.unitLabel1.textColor = [UIColor colorWithRed:0.3686 green:0.3686 blue:0.3686 alpha:1];
         self.unitLabel1.font = [UIFont systemFontOfSize:14];
         
         self.amountStoreLabel = [[UILabel alloc]init];
@@ -44,24 +43,22 @@
         self.unitLabel2 = [[UILabel alloc]init];
         self.unitLabel2.font = [UIFont systemFontOfSize:14];
         self.unitLabel2.text =@"家供应商";
-      //  self.unitLabel2.textColor = [UIColor colorWithRed:0.3686 green:0.3686 blue:0.3686 alpha:1];
         
         self.creatdateLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 70, 100, 20)];
-       // self.creatdateLabel.textColor = [UIColor colorWithRed:0.3686 green:0.3686 blue:0.3686 alpha:1];
         self.creatdateLabel.font = [UIFont systemFontOfSize:14];
-        self.creatdateLabel.text =@"2015-9-16";
+        //self.creatdateLabel.text =@"2015-9-16";
         
         self.statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(120, 90, 100, 20)];
         self.statusLabel.textColor = [UIColor redColor];
         self.statusLabel.font = [UIFont systemFontOfSize:14];
-        self.statusLabel.text = @"寻找中";
+        //self.statusLabel.text = @"寻找中";
         
         self.soundButton = [[UIButton alloc]initWithFrame:CGRectMake(200, 90, 90, 20)];
         [self.soundButton addSubview:self.soundPlayImageView];
         [self.soundButton addTarget:self action:@selector(soundButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.soundButton setBackgroundImage:[UIImage imageNamed:@"sound_image"] forState:UIControlStateNormal];
         
-        [self configWithAmount:@"1000" storenum:@"200" unit:@"米" type:1];
+        //[self configWithAmount:@"1000" storenum:@"200" unit:@"米" type:1];
         [self addSubview:label];
         [self addSubview:self.unitLabel1];
         [self addSubview:self.unitLabel2];
@@ -88,8 +85,8 @@
     
     self.amountStoreLabel.text = number;
     CGSize amountStoresize = [self.amountStoreLabel.text sizeWithFont:self.amountStoreLabel.font constrainedToSize:textBlockMinSize lineBreakMode:NSLineBreakByCharWrapping];
-    [self.amountStoreLabel setFrame:CGRectMake(120, 50, amountsize.width, 20)];
-    [self.unitLabel2 setFrame:CGRectMake(self.amountStoreLabel.width+120, 50, 100, 20)];
+    [self.amountStoreLabel setFrame:CGRectMake(120, 50, amountStoresize.width, 20)];
+    [self.unitLabel2 setFrame:CGRectMake(self.amountStoreLabel.width+125, 50, 100, 20)];
     
     self.unitLabel1.text = unit;
     switch (type) {
