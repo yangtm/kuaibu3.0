@@ -12,6 +12,10 @@
 #import "MyButton.h"
 #import "YHBRadioBox.h"
 #import "SVProgressHUD.h"
+#import "TitleTagViewController.h"
+#import "CategoryViewController.h"
+#import "YHBCatSubcate.h"
+#import "UIScrollView+AvoidingKeyboard.h"
 
 @interface PublishSupplyViewController ()<UIScrollViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
@@ -19,6 +23,9 @@
     BOOL _isSpot;
     BOOL _isCut;
     BOOL _isSelectBtn;
+    BOOL isClean;
+    NSString *catidString;
+    float price;
 }
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) YHBPictureAdder *pictureAdder;
@@ -38,6 +45,7 @@
 @property (nonatomic,strong) MyButton *btn5;
 @property (nonatomic,strong) MyButton *btn6;
 
+@property (nonatomic, strong) UITextField *currentTextField;
 @property (nonatomic, strong) UITextField *contactNameTextField;
 @property (nonatomic, strong) UITextField *contactPhoneTextField;
 @property (nonatomic, strong) YHBRadioBox *publicPhoneRadiBox;
@@ -62,7 +70,257 @@
     [self setupContactView];
     self.publishButton.frame = CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44);
     self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.contactView.bottom + 60);
+    [self.scrollView autoAdjust];
 }
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField == _nameTextField) {
+        [_currentTextField resignFirstResponder];
+        _currentTextField = nil;
+        [self showTitletTagView];
+        return NO;
+    }
+    else if (textField == _categoryTextField){
+        [_currentTextField resignFirstResponder];
+        _currentTextField = nil;
+        [self showCategoryView];
+        return NO;
+    }
+//    else if (textField == _priceTextField){
+//        [_currentTextField resignFirstResponder];
+//        _currentTextField = nil;
+////        [self showDayPicker];
+//        return NO;
+//    }
+    else if (textField == _normsTextField){
+        [_currentTextField resignFirstResponder];
+        _currentTextField = nil;
+//        [self showDayPickers];
+        return NO;
+    }
+    _currentTextField = textField;
+    return YES;
+}
+
+#pragma mark 键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.view endEditing:YES];
+    if (textField==_priceTextField)
+    {
+        if ([self isPureFloat:_priceTextField.text])
+        {
+            price = [textField.text floatValue];
+            [textField resignFirstResponder];
+            [self keyboardDidDisappear];
+        }
+        else
+        {
+            price=0;
+            [SVProgressHUD showErrorWithStatus:@"请输入正确价格" cover:YES offsetY:kMainScreenWidth/2.0];
+        }
+    }
+    if (textField==_contactNameTextField)
+    {
+        NSString *oldstr = _contactNameTextField.text;
+        NSString *newStr = [oldstr stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if ([newStr isEqualToString:@""])
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入姓名" cover:YES offsetY:kMainScreenWidth/2.0];
+        }
+        else
+        {
+            [_contactNameTextField resignFirstResponder];
+            [self keyboardDidDisappear];
+        }
+    }
+    
+    if (textField==_contactPhoneTextField)
+    {
+        if ([self isPureInt:_contactPhoneTextField.text] && _contactPhoneTextField.text.length==11)
+        {
+            [textField resignFirstResponder];
+            [self keyboardDidDisappear];
+        }
+        else
+        {
+            [SVProgressHUD showErrorWithStatus:@"请输入正确号码" cover:YES offsetY:kMainScreenWidth/2.0];
+        }
+    }
+    
+    return YES;
+}
+
+//判断是否为float
+- (BOOL)isPureFloat:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    float val;
+    return[scan scanFloat:&val] && [scan isAtEnd];
+}
+
+//判断是否为int
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"])
+    {
+        [textView resignFirstResponder];
+        [self keyboardDidDisappear];
+    }
+    return YES;
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    self.detailTextView.text = @"";
+//    self.detailTextView.textColor = [UIColor blackColor];
+    [self keyboardWillAppear];
+    return YES;
+}
+
+
+
+
+- (void)keyboardWillAppear
+{
+//    [self pickerPickEnd:nil];
+    //注册通知,监听键盘出现
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(handleKeyboardDidShow:)
+                                                name:UIKeyboardWillShowNotification
+                                              object:nil];
+    //注册通知，监听键盘消失事件
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(handleKeyboardDidHidden)
+                                                name:UIKeyboardWillHideNotification
+                                              object:nil];
+}
+
+//监听事件
+- (void)handleKeyboardDidShow:(NSNotification*)paramNotification
+{
+    //获取键盘高度
+    NSValue *keyboardRectAsObject=[[paramNotification userInfo]objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    CGRect keyboardRect;
+    [keyboardRectAsObject getValue:&keyboardRect];
+    
+    if (![_priceTextField isFirstResponder])
+    {
+        float offY = 0;
+        MLOG(@"%f", kMainScreenHeight);
+        if (kMainScreenHeight>200)
+        {
+            offY=kMainScreenHeight;
+        }
+        else
+        {
+            offY=330;
+        }
+        [UIView animateWithDuration:0.2 animations:^{
+            self.scrollView.contentOffset = CGPointMake(0, offY);
+        }];
+        CGRect temFrame = self.scrollView.frame;
+        temFrame.size.height = self.view.frame.size.height - keyboardRect.size.height+60;
+        self.scrollView.frame = temFrame;
+    }
+    
+}
+
+- (void)handleKeyboardDidHidden
+{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.scrollView.frame = self.view.bounds;
+        self.scrollView.contentOffset = CGPointMake(0, 0);
+    }];
+}
+
+- (void)keyboardDidDisappear
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark 点击标题
+- (void)showTitletTagView
+{
+    TitleTagViewController *vc = [[TitleTagViewController alloc] init];
+    vc.type = 1;
+    [vc useBlock:^(NSString *title) {
+        if ([title isEqualToString:@""])
+        {
+            _nameTextField.placeholder = @"请输入您要发布的名称";
+        }
+        else
+        {
+            _nameTextField.text = title;
+
+            [self setupVariousViewWithTitle];
+        }
+    }];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void) setupVariousViewWithTitle
+{
+    NSString *titleStr = _nameTextField.text;
+    if ([titleStr isEqual:@"样板"]) {
+        _variousView.itemLabel.text = @"元/本";
+    }
+    else if ([titleStr isEqual:@"壁纸墙布"] ||
+             [titleStr isEqual:@"真皮"] ||
+             [titleStr isEqual:@"遮阳"] ){
+        _variousView.itemLabel.text = @"元/平方";
+    }
+    else if ([titleStr isEqual:@"绒布"] ||
+             [titleStr isEqual:@"窗帘布"] ||
+             [titleStr isEqual:@"绣花"] ||
+             [titleStr isEqual:@"窗纱"] ||
+             [titleStr isEqual:@"辅料"] ||
+             [titleStr isEqual:@"沙发布"] ||
+             [titleStr isEqual:@"工程布"] ||
+             [titleStr isEqual:@"人造革"]){
+        _variousView.itemLabel.text = @"元/米";
+    }
+}
+
+
+#pragma mark 类目
+- (void)showCategoryView
+{
+        CategoryViewController *vc = [[CategoryViewController alloc] init];
+        if (!isClean) {
+            isClean = YES;
+            [vc cleanAll];
+        }
+        vc.isPushed = YES;
+        [vc setBlock:^(NSArray *aArray) {
+            if (aArray.count>0)
+            {
+                NSString *str = @"";
+                catidString = @"";
+                for (YHBCatSubcate *subModel in aArray) {
+                    str = [str stringByAppendingString:[NSString stringWithFormat:@" %@", subModel.categoryName]];
+                    catidString = [catidString stringByAppendingString:[NSString stringWithFormat:@",%d", (int)subModel.categoryId]];
+                }
+                catidString = [catidString substringFromIndex:1];
+                _categoryTextField.text = str;
+            }
+            else
+            {
+//                _categoryTextField.text = @"";
+            }
+            
+        }];
+        [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 #pragma mark 返回
 - (void)dismissSelf
@@ -252,12 +510,7 @@
     return view;
 }
 
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    self.detailTextView.text = @"";
-    self.detailTextView.textColor = [UIColor blackColor];
-    return YES;
-}
+
 
 
 
@@ -492,6 +745,28 @@
     }
     return _publishButton;
 }
+
+- (UITextField *)contactNameTextField
+{
+    if (_contactNameTextField == nil) {
+        _contactNameTextField = [[UITextField alloc] initWithFrame:CGRectZero];
+        _contactNameTextField.font = [UIFont systemFontOfSize:15.0];
+        _contactNameTextField.delegate = self;
+    }
+    return _contactNameTextField;
+}
+
+
+- (UITextField *)contactPhoneTextField
+{
+    if (_contactPhoneTextField == nil) {
+        _contactPhoneTextField = [[UITextField alloc] initWithFrame:CGRectZero];
+        _contactPhoneTextField.font = [UIFont systemFontOfSize:15.0];
+        _contactPhoneTextField.delegate = self;
+    }
+    return _contactPhoneTextField;
+}
+
 
 #pragma mark 发布
 - (void)TouchPublish

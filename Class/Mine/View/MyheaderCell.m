@@ -43,11 +43,20 @@
 
 - (void)setup
 {
-    _portraitImageView = [UIButton buttonWithType:UIButtonTypeCustom];
+//    _portraitImageView = [UIButton buttonWithType:UIButtonTypeCustom];
+//    _portraitImageView.layer.cornerRadius = 30;
+//    _portraitImageView.layer.masksToBounds = YES;
+////    _portraitImageView.backgroundColor = [UIColor orangeColor];
+//    [_portraitImageView addTarget:self action:@selector(clickPortraitBtn) forControlEvents:UIControlEventTouchUpInside];
+    _portraitImageView = [[UIImageView alloc] init];
     _portraitImageView.layer.cornerRadius = 30;
     _portraitImageView.layer.masksToBounds = YES;
-    _portraitImageView.backgroundColor = [UIColor orangeColor];
-    [_portraitImageView addTarget:self action:@selector(clickPortraitBtn) forControlEvents:UIControlEventTouchUpInside];
+    _portraitImageView.userInteractionEnabled = YES;
+    _portraitImageView.image = [UIImage imageNamed:@"64副本"];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPortraitBtn)];
+    [_portraitImageView addGestureRecognizer:tap];
+    
     [self.contentView addSubview:_portraitImageView];
     
     _nameLabel = [self formTitleLabel:CGRectZero title:@"用户名 : "];

@@ -299,11 +299,11 @@
     kYHBRequestUrl(@"procurement/seller/addProcurementPrice", url);
     
     NSDictionary *dic = [self createDictionary];
-    
+    NSLog(@"dic:%@",dic);
     NSString *str = [self dictionaryToJson:dic];
 //    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@(_offerDetailId),@"procurementId", nil];
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:str,@"procurementPrice", nil];
-//     NSLog(@"****%@",dict);
+     NSLog(@"****%@",dict);
     __weak typeof(self) weakSelf=self;
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if(receiveData.length>0)
@@ -314,7 +314,7 @@
                 NSDictionary *dictionary=result;
                 NSString *msg = dictionary[@"RESPMSG"];
                 NSString *status = dictionary[@"RESPCODE"];
-                
+                NSLog(@"%@",result);
                 
                 if([status integerValue] == 0)
                 {

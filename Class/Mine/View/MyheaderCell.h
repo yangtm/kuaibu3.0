@@ -19,7 +19,7 @@
 
 @interface MyheaderCell : UITableViewCell
 
-@property (nonatomic,strong) UIButton *portraitImageView;
+@property (nonatomic,strong) UIImageView *portraitImageView;
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *integralLabel;
 @property (nonatomic,strong) UIButton *settingButton;

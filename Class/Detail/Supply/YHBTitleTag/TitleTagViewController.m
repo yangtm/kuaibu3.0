@@ -37,12 +37,12 @@
     topView.backgroundColor = RGBCOLOR(249, 249, 249);
     [self.view addSubview:topView];
     
-    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 27.5, 16, 24)];
+    UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 27.5, 30, 30)];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [topView addSubview:leftBtn];
     
-    textField = [[UITextField alloc] initWithFrame:CGRectMake(40, 25, kMainScreenWidth-42-54, 32)];
+    textField = [[UITextField alloc] initWithFrame:CGRectMake(50, 25, kMainScreenWidth-42-64, 32)];
     textField.backgroundColor = [UIColor whiteColor];
     textField.layer.cornerRadius = 2.5;
     textField.placeholder = @"请输入标题";
@@ -129,6 +129,7 @@
 - (void)back
 {
     [self dismissFlower];
+    self.navigationController.navigationBarHidden = NO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

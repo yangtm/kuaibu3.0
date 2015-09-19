@@ -247,6 +247,9 @@
 		1ED9E0561BA7E724000864F3 /* OfferListModle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9E0551BA7E724000864F3 /* OfferListModle.m */; };
 		1ED9E05D1BA825FE000864F3 /* OfferListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9E05B1BA825FE000864F3 /* OfferListCell.m */; };
 		1ED9E05E1BA825FE000864F3 /* OfferListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ED9E05C1BA825FE000864F3 /* OfferListCell.xib */; };
+		1ED9EA771BAD29C7009258CC /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9EA761BAD29C7009258CC /* HistoryViewController.m */; };
+		1ED9EA7B1BAD2C40009258CC /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9EA791BAD2C40009258CC /* HistoryCell.m */; };
+		1ED9EA7C1BAD2C40009258CC /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ED9EA7A1BAD2C40009258CC /* HistoryCell.xib */; };
 		1EDC40BF1B9ECB1500622CCC /* TitleTagManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC40BC1B9ECB1500622CCC /* TitleTagManage.m */; };
 		1EDC40C01B9ECB1500622CCC /* TitleTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC40BE1B9ECB1500622CCC /* TitleTagViewController.m */; };
 		1EDDDA941BA01802005DCA1C /* YHBPublishSupplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDDDA931BA01802005DCA1C /* YHBPublishSupplyViewController.m */; };
@@ -886,6 +889,11 @@
 		1ED9E05A1BA825FE000864F3 /* OfferListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferListCell.h; sourceTree = "<group>"; };
 		1ED9E05B1BA825FE000864F3 /* OfferListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferListCell.m; sourceTree = "<group>"; };
 		1ED9E05C1BA825FE000864F3 /* OfferListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OfferListCell.xib; sourceTree = "<group>"; };
+		1ED9EA751BAD29C7009258CC /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		1ED9EA761BAD29C7009258CC /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		1ED9EA781BAD2C40009258CC /* HistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
+		1ED9EA791BAD2C40009258CC /* HistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
+		1ED9EA7A1BAD2C40009258CC /* HistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryCell.xib; sourceTree = "<group>"; };
 		1EDC40BB1B9ECB1500622CCC /* TitleTagManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTagManage.h; sourceTree = "<group>"; };
 		1EDC40BC1B9ECB1500622CCC /* TitleTagManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTagManage.m; sourceTree = "<group>"; };
 		1EDC40BD1B9ECB1500622CCC /* TitleTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTagViewController.h; sourceTree = "<group>"; };
@@ -1174,6 +1182,8 @@
 				1ED890941B9582F30020DFF3 /* SettingViewController.m */,
 				1ED890961B959C610020DFF3 /* PersonalViewController.h */,
 				1ED890971B959C610020DFF3 /* PersonalViewController.m */,
+				1ED9EA751BAD29C7009258CC /* HistoryViewController.h */,
+				1ED9EA761BAD29C7009258CC /* HistoryViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1192,6 +1202,9 @@
 				1ED8908E1B957F110020DFF3 /* MineHeadView.m */,
 				1ED7FF241BA6645800CDFF92 /* MyheaderCell.h */,
 				1ED7FF251BA6645800CDFF92 /* MyheaderCell.m */,
+				1ED9EA781BAD2C40009258CC /* HistoryCell.h */,
+				1ED9EA791BAD2C40009258CC /* HistoryCell.m */,
+				1ED9EA7A1BAD2C40009258CC /* HistoryCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2859,6 +2872,7 @@
 				7FE0E9661BAB24B100186F0B /* ReceiverVoiceNodePlaying003@2x 2.png in Resources */,
 				0678C4951B8572DF0035660E /* Main.storyboard in Resources */,
 				1E84698B1B9D437000842A51 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
+				1ED9EA7C1BAD2C40009258CC /* HistoryCell.xib in Resources */,
 				1E8469631B9D3F5E00842A51 /* sr_refresh@2X.png in Resources */,
 				1ED67C341B9E86A8005EC831 /* check_on.png in Resources */,
 				7FE02E1E1BA2397E005E6C72 /* home_Pavilion_1.png in Resources */,
@@ -2993,6 +3007,7 @@
 				06706D8A1B85B2AA00F58ACC /* BaseViewController.m in Sources */,
 				1ED5F5D31BA92154007AEE9F /* MJRefreshHeaderView.m in Sources */,
 				06706DAD1B85B2AA00F58ACC /* ViewInteraction.m in Sources */,
+				1ED9EA7B1BAD2C40009258CC /* HistoryCell.m in Sources */,
 				1ED890651B95754E0020DFF3 /* SVProgressHUD.m in Sources */,
 				1ED67C381B9EAA88005EC831 /* MyButton.m in Sources */,
 				1E8469481B9D3F5E00842A51 /* EMSDWebImageDownloaderOperation.m in Sources */,
@@ -3134,6 +3149,7 @@
 				1E8469541B9D3F5E00842A51 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				1E6BC99B1B9BDF5D00B726DA /* FindPswViewController.m in Sources */,
 				1E8469D01B9D5A4C00842A51 /* YHBRadioBox.m in Sources */,
+				1ED9EA771BAD29C7009258CC /* HistoryViewController.m in Sources */,
 				1ED9226A1B86B2330013AF29 /* AdvertModel.m in Sources */,
 				06706D9F1B85B2AA00F58ACC /* SDWebImageManager.m in Sources */,
 				1E8469561B9D3F5E00842A51 /* PSTCollectionViewCell.m in Sources */,

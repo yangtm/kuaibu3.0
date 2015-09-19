@@ -19,7 +19,8 @@
 #import "MineHeadView.h"
 #import "ProcurementListController.h"
 #import "FXBlurView.h"
-
+#import "HistoryViewController.h"
+#import "UIImage+Extensions.h"
 
 #define WORLD (@"world")
 
@@ -28,7 +29,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
     MineViewTypeBuyller
 };
 
-@interface MineViewController ()<UITableViewDataSource,UITableViewDelegate,MyheaderCellDelagate,UIActionSheetDelegate,MineHeadViewDelegate>
+@interface MineViewController ()<UITableViewDataSource,UITableViewDelegate,MyheaderCellDelagate,UIActionSheetDelegate,MineHeadViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic,strong) UITableView *buyerView;
 @property (nonatomic,strong) UITableView *sellerView;
@@ -40,6 +41,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
 @property (assign, nonatomic) TradingRole role;
 @property (assign, nonatomic) MineViewType type;
 @property (strong, nonatomic) MineHeadView *headView;
+@property (strong,nonatomic) UIImage *photo;
 @end
 
 
@@ -61,8 +63,8 @@ typedef NS_ENUM(NSInteger, MineViewType) {
     self.view.backgroundColor = kViewBackgroundColor;
     [self prepareData];
     [self createTabelView];
-    
-    
+    NSString *str = [[NSUserDefaults standardUserDefaults]stringForKey:@"photo"];
+    _photo = [UIImage imageNamed:str];
 }
 
 //- (UIButton *)navBarMessageButton
@@ -322,6 +324,11 @@ typedef NS_ENUM(NSInteger, MineViewType) {
                 
             }];
 
+        }else if (indexPath.row == 2){
+            HistoryViewController *vc = [[HistoryViewController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+                
+            }];
         }
     }else if (indexPath.section == 3){
 //        [self transitionShowView];
@@ -338,7 +345,124 @@ typedef NS_ENUM(NSInteger, MineViewType) {
 -(void)clickPortraitImageView:(MyheaderCell *)cell
 {
     NSLog(@"上传头像");
+    cell.tag = 10;
+    cell.portraitImageView.image = _photo;
+    
+    
+    [self showActionSheet];
+
+    NSLog(@"%@",_photo);
 }
+
+#pragma mark - 显示ActionSheet
+- (void)showActionSheet
+{
+    UIActionSheet *sheet;
+    // 判断是否支持相机
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        sheet  = [[UIActionSheet alloc] initWithTitle:@"选择图像" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消" otherButtonTitles:@"拍照", @"从相册选择", nil];
+    }
+    else {
+        sheet = [[UIActionSheet alloc] initWithTitle:@"选择图像" delegate:self cancelButtonTitle:nil destructiveButtonTitle:@"取消" otherButtonTitles:@"从相册选择", nil];
+    }
+    [sheet showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegte
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    // 判断是否支持相机
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        switch (buttonIndex) {
+            case 0:
+                return;
+            case 1: //相机
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                break;
+            case 2: //相册
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                break;
+        }
+    }
+    else {
+        if (buttonIndex == 0) {
+            return;
+        } else {
+            sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+    }
+    [self showImagePicker:sourceType];
+}
+
+- (void)showImagePicker:(NSUInteger)sourceType
+{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.mediaTypes =[UIImagePickerController availableMediaTypesForSourceType:imagePickerController.sourceType];
+    [self presentViewController:imagePickerController animated:YES completion:^{}];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{}];
+    
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        UIImage * oriImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+        [oriImage saveToAlbum:^(NSURL *assetURL, NSError *error) {
+            
+        }];
+    }
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    [self uploadImgWithImage:image];
+    NSLog(@"image:%@",image);
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)uploadImgWithImage:(UIImage *)image
+{
+    NSString *uploadPhototUrl = nil;
+    kYHBRequestUrl(@"upload.php", uploadPhototUrl);
+    _photo = image;
+//    NSData *data;
+//    _photo = [UIImage imageWithData:data];
+//    [[NSUserDefaults standardUserDefaults]setObject:_photo forKey:@"photo"];
+//    [[NSUserDefaults standardUserDefaults]synchronize];
+    NSLog(@"_photo:%@",_photo);
+//    self.uploadButton.image = image;
+
+    //    [SVProgressHUD showWithStatus:@"上传中..." cover:YES offsetY:0];
+    //    [NetManager uploadImg:image parameters:dic uploadUrl:uploadPhototUrl uploadimgName:(_isPortrait ? @"avatar" : @"banner") parameEncoding:AFJSONParameterEncoding progressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+    //
+    //    } succ:^(NSDictionary *successDict) {
+    //        MLOG(@"%@", successDict);
+    //        if ([successDict[@"result"] integerValue] == 1) {
+    //            [SVProgressHUD dismissWithSuccess:@"上传成功"];
+    //            if (!_isPortrait) {
+    //                self.imageView.image = image;
+    //            }else{
+    //                self.headImageView.image = image;
+    //            }
+    //            [YHBUser sharedYHBUser].statusIsChanged = YES;
+    //            [[SDWebImageManager sharedManager].imageCache removeImageForKey:(!_isPortrait ? [YHBUser sharedYHBUser].userInfo.thumb:[YHBUser sharedYHBUser].userInfo.avatar)];
+    //        }else{
+    //            [SVProgressHUD dismissWithError:kErrorStr];
+    //        }
+    //
+    //    } failure:^(NSDictionary *failDict, NSError *error) {
+    //        [SVProgressHUD dismissWithError:kNoNet];
+    //    }];
+}
+
 
 -(void)clickSettingBtn:(MyheaderCell *)cell
 {
