@@ -27,8 +27,8 @@
 #define kYHBRequestUrl(path,outUrl) do{\
   outUrl = [NSString stringWithFormat:@"%@%@",kYHBBaseUrl,path];\
 }while(0)
-
-#define kZXYFileUrl @"http://192.168.1.119:8080/kuaibu-fileService/"
+#define kZXYFileUrl @"http://files.51kuaibu.com/"
+//#define kZXYFileUrl @"http://192.168.1.119:8080/kuaibu-fileService/"
 #define kZXYRequestUrl(path,outUrl) do{\
 outUrl = [NSString stringWithFormat:@"%@%@",kZXYFileUrl,path];\
 }while(0)
