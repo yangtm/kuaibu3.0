@@ -10,6 +10,7 @@
 #import "OrderDetailController.h"
 
 @interface BuyOfferListDetailController ()<UIScrollViewDelegate>
+
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,strong) UIView *buyOfferListDetailFormView;
 @property (nonatomic,strong) UIImageView *logoImageView;
@@ -25,6 +26,7 @@
 @property (nonatomic,strong) UIButton *rightBtn;
 @property (nonatomic,strong) UILabel *isPayFor;
 
+
 @end
 
 @implementation BuyOfferListDetailController
@@ -37,8 +39,28 @@
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.buyOfferListDetailFormView];
     [self setupFormView];
+    [self showData];
     [self.view addSubview:[self buttonForm:CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44)]];
     self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.buyOfferListDetailFormView.bottom + 60);
+}
+
+- (void)showData
+{
+    NSString *url = nil;
+    kYHBRequestUrl(@"procurement/procurementPriceDetail", url);
+    NSLog(@"%@",url);
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_buyOfferListDetailId),@"procurementId", nil];
+    
+    [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+        id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+        if ([result isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = result;
+            NSLog(@"dic:%@",dic);
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)back

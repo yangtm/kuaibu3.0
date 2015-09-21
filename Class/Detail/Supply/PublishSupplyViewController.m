@@ -70,7 +70,7 @@
     [self setupContactView];
     self.publishButton.frame = CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44);
     self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.contactView.bottom + 60);
-    [self.scrollView autoAdjust];
+//    [self.scrollView autoAdjust];
 }
 
 #pragma mark - UITextFieldDelegate

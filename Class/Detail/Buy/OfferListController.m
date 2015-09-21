@@ -46,13 +46,14 @@
     NSString *url = nil;
     kYHBRequestUrl(@"procurement/getPurchasePrices", url);
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_offerListId),@"procurementId",@(_page),@"pageIndex", nil];
+    NSLog(@"%ld",_offerListId);
     __weak OfferListController *weakSelf = self;
     [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
         _isLoading = YES;
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
-                      //  NSLog(@"result:%@",dic);
+                        NSLog(@"result:%@",dic);
             NSArray *array = dic[@"RESULT"];
             for (NSDictionary *subDic in array) {
                 OfferModle *model = [[OfferModle alloc] init];
@@ -113,7 +114,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,8 +124,8 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle]loadNibNamed:@"OfferListCell" owner:nil options:nil]lastObject];
     }
-//    OfferModle *model = self.dataArray[indexPath.row];
-//    [cell configOfferListModel:model];
+    OfferModle *model = self.dataArray[indexPath.row];
+    [cell configOfferListModel:model];
     return cell;
 }
 
@@ -137,6 +138,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     BuyOfferListDetailController *vc = [[BuyOfferListDetailController alloc] init];
+    vc.buyOfferListDetailId = _offerListId;
 //    SellerDetailController *vc = [[SellerDetailController alloc] init];
 //    OfferModle *model = self.dataArray[indexPath.row];
 //    vc.buyOfferListDetailId = [model.procurementId integerValue];

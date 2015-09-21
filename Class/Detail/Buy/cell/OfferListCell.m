@@ -30,6 +30,7 @@
     _nameLabel.text = model.supplier;
     _certLabel.text = model.authenticationName;
     _offLabel.text = model.offer;
+
     _offTimeLabel.text = model.offerTime;
 }
 
