@@ -1115,10 +1115,14 @@ const NSInteger BottomLineTag = 59;
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 70, frame.size.height) title:@"*采购标题:"];
-    self.productNameTextField.frame = CGRectMake(label.right + 5, 0, view.width - label.right, view.height);
+    self.productNameTextField.frame = CGRectMake(label.right + 5, 0, view.width - label.right - 40, view.height);
     [view addSubview:label];
     [view addSubview:self.productNameTextField];
     [self addBottomLine:view];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
     return view;
 }
 
@@ -1127,12 +1131,17 @@ const NSInteger BottomLineTag = 59;
 {
     UIView *view = [[UIView alloc] initWithFrame:frame];
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 70, frame.size.height) title:@"*布料分类:"];
-    self.categoryTextField.frame = CGRectMake(label.right + 5, 0, view.width - label.right - 20, view.height);
+    self.categoryTextField.frame = CGRectMake(label.right + 5, 0, view.width - label.right - 20 - 40, view.height);
     UIImageView *arrowImageView = [self arrowImageView:CGRectMake(self.categoryTextField.right, 15, 5, 10)];
     [view addSubview:label];
     [view addSubview:self.categoryTextField];
     [view addSubview:arrowImageView];
     [self addBottomLine:view];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
+    
     return view;
 }
 
@@ -1160,11 +1169,16 @@ const NSInteger BottomLineTag = 59;
     label1.text = @"天";
     label1.font = [UIFont systemFontOfSize:15.0];
     label1.textColor = [UIColor lightGrayColor];
-    UIImageView *arrowImageView = [self arrowImageView:CGRectMake(label1.right, 15, 5, 10)];
+//    UIImageView *arrowImageView = [self arrowImageView:CGRectMake(label1.right, 15, 5, 10)];
     [view addSubview:label];
     [view addSubview:self.periodTextField];
 //    [view addSubview:label1];
-    [view addSubview:arrowImageView];
+//    [view addSubview:arrowImageView];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
+    
     [self addBottomLine:view];
     return view;
 }
@@ -1177,6 +1191,10 @@ const NSInteger BottomLineTag = 59;
     self.asofdateTextField.frame = CGRectMake(label.right + 5, 0, view.width - 60, view.height);
     [view addSubview:label];
     [view addSubview:self.asofdateTextField];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
     [self addBottomLine:view];
     return view;
 }
@@ -1326,6 +1344,10 @@ const NSInteger BottomLineTag = 59;
     [view addSubview:label];
     [view addSubview:self.addressTextField];
     [self addBottomLine:view];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
     return view;
 }
 

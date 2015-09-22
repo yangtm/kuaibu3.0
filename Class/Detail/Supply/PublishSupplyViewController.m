@@ -111,7 +111,16 @@
 #pragma mark - 规格界面
 - (void)showNormsView
 {
+    _normsTextField.text = @"";
     NormsViewController *vc = [[NormsViewController alloc] init];
+//    [vc.manager deleteAlls];
+    [vc strBlock:^(NSString *title) {
+        _normsTextField.text = title;
+    }];
+    [vc useBlock:^(NSArray *normsArray) {
+       
+    }];
+    
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -438,7 +447,7 @@
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 80, view.height) title:@"*布料名称 : "];
     [view addSubview:label];
     
-    _nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right, 0, kMainScreenWidth - label.width - 20, view.height)];
+    _nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right, 0, kMainScreenWidth - label.width - 20 - 40, view.height)];
     _nameTextField.font = [UIFont systemFontOfSize:15];
     _nameTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _nameTextField.returnKeyType = UIReturnKeyDone;
@@ -446,6 +455,11 @@
     [_nameTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     _nameTextField.delegate = self;
     [view addSubview:_nameTextField];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
+    
     [self addBottomLine:view];
     
     return view;
@@ -458,7 +472,7 @@
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 80, view.height) title:@"*布料分类 : "];
     [view addSubview:label];
     
-    _categoryTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right, 0, kMainScreenWidth - label.width - 20, view.height)];
+    _categoryTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right, 0, kMainScreenWidth - label.width - 20 - 40, view.height)];
     _categoryTextField.font = [UIFont systemFontOfSize:15];
     _categoryTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _categoryTextField.returnKeyType = UIReturnKeyDone;
@@ -466,6 +480,11 @@
     [_categoryTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     _categoryTextField.delegate = self;
     [view addSubview:_categoryTextField];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
+    
     [self addBottomLine:view];
     return view;
 }
@@ -477,7 +496,7 @@
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 50, view.height) title:@"*属性 : "];
     [view addSubview:label];
     
-    _attributesTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right, 0, kMainScreenWidth - label.width - 20, view.height)];
+    _attributesTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right, 0, kMainScreenWidth - label.width - 20 - 40, view.height)];
     _attributesTextField.font = [UIFont systemFontOfSize:15];
     _attributesTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _attributesTextField.returnKeyType = UIReturnKeyDone;
@@ -485,6 +504,11 @@
     [_attributesTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     _attributesTextField.delegate = self;
     [view addSubview:_attributesTextField];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
+    
     [self addBottomLine:view];
     return view;
 }
