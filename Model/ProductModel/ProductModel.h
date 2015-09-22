@@ -10,27 +10,28 @@
 
 @interface ProductModel : NSObject
 
-@property (strong,nonatomic) NSString *productId;
-@property (strong,nonatomic) NSString *categoryId;
-@property (strong,nonatomic) NSString *productThumb;
-@property (strong,nonatomic) NSString *productImage;
-@property (strong,nonatomic) NSString *productDesc;
-@property (strong,nonatomic) NSString *productBrief;
-@property (strong,nonatomic) NSString *price;
-@property (strong,nonatomic) NSString *salesAmout;
-@property (strong,nonatomic) NSString *imageUrl;
-@property (strong,nonatomic) NSString *type;
-@property (strong,nonatomic) NSString *praise;
-@property (strong,nonatomic) NSString *comments;
-@property (strong,nonatomic) NSString *specificationName;
-@property (strong,nonatomic) NSString *specificationImage;
-@property (strong,nonatomic) NSString *numbers;
-@property (strong,nonatomic) NSString *productName;
-@property (assign,nonatomic) NSInteger PhonePublic; //公开
-@property (assign,nonatomic) BOOL isSampleCut; //是否裁剪
-@property (assign,nonatomic) NSInteger billingType; //发票类型
-@property (assign,nonatomic) NSInteger salesPromotion;
-@property (strong,nonatomic) NSString *name;
-@property (strong,nonatomic) NSString *phone;
+@property (strong,nonatomic) NSString *productId;//产品ID
+@property (strong,nonatomic) NSString *categoryId;//产品分类
+@property (strong,nonatomic) NSString *memberCategoryId;//自定义分类
+@property (strong,nonatomic) NSString *memberId;//所属会员
+@property (strong,nonatomic) NSString *productNumber;//库存
+@property (strong,nonatomic) NSString *productSku;//货号
+@property (strong,nonatomic) NSString *productBrief;//商品简介
+@property (strong,nonatomic) NSString *productThumb;//缩略图
+@property (strong,nonatomic) NSString *productImage;//原图
+@property (strong,nonatomic) NSString *unit;//单位
+@property (strong,nonatomic) NSString *price;//价格
+@property (strong,nonatomic) NSString *productDesc;//商品详情
+@property (strong,nonatomic) NSString *salesAmount;//销量
+@property (strong,nonatomic) NSString *isPromotion;//是否促销
+@property (strong,nonatomic) NSString *isSample;//是否提供剪样
+@property (strong,nonatomic) NSString *supplyState;//供货状态  0 现货 1期货
+@property (strong,nonatomic) NSString *productName;//商品名称
+@property (strong,nonatomic) NSString *PhonePublic; //公开
+@property (strong,nonatomic) NSString *authenticationType; //认证类型（1：个人；2：企业）
+@property (strong,nonatomic) NSString *authenticationName; //认证类型名称
+@property (strong,nonatomic) NSArray *productSpecificationList;//规格集合
+@property (strong,nonatomic) NSArray *productImageList;//图片集合
+@property (strong,nonatomic) NSArray *attributes;//产品属性
 @end
 
