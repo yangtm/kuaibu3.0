@@ -336,6 +336,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
                 ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"精品店铺";
                 ((HomePageTitleHeadView *)reusableView).collectViewNum = PavilionSection;
+                ((HomePageTitleHeadView *)reusableView).HomePageTitleHeadViewDelegate = self;
             }
             else{
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
@@ -349,6 +350,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
                 ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"热门商品";
                 ((HomePageTitleHeadView *)reusableView).collectViewNum = HotProductSection;
+                ((HomePageTitleHeadView *)reusableView).HomePageTitleHeadViewDelegate = self;
             }
             else{
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
@@ -362,6 +364,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:TitleHeadViewIdentifier forIndexPath:indexPath];
                 ((HomePageTitleHeadView *)reusableView).titleLabel.text = @"产业带";
                 ((HomePageTitleHeadView *)reusableView).collectViewNum = BandSection;
+                ((HomePageTitleHeadView *)reusableView).HomePageTitleHeadViewDelegate = self;
             }
             else{
                 reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:BlankReuseViewIdentifier forIndexPath:indexPath];
@@ -656,7 +659,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             NSLog(@"精品店铺列表");
             break;
         case 2:
-            NSLog(@"热门列表");
+            if ([_homeMainPageViewDelegate respondsToSelector:@selector(selectBtn:)]) {
+                [_homeMainPageViewDelegate selectBtn:2];
+            }
             break;
         case 3:
             NSLog(@"产业带列表");

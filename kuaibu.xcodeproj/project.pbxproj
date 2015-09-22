@@ -307,6 +307,7 @@
 		7FD7B2B91B9FB17800A4F911 /* SlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7B2B81B9FB17800A4F911 /* SlideSwitchView.m */; };
 		7FD7B2BB1B9FB75300A4F911 /* red_line_and_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD7B2BA1B9FB75300A4F911 /* red_line_and_shadow@2x.png */; };
 		7FD7B2BE1B9FC55200A4F911 /* HomeMainPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7B2BD1B9FC55200A4F911 /* HomeMainPageViewController.m */; };
+		7FD7D31C1BB08575005132B0 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7D31B1BB08575005132B0 /* ProductViewController.m */; };
 		7FD8A3161BA3990C001DD580 /* HomePageHotProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD8A3151BA3990C001DD580 /* HomePageHotProductCell.m */; };
 		7FDDB0C61BAA260700FEAA86 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDDB0BF1BAA260700FEAA86 /* NSDate+Utilities.m */; };
 		7FDDB0C81BAA260700FEAA86 /* YHBSupplyDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDDB0C31BAA260700FEAA86 /* YHBSupplyDataSource.m */; };
@@ -978,6 +979,8 @@
 		7FD7B2BA1B9FB75300A4F911 /* red_line_and_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_line_and_shadow@2x.png"; sourceTree = "<group>"; };
 		7FD7B2BC1B9FC55200A4F911 /* HomeMainPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeMainPageViewController.h; sourceTree = "<group>"; };
 		7FD7B2BD1B9FC55200A4F911 /* HomeMainPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeMainPageViewController.m; sourceTree = "<group>"; };
+		7FD7D31A1BB08575005132B0 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
+		7FD7D31B1BB08575005132B0 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewController.m; sourceTree = "<group>"; };
 		7FD8A3141BA3990C001DD580 /* HomePageHotProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageHotProductCell.h; sourceTree = "<group>"; };
 		7FD8A3151BA3990C001DD580 /* HomePageHotProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageHotProductCell.m; sourceTree = "<group>"; };
 		7FDDB0BE1BAA260700FEAA86 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
@@ -2060,6 +2063,7 @@
 		1E84696A1B9D406300842A51 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				7FD7D3191BB084E3005132B0 /* Product */,
 				1E8469B31B9D547000842A51 /* Supply */,
 				1E84696B1B9D409F00842A51 /* Buy */,
 			);
@@ -2682,6 +2686,15 @@
 			name = homepage;
 			sourceTree = "<group>";
 		};
+		7FD7D3191BB084E3005132B0 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				7FD7D31A1BB08575005132B0 /* ProductViewController.h */,
+				7FD7D31B1BB08575005132B0 /* ProductViewController.m */,
+			);
+			path = Product;
+			sourceTree = "<group>";
+		};
 		7FDDB0B91BAA260700FEAA86 /* BuyNetManage */ = {
 			isa = PBXGroup;
 			children = (
@@ -3012,6 +3025,7 @@
 				1ED8906A1B95785E0020DFF3 /* HZCookie.m in Sources */,
 				1E8469DE1B9D5CB500842A51 /* WoWPhotoBrowserCell.m in Sources */,
 				1ED7FF351BA6CF7000CDFF92 /* OrderUtil.m in Sources */,
+				7FD7D31C1BB08575005132B0 /* ProductViewController.m in Sources */,
 				7FD8A3161BA3990C001DD580 /* HomePageHotProductCell.m in Sources */,
 				06706D881B85B2AA00F58ACC /* MineViewController.m in Sources */,
 				1ED890701B9578AE0020DFF3 /* NetworkService.m in Sources */,

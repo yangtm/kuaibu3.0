@@ -19,7 +19,9 @@
             NSLog(@"精品店铺列表");
             break;
         case 2:
-            NSLog(@"热门列表");
+            if ([_HomePageTitleHeadViewDelegate respondsToSelector:@selector(selectTag:)]) {
+                [_HomePageTitleHeadViewDelegate selectTag:2];
+            }
             break;
         case 3:
             NSLog(@"产业带列表");
