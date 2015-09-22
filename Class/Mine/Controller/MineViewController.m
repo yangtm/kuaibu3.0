@@ -21,6 +21,7 @@
 #import "FXBlurView.h"
 #import "HistoryViewController.h"
 #import "UIImage+Extensions.h"
+#import "SellerViewController.h"
 
 #define WORLD (@"world")
 
@@ -331,7 +332,8 @@ typedef NS_ENUM(NSInteger, MineViewType) {
             }];
         }
     }else if (indexPath.section == 3){
-//        [self transitionShowView];
+        SellerViewController *vc = [[SellerViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

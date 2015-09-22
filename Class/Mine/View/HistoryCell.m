@@ -23,12 +23,12 @@
 
 - (void)configModel:(ProductModel *)model
 {
-    [_rightImageView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl]];
+    [_rightImageView sd_setImageWithURL:[NSURL URLWithString:model.productThumb]];
     _rightImageView.backgroundColor = [UIColor grayColor];
-    _titleLable.text = model.productThumb;
+    _titleLable.text = model.productName;
     _priceLabel.text = [NSString stringWithFormat:@"¥ : %@",model.price];
-    _praiseLabel.text = [NSString stringWithFormat:@"好评 : %@",model.praise];
-    _numberLabel.text = [NSString stringWithFormat:@"人次 : %@",model.numbers];
+//    _praiseLabel.text = [NSString stringWithFormat:@"好评 : %@",model.praise];
+//    _numberLabel.text = [NSString stringWithFormat:@"人次 : %@",model.numbers];
 }
 
 

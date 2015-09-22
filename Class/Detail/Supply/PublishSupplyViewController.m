@@ -17,6 +17,7 @@
 #import "YHBCatSubcate.h"
 #import "UIScrollView+AvoidingKeyboard.h"
 #import "MeasurePicker.h"
+#import "NormsViewController.h"
 
 @interface PublishSupplyViewController ()<UIScrollViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
@@ -40,6 +41,7 @@
 @property (nonatomic,strong) MeasurePicker *measurePicker;
 @property (nonatomic,strong) UITextField *normsTextField;
 @property (nonatomic,strong) UITextView *detailTextView;
+@property (nonatomic,strong) UITextField *attributesTextField;
 @property (nonatomic,strong) MyButton *btn1;
 @property (nonatomic,strong) MyButton *btn2;
 @property (nonatomic,strong) MyButton *btn3;
@@ -66,12 +68,12 @@
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.pictureAdder];
     [self.scrollView addSubview:self.editFormView];
-    [self.scrollView addSubview:self.contactView];
+//    [self.scrollView addSubview:self.contactView];
     [self.view addSubview:self.publishButton];
     [self setupFormView];
-    [self setupContactView];
+//    [self setupContactView];
     self.publishButton.frame = CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44);
-    self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.contactView.bottom + 60);
+    self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.editFormView.bottom + 60);
     [self.scrollView autoAdjust];
 }
 
@@ -99,12 +101,20 @@
     else if (textField == _normsTextField){
         [_currentTextField resignFirstResponder];
         _currentTextField = nil;
-//        [self showDayPickers];
+        [self showNormsView];
         return NO;
     }
     _currentTextField = textField;
     return YES;
 }
+
+#pragma mark - 规格界面
+- (void)showNormsView
+{
+    NormsViewController *vc = [[NormsViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 #pragma mark 键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -354,7 +364,10 @@
     UIView *view3 = [self categoryForm:CGRectMake(0, view2.bottom, kMainScreenWidth, view2.height)];
     [self.editFormView addSubview:view3];
     
-    UIView *view4 = [self priceForm:CGRectMake(0, view3.bottom, kMainScreenWidth, view3.height)];
+    UIView *view = [self attributesFrom:CGRectMake(0, view3.bottom, kMainScreenWidth, view3.height)];
+    [self.editFormView addSubview:view];
+    
+    UIView *view4 = [self priceForm:CGRectMake(0, view.bottom, kMainScreenWidth, view.height)];
     [self.editFormView addSubview:view4];
     
     UIView *view5 = [self normsForm:CGRectMake(0, view4.bottom, kMainScreenWidth, view4.height)];
@@ -457,6 +470,25 @@
     return view;
 }
 
+#pragma mark - 属性
+- (UIView *)attributesFrom:(CGRect)frame
+{
+    UIView *view = [[UIView alloc] initWithFrame:frame];
+    UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 50, view.height) title:@"*属性 : "];
+    [view addSubview:label];
+    
+    _attributesTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right, 0, kMainScreenWidth - label.width - 20, view.height)];
+    _attributesTextField.font = [UIFont systemFontOfSize:15];
+    _attributesTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    _attributesTextField.returnKeyType = UIReturnKeyDone;
+    _attributesTextField.placeholder = @"请选择属性";
+    [_attributesTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+    _attributesTextField.delegate = self;
+    [view addSubview:_attributesTextField];
+    [self addBottomLine:view];
+    return view;
+}
+
 #pragma mark - 价格UI
 - (UIView *)priceForm:(CGRect)frame
 {
@@ -499,14 +531,19 @@
     UILabel *label = [self formTitleLabel:CGRectMake(10, 0, 50, view.height) title:@"*规格 : "];
     [view addSubview:label];
     
-    _normsTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right,0,kMainScreenWidth, view.height)];
+    _normsTextField = [[UITextField alloc] initWithFrame:CGRectMake(label.right,0,kMainScreenWidth - 120 , view.height)];
     _normsTextField.font = [UIFont systemFontOfSize:15];
     _normsTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _normsTextField.returnKeyType = UIReturnKeyDone;
-    _normsTextField.placeholder = @"请填写产品规格";
+    _normsTextField.placeholder = @"选择产品规格";
     [_normsTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     _normsTextField.delegate = self;
     [view addSubview:_normsTextField];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.right - 40, 10, 20, 20)];
+    imageView.image = [UIImage imageNamed:@"iconfont-nextpage"];
+    [view addSubview:imageView];
+    
     [self addBottomLine:view];
     return view;
 }
@@ -862,18 +899,18 @@
     
     [dic setObject:_nameTextField.text forKey:@"productName"];
     [dic setObject:@3 forKey:@"categoryId"];
-    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"salesAmout"];
+    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"unit"];
     [dic setObject:_priceTextField.text forKey:@"price"];
-    [dic setObject:_normsTextField.text forKey:@"specificationName"];
+    [dic setObject:_normsTextField.text forKey:@"productSpecificationList"];//规格
 //    [dic setObject: @3 forKey:@"catId"];
-    [dic setObject:@(_isSpot) forKey:@"productStatus"];
+    [dic setObject:@(_isSpot) forKey:@"supplyState"];
     [dic setObject:_detailTextView.text forKey:@"productDesc"];
-    [dic setObject:@(_isSelect) forKey:@"salesPromotion"];
-    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
-    [dic setObject:@(_isSelectBtn) forKey:@"PhonePublic"];
-    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrl"];
-    [dic setObject:_contactNameTextField.text forKey:@"name"];
-    [dic setObject:_contactPhoneTextField.text forKey:@"phone"];
+    [dic setObject:@(_isSelect) forKey:@"isPromotion"];
+    [dic setObject:@(_isCut) forKey:@"isSample"];
+//    [dic setObject:@(_isSelectBtn) forKey:@"PhonePublic"];
+    [dic setObject:_pictureAdder.imageArray forKey:@"productImageList"];
+//    [dic setObject:_contactNameTextField.text forKey:@"name"];
+//    [dic setObject:_contactPhoneTextField.text forKey:@"phone"];
     return dic;
     
 }

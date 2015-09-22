@@ -269,6 +269,9 @@
 		1EDDDAE11BA046C7005DCA1C /* 快布切图_45.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EDDDACD1BA046C7005DCA1C /* 快布切图_45.png */; };
 		1EDDDAE21BA046C7005DCA1C /* 快布切图_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EDDDACE1BA046C7005DCA1C /* 快布切图_48.png */; };
 		1EDDDAE31BA046C7005DCA1C /* 快布切图_56 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EDDDACF1BA046C7005DCA1C /* 快布切图_56 2.png */; };
+		1EEBF6FE1BB0EDB1009F80AF /* NormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */; };
+		1EEBF7011BB0F325009F80AF /* SellerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF7001BB0F325009F80AF /* SellerViewController.m */; };
+		1EEBF7031BB0F78D009F80AF /* iconfont-nextpage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7021BB0F78D009F80AF /* iconfont-nextpage.png */; };
 		7F31EE671B9E7091008015D2 /* BannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE661B9E7091008015D2 /* BannerView.m */; };
 		7F31EE6B1B9E7191008015D2 /* PageIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE6A1B9E7191008015D2 /* PageIndex.m */; };
 		7F31EE6E1B9E71C3008015D2 /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE6D1B9E71C3008015D2 /* BannerModel.m */; };
@@ -914,6 +917,11 @@
 		1EDDDACE1BA046C7005DCA1C /* 快布切图_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "快布切图_48.png"; sourceTree = "<group>"; };
 		1EDDDACF1BA046C7005DCA1C /* 快布切图_56 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "快布切图_56 2.png"; sourceTree = "<group>"; };
 		1EDDDAD01BA046C7005DCA1C /* 快布切图_56.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "快布切图_56.png"; sourceTree = "<group>"; };
+		1EEBF6FC1BB0EDB1009F80AF /* NormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormsViewController.h; sourceTree = "<group>"; };
+		1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormsViewController.m; sourceTree = "<group>"; };
+		1EEBF6FF1BB0F325009F80AF /* SellerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellerViewController.h; sourceTree = "<group>"; };
+		1EEBF7001BB0F325009F80AF /* SellerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellerViewController.m; sourceTree = "<group>"; };
+		1EEBF7021BB0F78D009F80AF /* iconfont-nextpage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-nextpage.png"; sourceTree = "<group>"; };
 		7F31EE651B9E7091008015D2 /* BannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BannerView.h; path = RecordView/BannerView.h; sourceTree = "<group>"; };
 		7F31EE661B9E7091008015D2 /* BannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BannerView.m; path = RecordView/BannerView.m; sourceTree = "<group>"; };
 		7F31EE691B9E7191008015D2 /* PageIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageIndex.h; sourceTree = "<group>"; };
@@ -1178,6 +1186,8 @@
 				1ED890971B959C610020DFF3 /* PersonalViewController.m */,
 				1ED9EA751BAD29C7009258CC /* HistoryViewController.h */,
 				1ED9EA761BAD29C7009258CC /* HistoryViewController.m */,
+				1EEBF6FF1BB0F325009F80AF /* SellerViewController.h */,
+				1EEBF7001BB0F325009F80AF /* SellerViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1328,6 +1338,7 @@
 		06706D2D1B85B2AA00F58ACC /* Resourse */ = {
 			isa = PBXGroup;
 			children = (
+				1EEBF7021BB0F78D009F80AF /* iconfont-nextpage.png */,
 				1ED0BFEE1BAA475000FA92D6 /* StarsBackground.png */,
 				1ED0BFEF1BAA475000FA92D6 /* StarsForeground.png */,
 				1ED9E04D1BA7DB4F000864F3 /* sanjiao_heise_32.png */,
@@ -2205,6 +2216,8 @@
 				1EDDDA961BA01F62005DCA1C /* SupplyDetailViewController.m */,
 				1ED0BFFB1BAAAE8600FA92D6 /* PublishSupplyViewController.h */,
 				1ED0BFFC1BAAAE8600FA92D6 /* PublishSupplyViewController.m */,
+				1EEBF6FC1BB0EDB1009F80AF /* NormsViewController.h */,
+				1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */,
 			);
 			path = Supply;
 			sourceTree = "<group>";
@@ -2912,6 +2925,7 @@
 				1EDDDADA1BA046C7005DCA1C /* 62副本.png in Resources */,
 				0678C4971B8572DF0035660E /* Images.xcassets in Resources */,
 				7FE0E9651BAB24B100186F0B /* ReceiverVoiceNodePlaying002@3x.png in Resources */,
+				1EEBF7031BB0F78D009F80AF /* iconfont-nextpage.png in Resources */,
 				7FE0E9631BAB24B100186F0B /* ReceiverVoiceNodePlaying002@3x 2.png in Resources */,
 				1ED5F5C91BA92154007AEE9F /* blackArrow.png in Resources */,
 				7FD7B2BB1B9FB75300A4F911 /* red_line_and_shadow@2x.png in Resources */,
@@ -3079,6 +3093,7 @@
 				1E84693C1B9D3F5E00842A51 /* MWGridCell.m in Sources */,
 				1ED5F5D01BA92154007AEE9F /* MJRefreshBaseView.m in Sources */,
 				1ED890731B9579380020DFF3 /* MainTabBarController.m in Sources */,
+				1EEBF6FE1BB0EDB1009F80AF /* NormsViewController.m in Sources */,
 				1ED7FF2C1BA66FAD00CDFF92 /* ProgressHUD.m in Sources */,
 				7FD775941BA4BD44004F6A55 /* HomePageBandCell.m in Sources */,
 				1E84693A1B9D3F5E00842A51 /* MBProgressHUD.m in Sources */,
@@ -3145,6 +3160,7 @@
 				1E8469541B9D3F5E00842A51 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				1E6BC99B1B9BDF5D00B726DA /* FindPswViewController.m in Sources */,
 				1E8469D01B9D5A4C00842A51 /* YHBRadioBox.m in Sources */,
+				1EEBF7011BB0F325009F80AF /* SellerViewController.m in Sources */,
 				1ED9EA771BAD29C7009258CC /* HistoryViewController.m in Sources */,
 				1ED9226A1B86B2330013AF29 /* AdvertModel.m in Sources */,
 				06706D9F1B85B2AA00F58ACC /* SDWebImageManager.m in Sources */,
