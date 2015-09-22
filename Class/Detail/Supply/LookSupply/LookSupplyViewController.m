@@ -352,13 +352,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     YHBSupplyModel *model = nil;
-    if (_isAll) {
-        model = [self.dataSource objectForSection:indexPath.section andRow:indexPath.row];
-    }
-    else{
-       // model = [self.tableViewArray objectAtIndex:indexPath.row];
-        model = [self.dataSource objectForSection:indexPath.section andRow:indexPath.row];
-    }
+    model = [self.dataSource objectForSection:indexPath.section andRow:indexPath.row];
     BuyDetailViewController *vc = [[BuyDetailViewController alloc] init];
     vc.ListId = [model.procurementId integerValue];
     vc.procModel = (ProcurementModel *)model;

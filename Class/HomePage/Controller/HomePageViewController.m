@@ -20,6 +20,7 @@
 #import "BannerDetailViewController.h"
 #import "HomePageBannerCell.h"
 #import "LookSupplyViewController.h"
+#import "ProductViewController.h"
 
 @interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate>
 
@@ -98,7 +99,13 @@
             NSLog(@"精品店铺列表");
             break;
         case 2:
-             NSLog(@"热门列表");
+        {
+            self.navigationController.navigationBar.alpha = 1.f;
+            ProductViewController *vc = [[ProductViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
             break;
         case 3:
             NSLog(@"产业带列表");
