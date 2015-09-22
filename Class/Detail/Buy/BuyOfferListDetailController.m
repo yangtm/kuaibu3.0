@@ -8,6 +8,7 @@
 
 #import "BuyOfferListDetailController.h"
 #import "OrderDetailController.h"
+#import "UIImageView+WebCache.h"
 
 @interface BuyOfferListDetailController ()<UIScrollViewDelegate>
 
@@ -25,6 +26,7 @@
 @property (nonatomic,strong) UIButton *leftBtn;
 @property (nonatomic,strong) UIButton *rightBtn;
 @property (nonatomic,strong) UILabel *isPayFor;
+@property (nonatomic,strong) UILabel *authenticationLabel;
 
 
 @end
@@ -49,13 +51,32 @@
     NSString *url = nil;
     kYHBRequestUrl(@"procurement/procurementPriceDetail", url);
     NSLog(@"%@",url);
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_buyOfferListDetailId),@"procurementId", nil];
-    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_buyOfferListDetailId),@"procurementPriceId", nil];
+    NSLog(@"%ld",_buyOfferListDetailId);
     [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
             NSLog(@"dic:%@",dic);
+            NSDictionary *subDic = dic[@"RESULT"];
+//            [self showAlertWithMessage:dic[@"RESPMSG"] automaticDismiss:YES];
+            NSString *url = nil;
+            kZXYRequestUrl(subDic[@"logoUrl"], url);
+            [_logoImageView sd_setImageWithURL:[NSURL URLWithString:url]];
+            _supplyNameLabel.text = subDic[@"supplier"];
+            _authenticationLabel.text = subDic[@"authenticationName"];
+            _titleLabel.text = [NSString stringWithFormat:@"采购标题 : %@",subDic[@"procurementName"]];
+            _offerLabel.text = [NSString stringWithFormat:@"供应商报价 : %@ 元",subDic[@"offer"]];
+            _typeLabel.text = [NSString stringWithFormat:@"货源状态 : %@",subDic[@"supplyStatus"]];
+            _freightLabel.text = [NSString stringWithFormat:@"运费 : %@ 元",subDic[@"freight"]];
+            if ([subDic[@"payFor"]integerValue] == 1) {
+                _isPayFor.text = @"是否到付 : 是";
+            }else{
+                _isPayFor.text = @"是否到付 : 否";
+            }
+            _totalLabel.text = [NSString stringWithFormat:@"合计 : %@ 元",subDic[@"total"]];
+            _addressLabel.text = [NSString stringWithFormat:@"收货地址 : %@",subDic[@"address"]];
+            
         }
         
     } failure:^(NSError *error) {
@@ -100,7 +121,8 @@
     [view addSubview:_logoImageView];
     
     _supplyNameLabel = [self formTitleLabel:CGRectMake(_logoImageView.right + 20, 20, kMainScreenWidth - 60 - _logoImageView.width, 20) title:@"供应商名字"];
-    _supplyNameLabel.font = [UIFont systemFontOfSize:17.0];
+    _supplyNameLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];
+    _supplyNameLabel.textColor = [UIColor blackColor];
     [view addSubview:_supplyNameLabel];
     
     UILabel *label1 = [self formTitleLabel:CGRectMake(_logoImageView.right + 20, _supplyNameLabel.bottom + 5, 60, 20) title:@"描述 : "];
@@ -127,9 +149,11 @@
     backImageView2.image = [UIImage imageNamed:@"StarsBackground"];
     [view addSubview:backImageView2];
     
-    UILabel *label4 = [self formTitleLabel:CGRectMake(_logoImageView.right + 20, label3.bottom + 5, 100, 20) title:@"认证标识"];
-    label4.textColor = kNaviTitleColor;
-    [view addSubview:label4];
+    
+    _authenticationLabel = [self formTitleLabel:CGRectMake(_logoImageView.right + 20, label3.bottom + 5, 100, 20) title:@"认证标识"];
+    _authenticationLabel.textColor = kNaviTitleColor;
+    _authenticationLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+    [view addSubview:_authenticationLabel];
     
     [self addBottomLine:view];
     return view;
@@ -247,6 +271,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.font = [UIFont systemFontOfSize:15];
     label.text = title;
+    label.textColor = [UIColor grayColor];
     return label;
 }
 

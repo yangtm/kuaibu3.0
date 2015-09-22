@@ -190,9 +190,7 @@
 		1ED7FF2C1BA66FAD00CDFF92 /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF2A1BA66FAD00CDFF92 /* ProgressHUD.m */; };
 		1ED7FF351BA6CF7000CDFF92 /* OrderUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF341BA6CF7000CDFF92 /* OrderUtil.m */; };
 		1ED7FF391BA6D29500CDFF92 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED7FF381BA6D29500CDFF92 /* FXBlurView.m */; };
-		1ED88FEC1B9533770020DFF3 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */; };
 		1ED88FF01B95348B0020DFF3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FEF1B95348B0020DFF3 /* LoginViewController.m */; };
-		1ED88FF61B953DF70020DFF3 /* WoWTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FF51B953DF70020DFF3 /* WoWTabBarItem.m */; };
 		1ED88FFC1B9552390020DFF3 /* HomePageSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FFB1B9552390020DFF3 /* HomePageSearchViewController.m */; };
 		1ED890011B956D230020DFF3 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED88FFF1B956D230020DFF3 /* NSString+MD5.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1ED890021B956D230020DFF3 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1ED890001B956D230020DFF3 /* README.txt */; };
@@ -252,7 +250,6 @@
 		1ED9EA7C1BAD2C40009258CC /* HistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1ED9EA7A1BAD2C40009258CC /* HistoryCell.xib */; };
 		1EDC40BF1B9ECB1500622CCC /* TitleTagManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC40BC1B9ECB1500622CCC /* TitleTagManage.m */; };
 		1EDC40C01B9ECB1500622CCC /* TitleTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDC40BE1B9ECB1500622CCC /* TitleTagViewController.m */; };
-		1EDDDA941BA01802005DCA1C /* YHBPublishSupplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDDDA931BA01802005DCA1C /* YHBPublishSupplyViewController.m */; };
 		1EDDDA971BA01F62005DCA1C /* SupplyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EDDDA961BA01F62005DCA1C /* SupplyDetailViewController.m */; };
 		1EDDDAD11BA046C7005DCA1C /* 快布3［方案二］_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EDDDABD1BA046C6005DCA1C /* 快布3［方案二］_03.png */; };
 		1EDDDAD21BA046C7005DCA1C /* message.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EDDDABE1BA046C6005DCA1C /* message.png */; };
@@ -788,12 +785,8 @@
 		1ED7FF341BA6CF7000CDFF92 /* OrderUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderUtil.m; sourceTree = "<group>"; };
 		1ED7FF371BA6D29500CDFF92 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		1ED7FF381BA6D29500CDFF92 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
-		1ED88FEA1B9533770020DFF3 /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
-		1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
 		1ED88FEE1B95348B0020DFF3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1ED88FEF1B95348B0020DFF3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		1ED88FF41B953DF70020DFF3 /* WoWTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WoWTabBarItem.h; sourceTree = "<group>"; };
-		1ED88FF51B953DF70020DFF3 /* WoWTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WoWTabBarItem.m; sourceTree = "<group>"; };
 		1ED88FFA1B9552390020DFF3 /* HomePageSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageSearchViewController.h; sourceTree = "<group>"; };
 		1ED88FFB1B9552390020DFF3 /* HomePageSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageSearchViewController.m; sourceTree = "<group>"; };
 		1ED88FFE1B956D230020DFF3 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
@@ -898,8 +891,6 @@
 		1EDC40BC1B9ECB1500622CCC /* TitleTagManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTagManage.m; sourceTree = "<group>"; };
 		1EDC40BD1B9ECB1500622CCC /* TitleTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTagViewController.h; sourceTree = "<group>"; };
 		1EDC40BE1B9ECB1500622CCC /* TitleTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTagViewController.m; sourceTree = "<group>"; };
-		1EDDDA921BA01802005DCA1C /* YHBPublishSupplyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBPublishSupplyViewController.h; sourceTree = "<group>"; };
-		1EDDDA931BA01802005DCA1C /* YHBPublishSupplyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBPublishSupplyViewController.m; sourceTree = "<group>"; };
 		1EDDDA951BA01F62005DCA1C /* SupplyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupplyDetailViewController.h; sourceTree = "<group>"; };
 		1EDDDA961BA01F62005DCA1C /* SupplyDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupplyDetailViewController.m; sourceTree = "<group>"; };
 		1EDDDABD1BA046C6005DCA1C /* 快布3［方案二］_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "快布3［方案二］_03.png"; sourceTree = "<group>"; };
@@ -1352,12 +1343,8 @@
 			children = (
 				1ED890711B9579380020DFF3 /* MainTabBarController.h */,
 				1ED890721B9579380020DFF3 /* MainTabBarController.m */,
-				1ED88FF41B953DF70020DFF3 /* WoWTabBarItem.h */,
-				1ED88FF51B953DF70020DFF3 /* WoWTabBarItem.m */,
 				06706D2F1B85B2AA00F58ACC /* BaseViewController.h */,
 				06706D301B85B2AA00F58ACC /* BaseViewController.m */,
-				1ED88FEA1B9533770020DFF3 /* RootTabBarController.h */,
-				1ED88FEB1B9533770020DFF3 /* RootTabBarController.m */,
 				1ED896B51BA15BA100BB9F1C /* ThirdViewController.h */,
 				1ED896B61BA15BA100BB9F1C /* ThirdViewController.m */,
 			);
@@ -2206,8 +2193,6 @@
 			isa = PBXGroup;
 			children = (
 				7FD335C31BA88769009EFC61 /* LookSupply */,
-				1EDDDA921BA01802005DCA1C /* YHBPublishSupplyViewController.h */,
-				1EDDDA931BA01802005DCA1C /* YHBPublishSupplyViewController.m */,
 				1EDC40BA1B9ECB1500622CCC /* YHBTitleTag */,
 				1E8469E21B9D5D9000842A51 /* SupplyModel */,
 				1E8469C41B9D597200842A51 /* YHBVariousView */,
@@ -3043,7 +3028,6 @@
 				1E8469581B9D3F5E00842A51 /* PSTCollectionViewData.m in Sources */,
 				1ED98EF81BA2C88400827E4D /* ListCell.m in Sources */,
 				1ED9227D1B871F630013AF29 /* FriendModel.m in Sources */,
-				1ED88FF61B953DF70020DFF3 /* WoWTabBarItem.m in Sources */,
 				1EDC40C01B9ECB1500622CCC /* TitleTagViewController.m in Sources */,
 				1E8469591B9D3F5E00842A51 /* PSTCollectionViewFlowLayout.m in Sources */,
 				7F31EE6E1B9E71C3008015D2 /* BannerModel.m in Sources */,
@@ -3059,10 +3043,8 @@
 				7FD335C11BA87E59009EFC61 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				1E8469CD1B9D597200842A51 /* YHBVariousView.m in Sources */,
 				0678C48C1B8572DF0035660E /* AppDelegate.m in Sources */,
-				1EDDDA941BA01802005DCA1C /* YHBPublishSupplyViewController.m in Sources */,
 				06706D991B85B2AA00F58ACC /* NSData+ImageContentType.m in Sources */,
 				1E84694C1B9D3F5E00842A51 /* NSData+EMImageContentType.m in Sources */,
-				1ED88FEC1B9533770020DFF3 /* RootTabBarController.m in Sources */,
 				1E8469CB1B9D597200842A51 /* MeasurePicker.m in Sources */,
 				7FD335C01BA87E59009EFC61 /* DataOC.mm in Sources */,
 				06706D9D1B85B2AA00F58ACC /* SDWebImageDownloader.m in Sources */,

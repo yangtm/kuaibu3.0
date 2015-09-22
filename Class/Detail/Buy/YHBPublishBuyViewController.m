@@ -11,8 +11,8 @@
 #import "TitleTagViewController.h"
 #import "SVProgressHUD.h"
 //#import "YHBPublishBuyManage.h"
-//#import "CategoryViewController.h"
-//#import "YHBCatSubcate.h"
+#import "CategoryViewController.h"
+#import "YHBCatSubcate.h"
 //#import "YHBUser.h"
 //#import "NetManager.h"
 //#import "YHBBuyDetailAlbum.h"
@@ -941,10 +941,10 @@ const NSInteger BottomLineTag = 59;
     {
         NSString *str = @"";
         catidString = @"";
-//        for (YHBCatSubcate *subModel in aArray) {
-//            str = [str stringByAppendingString:[NSString stringWithFormat:@" %@", subModel.catname]];
-//            catidString = [catidString stringByAppendingString:[NSString stringWithFormat:@",%d", (int)subModel.catid]];
-//        }
+        for (YHBCatSubcate *subModel in aArray) {
+            str = [str stringByAppendingString:[NSString stringWithFormat:@" %@", subModel.categoryName]];
+            catidString = [catidString stringByAppendingString:[NSString stringWithFormat:@",%d", (int)subModel.categoryId]];
+        }
         self.categoryTextField.text = str;
     }
     else
@@ -1020,17 +1020,17 @@ const NSInteger BottomLineTag = 59;
 
 - (void)showCategoryView
 {
-//    CategoryViewController *vc = [CategoryViewController sharedInstancetype];
-//    if (!isClean) {
-//        isClean = YES;
-//        [vc cleanAll];
-//    }
-//    vc.isPushed = YES;
-//    [vc setBlock:^(NSArray *aArray) {
-//        categoryArray = aArray;
-//        [self setupCategoryWithArray:aArray];
-//    }];
-//    [self.navigationController pushViewController:vc animated:YES];
+    CategoryViewController *vc = [CategoryViewController sharedInstancetype];
+    if (!isClean) {
+        isClean = YES;
+        [vc cleanAll];
+    }
+    vc.isPushed = YES;
+    [vc setBlock:^(NSArray *aArray) {
+        categoryArray = aArray;
+        [self setupCategoryWithArray:aArray];
+    }];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)showDayPicker

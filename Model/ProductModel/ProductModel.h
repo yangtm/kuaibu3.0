@@ -25,5 +25,12 @@
 @property (strong,nonatomic) NSString *specificationName;
 @property (strong,nonatomic) NSString *specificationImage;
 @property (strong,nonatomic) NSString *numbers;
-
+@property (strong,nonatomic) NSString *productName;
+@property (assign,nonatomic) NSInteger PhonePublic; //公开
+@property (assign,nonatomic) BOOL isSampleCut; //是否裁剪
+@property (assign,nonatomic) NSInteger billingType; //发票类型
+@property (assign,nonatomic) NSInteger salesPromotion;
+@property (strong,nonatomic) NSString *name;
+@property (strong,nonatomic) NSString *phone;
 @end
+

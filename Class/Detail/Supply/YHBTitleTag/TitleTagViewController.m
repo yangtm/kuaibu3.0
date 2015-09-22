@@ -113,7 +113,7 @@
 - (void)touch
 {
     NSString *text = textField.text;
-
+    self.navigationController.navigationBarHidden = NO; 
     if (text==nil || [text isEqualToString:@" "] || [text isEqualToString:@"  "] || [text isEqualToString:@""])
     {
         [SVProgressHUD showErrorWithStatus:@"标题不能为空" cover:YES offsetY:kMainScreenHeight/2.0];
@@ -124,6 +124,7 @@
         [self dismissFlower];
         [self.navigationController popViewControllerAnimated:YES];
     }
+    
 }
 
 - (void)back

@@ -23,7 +23,10 @@
 
 - (void)configOfferListModel:(OfferModle *)model
 {
-    [_LogoImageView sd_setImageWithURL:[NSURL URLWithString:model.logoUrl]];
+    NSString *url = nil;
+    kZXYRequestUrl(model.logoUrl, url);
+    NSLog(@"%@",url);
+    [_LogoImageView sd_setImageWithURL:[NSURL URLWithString:url]];
     _LogoImageView.layer.masksToBounds = YES;
     _LogoImageView.layer.cornerRadius = 5;
     

@@ -16,6 +16,7 @@
 #import "CategoryViewController.h"
 #import "YHBCatSubcate.h"
 #import "UIScrollView+AvoidingKeyboard.h"
+#import "MeasurePicker.h"
 
 @interface PublishSupplyViewController ()<UIScrollViewDelegate,UITextFieldDelegate,UITextViewDelegate>
 {
@@ -36,6 +37,7 @@
 @property (nonatomic,strong) UITextField *categoryTextField;
 @property (nonatomic,strong) UITextField *priceTextField;
 @property (nonatomic,strong) YHBVariousView *variousView;
+@property (nonatomic,strong) MeasurePicker *measurePicker;
 @property (nonatomic,strong) UITextField *normsTextField;
 @property (nonatomic,strong) UITextView *detailTextView;
 @property (nonatomic,strong) MyButton *btn1;
@@ -58,7 +60,7 @@
     [super viewDidLoad];
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(dismissSelf)];
     
-    self.title = @"发布供应";
+    self.title = @"发布商品";
     self.view.backgroundColor = RGBCOLOR(241, 241, 241);
     
     [self.view addSubview:self.scrollView];
@@ -70,7 +72,7 @@
     [self setupContactView];
     self.publishButton.frame = CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44);
     self.scrollView.contentSize = CGSizeMake(kMainScreenWidth, self.contactView.bottom + 60);
-//    [self.scrollView autoAdjust];
+    [self.scrollView autoAdjust];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -271,6 +273,8 @@
 {
     NSString *titleStr = _nameTextField.text;
     if ([titleStr isEqual:@"样板"]) {
+//        NSArray *array = _measurePicker.dataArray[_measurePicker.selectItem];
+    
         _variousView.itemLabel.text = @"元/本";
     }
     else if ([titleStr isEqual:@"壁纸墙布"] ||
@@ -368,15 +372,26 @@
     
     UIView *view9 = [self isCutForm:CGRectMake(0, view8.bottom, kMainScreenWidth, 40)];
     [self.editFormView addSubview:view9];
-    _variousView = [[YHBVariousView alloc] initWithFrame:CGRectMake(self.view.right - 100, view3.bottom + 10, 60 + 10, 20) andItemArray:@[@"元/米",@"元/本",@"元/码",@"元/平方",@"元/卷"] andSelectedItem:0];
-    _variousView.layer.borderColor = [KColor CGColor];
-    _variousView.layer.borderWidth=0.5;
-    _variousView.layer.cornerRadius = 10;
-    _variousView.clipsToBounds = YES;
-    [self.editFormView addSubview:_variousView];
+//    _variousView = [[YHBVariousView alloc] initWithFrame:CGRectMake(self.view.right - 100, view3.bottom + 10, 60 + 10, 20) andItemArray:@[@"元/米",@"元/本",@"元/码",@"元/平方",@"元/卷"] andSelectedItem:0];
+//    self.variousView.frame = CGRectMake(self.view.right - 100, view3.bottom, 70, 20);
+//    _variousView.layer.borderColor = [KColor CGColor];
+//    _variousView.layer.borderWidth=0.5;
+//    _variousView.layer.cornerRadius = 10;
+//    _variousView.clipsToBounds = YES;
+    [self.editFormView addSubview:self.variousView];
+    
     self.editFormView.frame = CGRectMake(0, self.pictureAdder.bottom, kMainScreenWidth, view9.bottom);
     
     
+}
+
+- (MeasurePicker *)measurePicker
+{
+    if (_measurePicker == nil) {
+        NSArray *array = @[@"元/米",@"元/本",@"元/码",@"元/平方",@"元/卷"];
+        _measurePicker = [[MeasurePicker alloc] initWithFrame:CGRectMake(0, 0, 70, 20) attachView:self.scrollView dataArray:array];
+    }
+    return _measurePicker;
 }
 
 - (void)setupContactView
@@ -457,15 +472,24 @@
     [_priceTextField setValue:[UIColor lightGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
     _priceTextField.delegate = self;
     [view addSubview:_priceTextField];
-    
-//    _variousView = [[YHBVariousView alloc] initWithFrame:CGRectMake(_priceTextField.right+20, 10, 60 + 10, 20) andItemArray:@[@"元/米",@"元/本",@"元/码",@"元/平方",@"元/卷"] andSelectedItem:0];
-//    _variousView.layer.borderColor = [KColor CGColor];
-//    _variousView.layer.borderWidth=0.5;
-//    _variousView.layer.cornerRadius = 10;
-//    _variousView.clipsToBounds = YES;
-//    [view addSubview:_variousView];
+    self.measurePicker.frame = CGRectMake(self.view.right - 100, 10, 70, 20);
+    [view addSubview:self.measurePicker];
     [self addBottomLine:view];
     return view;
+}
+
+
+- (YHBVariousView *)variousView
+{
+    if (_variousView == nil) {
+        NSArray *array = @[@"元/米",@"元/本",@"元/码",@"元/平方",@"元/卷"];
+        _variousView = [[YHBVariousView alloc] initWithFrame:CGRectZero andItemArray:array andSelectedItem:0];
+        _variousView.layer.borderColor = [KColor CGColor];
+        _variousView.layer.borderWidth=0.5;
+        _variousView.layer.cornerRadius = 10;
+        _variousView.clipsToBounds = YES;
+    }
+    return _variousView;
 }
 
 #pragma mark - 规格UI
@@ -618,19 +642,19 @@
 
 - (void)selectedBtn5:(UIGestureRecognizer *)tap
 {
-    if (_btn1) {
+    if (_btn5) {
         _isCut = YES;
-        _btn1.imageView.image =[UIImage imageNamed:@"check_on"];
-        _btn2.imageView.image =[UIImage imageNamed:@"check_off"];
+        _btn5.imageView.image =[UIImage imageNamed:@"check_on"];
+        _btn6.imageView.image =[UIImage imageNamed:@"check_off"];
     }
 }
 
 - (void)selectedBtn6:(UIGestureRecognizer *)tap
 {
-    if (_btn2) {
+    if (_btn6) {
         _isCut = NO;
-        _btn2.imageView.image =[UIImage imageNamed:@"check_on"];
-        _btn1.imageView.image =[UIImage imageNamed:@"check_off"];
+        _btn6.imageView.image =[UIImage imageNamed:@"check_on"];
+        _btn5.imageView.image =[UIImage imageNamed:@"check_off"];
     }
 }
 
@@ -775,10 +799,10 @@
         [SVProgressHUD showErrorWithStatus:@"带星号的为必填项!!" cover:YES offsetY:kMainScreenHeight/2.0];
         return;
     }
-    if (![self checkoutImgae]) {
-        [SVProgressHUD showErrorWithStatus:@"请选择要上传的图片!!" cover:YES offsetY:kMainScreenHeight/2.0];
-        return;
-    }
+//    if (![self checkoutImgae]) {
+//        [SVProgressHUD showErrorWithStatus:@"请选择要上传的图片!!" cover:YES offsetY:kMainScreenHeight/2.0];
+//        return;
+//    }
     
 //    [SVProgressHUD showWithStatus:@"图片正在上传中，请稍等..." cover:YES offsetY:kMainScreenHeight / 2.0];
     
@@ -788,14 +812,92 @@
 //    else{
 //        [self updatePhoto];
 //    }
+    
+    NSString *productUrl = nil;
+    kYHBRequestUrl(@"product/addProduct", productUrl);
+    NSDictionary *dic = [self createDictionary];
+    
+    NSString *str = [self dictionaryToJson:dic];
+    //    NSLog(@"****%@",str);
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:str,@"product", nil];
+    
+    //    NSLog(@"%@",dict);
+    //    [FGGProgressHUD showLoadingOnView:self.view];
+    __weak typeof(self) weakSelf=self;
+    [NetworkService postWithURL:productUrl paramters:dict success:^(NSData *receiveData) {
+        if(receiveData.length>0)
+        {
+            id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+            if([result isKindOfClass:[NSDictionary class]])
+            {
+                NSDictionary *dictionary=result;
+                NSString *msg = dictionary[@"RESPMSG"];
+                NSString *status = dictionary[@"RESPCODE"];
+                
+                NSLog(@"%@",result);
+                if([status integerValue] == 0)
+                {
+                    [weakSelf showAlertWithMessage:msg automaticDismiss:YES];
+                    
+                }
+                else if ([status integerValue] != 0)
+                {
+                    //                    [FGGProgressHUD hideLoadingFromView:weakSelf.view];
+                    [weakSelf showAlertWithMessage:msg automaticDismiss:NO];
+                }
+            }
+        }
+    } failure:^(NSError *error) {
+        [FGGProgressHUD hideLoadingFromView:weakSelf.view];
+        [self showAlertWithMessage:error.localizedDescription automaticDismiss:NO];
+    }];
+    
 }
+
+
+
+- (NSMutableDictionary *)createDictionary
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    
+    [dic setObject:_nameTextField.text forKey:@"productName"];
+    [dic setObject:@3 forKey:@"categoryId"];
+    [dic setObject:_measurePicker.dataArray[_measurePicker.selectItem] forKey:@"salesAmout"];
+    [dic setObject:_priceTextField.text forKey:@"price"];
+    [dic setObject:_normsTextField.text forKey:@"specificationName"];
+//    [dic setObject: @3 forKey:@"catId"];
+    [dic setObject:@(_isSpot) forKey:@"productStatus"];
+    [dic setObject:_detailTextView.text forKey:@"productDesc"];
+    [dic setObject:@(_isSelect) forKey:@"salesPromotion"];
+    [dic setObject:@(_isCut) forKey:@"isSampleCut"];
+    [dic setObject:@(_isSelectBtn) forKey:@"PhonePublic"];
+    [dic setObject:_pictureAdder.imageArray forKey:@"imageUrl"];
+    [dic setObject:_contactNameTextField.text forKey:@"name"];
+    [dic setObject:_contactPhoneTextField.text forKey:@"phone"];
+    return dic;
+    
+}
+
+
+- (NSString*)dictionaryToJson:(NSDictionary *)dic
+
+{
+    
+    NSError *parseError = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+}
+
 
 //检查必填项是否不为空
 - (BOOL) checkMandatory
 {
-//    if ([self isTextNotNil:titleLabel.text]&&[self isTextNotNil:catNameLabel.text]&&[self isTextNotNil:nameTextField.text]&&[self isTextNotNil:phoneTextField.text]){
-//        return YES;
-//    }
+    if ([self isTextNotNil:_nameTextField.text]&&[self isTextNotNil:_categoryTextField.text]&&[self isTextNotNil:_contactNameTextField.text]&&[self isTextNotNil:_contactPhoneTextField.text]&&[self isTextNotNil:_priceTextField.text]){
+        return YES;
+    }
     return NO;
 }
 

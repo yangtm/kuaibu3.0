@@ -11,7 +11,9 @@
 #import "MyButton.h"
 #import "UIImage+Extensions.h"
 #import "SVProgressHUD.h"
-
+#import "YHBAlbumViewController.h"
+#import "YHBPicture.h"
+#import "WoWPhotoBrowser.h"
 
 #define kLineTag 80
 
@@ -108,6 +110,9 @@
     _uploadButton.layer.borderColor = kNaviTitleColor.CGColor;
     _uploadButton.layer.borderWidth = 1;
     _uploadButton.layer.cornerRadius = 5;
+    _uploadButton.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    [_uploadButton addGestureRecognizer:tap];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"点这上传照片" forState:UIControlStateNormal];
@@ -121,6 +126,35 @@
     [self addBottomLine:view];
     return view;
 }
+
+- (void)tapAction:(UIGestureRecognizer *)tap
+{
+    NSLog(@"....");
+    [self showPhotoBrowser];
+}
+
+- (void) showPhotoBrowser
+{
+    NSMutableArray *mutableArray = [NSMutableArray array];
+//    for (YHBPicture *model in self.pictureArray) {
+//        WoWPhoto *photo;
+//        if (model.type == YHBPictureTypeLocal) {
+//            photo = [[WoWPhoto alloc] initWithFileUrl:model.localImageUrl];
+//        }
+//        else{
+//            photo = [[WoWPhoto alloc] initWithImageUrl:model.webImage.large];
+//        }
+//        [mutableArray addObject:photo];
+//    }
+    WoWPhoto *photo = [[WoWPhoto alloc] initWithImage:_uploadButton.image];
+//    [WoWPhotoBrowser setPresentController:self.view];
+    [WoWPhotoBrowser setEnableSave:_uploadButton.image];
+    [mutableArray addObject:photo];
+    [WoWPhotoBrowser showWithPhotos:mutableArray currentIndex:1 showView:nil complete:^(NSInteger showIndex) {
+        
+    }];
+}
+
 
 #pragma mark - 单价UI
 - (UIView *)priceForm:(CGRect)frame
@@ -357,6 +391,8 @@
 {
     [alert dismissWithClickedButtonIndex:0 animated:YES];
 }
+
+
 - (NSMutableDictionary *)createDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -509,33 +545,34 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+//上传照片
 - (void)uploadImgWithImage:(UIImage *)image
 {
     NSString *uploadPhototUrl = nil;
-    kYHBRequestUrl(@"upload.php", uploadPhototUrl);
+    kYHBRequestUrl(@"files/uploadPurchase", uploadPhototUrl);
+    NSLog(@"%@",uploadPhototUrl);
     self.uploadButton.image = image;
     
-//    [SVProgressHUD showWithStatus:@"上传中..." cover:YES offsetY:0];
-//    [NetManager uploadImg:image parameters:dic uploadUrl:uploadPhototUrl uploadimgName:(_isPortrait ? @"avatar" : @"banner") parameEncoding:AFJSONParameterEncoding progressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-//        
-//    } succ:^(NSDictionary *successDict) {
-//        MLOG(@"%@", successDict);
-//        if ([successDict[@"result"] integerValue] == 1) {
-//            [SVProgressHUD dismissWithSuccess:@"上传成功"];
-//            if (!_isPortrait) {
-//                self.imageView.image = image;
-//            }else{
-//                self.headImageView.image = image;
-//            }
-//            [YHBUser sharedYHBUser].statusIsChanged = YES;
-//            [[SDWebImageManager sharedManager].imageCache removeImageForKey:(!_isPortrait ? [YHBUser sharedYHBUser].userInfo.thumb:[YHBUser sharedYHBUser].userInfo.avatar)];
-//        }else{
-//            [SVProgressHUD dismissWithError:kErrorStr];
-//        }
-//        
-//    } failure:^(NSDictionary *failDict, NSError *error) {
-//        [SVProgressHUD dismissWithError:kNoNet];
-//    }];
+    [SVProgressHUD showWithStatus:@"上传中..." cover:YES offsetY:0];
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] init];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager POST:uploadPhototUrl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        [formData appendPartWithFileData: UIImageJPEGRepresentation(image,0.1)  name:@"imgFile"fileName:@"formname.jpg" mimeType:@"jpeg"];
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary* dict=[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        if([dict[@"Success"] integerValue]==1)
+        {
+            NSLog(@"上传成功");
+        }else{
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismissWithError:kNoNet];
+        NSLog(@"失败");
+    }];
 }
 
 

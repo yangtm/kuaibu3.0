@@ -36,7 +36,7 @@
     UIView *_attachView;
     BOOL _extended;
 }
-
+//@property (strong,nonatomic) UILabel *label;
 @property (assign, nonatomic) NSInteger selectItem;
 @property (strong, nonatomic) NSArray *dataArray;
 

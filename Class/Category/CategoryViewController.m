@@ -73,7 +73,7 @@ static NSString *const CategoryFooterViewIdentifier = @"CategoryFooterViewIdenti
 {
     [super viewWillAppear:animated];
     if (self.navigationController.navigationBar.hidden) {
-//        self.navigationController.navigationBar.hidden = NO;
+        self.navigationController.navigationBar.hidden = NO;
     }
     self.rightButton.hidden = _isSingleSelect ? YES : NO;
     [self.collectionView reloadData];
