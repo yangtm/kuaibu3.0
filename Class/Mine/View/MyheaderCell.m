@@ -66,7 +66,7 @@
     [self.contentView addSubview:_integralLabel];
     
     _messageImageView = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_messageImageView setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+    [_messageImageView setImage:[UIImage imageNamed:@"iconfont-chat2-2"] forState:UIControlStateNormal];
     [_messageImageView addTarget:self action:@selector(clickMessageBtn) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_messageImageView];
     

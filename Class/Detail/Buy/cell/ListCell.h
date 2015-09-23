@@ -11,7 +11,7 @@
 @class ListCell;
 @protocol ListCellDelagate <NSObject>
 
-- (void)cilckOfferManagerBtn;
+- (void)cilckOfferManagerBtn:(ListCell *)cell;
 
 @end
 

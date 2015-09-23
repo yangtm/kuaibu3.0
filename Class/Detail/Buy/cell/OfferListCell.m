@@ -31,10 +31,10 @@
     _LogoImageView.layer.cornerRadius = 5;
     
     _nameLabel.text = model.supplier;
-    _certLabel.text = model.authenticationName;
-    _offLabel.text = model.offer;
+    _certLabel.text = [NSString stringWithFormat:@"认证资质 : %@",model.authenticationName];
+    _offLabel.text = [NSString stringWithFormat:@"单价 : %@ 元",model.offer];
 
-    _offTimeLabel.text = model.offerTime;
+    _offTimeLabel.text = [NSString stringWithFormat:@"报价时间 : %@",model.offerTime];
 }
 
 @end

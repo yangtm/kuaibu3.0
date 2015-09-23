@@ -129,7 +129,7 @@
 
 - (void)tapAction:(UIGestureRecognizer *)tap
 {
-    NSLog(@"....");
+//    NSLog(@"....");
     [self showPhotoBrowser];
 }
 

@@ -47,17 +47,17 @@
                          @"FriendsViewController",
                          @"MineViewController"];
     //tabbar按钮图片
-    NSArray * imageArray = @[@"55副本",
-                             @"3",
-                             @"60",
-                             @"62副本",
-                             @"64副本"];
+    NSArray * imageArray = @[@"iconfont-home_un@2x",
+                             @"iconfont-eye_un@2x",
+                             @"iconfont-grid_un@2x",
+                             @"iconfont_friend_un@2x",
+                             @"iconfont_un@2x"];
     //tabbar选中按钮的图片
-    NSArray * clickImageArray = @[@"55",
-                                  @"4",
-                                  @"60",
-                                  @"62",
-                                  @"64"];
+    NSArray * clickImageArray = @[@"iconfont-home@2x",
+                                  @"iconfont-eye@2x",
+                                  @"iconfont-grid@2x",
+                                  @"iconfont_friend@2x",
+                                  @"iconfont@2x"];
     NSArray * titleArray = @[@"首页",@"发现",@"布得了",@"朋友",@"我的"];
     
     NSMutableArray *array = [NSMutableArray array];

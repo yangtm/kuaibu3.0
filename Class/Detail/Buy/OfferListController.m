@@ -48,8 +48,8 @@
     NSString *url = nil;
     kYHBRequestUrl(@"procurement/getPurchasePrices", url);
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_offerListId),@"procurementId",@(_page),@"pageIndex", nil];
-//    NSLog(@"%ld",_offerListId);
- 
+    NSLog(@"%ld",_offerListId);
+    NSLog(@"%@",url);
     __weak OfferListController *weakSelf = self;
     [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];

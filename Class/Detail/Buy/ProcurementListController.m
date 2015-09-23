@@ -84,8 +84,6 @@
                 model.offerLastDate = subDic[@"offerLastDate"];
                 model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
                 model.procurementId = subDic[@"procurementId"];
-                _offerList = [model.procurementId integerValue];
-//                NSLog(@"_offerList:%ld",_offerList);
                 [_dataArray addObject:model];
             }
             [weakSelf.tableView reloadData];
@@ -155,6 +153,7 @@
         cell = [[ListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     cell.delegate = self;
+    cell.tag = indexPath.row;
     [self configCell:cell withIndexPath:indexPath];
     return cell;
 }
@@ -213,16 +212,21 @@
     BuyDetailViewController *vc = [[BuyDetailViewController alloc] init];
     ProcurementModel *model = _dataArray[indexPath.row];
     vc.ListId = [model.procurementId integerValue];
+//    _offerList =[model.procurementId integerValue];
     vc.procModel = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - ListCellDelagate
-- (void)cilckOfferManagerBtn
+- (void)cilckOfferManagerBtn:(ListCell*)cell
 {
-    OfferListController *vc = [[OfferListController alloc] init];
     
-    vc.offerListId = _offerList;
+    
+    OfferListController *vc = [[OfferListController alloc] init];
+    ProcurementModel *model = _dataArray [cell.tag];
+    
+    vc.offerListId = [model.procurementId integerValue];
+    NSLog(@"vc.offerListId:%ld",vc.offerListId);
     [self.navigationController pushViewController:vc animated:YES];
 }
 

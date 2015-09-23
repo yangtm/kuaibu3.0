@@ -7,8 +7,9 @@
 //
 
 #import "BuyOfferListDetailController.h"
-#import "OrderDetailController.h"
+
 #import "UIImageView+WebCache.h"
+#import "OrderSureController.h"
 
 @interface BuyOfferListDetailController ()<UIScrollViewDelegate>
 
@@ -63,6 +64,10 @@
             NSString *url = nil;
             kZXYRequestUrl(subDic[@"logoUrl"], url);
             [_logoImageView sd_setImageWithURL:[NSURL URLWithString:url]];
+            NSString *productImageUrl = nil;
+            kZXYRequestUrl(subDic[@"productImage"], productImageUrl);
+            NSLog(@"%@",productImageUrl);
+            [_patternImageView sd_setImageWithURL:[NSURL URLWithString:productImageUrl]];
             _supplyNameLabel.text = subDic[@"supplier"];
             _authenticationLabel.text = subDic[@"authenticationName"];
             _titleLabel.text = [NSString stringWithFormat:@"采购标题 : %@",subDic[@"procurementName"]];
@@ -232,7 +237,8 @@
     UIAlertView *view = [[UIAlertView alloc] initWithTitle:nil message:@"订单生成中..." delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
     [view show];
     [view dismissWithClickedButtonIndex:1 animated:YES];
-    OrderDetailController *vc = [[OrderDetailController alloc] init];
+//    OrderDetailController *vc = [[OrderDetailController alloc] init];
+    OrderSureController *vc = [[OrderSureController alloc] init];
     
     [self.navigationController pushViewController:vc animated:YES];
 //     [NSThread sleepForTimeInterval:2.0f];

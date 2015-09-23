@@ -85,8 +85,8 @@
 
 - (void)buttonClick
 {
-    if ([_delegate respondsToSelector:@selector(cilckOfferManagerBtn)]) {
-        [_delegate cilckOfferManagerBtn];
+    if ([_delegate respondsToSelector:@selector(cilckOfferManagerBtn:)]) {
+        [_delegate cilckOfferManagerBtn:self];
     }
 }
 
