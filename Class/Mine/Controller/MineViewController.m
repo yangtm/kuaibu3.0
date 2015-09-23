@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
 - (void)prepareData
 {
     self.dataArray = [[NSMutableArray alloc] init];
-    NSDictionary *dic = @{WORLD:@[@"采购报价",@"我的收藏",@"最近访问",@"购物车",@"收货地址"],PHOTO:@[@"11",@"iconfont-homeaixin",@"iconfont-clock",@"iconfont-5",@"11"]};
+    NSDictionary *dic = @{WORLD:@[@"采购报价",@"我的收藏",@"最近访问",@"购物车",@"收货地址"],PHOTO:@[@"iconfont-coinyen",@"iconfont-homeaixin",@"iconfont-clock",@"iconfont-5",@"iconfont-home-3"]};
     [_dataArray addObject:dic];
 }
 
@@ -230,6 +230,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
         }
         
         cell.textLabel.text = @"我是卖家";
+        cell.imageView.image = [UIImage imageNamed:@"iconfont-smile"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
