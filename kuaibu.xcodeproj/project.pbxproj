@@ -282,6 +282,16 @@
 		1EEBF7201BB10918009F80AF /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF7191BB10918009F80AF /* FMResultSet.m */; };
 		1EEBF7211BB10918009F80AF /* GYKDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF71B1BB10918009F80AF /* GYKDataBaseManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1EEBF7271BB12461009F80AF /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEBF7261BB12461009F80AF /* libsqlite3.0.dylib */; };
+		1EEBF7421BB17F51009F80AF /* 11.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7411BB17F51009F80AF /* 11.png */; };
+		1EEBF74B1BB232D9009F80AF /* iconfont-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7431BB232D9009F80AF /* iconfont-5.png */; };
+		1EEBF74C1BB232D9009F80AF /* iconfont-coinyen.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7441BB232D9009F80AF /* iconfont-coinyen.png */; };
+		1EEBF74D1BB232D9009F80AF /* iconfont-home-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7451BB232D9009F80AF /* iconfont-home-2.png */; };
+		1EEBF74E1BB232D9009F80AF /* iconfont-home-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7461BB232D9009F80AF /* iconfont-home-3.png */; };
+		1EEBF74F1BB232D9009F80AF /* iconfont-homeaixin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7471BB232D9009F80AF /* iconfont-homeaixin.png */; };
+		1EEBF7501BB232D9009F80AF /* iconfont-set.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7481BB232D9009F80AF /* iconfont-set.png */; };
+		1EEBF7511BB232D9009F80AF /* iconfont-smile.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7491BB232D9009F80AF /* iconfont-smile.png */; };
+		1EEBF7521BB232D9009F80AF /* iconfont-xingji.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF74A1BB232D9009F80AF /* iconfont-xingji.png */; };
+		1EEBF7541BB23374009F80AF /* iconfont-clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7531BB23374009F80AF /* iconfont-clock.png */; };
 		7F31EE671B9E7091008015D2 /* BannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE661B9E7091008015D2 /* BannerView.m */; };
 		7F31EE6B1B9E7191008015D2 /* PageIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE6A1B9E7191008015D2 /* PageIndex.m */; };
 		7F31EE6E1B9E71C3008015D2 /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE6D1B9E71C3008015D2 /* BannerModel.m */; };
@@ -953,6 +963,16 @@
 		1EEBF71A1BB10918009F80AF /* GYKDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYKDataBaseManager.h; sourceTree = "<group>"; };
 		1EEBF71B1BB10918009F80AF /* GYKDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYKDataBaseManager.m; sourceTree = "<group>"; };
 		1EEBF7261BB12461009F80AF /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		1EEBF7411BB17F51009F80AF /* 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11.png; sourceTree = "<group>"; };
+		1EEBF7431BB232D9009F80AF /* iconfont-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-5.png"; sourceTree = "<group>"; };
+		1EEBF7441BB232D9009F80AF /* iconfont-coinyen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-coinyen.png"; sourceTree = "<group>"; };
+		1EEBF7451BB232D9009F80AF /* iconfont-home-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-home-2.png"; sourceTree = "<group>"; };
+		1EEBF7461BB232D9009F80AF /* iconfont-home-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-home-3.png"; sourceTree = "<group>"; };
+		1EEBF7471BB232D9009F80AF /* iconfont-homeaixin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-homeaixin.png"; sourceTree = "<group>"; };
+		1EEBF7481BB232D9009F80AF /* iconfont-set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-set.png"; sourceTree = "<group>"; };
+		1EEBF7491BB232D9009F80AF /* iconfont-smile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-smile.png"; sourceTree = "<group>"; };
+		1EEBF74A1BB232D9009F80AF /* iconfont-xingji.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-xingji.png"; sourceTree = "<group>"; };
+		1EEBF7531BB23374009F80AF /* iconfont-clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-clock.png"; sourceTree = "<group>"; };
 		7F31EE651B9E7091008015D2 /* BannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BannerView.h; path = RecordView/BannerView.h; sourceTree = "<group>"; };
 		7F31EE661B9E7091008015D2 /* BannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BannerView.m; path = RecordView/BannerView.m; sourceTree = "<group>"; };
 		7F31EE691B9E7191008015D2 /* PageIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageIndex.h; sourceTree = "<group>"; };
@@ -1375,6 +1395,7 @@
 		06706D2D1B85B2AA00F58ACC /* Resourse */ = {
 			isa = PBXGroup;
 			children = (
+				1EEBF7281BB17BE2009F80AF /* image */,
 				1EEBF7021BB0F78D009F80AF /* iconfont-nextpage.png */,
 				1ED0BFEE1BAA475000FA92D6 /* StarsBackground.png */,
 				1ED0BFEF1BAA475000FA92D6 /* StarsForeground.png */,
@@ -2657,6 +2678,23 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		1EEBF7281BB17BE2009F80AF /* image */ = {
+			isa = PBXGroup;
+			children = (
+				1EEBF7531BB23374009F80AF /* iconfont-clock.png */,
+				1EEBF7431BB232D9009F80AF /* iconfont-5.png */,
+				1EEBF7441BB232D9009F80AF /* iconfont-coinyen.png */,
+				1EEBF7451BB232D9009F80AF /* iconfont-home-2.png */,
+				1EEBF7461BB232D9009F80AF /* iconfont-home-3.png */,
+				1EEBF7471BB232D9009F80AF /* iconfont-homeaixin.png */,
+				1EEBF7481BB232D9009F80AF /* iconfont-set.png */,
+				1EEBF7491BB232D9009F80AF /* iconfont-smile.png */,
+				1EEBF74A1BB232D9009F80AF /* iconfont-xingji.png */,
+				1EEBF7411BB17F51009F80AF /* 11.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
 		7F31EE681B9E716A008015D2 /* IndexModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2983,8 +3021,10 @@
 				1ED890821B95796F0020DFF3 /* 4.png in Resources */,
 				7FE0E95C1BAB24B100186F0B /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
 				1E8468B81B9D3ECB00842A51 /* EaseMob.bundle in Resources */,
+				1EEBF74D1BB232D9009F80AF /* iconfont-home-2.png in Resources */,
 				1EDDDADE1BA046C7005DCA1C /* 快布切图_19.png in Resources */,
 				1E8469961B9D437000842A51 /* RecordingBkg@2x.png in Resources */,
+				1EEBF74C1BB232D9009F80AF /* iconfont-coinyen.png in Resources */,
 				1ED890641B95754E0020DFF3 /* SVProgressHUD.bundle in Resources */,
 				7FE5C9EE1B9F5473006FB3E5 /* icon_rightarrow@2x.png in Resources */,
 				1E84684D1B9D269100842A51 /* PasswordManagerViewController.xib in Resources */,
@@ -2996,12 +3036,15 @@
 				1ED8908B1B957C590020DFF3 /* iconfont-home_on(1).png in Resources */,
 				1ED9E05E1BA825FE000864F3 /* OfferListCell.xib in Resources */,
 				7FE0E9661BAB24B100186F0B /* ReceiverVoiceNodePlaying003@2x 2.png in Resources */,
+				1EEBF74F1BB232D9009F80AF /* iconfont-homeaixin.png in Resources */,
 				0678C4951B8572DF0035660E /* Main.storyboard in Resources */,
 				1E84698B1B9D437000842A51 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
+				1EEBF74E1BB232D9009F80AF /* iconfont-home-3.png in Resources */,
 				1ED9EA7C1BAD2C40009258CC /* HistoryCell.xib in Resources */,
 				1E8469631B9D3F5E00842A51 /* sr_refresh@2X.png in Resources */,
 				1ED67C341B9E86A8005EC831 /* check_on.png in Resources */,
 				7FE02E1E1BA2397E005E6C72 /* home_Pavilion_1.png in Resources */,
+				1EEBF7501BB232D9009F80AF /* iconfont-set.png in Resources */,
 				1ED5F5CF1BA92154007AEE9F /* MJRefresh.bundle in Resources */,
 				1ED5F5CD1BA92154007AEE9F /* grayArrow.png in Resources */,
 				7FD5900C1BA10F840026E4EA /* BannerDetailViewController.xib in Resources */,
@@ -3032,6 +3075,7 @@
 				7F5262BB1BAC82560063203A /* CategoryCell.xib in Resources */,
 				7FE0E96E1BAB24B100186F0B /* ReceiverVoiceNodePlaying@2x.png in Resources */,
 				0678C49A1B8572DF0035660E /* LaunchScreen.xib in Resources */,
+				1EEBF7511BB232D9009F80AF /* iconfont-smile.png in Resources */,
 				7FD775901BA4967D004F6A55 /* home_time.png in Resources */,
 				7FE0E9621BAB24B100186F0B /* ReceiverVoiceNodePlaying002@2x.png in Resources */,
 				7FD775951BA4BD44004F6A55 /* HomePageBandCell.xib in Resources */,
@@ -3039,6 +3083,7 @@
 				7FE0E95B1BAB24B100186F0B /* ReceiverVoiceNodePlaying001@2x 3.png in Resources */,
 				1EDDDADA1BA046C7005DCA1C /* 62副本.png in Resources */,
 				0678C4971B8572DF0035660E /* Images.xcassets in Resources */,
+				1EEBF7421BB17F51009F80AF /* 11.png in Resources */,
 				7FE0E9651BAB24B100186F0B /* ReceiverVoiceNodePlaying002@3x.png in Resources */,
 				1EEBF7031BB0F78D009F80AF /* iconfont-nextpage.png in Resources */,
 				7FE0E9631BAB24B100186F0B /* ReceiverVoiceNodePlaying002@3x 2.png in Resources */,
@@ -3069,6 +3114,7 @@
 				1E8469931B9D437000842A51 /* Record_voice_disable@2x.png in Resources */,
 				1ED5F5CA1BA92154007AEE9F /* blackArrow@2x.png in Resources */,
 				1E84698D1B9D437000842A51 /* ReceiverVoiceNodePlaying002@2x.png in Resources */,
+				1EEBF7521BB232D9009F80AF /* iconfont-xingji.png in Resources */,
 				7FD590071BA0CC330026E4EA /* message.png in Resources */,
 				1E8469951B9D437000842A51 /* RecordCancel@3x.png in Resources */,
 				1E8468391B9D1CCF00842A51 /* MineInfoSetViewController.xib in Resources */,
@@ -3076,6 +3122,7 @@
 				1ED890021B956D230020DFF3 /* README.txt in Resources */,
 				1EDDDADF1BA046C7005DCA1C /* 快布切图_32.png in Resources */,
 				1E84698A1B9D437000842A51 /* mic-button.png in Resources */,
+				1EEBF7541BB23374009F80AF /* iconfont-clock.png in Resources */,
 				7FE0E96D1BAB24B100186F0B /* ReceiverVoiceNodePlaying@2x 3.png in Resources */,
 				7FE0E95F1BAB24B100186F0B /* ReceiverVoiceNodePlaying001@3x.png in Resources */,
 				7F31EE771B9E72D8008015D2 /* HomePageBannerCell.xib in Resources */,
@@ -3094,6 +3141,7 @@
 				1E84698C1B9D437000842A51 /* ReceiverVoiceNodePlaying001@3x.png in Resources */,
 				7FE0E9671BAB24B100186F0B /* ReceiverVoiceNodePlaying003@2x 3.png in Resources */,
 				1ED896B41BA15B6C00BB9F1C /* back.png in Resources */,
+				1EEBF74B1BB232D9009F80AF /* iconfont-5.png in Resources */,
 				7FE0E9741BAB24B100186F0B /* Record_voice_disable@2x 4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
