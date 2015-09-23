@@ -28,6 +28,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.style = style;
+        self.price = YES;
         self.contentView = [[UIView alloc] initWithFrame:self.bounds];
         [self addSubview:_contentView];
         [self setupBorder];
@@ -59,6 +60,11 @@
     if (self.selectItem != button.tag) {
         [self changeSelect:button.tag];
         [self sendAction:_action to:_target forEvent:nil];
+    }else{
+        if (button.tag == 2) {
+            _price = !_price;
+            [_segmentViewDelegate getDataWithPageID:1 catIds:nil];
+        }
     }
 }
 
@@ -136,7 +142,6 @@
         default:
             break;
     }
-    
 }
 
 - (void)changeSelect:(NSInteger)tag

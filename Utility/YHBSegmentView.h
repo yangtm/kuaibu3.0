@@ -16,6 +16,10 @@ typedef NS_ENUM(NSInteger, YHBSegmentViewStyle) {
     YHBSegmentViewStyleBottomLine
 };
 
+@protocol YHBSegmentViewDelegate <NSObject>
+- (void)getDataWithPageID:(NSInteger)pageid catIds:(NSArray *)catIds;
+@end
+
 @interface YHBSegmentView : UIControl
 
 - (instancetype)initWithFrame:(CGRect)frame style:(YHBSegmentViewStyle)style;
@@ -23,5 +27,6 @@ typedef NS_ENUM(NSInteger, YHBSegmentViewStyle) {
 
 @property (assign, nonatomic) NSInteger selectItem;
 @property (strong, nonatomic) NSArray *titleArray;
-
+@property (assign, nonatomic) BOOL price;
+@property(strong,nonatomic) id<YHBSegmentViewDelegate>segmentViewDelegate;
 @end
