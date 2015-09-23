@@ -28,7 +28,8 @@ typedef enum : long {
     int pagetotal;
 }
 
-@property (strong, nonatomic) UITextField *navBarSearchTextField;
+@property (strong, nonatomic) UIView *searchView;
+@property (strong, nonatomic) UITextField *searchTextField;
 @property (strong, nonatomic) YHBSegmentView *segmentView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *titleArray;
@@ -67,7 +68,7 @@ typedef enum : long {
     [self getFirstPageData];
     [self addScrollToTopButton];
     [self addTableViewTrag:self.catIds];
-    [self.view addSubview:self.navBarSearchTextField];
+    [self.view addSubview:self.searchView];
 }
 
 #pragma mark 网络请求
@@ -112,7 +113,6 @@ typedef enum : long {
             break;
         case Get_Price:
         {
-            NSLog(@"");
             if (catIds != nil) {
                 NSString *catIdsStr = @"";
                 for (NSNumber *number in catIds) {
@@ -128,7 +128,8 @@ typedef enum : long {
                 }
             }else
             {
-                if (_segmentView.price) {
+                if (_segmentView.price)
+                {
                     dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.desc",@"orderBy",nil];
                 }else
                 {
@@ -140,6 +141,7 @@ typedef enum : long {
         default:
             break;
     }
+   // NSLog(@"dict=%@",dict);
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
@@ -201,10 +203,17 @@ typedef enum : long {
                         catIdsStr = [catIdsStr substringFromIndex:1];
                         NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
                         dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",allConditions,@"allConditions", nil];
-                    }else
+                    }
+                    else if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil)
                     {
                         dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
+                        
                     }
+                    else
+                    {
+                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"productName",nil];
+                    }
+                    
                 }
                     break;
                 case Get_Amount:
@@ -268,7 +277,7 @@ typedef enum : long {
                     }
                 }
             }failure:^(NSError *error){
-            [weakself.tableView.pullToRefreshView stopAnimating];
+            [weakself.tableView.infiniteScrollingView stopAnimating];
         }];
       }
     }];
@@ -350,21 +359,74 @@ typedef enum : long {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-- (UITextField *)navBarSearchTextField
+- (UIView *)searchView
 {
-    if (_navBarSearchTextField == nil) {
-        _navBarSearchTextField = [[UITextField alloc] init];
-        _navBarSearchTextField.leftViewMode = UITextFieldViewModeAlways;
-        _navBarSearchTextField.layer.cornerRadius = 4.0;
-        _navBarSearchTextField.layer.masksToBounds = YES;
-        _navBarSearchTextField.returnKeyType = UIReturnKeySearch;
-        _navBarSearchTextField.clearButtonMode = UITextFieldViewModeAlways;
-        _navBarSearchTextField.layer.borderColor=[UIColor colorWithRed:0.7608 green:0.7608 blue:0.7608 alpha:1].CGColor;
-        _navBarSearchTextField.layer.borderWidth= 1.0f;
-        _navBarSearchTextField.delegate = self;
+    if (!_searchView) {
+        _searchView = [[UIView alloc] initWithFrame:CGRectMake(50, 25, kMainScreenWidth, 40)];
+        _searchView.backgroundColor = [UIColor whiteColor];
+        
+        UITextField *searchTf = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, kMainScreenWidth-130, 30)];
+        [searchTf setBorderStyle:UITextBorderStyleRoundedRect];
+        searchTf.placeholder = @"请输入关键字";
+        [searchTf setClearButtonMode:UITextFieldViewModeAlways];
+        searchTf.delegate = self;
+        [searchTf setReturnKeyType:UIReturnKeySearch];
+        _searchTextField = searchTf;
+        
+        [_searchView addSubview:searchTf];
+        
+        UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(searchTf.right+2, searchTf.top, 50, searchTf.height)];
+        [searchBtn setBackgroundColor:[UIColor clearColor]];
+        [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+        searchBtn.titleLabel.font = kFont16;
+        [searchBtn addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        [_searchView addSubview:searchBtn];
     }
-    _navBarSearchTextField.frame = CGRectMake(70, 35, 250, 20);
-    return _navBarSearchTextField;
+    return _searchView;
+}
+
+- (void)searchButtonClick:(UIButton *)sender
+{
+    if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"请输入关键词" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }else
+    {
+        [self refreshData];
+    }
+}
+
+- (void)refreshData
+{
+    pageId = 1;
+    pagesize = 10;
+    NSMutableDictionary *dict;
+    NSString *url= nil;
+    kYHBRequestUrl(@"product/open/searchProduct", url);
+    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"productName",nil];
+    NSLog(@"url=%@,dic=%@",url,dict);
+    [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
+        if (receiveData.length>0) {
+            id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+            // NSLog(@"result=%@",result);
+            if([result isKindOfClass:[NSDictionary class]])
+            {
+                NSArray *array = result[@"RESULT"];
+                pagetotal = [result[@"RESPCODE"]intValue];
+                _modelArray = [NSMutableArray array];
+                for (NSDictionary *subdic in array) {
+                    ProductModel *model = [[ProductModel alloc] init];
+                    [model setValuesForKeysWithDictionary:subdic];
+                    [_modelArray addObject:model];
+                }
+                [self.tableView reloadData];
+            }
+        }
+    }failure:^(NSError *error){
+        NSLog(@"下载数据失败");
+    }];
 }
 
 - (UITableView *)tableView

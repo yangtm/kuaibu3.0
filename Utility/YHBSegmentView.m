@@ -63,7 +63,6 @@
     }else{
         if (button.tag == 2) {
             _price = !_price;
-            NSLog(@"_price=%d",_price);
             [_segmentViewDelegate getDataWithPageID:1 catIds:nil];
         }
     }
@@ -143,7 +142,6 @@
         default:
             break;
     }
-    
 }
 
 - (void)changeSelect:(NSInteger)tag

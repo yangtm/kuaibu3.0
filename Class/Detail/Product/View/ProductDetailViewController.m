@@ -33,6 +33,7 @@
         self.productID = productID;
         self.title = @"产品详情";
         _number = 1;
+        
     }
     return self;
 }
