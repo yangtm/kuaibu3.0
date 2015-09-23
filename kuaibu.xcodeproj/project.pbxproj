@@ -282,6 +282,7 @@
 		1EEBF7201BB10918009F80AF /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF7191BB10918009F80AF /* FMResultSet.m */; };
 		1EEBF7211BB10918009F80AF /* GYKDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF71B1BB10918009F80AF /* GYKDataBaseManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1EEBF7271BB12461009F80AF /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEBF7261BB12461009F80AF /* libsqlite3.0.dylib */; };
+		1EEBF7421BB17F51009F80AF /* 11.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7411BB17F51009F80AF /* 11.png */; };
 		7F31EE671B9E7091008015D2 /* BannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE661B9E7091008015D2 /* BannerView.m */; };
 		7F31EE6B1B9E7191008015D2 /* PageIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE6A1B9E7191008015D2 /* PageIndex.m */; };
 		7F31EE6E1B9E71C3008015D2 /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F31EE6D1B9E71C3008015D2 /* BannerModel.m */; };
@@ -951,6 +952,7 @@
 		1EEBF71A1BB10918009F80AF /* GYKDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYKDataBaseManager.h; sourceTree = "<group>"; };
 		1EEBF71B1BB10918009F80AF /* GYKDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYKDataBaseManager.m; sourceTree = "<group>"; };
 		1EEBF7261BB12461009F80AF /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		1EEBF7411BB17F51009F80AF /* 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11.png; sourceTree = "<group>"; };
 		7F31EE651B9E7091008015D2 /* BannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BannerView.h; path = RecordView/BannerView.h; sourceTree = "<group>"; };
 		7F31EE661B9E7091008015D2 /* BannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BannerView.m; path = RecordView/BannerView.m; sourceTree = "<group>"; };
 		7F31EE691B9E7191008015D2 /* PageIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageIndex.h; sourceTree = "<group>"; };
@@ -1369,6 +1371,7 @@
 		06706D2D1B85B2AA00F58ACC /* Resourse */ = {
 			isa = PBXGroup;
 			children = (
+				1EEBF7281BB17BE2009F80AF /* image */,
 				1EEBF7021BB0F78D009F80AF /* iconfont-nextpage.png */,
 				1ED0BFEE1BAA475000FA92D6 /* StarsBackground.png */,
 				1ED0BFEF1BAA475000FA92D6 /* StarsForeground.png */,
@@ -2651,6 +2654,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		1EEBF7281BB17BE2009F80AF /* image */ = {
+			isa = PBXGroup;
+			children = (
+				1EEBF7411BB17F51009F80AF /* 11.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
 		7F31EE681B9E716A008015D2 /* IndexModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3005,6 +3016,7 @@
 				7FE0E95B1BAB24B100186F0B /* ReceiverVoiceNodePlaying001@2x 3.png in Resources */,
 				1EDDDADA1BA046C7005DCA1C /* 62副本.png in Resources */,
 				0678C4971B8572DF0035660E /* Images.xcassets in Resources */,
+				1EEBF7421BB17F51009F80AF /* 11.png in Resources */,
 				7FE0E9651BAB24B100186F0B /* ReceiverVoiceNodePlaying002@3x.png in Resources */,
 				1EEBF7031BB0F78D009F80AF /* iconfont-nextpage.png in Resources */,
 				7FE0E9631BAB24B100186F0B /* ReceiverVoiceNodePlaying002@3x 2.png in Resources */,

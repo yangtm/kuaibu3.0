@@ -24,6 +24,7 @@
 #import "SellerViewController.h"
 
 #define WORLD (@"world")
+#define PHOTO (@"photo")
 
 typedef NS_ENUM(NSInteger, MineViewType) {
     MineViewTypeSeller,
@@ -135,7 +136,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
 - (void)prepareData
 {
     self.dataArray = [[NSMutableArray alloc] init];
-    NSDictionary *dic = @{WORLD:@[@"采购报价",@"我的收藏",@"最近访问",@"购物车",@"收货地址"]};
+    NSDictionary *dic = @{WORLD:@[@"采购报价",@"我的收藏",@"最近访问",@"购物车",@"收货地址"],PHOTO:@[@"11",@"iconfont-homeaixin",@"iconfont-clock",@"iconfont-5",@"11"]};
     [_dataArray addObject:dic];
 }
 
@@ -215,7 +216,9 @@ typedef NS_ENUM(NSInteger, MineViewType) {
         
         NSDictionary *subDic = _dataArray[indexPath.section-2];
         NSArray *worldArray = subDic[WORLD];
+        NSArray *photoArray = subDic[PHOTO];
         cell.textLabel.text = worldArray[indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:photoArray[indexPath.row]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
         
