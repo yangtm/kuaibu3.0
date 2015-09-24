@@ -198,6 +198,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
         if (indexPath.row == 0) {
             
             cell.textLabel.text = @"全部订单";
+            cell.imageView.image = [UIImage imageNamed:@"iconfont-list"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }else if (indexPath.row == 1){
             _myView = [[MineHeadView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60) type:MineHeadViewTypeBuyer];
