@@ -276,7 +276,6 @@
 		1EE9808A1BB29EDE0054A303 /* iconfont-zijinjilu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980891BB29EDE0054A303 /* iconfont-zijinjilu.png */; };
 		1EE9808C1BB29FB20054A303 /* iconfont-walletgiftcard.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE9808B1BB29FB20054A303 /* iconfont-walletgiftcard.png */; };
 		1EE9808F1BB2A3700054A303 /* SellerOffManagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE9808E1BB2A3700054A303 /* SellerOffManagerController.m */; };
-		1EE980931BB2AE770054A303 /* AlreadyOfferCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980911BB2AE770054A303 /* AlreadyOfferCell.m */; };
 		1EE980941BB2AE770054A303 /* AlreadyOfferCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980921BB2AE770054A303 /* AlreadyOfferCell.xib */; };
 		1EE980971BB3CDA60054A303 /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980961BB3CDA50054A303 /* FavoriteViewController.m */; };
 		1EE9809A1BB3CF830054A303 /* ShopingCartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980991BB3CF830054A303 /* ShopingCartController.m */; };
@@ -291,6 +290,7 @@
 		1EE980AE1BB3FC930054A303 /* back5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980AD1BB3FC930054A303 /* back5.png */; };
 		1EE980B01BB3FC9A0054A303 /* back4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980AF1BB3FC9A0054A303 /* back4.png */; };
 		1EE980B21BB3FCA10054A303 /* back3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980B11BB3FCA10054A303 /* back3.png */; };
+		1EE980B41BB3FDF20054A303 /* msg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980B31BB3FDF20054A303 /* msg.png */; };
 		1EEBF6FE1BB0EDB1009F80AF /* NormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */; };
 		1EEBF7011BB0F325009F80AF /* SellerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF7001BB0F325009F80AF /* SellerViewController.m */; };
 		1EEBF7031BB0F78D009F80AF /* iconfont-nextpage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7021BB0F78D009F80AF /* iconfont-nextpage.png */; };
@@ -1024,6 +1024,7 @@
 		1EE980AD1BB3FC930054A303 /* back5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back5.png; sourceTree = "<group>"; };
 		1EE980AF1BB3FC9A0054A303 /* back4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back4.png; sourceTree = "<group>"; };
 		1EE980B11BB3FCA10054A303 /* back3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back3.png; sourceTree = "<group>"; };
+		1EE980B31BB3FDF20054A303 /* msg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = msg.png; sourceTree = "<group>"; };
 		1EEBF6FC1BB0EDB1009F80AF /* NormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormsViewController.h; sourceTree = "<group>"; };
 		1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormsViewController.m; sourceTree = "<group>"; };
 		1EEBF6FF1BB0F325009F80AF /* SellerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellerViewController.h; sourceTree = "<group>"; };
@@ -2851,6 +2852,7 @@
 		1EEBF7281BB17BE2009F80AF /* image */ = {
 			isa = PBXGroup;
 			children = (
+				1EE980B31BB3FDF20054A303 /* msg.png */,
 				1EE980B11BB3FCA10054A303 /* back3.png */,
 				1EE980AF1BB3FC9A0054A303 /* back4.png */,
 				1EE980AD1BB3FC930054A303 /* back5.png */,
@@ -3268,6 +3270,7 @@
 				1EEBF75F1BB23B74009F80AF /* home_click_in@2x.png in Resources */,
 				1EEBF75E1BB23B74009F80AF /* home_click_in@3x.png in Resources */,
 				1ED5F5CF1BA92154007AEE9F /* MJRefresh.bundle in Resources */,
+				1EE980B41BB3FDF20054A303 /* msg.png in Resources */,
 				1EEBF7881BB2428B009F80AF /* iconfont-home_un@2x.png in Resources */,
 				1ED5F5CD1BA92154007AEE9F /* grayArrow.png in Resources */,
 				7FD5900C1BA10F840026E4EA /* BannerDetailViewController.xib in Resources */,
