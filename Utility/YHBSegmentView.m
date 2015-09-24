@@ -92,7 +92,7 @@
             break;
         case YHBSegmentViewStyleBottomLine:
             button.backgroundColor = RGBCOLOR(254, 254, 254);
-            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
             button.titleLabel.font = kFont16;
             break;
         case YHBSegmentViewStyleArrow:

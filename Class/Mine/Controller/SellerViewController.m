@@ -7,11 +7,17 @@
 //
 
 #import "SellerViewController.h"
+#import "MyheaderCell.h"
+#import "MineHeadView.h"
+#import "SellerOffManagerController.h"
 
-@interface SellerViewController ()<UITableViewDataSource,UITableViewDelegate>
+#define WORLD (@"world")
+#define PHOTO (@"photo")
+@interface SellerViewController ()<UITableViewDataSource,UITableViewDelegate,MyheaderCellDelagate,MineHeadViewDelegate>
 
 @property (nonatomic,strong) UITableView *sellerView;
 @property (nonatomic,strong) NSMutableArray *dataArray;
+@property (nonatomic,strong) MineHeadView *myView;
 @end
 
 @implementation SellerViewController
@@ -21,10 +27,17 @@
     self.view.backgroundColor = RGBCOLOR(241, 241, 241);
     [self settitleLabel:@"我的店铺"];
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(clickLeftBtn)];
-    self.dataArray = [NSMutableArray array];
-    
+    [self prepareData];
     [self createTableView];
     // Do any additional setup after loading the view.
+}
+
+#pragma mark - 数据源
+- (void)prepareData
+{
+    self.dataArray = [[NSMutableArray alloc] init];
+    NSDictionary *dic = @{WORLD:@[@"报价管理",@"我的宝贝",@"产品管理",@"我的访客"],PHOTO:@[@"iconfont-zijinjilu",@"iconfont-walletgiftcard",@"iconfont-store",@"iconfont-organization"]};
+    [_dataArray addObject:dic];
 }
 
 #pragma mark -返回
@@ -54,56 +67,103 @@
     if (section == 0) {
         number = 1;
     }else if (section == 1){
-        number = 1;
+        number = 2;
     }else if (section == 2){
         number = 4;
     }
     return number;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 2) {
+    if (section == 0) {
         return 0;
+    }else if (section == 1){
+        return 4;
     }
     return 10;
-    
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger number = -1;
+    if (indexPath.section == 0) {
+        number = 100;
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            number = 40;
+        }else if (indexPath.row == 1){
+            number = 60;
+        }
+    }else if (indexPath.section == 2){
+        number = 44;
+    }
+    return number;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellid = @"cellid";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
-    }
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"头像";
-    }else if (indexPath.section == 1){
-        cell.textLabel.text = @"全部订单";
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }else if (indexPath.section == 2){
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        if (indexPath.row == 0) {
-            cell.textLabel.text = @"报价管理";
-        
-        }else if (indexPath.row == 1){
-            cell.textLabel.text = @"我的宝贝";
-        }else if (indexPath.row == 2){
-            cell.textLabel.text = @"产品管理";
-        }else if (indexPath.row == 3){
-            cell.textLabel.text = @"我的访客";
+        //        cell.backgroundColor = kBackgroundColor;
+        static NSString *myheaderId = @"myheaderId";
+        MyheaderCell *cell = [tableView dequeueReusableCellWithIdentifier:myheaderId];
+        if (!cell) {
+            cell = [[MyheaderCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:myheaderId];
+            cell.delegate = self;
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else if (indexPath.section == 1){
+        static NSString *orderCellid = @"orderCellid";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:orderCellid];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:orderCellid];
+        }
+        if (indexPath.row == 0) {
+            
+            cell.textLabel.text = @"全部订单";
+            cell.imageView.image = [UIImage imageNamed:@"iconfont-list"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }else if (indexPath.row == 1){
+            _myView = [[MineHeadView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 60) type:MineHeadViewTypeBuyer];
+            _myView.delegate = self;
+            //            _myView.backgroundColor = [UIColor redColor];
+            [cell addSubview:_myView];
+        }
+        return cell;
+        
+    }else if (indexPath.section == 2){
+        static NSString *cellid = @"cellid";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellid];
+        }
+        
+        NSDictionary *subDic = _dataArray[indexPath.section-2];
+        NSArray *worldArray = subDic[WORLD];
+        NSArray *photoArray = subDic[PHOTO];
+        cell.textLabel.text = worldArray[indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:photoArray[indexPath.row]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        return cell;
+        
     }
-    return cell;
-
+    
+    //    cell.backgroundColor = [UIColor clearColor];
+    return nil;
 }
 
-
-
-
-
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            SellerOffManagerController *vc = [[SellerOffManagerController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+}
 
 
 

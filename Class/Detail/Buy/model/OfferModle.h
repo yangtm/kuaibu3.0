@@ -29,4 +29,5 @@
 @property (nonatomic,strong) NSString *service;//服务
 @property (nonatomic,strong) NSString *logistics;//物流
 @property (nonatomic,strong) NSString *procurementPriceId;
+@property (nonatomic,strong) NSString *amount;
 @end
