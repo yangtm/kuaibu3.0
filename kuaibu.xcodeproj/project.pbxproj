@@ -434,6 +434,8 @@
 		7FE0E9761BAB24B100186F0B /* Record_voice_disable@2x 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0E9581BAB24B100186F0B /* Record_voice_disable@2x 6.png */; };
 		7FE0E9771BAB24B100186F0B /* Record_voice_disable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0E9591BAB24B100186F0B /* Record_voice_disable@2x.png */; };
 		7FE0E9791BAB282600186F0B /* sound_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE0E9781BAB282600186F0B /* sound_image.png */; };
+		7FE2F8301BB492E5006E45ED /* YHBCommentCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2F82F1BB492E5006E45ED /* YHBCommentCellView.m */; };
+		7FE2F8331BB49BC7006E45ED /* YHBConnectStoreVeiw.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2F8321BB49BC7006E45ED /* YHBConnectStoreVeiw.m */; };
 		7FE5C9ED1B9F5473006FB3E5 /* icon_rightarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5C9EB1B9F5473006FB3E5 /* icon_rightarrow.png */; };
 		7FE5C9EE1B9F5473006FB3E5 /* icon_rightarrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE5C9EC1B9F5473006FB3E5 /* icon_rightarrow@2x.png */; };
 /* End PBXBuildFile section */
@@ -1228,6 +1230,10 @@
 		7FE0E9581BAB24B100186F0B /* Record_voice_disable@2x 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Record_voice_disable@2x 6.png"; sourceTree = "<group>"; };
 		7FE0E9591BAB24B100186F0B /* Record_voice_disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Record_voice_disable@2x.png"; sourceTree = "<group>"; };
 		7FE0E9781BAB282600186F0B /* sound_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sound_image.png; sourceTree = "<group>"; };
+		7FE2F82E1BB492E5006E45ED /* YHBCommentCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBCommentCellView.h; sourceTree = "<group>"; };
+		7FE2F82F1BB492E5006E45ED /* YHBCommentCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBCommentCellView.m; sourceTree = "<group>"; };
+		7FE2F8311BB49BC7006E45ED /* YHBConnectStoreVeiw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBConnectStoreVeiw.h; sourceTree = "<group>"; };
+		7FE2F8321BB49BC7006E45ED /* YHBConnectStoreVeiw.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBConnectStoreVeiw.m; sourceTree = "<group>"; };
 		7FE5C9EB1B9F5473006FB3E5 /* icon_rightarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rightarrow.png; sourceTree = "<group>"; };
 		7FE5C9EC1B9F5473006FB3E5 /* icon_rightarrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_rightarrow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3060,6 +3066,10 @@
 		7FDE8B9A1BB3A0910039844E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7FE2F8311BB49BC7006E45ED /* YHBConnectStoreVeiw.h */,
+				7FE2F8321BB49BC7006E45ED /* YHBConnectStoreVeiw.m */,
+				7FE2F82E1BB492E5006E45ED /* YHBCommentCellView.h */,
+				7FE2F82F1BB492E5006E45ED /* YHBCommentCellView.m */,
 				7FDE8B9B1BB3A0910039844E /* CCTextfieldToolView.h */,
 				7FDE8B9C1BB3A0910039844E /* CCTextfieldToolView.m */,
 				7FDE8B9D1BB3A0910039844E /* ProductDetailViewController.h */,
@@ -3453,6 +3463,7 @@
 				1E8469691B9D3F5E00842A51 /* WCAlertView.m in Sources */,
 				1E84694D1B9D3F5E00842A51 /* UIButton+EMWebCache.m in Sources */,
 				06706D9C1B85B2AA00F58ACC /* SDWebImageDecoder.m in Sources */,
+				7FE2F8301BB492E5006E45ED /* YHBCommentCellView.m in Sources */,
 				1ED8905B1B9573F90020DFF3 /* AFSecurityPolicy.m in Sources */,
 				7FDE8BB01BB3A0910039844E /* ProductViewController.m in Sources */,
 				1ED8906A1B95785E0020DFF3 /* HZCookie.m in Sources */,
@@ -3470,7 +3481,7 @@
 				1E84683C1B9D1D1900842A51 /* CCEditTextView.m in Sources */,
 				1E8469461B9D3F5E00842A51 /* EMSDWebImageDecoder.m in Sources */,
 				1E84694A1B9D3F5E00842A51 /* EMSDWebImagePrefetcher.m in Sources */,
-				1EE980A01BB3E7470054A303 /* OrderListViewController.m in Sources */,
+				7FE2F8331BB49BC7006E45ED /* YHBConnectStoreVeiw.m in Sources */,
 				1E84693F1B9D3F5E00842A51 /* MWPhotoBrowser.m in Sources */,
 				7FDE8BB41BB3A0910039844E /* YHBNumControl.m in Sources */,
 				1E8469581B9D3F5E00842A51 /* PSTCollectionViewData.m in Sources */,

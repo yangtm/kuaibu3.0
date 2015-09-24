@@ -24,6 +24,10 @@
 #define kTitleFont 12
 #define kCellHeight 100
 #define kbtnHeight 25
+#define ktitleFont 16
+#define kBtnHeight 35
+#define kBtnWidth 140
+#define ktoolHeight 55
 #define kBackColor [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0]
 
 @interface YHBSelNumColorView()<UITableViewDataSource,UITableViewDelegate,YHBSelColorCellDelefate,YHBNumControlDelegate,MWPhotoBrowserDelegate>
@@ -40,7 +44,6 @@
 @property (strong, nonatomic) UIView *headView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *numbFooterView;
-
 @property (strong, nonatomic) YHBNumControl *numControl;//数量控件
 
 @property (strong, nonatomic) NSMutableArray *photos;
@@ -111,15 +114,30 @@
         label.textAlignment = NSTextAlignmentRight;
         label.font = [UIFont systemFontOfSize:kTitleFont];
         label.text = @"(长按显示大图)";
-        [_headView addSubview:label];
+        //[_headView addSubview:label];
     }
     return _headView;
 }
 
+- (void )creatcartFooterView
+{
+    UIButton *cartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cartButton setBackgroundColor:KColor];
+    [cartButton setTitle:@"加入购物车" forState:UIControlStateNormal];
+    cartButton.titleLabel.font = [UIFont systemFontOfSize:ktitleFont];
+    [cartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    cartButton.frame = CGRectMake(0, self.height-kFooterHeight, kMainScreenWidth, kFooterHeight);
+    [cartButton addTarget:self action:@selector(gotoCart) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:cartButton];
+}
+-(void)gotoCart
+{
+    NSLog(@"加入购物车");
+}
 - (UIView *)numbFooterView
 {
     if (!_numbFooterView) {
-        _numbFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.height-kFooterHeight, kMainScreenWidth, kFooterHeight)];
+        _numbFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, self.height-kFooterHeight*2, kMainScreenWidth, kFooterHeight)];
         _numbFooterView.backgroundColor = [UIColor whiteColor];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 0.5)];
@@ -159,17 +177,11 @@
 //        }
         _selectSkuIndex = -1;
         self.backgroundColor = [UIColor whiteColor];
-        self.frame = CGRectMake(0, 0, kMainScreenWidth, kHeadHeight+kInfoHeight+kFooterHeight+2*kCellHeight);
+        self.frame = CGRectMake(0, 0, kMainScreenWidth, kHeadHeight+kInfoHeight+kFooterHeight*2+2*kCellHeight);
         [self creatUI];
-        
         if (self.selSku != nil) {
             self.tipLabel.text = [NSString stringWithFormat:@"已选“%@”", self.selSku.specificationName];
-            if ([self.selSku.type isEqualToString:@"1"]) {
-                self.priceLabel.text = [NSString stringWithFormat:@"%@", self.selSku.typePrice];
-            }else
-            {
-                self.priceLabel.text = [NSString stringWithFormat:@"%@", self.selSku.price];
-            }
+            self.priceLabel.text = [NSString stringWithFormat:@"%0.2f", self.selSku.price];
         }
         
     }
@@ -189,8 +201,8 @@
     self.tableView.rowHeight = kCellHeight;
     [self addSubview:self.tableView];
     [self addSubview:self.numbFooterView];
+    [self creatcartFooterView];
 }
-
 //UI
 - (void)creatInfoHeadView
 {
@@ -215,7 +227,7 @@
     self.priceLabel.backgroundColor = [UIColor clearColor];
     self.priceLabel.textColor = [UIColor redColor];
     [self.priceLabel setFont:[UIFont systemFontOfSize:kTitleFont+2]];
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2lf",self.totalPrice];
+    self.priceLabel.text = [NSString stringWithFormat:@"￥%.2f",self.totalPrice];
     [self.infoView addSubview:self.priceLabel];
     
     self.tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.priceLabel.left, self.priceLabel.bottom+3, 200, kTitleFont)];
@@ -274,10 +286,11 @@
     }
     cell.cellIndexPath = indexPath;
     for (int i = (int)indexPath.row * 3, j = 0; i < self.productModel.productSpecificationList.count && i < (int)indexPath.row * 3 + 3; i++, j++) {
-        YHBSku *sku = self.productModel.productSpecificationList[i];
-         NSLog(@"sku=%@",sku);
-//        NSLog(@"sku.specificationName=%@",sku.specificationName);
-//        [cell setUIwithTitle:sku.specificationName image:sku.specificationImage part:j];
+        YHBSku *sku = [[YHBSku alloc]init];
+         [sku setValuesForKeysWithDictionary:self.productModel.productSpecificationList[i]];
+        NSString *imageurl =nil;
+        kZXYRequestUrl(sku.specificationImage, imageurl);
+       [cell setUIwithTitle:sku.specificationName image:imageurl part:j];
     }
     return cell;
 }
@@ -308,13 +321,14 @@
     MLOG(@"touch cell part");
     NSInteger index = indexPath.row *3 + part;
     if (self.productModel.productSpecificationList.count > index) {
-        YHBSku *sku = self.productModel.productSpecificationList[index];
+        YHBSku *sku = [[YHBSku alloc]init];
+        [sku setValuesForKeysWithDictionary:self.productModel.productSpecificationList[index]];
         self.tipLabel.text = [NSString stringWithFormat:@"已选“%@”",sku.specificationName];
-        if ([self.selSku.type isEqualToString:@"1"]) {
-            self.priceLabel.text = [NSString stringWithFormat:@"%@", self.selSku.typePrice];
+        if (sku.type ==1) {
+            self.priceLabel.text = [NSString stringWithFormat:@"%0.2f", sku.typePrice];
         }else
         {
-            self.priceLabel.text = [NSString stringWithFormat:@"%@", self.selSku.price];
+            self.priceLabel.text = [NSString stringWithFormat:@"%0.2f", sku.price];
         }
         if (_selectedImg) {
             _selectedImg.layer.borderColor = [kLineColor CGColor];

@@ -11,11 +11,11 @@
 
 @interface YHBSku : NSObject 
 
-@property (nonatomic, strong) NSString *price;
+@property (nonatomic, assign) double price;
 @property (nonatomic, strong) NSString *productId;
 @property (nonatomic, strong) NSString *specificationImage;
-@property (nonatomic, strong) NSString *type;
-@property (nonatomic, strong) NSString *typePrice;
+@property (nonatomic, assign) int type;
+@property (nonatomic, assign) double typePrice;
 @property (nonatomic, strong) NSString *specificationName;
 
 @end

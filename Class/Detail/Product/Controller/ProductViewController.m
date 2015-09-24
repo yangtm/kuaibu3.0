@@ -71,6 +71,17 @@ typedef enum : long {
     [self.view addSubview:self.searchView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self removeScrollToTopButton];
+}
+
 #pragma mark 网络请求
 - (void)getDataWithPageID:(NSInteger)pageid catIds:(NSArray *)catIds
 {
