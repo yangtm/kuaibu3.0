@@ -22,8 +22,8 @@
 //#define EMAppKey @"yibu2015#kuaibudev"
 //#define WeixinAppID @"wxdf71533663734340"
 #define __hzUserCookieKey @"coolieKey"
-#define kYHBBaseUrl @"http://192.168.1.111:8080/kuaibu-appService/"
-//#define kYHBBaseUrl @"http://apitest.51kuaibu.com/"
+//#define kYHBBaseUrl @"http://192.168.1.111:8080/kuaibu-appService/"
+#define kYHBBaseUrl @"http://apitest.51kuaibu.com/"
 #define kYHBRequestUrl(path,outUrl) do{\
   outUrl = [NSString stringWithFormat:@"%@%@",kYHBBaseUrl,path];\
 }while(0)
@@ -52,6 +52,8 @@ outUrl = [NSString stringWithFormat:@"%@%@",kZXYFileUrl,path];\
 #if !defined(DEBUG) && !defined (SD_VERBOSE)
 #define NSLog(...)
 #endif
+
+#define kLabelFont [UIFont fontWithName:@"Helvetica-Bold" size:16];
 
 #define kBackgroundColor RGBCOLOR(248,76,75)
 #define kNaviTitleColor RGBCOLOR(80,180,220) // 导航栏标题颜色

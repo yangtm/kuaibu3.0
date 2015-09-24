@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface SellerOffManagerController : BaseViewController
-
+@property (nonatomic,assign) NSInteger sellerOffListId;
 @end

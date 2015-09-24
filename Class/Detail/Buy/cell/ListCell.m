@@ -47,7 +47,8 @@
     _rightImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     _rightImageView.layer.cornerRadius = 5.0;
     _rightImageView.layer.masksToBounds = YES;
-    _rightImageView.backgroundColor = [UIColor orangeColor];
+//    _rightImageView.backgroundColor = [UIColor orangeColor];
+    _rightImageView.image = [UIImage imageNamed:@"iconfont-tupian"];
     [self.contentView addSubview:_rightImageView];
     
     _cycleLabel = [self formTitleLabel:CGRectZero title:@"发布时间 : "];

@@ -6,36 +6,37 @@
 ////  Copyright (c) 2015年 yangtm. All rights reserved.
 ////
 //
-//#import "AddressEditViewController.h"
-//#import "AddressManager.h"
+#import "AddressEditViewController.h"
+#import "AddressManager.h"
 //#import "SVProgressHUD.h"
-//#import "AddressModel.h"
+#import "AddressModel.h"
 //
 //
 //#define kButtonTag_Cancel 10
 //
-//@interface YHBAddressEditViewController ()<UITableViewDataSource,UITableViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
-//{
-//    success_Handle _handel;
-//    UIButton *_cancelBtn;
-//    
-//    NSInteger _selProvince;
-//    NSInteger _selCity;
-//}
-//@property (strong, nonatomic) YHBAddressManager *addManager;
-//@property (strong, nonatomic) UITableView *tableView;
-//@property (strong, nonatomic) NSMutableArray *areaArray;
-//@property (strong, nonatomic) YHBAddressModel *addModel;
-//@property (strong, nonatomic) UIPickerView *areaPicker;
-//@property (strong, nonatomic) UIButton *saveButton;
-//@property (assign, nonatomic) BOOL isNew;
-//@property (strong, nonatomic) UIView *clearView;
-//@property (strong, nonatomic) UIButton *tool;
+@interface AddressEditViewController()
+//<UITableViewDataSource,UITableViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+{
+    success_Handle _handel;
+    UIButton *_cancelBtn;
+    
+    NSInteger _selProvince;
+    NSInteger _selCity;
+}
+@property (strong, nonatomic) AddressManager *addManager;
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *areaArray;
+@property (strong, nonatomic) AddressModel *addModel;
+@property (strong, nonatomic) UIPickerView *areaPicker;
+@property (strong, nonatomic) UIButton *saveButton;
+@property (assign, nonatomic) BOOL isNew;
+@property (strong, nonatomic) UIView *clearView;
+@property (strong, nonatomic) UIButton *tool;
 //
 //
-//@end
+@end
 //
-//@implementation YHBAddressEditViewController
+@implementation AddressEditViewController
 //
 //- (YHBAddressManager *)addManager
 //{
@@ -92,22 +93,22 @@
 //    return _tableView;
 //}
 //
-//- (instancetype)initWithAddressModel:(YHBAddressModel *)model isNew:(BOOL)isnew SuccessHandle:(success_Handle)handel
-//{
-//    self = [super init];
-//    if (self) {
-//        self.isNew = isnew;
-//        _handel = handel;
-//        _addModel = model;
-//        self.title = @"收货地址管理";
-//        _selCity = 0 ;
-//        _selProvince = 0;
-//        if (isnew) {
-//            self.addModel = [[YHBAddressModel alloc] init];
-//        }
-//    }
-//    return self;
-//}
+- (instancetype)initWithAddressModel:(AddressModel *)model isNew:(BOOL)isnew SuccessHandle:(success_Handle)handel
+{
+    self = [super init];
+    if (self) {
+        self.isNew = isnew;
+        _handel = handel;
+        _addModel = model;
+        self.title = @"收货地址管理";
+        _selCity = 0 ;
+        _selProvince = 0;
+        if (isnew) {
+            self.addModel = [[AddressModel alloc] init];
+        }
+    }
+    return self;
+}
 //
 //- (void)viewWillDisappear:(BOOL)animated
 //{
@@ -122,15 +123,15 @@
 //    [MobClick beginLogPageView:@"收货地址管理"];
 //}
 //
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
+- (void)viewDidLoad {
+    [super viewDidLoad];
 //    self.edgesForExtendedLayout = UIRectEdgeBottom;
 //    
-//    self.view.backgroundColor = kViewBackgroundColor;
+    self.view.backgroundColor = kViewBackgroundColor;
 //    [self setExtraCellLineHidden:self.tableView];
 //    [self.view addSubview:self.tableView];
 //    [self.view addSubview:self.saveButton];
-//}
+}
 //
 //- (void)showAreaPickView
 //{
@@ -430,4 +431,4 @@
 //}
 //*/
 //
-//@end
+@end

@@ -29,6 +29,7 @@
 @property (strong,nonatomic) NSArray *imageUrls;
 @property (strong,nonatomic) NSString *procurementStatus;
 @property (strong,nonatomic) NSString *district;
+@property (strong,nonatomic) NSString *procurementImage;
 //@property (strong,nonatomic) NSString *
 
 

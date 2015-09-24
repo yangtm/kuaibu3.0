@@ -33,7 +33,7 @@
 {
     [super layoutSubviews];
     _portraitImageView.frame = CGRectMake(20, 20, 60, 60);
-    _nameLabel.frame = CGRectMake(_portraitImageView.right+10, 25, kMainScreenWidth-_portraitImageView.width-_messageImageView.width-_settingButton.width-20, 20);
+    _nameLabel.frame = CGRectMake(_portraitImageView.right+10, 22, kMainScreenWidth-_portraitImageView.width-_messageImageView.width-_settingButton.width-20, 20);
     _integralLabel.frame = CGRectMake(_portraitImageView.right+10, _nameLabel.bottom+15, kMainScreenWidth-_portraitImageView.width-_settingButton.width -20, 20);
 //    _settingButton.frame = CGRectMake(self.right - 65, 20, 50, 30);
     _messageImageView.frame = CGRectMake(self.right-60, 20, 25, 25);
@@ -52,7 +52,7 @@
     _portraitImageView.layer.cornerRadius = 30;
     _portraitImageView.layer.masksToBounds = YES;
     _portraitImageView.userInteractionEnabled = YES;
-    _portraitImageView.image = [UIImage imageNamed:@"64副本"];
+    _portraitImageView.image = [UIImage imageNamed:@"iconfont_un@3x"];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPortraitBtn)];
     [_portraitImageView addGestureRecognizer:tap];

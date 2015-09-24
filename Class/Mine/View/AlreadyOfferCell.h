@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OfferModle.h"
+#import "ProcurementModel.h"
 
 @interface AlreadyOfferCell : UITableViewCell
 
@@ -17,5 +17,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
-- (void)configAlreadyOfferCell:(OfferModle *)model;
+- (void)configAlreadyOfferCell:(ProcurementModel *)model;
 @end

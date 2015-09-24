@@ -22,6 +22,10 @@
 #import "HistoryViewController.h"
 #import "UIImage+Extensions.h"
 #import "SellerViewController.h"
+#import "AddressListViewController.h"
+#import "FavoriteViewController.h"
+#import "ShopingCartController.h"
+#import "OrderListViewController.h"
 
 #define WORLD (@"world")
 #define PHOTO (@"photo")
@@ -52,6 +56,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+//    self.tabBarController.tabBar.hidden = NO;
     self.blurView.frame = CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight);
 //    [self.view addSubview:self.blurView];
     self.blurView.hidden = YES;
@@ -59,8 +64,9 @@ typedef NS_ENUM(NSInteger, MineViewType) {
     if (_type == MineViewTypeBuyller) {
         _headView.numOfOrderArray = @[@"1", @"2", @"3", @"4"];
     }
-    [self settitleLabel:@"用户中心"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setLogin)];
+    [self settitleLabel:@"我是买家"];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setLogin)];
+    [self setRightButton:[UIImage imageNamed:@"iconfont-iconfontjixieqimo-2"] title:nil target:self action:@selector(setLogin)];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.messageBtn];
     self.view.backgroundColor = kViewBackgroundColor;
     [self prepareData];
@@ -324,21 +330,55 @@ typedef NS_ENUM(NSInteger, MineViewType) {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 2) {
+        
         if (indexPath.row == 0) {
+            
             ProcurementListController *vc = [[ProcurementListController alloc] init];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
                 
             }];
 
+        }else if (indexPath.row == 1){
+            
+            FavoriteViewController *vc = [[FavoriteViewController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+                
+            }];
+            
         }else if (indexPath.row == 2){
+            
             HistoryViewController *vc = [[HistoryViewController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+                
+            }];
+            
+        }else if (indexPath.row == 3){
+            
+            ShopingCartController *vc = [[ShopingCartController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+                
+            }];
+         
+        }else if (indexPath.row == 4){
+            AddressListViewController *vc = [[AddressListViewController alloc] init];
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
                 
             }];
         }
     }else if (indexPath.section == 3){
+        
         SellerViewController *vc = [[SellerViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
+        
+    }else if (indexPath.section == 1){
+        
+        if (indexPath.row == 0) {
+            
+            OrderListViewController *vc = [[OrderListViewController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+                
+            }];
+        }
     }
 }
 
