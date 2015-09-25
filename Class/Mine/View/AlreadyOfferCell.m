@@ -22,18 +22,25 @@
 }
 
 
-- (void)configAlreadyOfferCell:(OfferModle *)model
+- (void)configAlreadyOfferCell:(ProcurementModel *)model
 {
     NSString *url = nil;
-    kZXYRequestUrl(model.logoUrl, url);
+    kZXYRequestUrl(model.procurementImage, url);
 //    NSLog(@"%@",url);
     [_rightImageView sd_setImageWithURL:[NSURL URLWithString:url]];
     _rightImageView.layer.masksToBounds = YES;
     _rightImageView.layer.cornerRadius = 5;
     
-    _titleLabel.text = model.procurementName;
-    _numberLabel.text = model.amount;
-    _timeLabel.text = model.offerTime;
+    _titleLabel.text = model.productName;
+    _numberLabel.text = [NSString stringWithFormat:@"%f",model.amount ];
+    _timeLabel.text = model.offerLastDate;
+//    NSLog(@"**%ld",[model.procurementStatus integerValue]);
+//    if ([model.procurementStatus integerValue]) {
+//        
+//        _typeLabel.text = @"寻找中";
+//    }else{
+//        _typeLabel.text = @"已采纳";
+//    }
     
 }
 

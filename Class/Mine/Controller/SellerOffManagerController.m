@@ -10,9 +10,11 @@
 #import "YHBSegmentView.h"
 #import "AlreadyOfferCell.h"
 
-@interface SellerOffManagerController ()<UITableViewDataSource,UITableViewDelegate>
+@interface SellerOffManagerController ()<UITableViewDataSource,UITableViewDelegate,MJRefreshBaseViewDelegate>
 {
     NSInteger _typeid;
+    NSInteger _sellerOffPage;
+    NSInteger _MAX;
 }
 
 @property (nonatomic, strong) YHBSegmentView *segmentView;
@@ -26,14 +28,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _typeid = 0;
+    _typeid = 1;
+    _sellerOffPage = 1;
     self.title =@"我的报价";
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(backAction)];
     [self prepareData];
     [self createSellerTabelView];
-    
+    [self showFlower];
+    [self getData];
+    [self addScrollToTopButton];
+}
 
-    
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self removeScrollToTopButton];
+    [self dismissFlower];
 }
 
 - (void)prepareData
@@ -50,7 +60,39 @@
 
 - (void)getData
 {
-    
+    _isLoading = YES;
+    NSString *url = nil;
+    kYHBRequestUrl(@"procurement/seller/ProcurementPrice", url);
+    NSLog(@"%@",url);
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(_sellerOffPage),@"pageIndex",@(_typeid),@"state", nil];
+    [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+        if (_sellerOffPage == 1) {
+            [_dataArray removeAllObjects];
+        }
+        
+        id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"result::%@",result);
+        
+        if ([result isKindOfClass:[NSDictionary class]]) {
+            NSArray *array = result[@"RESULT"];
+            _MAX = [result[@"RESPCODE"]integerValue];
+            for (NSDictionary *dic in array) {
+                NSDictionary *subDic = dic[@"procurement"];
+                ProcurementModel *model = [[ProcurementModel alloc] init];
+                [model setValuesForKeysWithDictionary:subDic];
+                [_dataArray addObject:model];
+            }
+            [self.sellerTableView reloadData];
+        }
+        _isLoading = NO;
+        [_headerView endRefreshing];
+        [_footerView endRefreshing];
+        [self dismissFlower];
+        
+    } failure:^(NSError *error) {
+        [self dismissFlower];
+        _isLoading = NO;
+    }];
 }
 
 #pragma mark - tableview
@@ -66,6 +108,16 @@
     self.sellerTableView.dataSource = self;
 //    self.sellerTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.sellerTableView];
+    self.sellerTableView.tableFooterView = [[UIView alloc] init];
+    
+    //下拉刷新，上拉加载
+    _headerView = [MJRefreshHeaderView header];
+    _headerView.delegate = self;
+    _headerView.scrollView = self.sellerTableView;
+    
+    _footerView = [MJRefreshFooterView footer];
+    _footerView.delegate = self;
+    _footerView.scrollView = self.sellerTableView;
 }
 
 #pragma mark - UITableView代理
@@ -76,7 +128,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.dataArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,22 +138,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_typeid == 0) {
-        static NSString *cellid = @"AlreadyOfferCellid";
-        AlreadyOfferCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
-        if (cell == nil) {
-            cell = [[[NSBundle mainBundle]loadNibNamed:@"AlreadyOfferCell" owner:nil options:nil]lastObject];
-        }
-        return cell;
-    }else {
-        static NSString *cellid = @"cellid";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
-        }
-        return cell;
+    static NSString *cellid = @"AlreadyOfferCellid";
+    AlreadyOfferCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+    if (cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"AlreadyOfferCell" owner:nil options:nil]lastObject];
     }
- 
+    ProcurementModel *model = self.dataArray[indexPath.row];
+    [cell configAlreadyOfferCell:model];
+    if (_typeid == 1) {
+        cell.typeLabel.text = @"寻找中";
+    }else if(_typeid == 2) {
+       cell.typeLabel.text = @"已采纳";
+    }
+    return cell;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -129,18 +178,30 @@
 - (void)segmentViewDidValueChanged:(YHBSegmentView *)sender
 {
     _typeid = (int)sender.selectItem;
-    NSLog(@"%d",_typeid);
     if (sender.selectItem == 0) {
-//        _isAll = YES;
-       
+        _typeid = 1;
     }
     else if (sender.selectItem == 1){
-      
-//        [self stopPlaySound];
-//        _isAll = NO;
+        _typeid = 2;
     }
-//    [self showFlower];
-//    [self getData];
+    [self showFlower];
+    [self getData];
+}
+
+
+#pragma mark - MJ代理
+- (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
+{
+    if (_isLoading) {
+        return;
+    }
+    if (refreshView == _headerView) {
+        _sellerOffPage = 1;
+        [self getData];
+    }else if (refreshView == _footerView){
+        _sellerOffPage++;
+        [self getData];
+    }
 }
 
 #pragma mark - 返回顶部
@@ -174,5 +235,11 @@
     else{
         _scrollToTopButton.hidden = YES;
     }
+}
+
+-(void)removeScrollToTopButton
+{
+    [_scrollToTopButton removeFromSuperview];
+    _scrollToTopButton = nil;
 }
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MobClick.h"
 #import "MJRefresh.h"
+#import "SVProgressHUD.h"
 
 @interface BaseViewController : UIViewController
 {
@@ -48,6 +49,12 @@
  *  @param alert 警告视图
  */
 -(void)dismissAlertView:(UIAlertView *)alert;
+- (void)showFlower;
+- (void)dismissFlower;
+- (UILabel *)formTitleLabel:(CGRect)frame title:(NSString *)title;
+- (void) shadedStar:(UILabel *)label;
+- (void)addBottomLine:(UIView *)view;
+- (UIView *)lineView:(CGRect)frame;
 
 
 @end

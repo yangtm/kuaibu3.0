@@ -10,6 +10,7 @@
 #import "ViewInteraction.h"
 #import "MobClick.h"
 
+
 @interface BaseViewController ()
 {
     UILabel *titleLabel;
@@ -173,4 +174,46 @@
     [alert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
+- (void)showFlower
+{
+    [SVProgressHUD show:YES offsetY:kMainScreenHeight/2.0];
+}
+
+- (void)dismissFlower
+{
+    [SVProgressHUD dismiss];
+}
+
+- (UILabel *)formTitleLabel:(CGRect)frame title:(NSString *)title
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
+    label.font = [UIFont systemFontOfSize:15];
+    label.text = title;
+    [self shadedStar:label];
+    return label;
+}
+
+- (void) shadedStar:(UILabel *)label
+{
+    if ([label.text hasPrefix:@"*"]) {
+        NSMutableAttributedString *attrubuteStr = [[NSMutableAttributedString alloc] initWithString:label.text];
+        [attrubuteStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 1)];
+        [attrubuteStr addAttribute:NSBaselineOffsetAttributeName value:[NSNumber numberWithFloat:-2.0] range:NSMakeRange(0, 1)];
+        label.attributedText = attrubuteStr;
+    }
+}
+
+- (void)addBottomLine:(UIView *)view
+{
+    UIView *lineView = [self lineView:CGRectMake(0, view.height - 0.5, 0, 0)];
+    lineView.tag = 101;
+    [view addSubview:lineView];
+}
+
+- (UIView *)lineView:(CGRect)frame
+{
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, kMainScreenWidth, 0.5)];
+    lineView.backgroundColor = [UIColor lightGrayColor];
+    return lineView;
+}
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "OrderSureController.h"
+#import "AddressListViewController.h"
+#import "OrderSuccessController.h"
 
 @interface OrderSureController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -143,9 +145,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        NSLog(@"收货地址");
+        
+        AddressListViewController *vc = [[AddressListViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        
     }else if (indexPath.section == 2){
-        NSLog(@"确认订单");
+        
+        OrderSuccessController *vc = [[OrderSuccessController alloc] init];
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+            
+        }];
     }
 }
 

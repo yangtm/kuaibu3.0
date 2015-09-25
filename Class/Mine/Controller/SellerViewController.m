@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGBCOLOR(241, 241, 241);
-    [self settitleLabel:@"我的店铺"];
+    [self settitleLabel:@"我是卖家"];
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(clickLeftBtn)];
     [self prepareData];
     [self createTableView];
@@ -169,7 +169,11 @@
 
 
 
-
+#pragma mark - HeaderSectionCellDelagate
+- (void)clickMessageImageView:(MyheaderCell *)cell
+{
+    self.tabBarController.selectedIndex = 3;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

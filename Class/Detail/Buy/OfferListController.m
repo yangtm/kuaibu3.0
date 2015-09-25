@@ -44,7 +44,7 @@
 - (void)showData
 {
     self.dataArray = [[NSMutableArray alloc] init];
-    
+    _isLoading = YES;
     NSString *url = nil;
     kYHBRequestUrl(@"procurement/getPurchasePrices", url);
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_offerListId),@"procurementId",@(_page),@"pageIndex", nil];
@@ -52,8 +52,12 @@
     NSLog(@"%@",url);
     __weak OfferListController *weakSelf = self;
     [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+        if (_page == 1) {
+            [_dataArray removeAllObjects];
+        }
+        
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-        _isLoading = YES;
+        
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
                         NSLog(@"result:%@",dic);
@@ -76,11 +80,11 @@
     }];;
 }
 
-- (void)dealloc
-{
-    _headerView.scrollView = nil;
-    _footerView.scrollView = nil;
-}
+//- (void)dealloc
+//{
+//    _headerView.scrollView = nil;
+//    _footerView.scrollView = nil;
+//}
 
 #pragma mark - UI
 - (void)createTabelView

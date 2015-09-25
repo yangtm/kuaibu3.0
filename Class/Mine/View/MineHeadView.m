@@ -64,14 +64,15 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = rect;
     button.backgroundColor = [UIColor clearColor];
+//    button.backgroundColor = [UIColor grayColor];
     UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, rect.size.width, 30)];
-    numLabel.textColor = [UIColor whiteColor];
+    numLabel.textColor = [UIColor grayColor];
     numLabel.textAlignment = NSTextAlignmentCenter;
     numLabel.font = [UIFont systemFontOfSize:18.0];
     numLabel.text = @"0";
     [self.footItemLabelArray addObject:numLabel];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, numLabel.bottom, numLabel.width, 20)];
-    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.textColor = [UIColor grayColor];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.font = [UIFont systemFontOfSize:14.0];
     titleLabel.text = title;
@@ -86,7 +87,7 @@
 {
     if (_footerView == nil) {
         _footerView = [[UIView alloc] initWithFrame:CGRectZero];
-        _footerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+//        _footerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
         
         CGFloat width = kMainScreenWidth / _buttonTitles.count;
         for (int i = 0; i < _buttonTitles.count; i++) {

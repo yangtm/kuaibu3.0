@@ -53,6 +53,8 @@ outUrl = [NSString stringWithFormat:@"%@%@",kZXYFileUrl,path];\
 #define NSLog(...)
 #endif
 
+#define kLabelFont [UIFont fontWithName:@"Helvetica-Bold" size:16];
+
 #define kBackgroundColor RGBCOLOR(248,76,75)
 #define kNaviTitleColor RGBCOLOR(80,180,220) // 导航栏标题颜色
 #define kViewBackgroundColor RGBCOLOR(240,240,240) // 所有屏幕底色

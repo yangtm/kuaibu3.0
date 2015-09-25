@@ -64,15 +64,20 @@
 #pragma mark - 请求数据
 - (void)showData
 {
+    _isLoading = YES;
     NSString *url = nil;
     kYHBRequestUrl(@"procurement/memberPurchaseList", url);
     NSLog(@"%@",url);
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_page),@"pageIndex", nil];
-    
+   
     __weak ProcurementListController *weakSelf = self;
     [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+        if (_page == 1) {
+            [_dataArray removeAllObjects];
+        }
+        
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-        _isLoading = YES;
+        
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
 //            NSLog(@"result:%@",dic);
@@ -126,7 +131,9 @@
         return;
     }
     if (refreshView == _headerView) {
+       
         _page = 1;
+//         [self.dataArray removeAllObjects];
         [self showData];
     }else if (refreshView == _footerView){
         _page++;

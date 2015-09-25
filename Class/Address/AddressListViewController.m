@@ -11,7 +11,7 @@
 #import "AddressManager.h"
 #import "SVProgressHUD.h"
 #import "AddressListCell.h"
-//#import "YHBAddressEditViewController.h"
+#import "AddressEditViewController.h"
 #import "MineInfoSetViewController.h"
 
 typedef enum : NSUInteger {
@@ -74,8 +74,8 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad {
     [super viewDidLoad];
     _selModel = nil;
-//    self.title = @"收货地址";
     [self settitleLabel:@"收货地址"];
+    [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(clickLeftBtn)];
     [self setRightButton:nil title:@"添加" target:self action:@selector(addAddress)];
     //UI
     self.view.backgroundColor = kViewBackgroundColor;
@@ -85,6 +85,13 @@ typedef enum : NSUInteger {
     [self getOrRefreshDataWithIsNeedTips:YES];
     
 }
+
+- (void)clickLeftBtn{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
 //重新获取数据，并刷新UI
 - (void)getOrRefreshDataWithIsNeedTips:(BOOL)isNeed
 {
@@ -160,10 +167,10 @@ typedef enum : NSUInteger {
 #pragma mark - Action
 - (void)addAddress
 {
-//    AddressEditViewController *vc = [[AddressEditViewController alloc] initWithAddressModel:nil isNew:YES SuccessHandle:^{
-//        [self getOrRefreshDataWithIsNeedTips:NO];
-//    }];
-//    [self.navigationController pushViewController:vc animated:YES];
+    AddressEditViewController *vc = [[AddressEditViewController alloc] initWithAddressModel:nil isNew:YES SuccessHandle:^{
+        [self getOrRefreshDataWithIsNeedTips:NO];
+    }];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - avtionsheet Delegate
