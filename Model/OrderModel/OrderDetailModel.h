@@ -10,14 +10,15 @@
 
 @interface OrderDetailModel : NSObject
 
-@property (strong, nonatomic) NSString *orderItemId;
-@property (strong, nonatomic) NSString *fullName;
-@property (strong, nonatomic) NSString *productSn;
-@property (strong, nonatomic) NSString *productName;
-@property (strong, nonatomic) NSString *price;
-@property (strong, nonatomic) NSString *quantity;
-@property (strong, nonatomic) NSString *orderId;
-@property (strong, nonatomic) NSString *thumbnail;
-@property (strong, nonatomic) NSString *specificationId;
-
+@property (strong, nonatomic) NSString *orderItemId;//订单项ID
+@property (strong, nonatomic) NSString *createDate;//创建时间
+@property (strong, nonatomic) NSString *lastModifyDatetime;//修改时间
+@property (strong, nonatomic) NSString *fullName;//商品全称
+@property (strong, nonatomic) NSString *productSn;//商品编号
+@property (strong, nonatomic) NSString *productName;//商品名称
+@property (strong, nonatomic) NSString *price;//商品价格
+@property (strong, nonatomic) NSString *quantity;//数量
+@property (strong, nonatomic) NSString *orderId;//订单ID
+@property (strong, nonatomic) NSString *thumbnail;//商品缩略图
+@property (strong, nonatomic) NSString *specificationId;//规格ID 与specification 表对应
 @end

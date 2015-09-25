@@ -25,6 +25,7 @@
 #import "AddressListViewController.h"
 #import "FavoriteViewController.h"
 #import "ShopingCartController.h"
+#import "OrderListController.h"
 
 
 #define WORLD (@"world")
@@ -311,7 +312,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
 {
     NSInteger number = -1;
     if (indexPath.section == 0) {
-        number = 100;
+        number = 80;
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
             number = 40;
@@ -374,10 +375,10 @@ typedef NS_ENUM(NSInteger, MineViewType) {
         
         if (indexPath.row == 0) {
             
-//            OrderListViewController *vc = [[OrderListViewController alloc] init];
-//            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-//                
-//            }];
+            OrderListController *vc = [[OrderListController alloc] init];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+                
+            }];
         }
     }
 }

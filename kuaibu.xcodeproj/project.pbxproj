@@ -293,6 +293,16 @@
 		1EE980B81BB40D8E0054A303 /* shezhi.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980B71BB40D8E0054A303 /* shezhi.png */; };
 		1EE980C81BB4202A0054A303 /* shoucang.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980C71BB4202A0054A303 /* shoucang.png */; };
 		1EE980CA1BB420D70054A303 /* yishoucang.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980C91BB420D70054A303 /* yishoucang.png */; };
+		1EE980CC1BB4D8220054A303 /* tianjia.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980CB1BB4D8220054A303 /* tianjia.png */; };
+		1EE980CF1BB4DA3D0054A303 /* OrderListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980CE1BB4DA3D0054A303 /* OrderListController.m */; };
+		1EE980D21BB4E3000054A303 /* OrderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980D11BB4E3000054A303 /* OrderTableView.m */; };
+		1EE980D41BB517910054A303 /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980D31BB517910054A303 /* right.png */; };
+		1EE980DB1BB51A5C0054A303 /* weixuanzhong.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980DA1BB51A5C0054A303 /* weixuanzhong.png */; };
+		1EE980DD1BB51A690054A303 /* xuanzhong.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980DC1BB51A690054A303 /* xuanzhong.png */; };
+		1EE980E31BB51E960054A303 /* OrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980E11BB51E960054A303 /* OrderListCell.m */; };
+		1EE980E41BB51E960054A303 /* OrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980E21BB51E960054A303 /* OrderListCell.xib */; };
+		1EE980F41BB53E7E0054A303 /* OrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980F31BB53E7E0054A303 /* OrderHeaderView.m */; };
+		1EE980F71BB556100054A303 /* OrderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980F61BB556100054A303 /* OrderFooterView.m */; };
 		1EEBF6FE1BB0EDB1009F80AF /* NormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */; };
 		1EEBF7011BB0F325009F80AF /* SellerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF7001BB0F325009F80AF /* SellerViewController.m */; };
 		1EEBF7031BB0F78D009F80AF /* iconfont-nextpage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7021BB0F78D009F80AF /* iconfont-nextpage.png */; };
@@ -1030,6 +1040,21 @@
 		1EE980B71BB40D8E0054A303 /* shezhi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shezhi.png; sourceTree = "<group>"; };
 		1EE980C71BB4202A0054A303 /* shoucang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoucang.png; sourceTree = "<group>"; };
 		1EE980C91BB420D70054A303 /* yishoucang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yishoucang.png; sourceTree = "<group>"; };
+		1EE980CB1BB4D8220054A303 /* tianjia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tianjia.png; sourceTree = "<group>"; };
+		1EE980CD1BB4DA3D0054A303 /* OrderListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListController.h; sourceTree = "<group>"; };
+		1EE980CE1BB4DA3D0054A303 /* OrderListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListController.m; sourceTree = "<group>"; };
+		1EE980D01BB4E3000054A303 /* OrderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableView.h; sourceTree = "<group>"; };
+		1EE980D11BB4E3000054A303 /* OrderTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableView.m; sourceTree = "<group>"; };
+		1EE980D31BB517910054A303 /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
+		1EE980DA1BB51A5C0054A303 /* weixuanzhong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weixuanzhong.png; sourceTree = "<group>"; };
+		1EE980DC1BB51A690054A303 /* xuanzhong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xuanzhong.png; sourceTree = "<group>"; };
+		1EE980E01BB51E960054A303 /* OrderListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListCell.h; sourceTree = "<group>"; };
+		1EE980E11BB51E960054A303 /* OrderListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListCell.m; sourceTree = "<group>"; };
+		1EE980E21BB51E960054A303 /* OrderListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderListCell.xib; sourceTree = "<group>"; };
+		1EE980F21BB53E7E0054A303 /* OrderHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderHeaderView.h; sourceTree = "<group>"; };
+		1EE980F31BB53E7E0054A303 /* OrderHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderHeaderView.m; sourceTree = "<group>"; };
+		1EE980F51BB556100054A303 /* OrderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFooterView.h; sourceTree = "<group>"; };
+		1EE980F61BB556100054A303 /* OrderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFooterView.m; sourceTree = "<group>"; };
 		1EEBF6FC1BB0EDB1009F80AF /* NormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormsViewController.h; sourceTree = "<group>"; };
 		1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormsViewController.m; sourceTree = "<group>"; };
 		1EEBF6FF1BB0F325009F80AF /* SellerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellerViewController.h; sourceTree = "<group>"; };
@@ -1389,6 +1414,8 @@
 				1EE9808E1BB2A3700054A303 /* SellerOffManagerController.m */,
 				1EE980951BB3CDA50054A303 /* FavoriteViewController.h */,
 				1EE980961BB3CDA50054A303 /* FavoriteViewController.m */,
+				1EE980CD1BB4DA3D0054A303 /* OrderListController.h */,
+				1EE980CE1BB4DA3D0054A303 /* OrderListController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1413,6 +1440,15 @@
 				1EE980901BB2AE770054A303 /* AlreadyOfferCell.h */,
 				1EE980911BB2AE770054A303 /* AlreadyOfferCell.m */,
 				1EE980921BB2AE770054A303 /* AlreadyOfferCell.xib */,
+				1EE980D01BB4E3000054A303 /* OrderTableView.h */,
+				1EE980D11BB4E3000054A303 /* OrderTableView.m */,
+				1EE980E01BB51E960054A303 /* OrderListCell.h */,
+				1EE980E11BB51E960054A303 /* OrderListCell.m */,
+				1EE980E21BB51E960054A303 /* OrderListCell.xib */,
+				1EE980F21BB53E7E0054A303 /* OrderHeaderView.h */,
+				1EE980F31BB53E7E0054A303 /* OrderHeaderView.m */,
+				1EE980F51BB556100054A303 /* OrderFooterView.h */,
+				1EE980F61BB556100054A303 /* OrderFooterView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2859,6 +2895,10 @@
 		1EEBF7281BB17BE2009F80AF /* image */ = {
 			isa = PBXGroup;
 			children = (
+				1EE980DC1BB51A690054A303 /* xuanzhong.png */,
+				1EE980DA1BB51A5C0054A303 /* weixuanzhong.png */,
+				1EE980D31BB517910054A303 /* right.png */,
+				1EE980CB1BB4D8220054A303 /* tianjia.png */,
 				1EE980C91BB420D70054A303 /* yishoucang.png */,
 				1EE980C71BB4202A0054A303 /* shoucang.png */,
 				1EE980B71BB40D8E0054A303 /* shezhi.png */,
@@ -3235,6 +3275,7 @@
 				1EE980CA1BB420D70054A303 /* yishoucang.png in Resources */,
 				1EE980AA1BB3FC860054A303 /* iconfont-fanhui-5.png in Resources */,
 				1EE980B01BB3FC9A0054A303 /* back4.png in Resources */,
+				1EE980DD1BB51A690054A303 /* xuanzhong.png in Resources */,
 				1E8469901B9D437000842A51 /* ReceiverVoiceNodePlaying003@3x.png in Resources */,
 				7FE02E1C1BA238D5005E6C72 /* HomePagePavilionCell.xib in Resources */,
 				0678C4B61B85A2800035660E /* .gitignore in Resources */,
@@ -3276,6 +3317,7 @@
 				0678C4951B8572DF0035660E /* Main.storyboard in Resources */,
 				1E84698B1B9D437000842A51 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
 				1EEBF74E1BB232D9009F80AF /* iconfont-home-3.png in Resources */,
+				1EE980DB1BB51A5C0054A303 /* weixuanzhong.png in Resources */,
 				1ED9EA7C1BAD2C40009258CC /* HistoryCell.xib in Resources */,
 				1E8469631B9D3F5E00842A51 /* sr_refresh@2X.png in Resources */,
 				1EEBF7891BB2428B009F80AF /* iconfont_friend@3x.png in Resources */,
@@ -3314,6 +3356,8 @@
 				1EDDDAD11BA046C7005DCA1C /* 快布3［方案二］_03.png in Resources */,
 				1ED9E04F1BA7DB4F000864F3 /* sanjiao_heise_32.png in Resources */,
 				1EE980B81BB40D8E0054A303 /* shezhi.png in Resources */,
+				1EE980E41BB51E960054A303 /* OrderListCell.xib in Resources */,
+				1EE980D41BB517910054A303 /* right.png in Resources */,
 				7FE0E9731BAB24B100186F0B /* Record_voice_disable@2x 3.png in Resources */,
 				7FE0E96F1BAB24B100186F0B /* ReceiverVoiceNodePlaying@3x 2.png in Resources */,
 				1ED890831B95796F0020DFF3 /* 5.png in Resources */,
@@ -3342,6 +3386,7 @@
 				1EE980A81BB3FBC70054A303 /* back2.png in Resources */,
 				7FD7B2BB1B9FB75300A4F911 /* red_line_and_shadow@2x.png in Resources */,
 				7FE0E96C1BAB24B100186F0B /* ReceiverVoiceNodePlaying@2x 2.png in Resources */,
+				1EE980CC1BB4D8220054A303 /* tianjia.png in Resources */,
 				1EE980C81BB4202A0054A303 /* shoucang.png in Resources */,
 				7FD7758F1BA4967D004F6A55 /* home_attention.png in Resources */,
 				1EDDDADD1BA046C7005DCA1C /* 快布切图_09.png in Resources */,
@@ -3471,10 +3516,12 @@
 				1E84694D1B9D3F5E00842A51 /* UIButton+EMWebCache.m in Sources */,
 				06706D9C1B85B2AA00F58ACC /* SDWebImageDecoder.m in Sources */,
 				7FE2F8301BB492E5006E45ED /* YHBCommentCellView.m in Sources */,
+				1EE980F71BB556100054A303 /* OrderFooterView.m in Sources */,
 				1ED8905B1B9573F90020DFF3 /* AFSecurityPolicy.m in Sources */,
 				7FDE8BB01BB3A0910039844E /* ProductViewController.m in Sources */,
 				1ED8906A1B95785E0020DFF3 /* HZCookie.m in Sources */,
 				1E8469DE1B9D5CB500842A51 /* WoWPhotoBrowserCell.m in Sources */,
+				1EE980D21BB4E3000054A303 /* OrderTableView.m in Sources */,
 				1ED7FF351BA6CF7000CDFF92 /* OrderUtil.m in Sources */,
 				7FD8A3161BA3990C001DD580 /* HomePageHotProductCell.m in Sources */,
 				06706D881B85B2AA00F58ACC /* MineViewController.m in Sources */,
@@ -3515,6 +3562,7 @@
 				06706D991B85B2AA00F58ACC /* NSData+ImageContentType.m in Sources */,
 				1E84694C1B9D3F5E00842A51 /* NSData+EMImageContentType.m in Sources */,
 				1E8469CB1B9D597200842A51 /* MeasurePicker.m in Sources */,
+				1EE980F41BB53E7E0054A303 /* OrderHeaderView.m in Sources */,
 				7FD335C01BA87E59009EFC61 /* DataOC.mm in Sources */,
 				06706D9D1B85B2AA00F58ACC /* SDWebImageDownloader.m in Sources */,
 				1EEBF7091BB10629009F80AF /* NormsModle.m in Sources */,
@@ -3619,6 +3667,7 @@
 				1E8468401B9D201900842A51 /* AddressManager.m in Sources */,
 				1EEBF7061BB10537009F80AF /* AddNormsViewController.m in Sources */,
 				1ED8905C1B9573F90020DFF3 /* AFURLConnectionOperation.m in Sources */,
+				1EE980E31BB51E960054A303 /* OrderListCell.m in Sources */,
 				1ED890951B9582F30020DFF3 /* SettingViewController.m in Sources */,
 				1E8469BD1B9D549700842A51 /* YHBAlbumViewController.m in Sources */,
 				1E8469B21B9D537800842A51 /* YHBPictureAdder.m in Sources */,
@@ -3631,6 +3680,7 @@
 				1ED922751B86C5530013AF29 /* ProductModel.m in Sources */,
 				1ED7FF261BA6645800CDFF92 /* MyheaderCell.m in Sources */,
 				1ED8905D1B9573F90020DFF3 /* AFURLRequestSerialization.m in Sources */,
+				1EE980CF1BB4DA3D0054A303 /* OrderListController.m in Sources */,
 				1E84693D1B9D3F5E00842A51 /* MWGridViewController.m in Sources */,
 				1ED922711B86BC320013AF29 /* StoreModel.m in Sources */,
 				7F5262B61BAC7EDE0063203A /* YHBCatSubcate.m in Sources */,
