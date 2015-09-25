@@ -67,12 +67,12 @@
     UILabel *cateTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, line.bottom+11, kTitlefont*3, kTitlefont)];
     [cateTitle setFont:[UIFont systemFontOfSize:kTitlefont]];
     [cateTitle setTextColor:[UIColor blackColor]];
-    cateTitle.text = @"促销：";
+    cateTitle.text = @"促销";
     [self addSubview:cateTitle];
     
     self.saleLabel = [[UILabel alloc] initWithFrame:CGRectMake(cateTitle.right+10, line.bottom+11, kMainScreenWidth-cateTitle.right-20, kTitlefont)];
     [self.saleLabel setFont:[UIFont systemFontOfSize:kTitlefont]];
-    [self.saleLabel setTextColor:[UIColor lightGrayColor]];
+    [self.saleLabel setTextColor:[UIColor blackColor]];
     //self.cateLabel.text = @"印花，丝绸，窗帘";
     [self addSubview:self.saleLabel];
     

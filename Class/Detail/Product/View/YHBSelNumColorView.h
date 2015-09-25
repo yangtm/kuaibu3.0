@@ -14,7 +14,6 @@
 
 - (void)selViewShouldPushViewController:(UIViewController *)vc;
 - (void)selViewShouldDismissWithSelNum:(double)num andSelSku:(YHBSku *)sku;
-
 @end
 
 @interface YHBSelNumColorView : UIView

@@ -16,12 +16,14 @@
 #import "YHBSelNumColorView.h"
 #import "FXBlurView.h"
 #import "YHBBuytoolBarView.h"
-
+#import "YHBCommentCellView.h"
+#import "YHBConnectStoreVeiw.h"
+#import "SVProgressHUD.h"
 #define kBlankHeight 15
 #define kCCellHeight 35
 #define kBannerHeight (kMainScreenWidth * 625/1080.0f)
 
-@interface ProductDetailViewController ()<UIScrollViewDelegate,BannerDelegate,MWPhotoBrowserDelegate,YHBSelViewDelegate>
+@interface ProductDetailViewController ()<UIScrollViewDelegate,BannerDelegate,MWPhotoBrowserDelegate,YHBSelViewDelegate,YHBConStoreDelegate>
 {
     CGFloat _currentY;
     BOOL _isBuy; //yes代表点击了购买 no代表点击了购物车
@@ -41,6 +43,8 @@
 @property (strong, nonatomic) YHBSku *selSku;
 @property (strong, nonatomic) FXBlurView *blurView;
 @property (strong, nonatomic) YHBBuytoolBarView *toolBarView;
+@property (weak, nonatomic) UIView *commentHead;
+@property (strong, nonatomic) YHBConnectStoreVeiw *conStoreView;
 @end
 
 @implementation ProductDetailViewController
@@ -70,6 +74,8 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backbutton];
     self.view.backgroundColor = [UIColor whiteColor];
     self.productModel = [[ProductModel alloc]init];
+    self.conStoreView = [[YHBConnectStoreVeiw alloc] init];
+    self.conStoreView.delegate = self;
     
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.bannerView];
@@ -78,16 +84,13 @@
     UITapGestureRecognizer *tp = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchProductDetailCell)];
     [self.infoView addGestureRecognizer:tp];
     [self.scrollView addSubview:self.infoView];
-    
+    [self reloadData];
     self.toolBarView = [[YHBBuytoolBarView alloc] init];
     self.toolBarView.top = self.scrollView.bottom;
 //    [self.toolBarView.cartButton addTarget:self action:@selector(touchCartButton) forControlEvents:UIControlEventTouchUpInside];
 //    [self.toolBarView.buyButton addTarget:self action:@selector(touchBuyButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.toolBarView];
     [self creatSelectColorCell];
-    
-    
-    [self reloadData];
 }
 
 -(void)reloadData
@@ -104,9 +107,24 @@
                 NSDictionary *dictionary = result[@"RESULT"];
                [self.productModel setValuesForKeysWithDictionary:dictionary];
                [self refreshAddView];
+               [self creatAddressCell];
+               [self creatSimpleCell];
                [self.infoView setTitle:self.productModel.productName price:self.productModel.price sale:@"暂无"];
+               [self creatCommentHead];
+               [self creatCommentCells];
+                self.commentHead.frame = CGRectMake(0, self.infoView.bottom +128 , kMainScreenWidth, kCCellHeight);
+                //_currentY = self.commentHead.bottom;
                 
+                NSLog(@"_currentY=%f",_currentY);
+                self.conStoreView.frame = CGRectMake(0, _currentY+=kBlankHeight, self.conStoreView.width,self.conStoreView.height);
+                NSString *bandurl = nil;
+                kZXYRequestUrl(self.productModel.storeLogo, bandurl);
+                [self.conStoreView setUIWithTitle:self.productModel.storeName imageUrl:bandurl attention:@"1111"];
+                //self.conStoreView.backgroundColor = [UIColor blackColor];
+                [self.scrollView addSubview:self.conStoreView];
+                _currentY = self.conStoreView.bottom;
                 
+                [self creatConnectCell];
             }
         }
     }failure:^(NSError *error){
@@ -137,8 +155,8 @@
         self.photos = [NSMutableArray arrayWithCapacity:5];
         NSInteger imageNum = self.productModel.productImageList.count;
         for (NSInteger i = 0; i < imageNum; i++) {
-            NSString *bandurl = nil;
             NSString *url=self.productModel.productImageList[i][@"imageUrl"];
+            NSString *bandurl = nil;
             kZXYRequestUrl(url, bandurl);
             MWPhoto *photo = [MWPhoto photoWithURL:[NSURL URLWithString:bandurl?:@""]];
             self.photos[i] = photo;
@@ -194,8 +212,8 @@
     textLabel.text = @"规格";
     textLabel.textColor = [UIColor blackColor];
     [view addSubview:textLabel];
-    self.selectCell = view;
-    self.selectColorLabel = textLabel;
+  //  self.selectCell = view;
+  //  self.selectColorLabel = textLabel;
     UITapGestureRecognizer *tp = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchSelectColorCell)];
     [view addGestureRecognizer:tp];
     
@@ -207,6 +225,133 @@
     [self.scrollView addSubview:view];
 }
 
+-(void)creatAddressCell
+{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, self.infoView.bottom +44,kMainScreenWidth , 40)];
+    view.backgroundColor = [UIColor whiteColor];
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, (view.height-kTitlefont)/4.0, kMainScreenWidth, 30)];
+    textLabel.font = [UIFont systemFontOfSize:kTitlefont];
+    textLabel.text = @"发货地  上海";
+    textLabel.textColor = [UIColor blackColor];
+    [view addSubview:textLabel];
+    _currentY = view.bottom;
+    [self.scrollView addSubview:view];
+    
+}
+
+-(void)creatSimpleCell
+{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, self.infoView.bottom +86,kMainScreenWidth , 40)];
+    view.backgroundColor = [UIColor whiteColor];
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, (view.height-kTitlefont)/4.0, kMainScreenWidth, 30)];
+    textLabel.font = [UIFont systemFontOfSize:kTitlefont];
+    NSLog(@"issample=%@",self.productModel.isSample);
+    if ([self.productModel.isSample integerValue]) {
+        textLabel.text = @"提示  不提供剪样";
+    }else
+    {
+        textLabel.text = @"提示  提供剪样";
+    }
+    textLabel.textColor = [UIColor blackColor];
+    [view addSubview:textLabel];
+    _currentY = view.bottom;
+    [self.scrollView addSubview:view];
+}
+
+-(void)creatConnectCell
+{
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, _currentY+=kBlankHeight,kMainScreenWidth , 30)];
+    view.backgroundColor = [UIColor whiteColor];
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,0, kMainScreenWidth, 30)];
+    textLabel.font = [UIFont systemFontOfSize:kTitlefont];
+    textLabel.text = @"联系卖家";
+    textLabel.textColor = [UIColor blackColor];
+    textLabel.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:textLabel];
+    UITapGestureRecognizer *tp = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchConnectStoreBtn)];
+    [view addGestureRecognizer:tp];
+    _currentY = view.bottom;
+    [self.scrollView addSubview:view];
+}
+
+- (void)creatCommentHead
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, _currentY+kBlankHeight, kMainScreenWidth,40)];
+    view.backgroundColor = [UIColor whiteColor];
+    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, (view.height-kTitlefont)/2.0, kMainScreenWidth-20, kTitlefont)];
+    textLabel.font = [UIFont systemFontOfSize:kTitlefont];
+    textLabel.text = @"产品评价";
+    textLabel.textColor = [UIColor blackColor];
+    [view addSubview:textLabel];
+    [self.scrollView addSubview:view];
+    _commentHead = view;
+    _currentY = view.bottom;
+}
+
+- (void)creatCommentCells
+{
+//    if(self.productModel.comment.count){
+//        YHBComment *comment;
+//        for (int i=0; i < self.productModel.comment.count; i++) {
+//            comment = self.productModel.comment[i];
+//            YHBCommentCellView *cellView = [[YHBCommentCellView alloc] init];
+//            cellView.top = _currentY + 1;
+//            [cellView setUIWithName:comment.truename image:comment.avatar comment:comment.comment date:comment.adddate];
+//            [self.scrollView addSubview:cellView];
+//            _currentY = cellView.bottom;
+//        }
+//        if (self.productModel.comment.count >= 2) {
+//            UIView *moreVeiw = [[UIView alloc] initWithFrame:CGRectMake(0, _currentY+1, kMainScreenWidth, 30)];
+//            moreVeiw.backgroundColor = [UIColor whiteColor];
+//            UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake((kMainScreenWidth-100)/2.0, (moreVeiw.height-13)/2.0, 100, 13)];
+//            textLabel.textColor = [UIColor blackColor];
+//            textLabel.font = kFont12;
+//            textLabel.text = @"查看更多评价";
+//            [moreVeiw addSubview:textLabel];
+//            [self.scrollView addSubview:moreVeiw];
+//            UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchMoreComment)];
+//            [moreVeiw addGestureRecognizer:gr];
+//            _currentY = moreVeiw.bottom;
+//        }
+//    }else{
+        YHBCommentCellView *cellView = [[YHBCommentCellView alloc] init];
+        cellView.top = _currentY -15;
+        [cellView isNoComment];
+        [self.scrollView addSubview:cellView];
+        _currentY = cellView.bottom;
+//    }
+}
+
+#pragma mark 点击查询店铺详情
+- (void)touchShopDetailCell
+{
+    NSLog(@"点击进入店铺详情页");
+//    YHBStoreViewController *vc = [[YHBStoreViewController alloc] initWithShopID:(int)self.productModel.userid];
+//    //    YHBStoreDetailViewController *vc = [[YHBStoreDetailViewController alloc] initWithItemID:self.productID];
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark 点击联系卖家
+- (void)touchConnectStoreBtn
+{
+    NSLog(@"联系卖家");
+//    if (self.productModel && [YHBUser sharedYHBUser].isLogin && ([YHBUser sharedYHBUser].userInfo.userid != _productModel.userid)) {
+//        NSString *sellerName = self.productModel.truename;//姓名
+//        double userID = self.productModel.userid;//用户id
+//        double productID = self.productModel.itemid;//产品id
+//        NSString *productTitle = self.productModel.title;//产品title
+//        NSString *imageUrlStr = ((YHBAlbum *)(self.productModel.album.firstObject)).middle;//图片url str
+//        
+//        ChatViewController *vc = [[ChatViewController alloc] initWithChatter:[NSString stringWithFormat:@"%d", (int)userID] userid:(int)userID itemid:(int)productID ImageUrl:imageUrlStr Title:productTitle andType:@"product" andChatterAvatar:self.productModel.avatar];
+//        vc.title = sellerName;
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
+//    else if (self.productModel && ![YHBUser sharedYHBUser].isLogin){
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginForUserMessage object:[NSNumber numberWithBool:NO]];
+//    }
+}
+
+
 #pragma mark 点击查看产品详情
 - (void)touchProductDetailCell
 {
@@ -214,7 +359,7 @@
         [self.navigationController pushViewController:self.webVc animated:YES];
         [self.webVc sethtmlStr:self.productModel.productDesc];
     }else{
-        NSLog(@"没有详情");
+        [SVProgressHUD showErrorWithStatus:@"没有产品详情" cover:YES offsetY:0];
     }
 }
 
@@ -261,6 +406,7 @@
         
     }];
 }
+
 - (void)showSkuView
 {
     if (!_selView) {
@@ -277,11 +423,10 @@
     
     [self.view addSubview:_selView];
     [UIView animateWithDuration:0.6f animations:^{
-        _selView.bottom =_selView.bottom - _selView.height-self.toolBarView.height;
+        _selView.bottom =_selView.bottom - _selView.height;
     } completion:^(BOOL finished) {
     }];
 }
-
 
 - (UIButton *)backbutton
 {
@@ -326,7 +471,7 @@
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, kMainScreenHeight -55)];
         _scrollView.delegate = self;
         _scrollView.backgroundColor = kViewBackgroundColor;
-        _scrollView.contentSize = CGSizeMake(kMainScreenWidth, 700);
+        _scrollView.contentSize = CGSizeMake(kMainScreenWidth, 720);
     }
     return _scrollView;
 }

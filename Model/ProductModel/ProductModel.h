@@ -30,6 +30,9 @@
 @property (strong,nonatomic) NSString *PhonePublic; //公开
 @property (strong,nonatomic) NSString *authenticationType; //认证类型（1：个人；2：企业）
 @property (strong,nonatomic) NSString *authenticationName; //认证类型名称
+@property (strong,nonatomic) NSString *storeId;//店铺ID
+@property (strong,nonatomic) NSString *storeLogo;//店铺Logo
+@property (strong,nonatomic) NSString *storeName;//店铺名称
 @property (strong,nonatomic) NSArray *productSpecificationList;//规格集合
 @property (strong,nonatomic) NSArray *productImageList;//图片集合
 @property (strong,nonatomic) NSArray *attributes;//产品属性

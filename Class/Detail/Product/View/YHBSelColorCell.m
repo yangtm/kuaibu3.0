@@ -147,8 +147,8 @@
     imgView.userInteractionEnabled  = YES;
     //[imgBtn addTarget:self action:@selector(touchImgBtm:) forControlEvents:UIControlEventTouchUpInside];
     imgView.tag = num;
-    UILongPressGestureRecognizer *lGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-    [imgView addGestureRecognizer:lGR];
+//    UILongPressGestureRecognizer *lGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+//    [imgView addGestureRecognizer:lGR];
     imgView.hidden = YES;
     self.imageViewArray[num] = imgView;
     [view addSubview:imgView];
