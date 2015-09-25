@@ -66,7 +66,7 @@
     button.backgroundColor = [UIColor clearColor];
 //    button.backgroundColor = [UIColor grayColor];
     UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, rect.size.width, 30)];
-    numLabel.textColor = [UIColor grayColor];
+    numLabel.textColor = kBackgroundColor;
     numLabel.textAlignment = NSTextAlignmentCenter;
     numLabel.font = [UIFont systemFontOfSize:18.0];
     numLabel.text = @"0";

@@ -25,7 +25,7 @@
 #import "AddressListViewController.h"
 #import "FavoriteViewController.h"
 #import "ShopingCartController.h"
-#import "OrderListViewController.h"
+
 
 #define WORLD (@"world")
 #define PHOTO (@"photo")
@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
     }
     [self settitleLabel:@"我是买家"];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setLogin)];
-    [self setRightButton:[UIImage imageNamed:@"iconfont-iconfontjixieqimo-2"] title:nil target:self action:@selector(setLogin)];
+    [self setRightButton:[UIImage imageNamed:@"shezhi"] title:nil target:self action:@selector(setLogin)];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.messageBtn];
     self.view.backgroundColor = kViewBackgroundColor;
     [self prepareData];
@@ -374,10 +374,10 @@ typedef NS_ENUM(NSInteger, MineViewType) {
         
         if (indexPath.row == 0) {
             
-            OrderListViewController *vc = [[OrderListViewController alloc] init];
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-                
-            }];
+//            OrderListViewController *vc = [[OrderListViewController alloc] init];
+//            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+//                
+//            }];
         }
     }
 }

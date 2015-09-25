@@ -308,6 +308,7 @@
     _likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _likeButton.frame = CGRectMake(0, 0, kMainScreenWidth/3, view.height);
     [_likeButton setTitle:@"收藏" forState:UIControlStateNormal];
+    [_likeButton setImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
 //    [_likeButton setTitleColor:kNaviTitleColor forState:UIControlStateNormal];
     [_likeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:15]];
     [_likeButton addTarget:self action:@selector(clickLikeBtn) forControlEvents:UIControlEventTouchUpInside];
@@ -348,6 +349,8 @@
 - (void)clickLikeBtn
 {
     NSLog(@"收藏");
+    [_likeButton setImage:[UIImage imageNamed:@"yishoucang"] forState:UIControlStateNormal];
+    _likeButton.userInteractionEnabled = NO;
 }
 
 - (void)clickContactBtn
