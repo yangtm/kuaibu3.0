@@ -7,7 +7,7 @@
 //
 
 #import "OrderSuccessController.h"
-#import "OrderListViewController.h"
+
 #import "MineViewController.h"
 
 @interface OrderSuccessController ()
@@ -80,8 +80,9 @@
     if (_publishButton == nil) {
         _publishButton = [[UIButton alloc] initWithFrame:CGRectZero];
         _publishButton.layer.cornerRadius = 2.5;
-        _publishButton.backgroundColor = KColor;
-        [_publishButton setTitle:@"点 击 这 里 可 以 继 续 购 物" forState:UIControlStateNormal];
+        [_publishButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        _publishButton.backgroundColor = kViewBackgroundColor;
+        [_publishButton setTitle:@". . 点 击 这 里 可 以 继 续 购 物 . ." forState:UIControlStateNormal];
         [_publishButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
         [_publishButton addTarget:self action:@selector(clickBtn)
                  forControlEvents:UIControlEventTouchUpInside];

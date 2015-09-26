@@ -76,7 +76,7 @@ typedef enum : NSUInteger {
     _selModel = nil;
     [self settitleLabel:@"收货地址"];
     [self setLeftButton:[UIImage imageNamed:@"back"] title:nil target:self action:@selector(clickLeftBtn)];
-    [self setRightButton:nil title:@"添加" target:self action:@selector(addAddress)];
+    [self setRightButton:[UIImage imageNamed:@"tianjia"] title:nil target:self action:@selector(addAddress)];
     //UI
     self.view.backgroundColor = kViewBackgroundColor;
     [self.view addSubview:self.tableView];

@@ -63,4 +63,24 @@
     return button;
 }
 
+
+#pragma mark - 自动适配文字宽度／高度
++ (CGFloat)labelAutoCalculateRectWith:(NSString*)text FontSize:(CGFloat)fontSize MaxSize:(CGSize)maxSize
+
+{
+    
+    NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    NSDictionary* attributes =@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize],NSParagraphStyleAttributeName:paragraphStyle.copy};
+    
+    CGSize labelSize = [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil].size;
+    
+    labelSize.height=ceil(labelSize.height);
+    
+    labelSize.width=ceil(labelSize.width);
+    
+    return labelSize.width;
+}
 @end

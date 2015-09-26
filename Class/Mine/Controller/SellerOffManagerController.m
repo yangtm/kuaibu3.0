@@ -65,6 +65,7 @@
     kYHBRequestUrl(@"procurement/seller/ProcurementPrice", url);
     NSLog(@"%@",url);
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(_sellerOffPage),@"pageIndex",@(_typeid),@"state", nil];
+    __weak SellerOffManagerController *weakSelf = self;
     [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
         if (_sellerOffPage == 1) {
             [_dataArray removeAllObjects];
@@ -82,7 +83,7 @@
                 [model setValuesForKeysWithDictionary:subDic];
                 [_dataArray addObject:model];
             }
-            [self.sellerTableView reloadData];
+            [weakSelf.sellerTableView reloadData];
         }
         _isLoading = NO;
         [_headerView endRefreshing];

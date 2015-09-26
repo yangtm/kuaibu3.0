@@ -20,4 +20,7 @@
 //创建button
 + (UIButton*)createButton:(CGRect)frame title:(NSString*)title BtnImage:(NSString*)imageName selectImageName:(NSString*)selectImageName target:(id)target action:(SEL)action;
 
+#pragma mark - 自动适配文字宽度／高度
++ (CGFloat)labelAutoCalculateRectWith:(NSString*)text FontSize:(CGFloat)fontSize MaxSize:(CGSize)maxSize;
+
 @end

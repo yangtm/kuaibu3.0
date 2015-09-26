@@ -32,11 +32,11 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    _portraitImageView.frame = CGRectMake(20, 20, 60, 60);
-    _nameLabel.frame = CGRectMake(_portraitImageView.right+10, 22, kMainScreenWidth-_portraitImageView.width-_messageImageView.width-_settingButton.width-20, 20);
-    _integralLabel.frame = CGRectMake(_portraitImageView.right+10, _nameLabel.bottom+15, kMainScreenWidth-_portraitImageView.width-_settingButton.width -20, 20);
+    _portraitImageView.frame = CGRectMake(20, 10, 60, 60);
+    _nameLabel.frame = CGRectMake(_portraitImageView.right+10, 25, kMainScreenWidth-_portraitImageView.width-_messageImageView.width-_settingButton.width-20, 20);
+    _integralLabel.frame = CGRectMake(_portraitImageView.right+10, _nameLabel.bottom+10, kMainScreenWidth-_portraitImageView.width-_settingButton.width -20, 20);
 //    _settingButton.frame = CGRectMake(self.right - 65, 20, 50, 30);
-    _messageImageView.frame = CGRectMake(self.right-60, 20, 25, 25);
+    _messageImageView.frame = CGRectMake(self.right-60, 25, 25, 25);
     
 }
 

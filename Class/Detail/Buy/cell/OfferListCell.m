@@ -35,6 +35,7 @@
     _offLabel.text = [NSString stringWithFormat:@"单价 : %@ 元",model.offer];
 
     _offTimeLabel.text = [NSString stringWithFormat:@"报价时间 : %@",model.offerTime];
+    _offTimeLabel.adjustsFontSizeToFitWidth = YES;
 }
 
 @end

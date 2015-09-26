@@ -25,7 +25,8 @@
 #import "AddressListViewController.h"
 #import "FavoriteViewController.h"
 #import "ShopingCartController.h"
-#import "OrderListViewController.h"
+#import "OrderListController.h"
+
 
 #define WORLD (@"world")
 #define PHOTO (@"photo")
@@ -66,7 +67,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
     }
     [self settitleLabel:@"我是买家"];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"设置" style:UIBarButtonItemStyleDone target:self action:@selector(setLogin)];
-    [self setRightButton:[UIImage imageNamed:@"iconfont-iconfontjixieqimo-2"] title:nil target:self action:@selector(setLogin)];
+    [self setRightButton:[UIImage imageNamed:@"shezhi"] title:nil target:self action:@selector(setLogin)];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.messageBtn];
     self.view.backgroundColor = kViewBackgroundColor;
     [self prepareData];
@@ -311,7 +312,7 @@ typedef NS_ENUM(NSInteger, MineViewType) {
 {
     NSInteger number = -1;
     if (indexPath.section == 0) {
-        number = 100;
+        number = 80;
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
             number = 40;
