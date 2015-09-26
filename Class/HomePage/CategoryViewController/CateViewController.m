@@ -13,6 +13,7 @@
 #import "LSNavigationController.h"
 #import "TitleCell.h"
 #import "YHBCatData.h"
+#import "ProductViewController.h"
 
 NSString *const CategoryCellId = @"CategoryCellId";
 NSString *const TitleCellId = @"CategoryCellId";
@@ -41,34 +42,31 @@ NSString *const TitleCellId = @"CategoryCellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self refreshData];
     [_tableView registerClass:[TitleCell class] forCellReuseIdentifier:TitleCellId];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.showsVerticalScrollIndicator = NO;
    [_collectionView registerNib:[UINib nibWithNibName:@"CategoryCell" bundle:nil] forCellWithReuseIdentifier:CategoryCellId];
     //_tableView.backgroundColor = [UIColor redColor];
-  
-    [self refreshData];
-    
 }
 
 - (void)refreshData
 {
     [self.manager getDataArraySuccBlock:^(NSMutableArray *aArray) {
-        
         _dataArray = [[NSMutableArray alloc]init];
         _cateArray= [[NSMutableArray alloc]init];
 //        NSLog(@"_dataArray.count=%lu",aArray.count);
-//        NSLog(@"data=%@",aArray[0]);
+       // NSLog(@"data=%@",aArray[0]);
         for (int i=0; i<aArray.count; i++) {
-            
             YHBCatData *model=aArray[i];
             [_dataArray addObject:model.categoryName];
             [_cateArray addObject:model.children];
         }
         [_tableView reloadData];
+        //默认选中第一行
+        [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        [_collectionView reloadData];
     } andFailBlock:^(NSString *aStr) {
-        
     }];
 }
 
@@ -80,11 +78,6 @@ NSString *const TitleCellId = @"CategoryCellId";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    TitleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId"];
-//    if (cell == nil) {
-//        cell = [[TitleCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    }
     TitleCell *cell = (TitleCell *)[tableView dequeueReusableCellWithIdentifier:TitleCellId];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
@@ -101,9 +94,8 @@ NSString *const TitleCellId = @"CategoryCellId";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    
     _selectCate = indexPath.row;
-    NSLog(@"_select=%lu",indexPath.row);
+   // NSLog(@"_select=%lu",indexPath.row);
     [_collectionView reloadData];
 }
 
@@ -116,18 +108,17 @@ NSString *const TitleCellId = @"CategoryCellId";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
         NSMutableArray *select = _cateArray[_selectCate];
-        NSLog(@"select=%lu",select.count);
+        //NSLog(@"select=%lu",select.count);
         return  select.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *collectionViewCell = nil;
-    
-        collectionViewCell = [collectionView dequeueReusableCellWithReuseIdentifier:CategoryCellId forIndexPath:indexPath];
-        NSMutableArray *select = _cateArray[_selectCate];
-        YHBCatData *subCatData = select[indexPath.row];
-        ((CategoryCell *)collectionViewCell).titleLabel.text = subCatData.categoryName;
+    collectionViewCell = [collectionView dequeueReusableCellWithReuseIdentifier:CategoryCellId forIndexPath:indexPath];
+    NSMutableArray *select = _cateArray[_selectCate];
+    YHBCatData *subCatData = select[indexPath.row];
+    ((CategoryCell *)collectionViewCell).titleLabel.text = subCatData.categoryName;
     
     return collectionViewCell;
 }
@@ -136,9 +127,8 @@ NSString *const TitleCellId = @"CategoryCellId";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize size;
-    CGFloat width = (_collectionView.width - 10) / 4.0;
-    size = CGSizeMake(width, width * 1.3);
-
+    CGFloat width = (_collectionView.width - 10) / 3.0;
+    size = CGSizeMake(width, width/3);
     return size;
 }
 
@@ -147,29 +137,26 @@ NSString *const TitleCellId = @"CategoryCellId";
     return 20.0;
 }
 
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    return 2.0;
-//}
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 1.0;
+}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
     CGSize size = CGSizeMake(0, 0);
-    //    if (section == 1) {
-    size = CGSizeMake(collectionView.width, 10);
-    //    }
+    size = CGSizeMake(0, 10);
     return size;
 }
 
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-//{
-//    return UIEdgeInsetsMake(1, 1, 1, 1);
-//}
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(10, 20, 30, 50);//(上，左，下，右)
+}
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     NSMutableArray *select = _cateArray[_selectCate];
     YHBCatData *subCatData = select[indexPath.row];
         if ([_delegate respondsToSelector:@selector(categoryViewController:selectCategory:)]) {
@@ -180,7 +167,6 @@ NSString *const TitleCellId = @"CategoryCellId";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [_tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
 }
 
 #pragma mark - setters and getters

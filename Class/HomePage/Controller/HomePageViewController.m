@@ -23,7 +23,7 @@
 #import "ProductViewController.h"
 #import "CateViewController.h"
 
-@interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate>
+@interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate,CateViewControllerDelegate>
 
 @property (assign, nonatomic) CGFloat alphaOfNavigationBar;
 @property (strong, nonatomic) UIButton *navBarCameraButton;
@@ -61,6 +61,7 @@
     
     _CateViewController =[[CateViewController alloc]init];
     _CateViewController.title = @"产品类目";
+    _CateViewController.delegate = self;
     
     _vc3 =[[UIViewController alloc]init];
     _vc4 =[[UIViewController alloc]init];
@@ -92,6 +93,18 @@
     self.navigationController.navigationBar.alpha = 1.f;
     BannerDetailViewController *vc = [[BannerDetailViewController alloc] initWithUrl:advertUrl  title:advertTitle];
     vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark -CateViewControllerDelegate
+- (void)categoryViewController:(CateViewController *)viewController selectCategory:(YHBCatData *)category
+{
+    self.navigationController.navigationBar.alpha = 1.f;
+    ProductViewController *vc = [[ProductViewController alloc] init];
+    NSArray *array = [[NSArray alloc]initWithObjects:[NSNumber numberWithInteger:category.categoryId]  ,nil];
+    vc.catIds =array;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -169,7 +182,6 @@
     if (_slideSwitchView == nil) {
         _slideSwitchView = [[SlideSwitchView alloc]initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64)];
         _slideSwitchView.slideSwitchViewDelegate = self;
-        
     }
     return _slideSwitchView;
 }
@@ -213,11 +225,9 @@
         _navBarSearchButton.layer.cornerRadius = 2.0;
         _navBarSearchButton.layer.masksToBounds = YES;
         _navBarSearchButton.layer.borderWidth = 0.6;
-        
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){0.8118,0.8157,0.8196,1 });
         _navBarSearchButton.layer.borderColor = colorref;
-        
         [_navBarSearchButton setImage:[UIImage imageNamed:@"home_search"] forState:UIControlStateNormal];
         [_navBarSearchButton setImage:[UIImage imageNamed:@"home_search"] forState:UIControlStateHighlighted];
         [_navBarSearchButton setTitle:@"请输入关键词搜索" forState:UIControlStateNormal];
@@ -253,6 +263,7 @@
     }
     return _navBarDownButton;
 }
+
 - (UIButton *)navBarMessageButton
 {
     if (_navBarMessageButton == nil) {
@@ -300,6 +311,7 @@
     }
     return _homePageSearchViewController;
 }
+
 #pragma mark -按钮响应事件
 - (void)searchButtonClick:(UIButton *)sender
 {

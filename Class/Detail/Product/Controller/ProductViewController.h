@@ -10,4 +10,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ProductViewController : BaseViewController
+@property (nonatomic, strong) NSArray *catIds;
 @end

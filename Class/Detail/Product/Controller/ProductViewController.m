@@ -33,7 +33,6 @@ typedef enum : long {
 @property (strong, nonatomic) YHBSegmentView *segmentView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *titleArray;
-@property (nonatomic, strong) NSArray *catIds;
 @property (strong, nonatomic) NSMutableDictionary *modelsDic;//数据字典-存放数据模型数组 key为tag
 @property (strong, nonatomic) NSMutableDictionary *pageDic;
 @property (strong, nonatomic) NSMutableArray *modelArray;
@@ -60,7 +59,7 @@ typedef enum : long {
     [select setTitle:@"筛选" forState:UIControlStateNormal];
     [select setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [select addTarget:self action:@selector(rightBarButtonClick:) forControlEvents:UIControlEventTouchDown];
-    
+
     [self.view addSubview:select];
     [self.view addSubview:back];
     [self.view addSubview:self.segmentView];
@@ -100,8 +99,9 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
-                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",allConditions,@"allConditions", nil];
+//                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
+//                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",allConditions,@"allConditions", nil];
+                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"categoryId",nil];
             }else
             {
                 dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
@@ -115,8 +115,9 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
-                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",allConditions,@"allConditions", nil];
+//                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
+//                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",allConditions,@"allConditions", nil];
+                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",catIdsStr,@"categoryId", nil];
             }else
             {
                 dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",nil];
@@ -130,12 +131,14 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
-                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
+//                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
                 if (_segmentView.price) {
-                    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.desc",@"orderBy",allConditions,@"allConditions", nil];
+//                    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.desc",@"orderBy",allConditions,@"allConditions", nil];
+                     dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.desc",@"orderBy",catIdsStr,@"categoryId", nil];
                 }else
                 {
-                    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.asc",@"orderBy",allConditions,@"allConditions", nil];
+//                    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.asc",@"orderBy",allConditions,@"allConditions", nil];
+                    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.asc",@"orderBy",catIdsStr,@"categoryId", nil];
                 }
             }else
             {
@@ -152,7 +155,7 @@ typedef enum : long {
         default:
             break;
     }
-   // NSLog(@"dict=%@",dict);
+    NSLog(@"dict=%@",dict);
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
@@ -243,7 +246,6 @@ typedef enum : long {
                     break;
                 case Get_Price:
                 {
-                    NSLog(@"");
                     if (catIds != nil) {
                         NSString *catIdsStr = @"";
                         for (NSNumber *number in catIds) {
@@ -383,16 +385,13 @@ typedef enum : long {
         searchTf.delegate = self;
         [searchTf setReturnKeyType:UIReturnKeySearch];
         _searchTextField = searchTf;
-        
         [_searchView addSubview:searchTf];
-        
         UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(searchTf.right+2, searchTf.top, 50, searchTf.height)];
         [searchBtn setBackgroundColor:[UIColor clearColor]];
         [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
         searchBtn.titleLabel.font = kFont16;
         [searchBtn addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        
         [_searchView addSubview:searchBtn];
     }
     return _searchView;
@@ -417,7 +416,7 @@ typedef enum : long {
     NSString *url= nil;
     kYHBRequestUrl(@"product/open/searchProduct", url);
     dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"productName",nil];
-    NSLog(@"url=%@,dic=%@",url,dict);
+   // NSLog(@"url=%@,dic=%@",url,dict);
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
@@ -460,7 +459,6 @@ typedef enum : long {
         _segmentView = [[YHBSegmentView alloc] initWithFrame:CGRectMake(0, 80, kMainScreenWidth - 86, 20) style:YHBSegmentViewStyleNormal];
         _segmentView.titleArray = self.titleArray;
         _segmentView.segmentViewDelegate = self;
-        
         [_segmentView addTarget:self action:@selector(segmentViewValueDidChanged:) forControlEvents:UIControlEventValueChanged];
     }
     return _segmentView;
@@ -470,6 +468,7 @@ typedef enum : long {
 - (void)segmentViewValueDidChanged:(YHBSegmentView *)sender
 {
     _selTag = sender.selectItem;
+    //self.catIds = nil;
     [self getFirstPageData];
 }
 
