@@ -28,6 +28,6 @@
 @property (strong, nonatomic) NSString *operators;//操作员
 @property (strong, nonatomic) NSString *countPrice;//订单总价
 @property (strong, nonatomic) NSString *orderType;//订单类型0普通订单，1一键下单3采购订单
-
-
+@property (strong, nonatomic) NSString *storeName;//店铺名称
+@property (strong, nonatomic) NSString *storeId;//店铺ID
 @end

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderFooterView.h"
+#import "OrderHeaderView.h"
 
-@interface OrderTableView : UITableView<UITableViewDataSource,UITableViewDelegate,MJRefreshBaseViewDelegate>
 
-@property(nonatomic,strong)NSString *urlString;
+@interface OrderTableView : UITableView<UITableViewDataSource,UITableViewDelegate,MJRefreshBaseViewDelegate,OrderFooterViewDelegate,OrderHeaderViewDelegate>
+
+@property(nonatomic,assign)NSInteger state;
 @property(nonatomic,assign)NSInteger curPage;
 @property(nonatomic,assign)BOOL isLoading;
 @property(nonatomic,strong)MJRefreshHeaderView *headerView;

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ProductModel.h"
+#import "OrderDetailModel.h"
 @interface OrderListCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
@@ -15,5 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *productPirceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productNumberLable;
 
-- (void)showModel:(ProductModel *)model;
+- (void)showModel:(OrderDetailModel *)model;
 @end

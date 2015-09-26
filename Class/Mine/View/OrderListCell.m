@@ -21,14 +21,14 @@
     // Configure the view for the selected state
 }
 
-- (void)showModel:(ProductModel *)model
+- (void)showModel:(OrderDetailModel *)model
 {
     NSString *url = nil;
-    kZXYRequestUrl(model.productImage, url);
+    kZXYRequestUrl(model.thumbnail, url);
     [_productImageView sd_setImageWithURL:[NSURL URLWithString:url]];
     _productImageView.layer.masksToBounds = YES;
     _productImageView.layer.cornerRadius = 5;
-    _productDetailLabel.text = model.productBrief;
+    _productDetailLabel.text = model.productName;
     _productPirceLabel.text = [NSString stringWithFormat:@"¥%@",model.price];
 //    _productNumberLable.text = [NSString stringWithFormat:@"x%@",model.]
 }
