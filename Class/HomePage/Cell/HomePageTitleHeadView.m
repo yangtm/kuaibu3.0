@@ -16,7 +16,9 @@
 - (IBAction)moreButtonClick:(id)sender {
     switch (self.collectViewNum) {
         case 1:
-            NSLog(@"精品店铺列表");
+            if ([_HomePageTitleHeadViewDelegate respondsToSelector:@selector(selectTag:)]) {
+                [_HomePageTitleHeadViewDelegate selectTag:1];
+            }
             break;
         case 2:
             if ([_HomePageTitleHeadViewDelegate respondsToSelector:@selector(selectTag:)]) {
@@ -24,15 +26,14 @@
             }
             break;
         case 3:
-            NSLog(@"产业带列表");
+            if ([_HomePageTitleHeadViewDelegate respondsToSelector:@selector(selectTag:)]) {
+                [_HomePageTitleHeadViewDelegate selectTag:3];
+            }
             break;
         case 4:
-        {
-           //NSLog(@"最新采购列表");
             if ([_HomePageTitleHeadViewDelegate respondsToSelector:@selector(selectTag:)]) {
                 [_HomePageTitleHeadViewDelegate selectTag:4];
             }
-        }
             break;
         default:
             break;

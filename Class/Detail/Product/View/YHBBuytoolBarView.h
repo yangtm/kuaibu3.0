@@ -10,8 +10,8 @@
 #define ktoolHeight 55
 
 @interface YHBBuytoolBarView : UIView
-
+@property (strong, nonatomic) UIButton *privateButton;
 @property (strong, nonatomic) UIButton *cartButton;
-@property (strong, nonatomic) UIButton *buyButton;
+@property (strong, nonatomic) UIButton *addButton;
 
 @end

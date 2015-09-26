@@ -15,7 +15,6 @@
 
 - (void)getDataArraySuccBlock:(void(^)(NSMutableArray *aArray))aSuccBlock andFailBlock:(void(^)(NSString *aStr))aFailBlock
 {
-
     NSString *url = nil;
     kYHBRequestUrl(@"category/getCategory", url);
     //NSLog(@"%@",url);
@@ -23,7 +22,7 @@
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
-           // NSLog(@"###result:%@",dic);
+            //NSLog(@"###result:%@",dic);
             NSMutableArray *reslutArray = [NSMutableArray new];
             NSArray *dataArray = [dic objectForKey:@"RESULT"];
             for (NSDictionary *dict in dataArray)
@@ -33,12 +32,10 @@
                 [reslutArray addObject:model];
             }
             aSuccBlock(reslutArray);
-            
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-
 }
 
 @end

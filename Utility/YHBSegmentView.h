@@ -13,7 +13,8 @@ typedef NS_ENUM(NSInteger, YHBSegmentViewStyle) {
     YHBSegmentViewStyleSeparate,
     YHBSegmentViewStyleBorder,
     YHBSegmentViewStyleArrow,
-    YHBSegmentViewStyleBottomLine
+    YHBSegmentViewStyleBottomLine,
+    YHBSegmentViewStyleNormalStore,
 };
 
 @protocol YHBSegmentViewDelegate <NSObject>

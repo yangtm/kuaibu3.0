@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CateViewController">
+            <connections>
+                <outlet property="collectionView" destination="sea-Bx-taa" id="z3L-Aj-ey9"/>
+                <outlet property="tableView" destination="aOM-Vt-UK1" id="poI-3H-b4d"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="aOM-Vt-UK1">
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="QhO-ju-qOM"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="dSK-4G-QoA"/>
+                        <outlet property="delegate" destination="-1" id="0WO-CZ-n4T"/>
+                    </connections>
+                </tableView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="sea-Bx-taa">
+                    <rect key="frame" x="88" y="0.0" width="512" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="rJv-PR-SS5">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ayM-CT-LrE"/>
+                        <outlet property="delegate" destination="-1" id="Wsr-7L-Zfm"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="sea-Bx-taa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="7lU-SH-IsA"/>
+                <constraint firstAttribute="bottom" secondItem="aOM-Vt-UK1" secondAttribute="bottom" id="HdO-Bo-bsY"/>
+                <constraint firstItem="aOM-Vt-UK1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Meu-z3-6Vc"/>
+                <constraint firstItem="sea-Bx-taa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="88" id="QeB-tv-jjC"/>
+                <constraint firstItem="sea-Bx-taa" firstAttribute="leading" secondItem="aOM-Vt-UK1" secondAttribute="trailing" constant="8" id="RlT-Pk-dRK"/>
+                <constraint firstAttribute="bottom" secondItem="sea-Bx-taa" secondAttribute="bottom" id="Rv5-jY-WOo"/>
+                <constraint firstAttribute="trailing" secondItem="sea-Bx-taa" secondAttribute="trailing" id="eds-v4-afK"/>
+                <constraint firstItem="aOM-Vt-UK1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jX1-I6-TIC"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

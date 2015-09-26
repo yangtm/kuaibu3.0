@@ -8,7 +8,6 @@
 
 #import "HomePageViewController.h"
 #import "HomePageSearchViewController.h"
-#import "CategoryPageViewController.h"
 #import "PageIndex.h"
 #import "MenuModel.h"
 #import "BannerModel.h"
@@ -21,8 +20,10 @@
 #import "HomePageBannerCell.h"
 #import "LookSupplyViewController.h"
 #import "ProductViewController.h"
+#import "CateViewController.h"
+#import "StoreViewController.h"
 
-@interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate>
+@interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate,CateViewControllerDelegate>
 
 @property (assign, nonatomic) CGFloat alphaOfNavigationBar;
 @property (strong, nonatomic) UIButton *navBarCameraButton;
@@ -35,7 +36,7 @@
 @property (strong, nonatomic) HomePageSearchViewController *homePageSearchViewController;
 @property (strong, nonatomic) HomeMainPageViewController *homeMainPageViewController;
 @property (strong, nonatomic) SlideSwitchView *slideSwitchView;
-@property (strong, nonatomic) UIViewController *vc2;
+@property (strong, nonatomic) CateViewController *CateViewController;
 @property (strong, nonatomic) UIViewController *vc3;
 @property (strong, nonatomic) UIViewController *vc4;
 @property (strong, nonatomic) UIViewController *vc5;
@@ -58,15 +59,18 @@
     _homeMainPageViewController.title = @"热卖推荐";
     _homeMainPageViewController.homeMainPageViewDelegate = self;
     
-    _vc2 =[[UIViewController alloc]init];
+    _CateViewController =[[CateViewController alloc]init];
+    _CateViewController.title = @"产品类目";
+    _CateViewController.delegate = self;
+    
     _vc3 =[[UIViewController alloc]init];
     _vc4 =[[UIViewController alloc]init];
     _vc5 =[[UIViewController alloc]init];
-    _vc2.view.backgroundColor = [UIColor greenColor];
+   
     _vc3.view.backgroundColor = [UIColor yellowColor];
     _vc4.view.backgroundColor = [UIColor blueColor];
     _vc5.view.backgroundColor = [UIColor grayColor];
-    _vc2.title = @"产品类目";
+    
     _vc3.title = @"实时促销";
     _vc4.title = @"查看采购";
     _vc5.title = @"店铺列表";
@@ -92,11 +96,29 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark -CateViewControllerDelegate
+- (void)categoryViewController:(CateViewController *)viewController selectCategory:(YHBCatData *)category
+{
+    self.navigationController.navigationBar.alpha = 1.f;
+    ProductViewController *vc = [[ProductViewController alloc] init];
+    NSArray *array = [[NSArray alloc]initWithObjects:[NSNumber numberWithInteger:category.categoryId]  ,nil];
+    vc.catIds =array;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 -(void)selectBtn:(NSInteger )tag
 {
     switch (tag) {
         case 1:
-            NSLog(@"精品店铺列表");
+        {
+            self.navigationController.navigationBar.alpha = 1.f;
+            StoreViewController *vc = [[StoreViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
             break;
         case 2:
         {
@@ -108,7 +130,7 @@
         }
             break;
         case 3:
-            NSLog(@"产业带列表");
+            NSLog(@"产业带列表11");
             break;
         case 4:
         {
@@ -133,7 +155,7 @@
     if (number == 0) {
         return self.homeMainPageViewController;
     } else if (number == 1) {
-        return self.vc2;
+        return self.CateViewController;
     } else if (number == 2) {
         return self.vc3;
     } else if (number == 3) {
@@ -151,7 +173,7 @@
     if (number == 0) {
         vc = self.homeMainPageViewController;
     } else if (number == 1) {
-        vc = self.vc2;
+        vc = self.CateViewController;
     } else if (number == 2) {
         vc = self.vc3;
     } else if (number == 3) {
@@ -166,7 +188,6 @@
     if (_slideSwitchView == nil) {
         _slideSwitchView = [[SlideSwitchView alloc]initWithFrame:CGRectMake(0, 64, kMainScreenWidth, kMainScreenHeight - 64)];
         _slideSwitchView.slideSwitchViewDelegate = self;
-        
     }
     return _slideSwitchView;
 }
@@ -210,11 +231,9 @@
         _navBarSearchButton.layer.cornerRadius = 2.0;
         _navBarSearchButton.layer.masksToBounds = YES;
         _navBarSearchButton.layer.borderWidth = 0.6;
-        
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){0.8118,0.8157,0.8196,1 });
         _navBarSearchButton.layer.borderColor = colorref;
-        
         [_navBarSearchButton setImage:[UIImage imageNamed:@"home_search"] forState:UIControlStateNormal];
         [_navBarSearchButton setImage:[UIImage imageNamed:@"home_search"] forState:UIControlStateHighlighted];
         [_navBarSearchButton setTitle:@"请输入关键词搜索" forState:UIControlStateNormal];
@@ -250,6 +269,7 @@
     }
     return _navBarDownButton;
 }
+
 - (UIButton *)navBarMessageButton
 {
     if (_navBarMessageButton == nil) {
@@ -297,6 +317,7 @@
     }
     return _homePageSearchViewController;
 }
+
 #pragma mark -按钮响应事件
 - (void)searchButtonClick:(UIButton *)sender
 {

@@ -372,7 +372,6 @@ typedef NS_ENUM(NSInteger, MineViewType) {
         [self.navigationController pushViewController:vc animated:YES];
         
     }else if (indexPath.section == 1){
-        
         if (indexPath.row == 0) {
             
             OrderListController *vc = [[OrderListController alloc] init];
