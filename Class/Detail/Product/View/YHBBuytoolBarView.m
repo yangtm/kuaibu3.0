@@ -12,30 +12,45 @@
 #define kBtnWidth 140
 @implementation YHBBuytoolBarView
 
-- (UIButton *)buyButton
+- (UIButton *)addButton
 {
-    if (!_buyButton) {
-        _buyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_buyButton setBackgroundColor:KColor];
-        [_buyButton setTitle:@"立即购买" forState:UIControlStateNormal];
-        _buyButton.titleLabel.font = [UIFont systemFontOfSize:ktitleFont];
-        [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _buyButton.frame = CGRectMake(kMainScreenWidth-10-kBtnWidth,(ktoolHeight-kBtnHeight)/2.0, kBtnWidth, kBtnHeight);
+    if (!_addButton) {
+        _addButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_addButton setBackgroundColor:KColor];
+        [_addButton setTitle:@"加入购物车" forState:UIControlStateNormal];
+        _addButton.titleLabel.font = [UIFont systemFontOfSize:ktitleFont];
+        [_addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _addButton.frame = CGRectMake(kMainScreenWidth-kBtnWidth,(ktoolHeight-kBtnHeight)/2.0, kBtnWidth, kBtnHeight);
     }
-    return _buyButton;
+    return _addButton;
 }
 
 - (UIButton *)cartButton
 {
     if (!_cartButton) {
         _cartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_cartButton setBackgroundColor:KColor];
-        [_cartButton setTitle:@"加入购物车" forState:UIControlStateNormal];
+        [_cartButton setBackgroundColor:[UIColor colorWithRed:0.8471 green:0.8471 blue:0.8471 alpha:1]];
+        [_cartButton setTitle:@"购物车" forState:UIControlStateNormal];
         _cartButton.titleLabel.font = [UIFont systemFontOfSize:ktitleFont];
-        [_cartButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _cartButton.frame = CGRectMake(10, (ktoolHeight-kBtnHeight)/2.0, kBtnWidth, kBtnHeight);
+        [_cartButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _cartButton.frame = CGRectMake(100, (ktoolHeight-kBtnHeight)/2.0, kBtnWidth, kBtnHeight);
     }
     return _cartButton;
+}
+
+-(UIButton *)privateButton
+{
+    if (!_privateButton) {
+        _privateButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _privateButton.frame = CGRectMake(0, 10, kBtnWidth-40, kBtnHeight);
+        [_privateButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_privateButton setBackgroundColor:[UIColor colorWithRed:0.8471 green:0.8471 blue:0.8471 alpha:1]];
+        //[_privateButton setBackgroundColor:[UIColor redColor]];
+        [_privateButton setBackgroundImage:[UIImage imageNamed:@"privateImg"] forState:UIControlStateNormal];
+        [_privateButton setBackgroundImage:[UIImage imageNamed:@"privateHighImg"] forState:UIControlStateSelected];
+        _privateButton.selected = NO;
+    }
+    return _privateButton;
 }
 
 - (instancetype)init
@@ -47,7 +62,8 @@
         self.layer.borderWidth = 0.5;
         self.layer.borderColor = [kLineColor CGColor];
         [self addSubview:self.cartButton];
-        [self addSubview:self.buyButton];
+        [self addSubview:self.addButton];
+        [self addSubview:self.privateButton];
     }
     return self;
 }

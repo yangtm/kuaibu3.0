@@ -173,7 +173,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
     NSDictionary *item = _pageIndex.bands[indexPath.row];
     NSString *url= @"upload/Member/";
     NSString *bandlogo = [NSString stringWithFormat:@"%@%@",url,item[@"logo"]];
+    //NSString *bandlogo = item[@"logo"];
     NSString *bandurl = nil;
+    
     kZXYRequestUrl(bandlogo, bandurl);
     [bandCell.bandImageView sd_setImageWithURL:[NSURL URLWithString:bandurl]];
 }

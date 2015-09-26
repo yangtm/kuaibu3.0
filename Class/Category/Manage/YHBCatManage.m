@@ -23,7 +23,7 @@
         id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
         if ([result isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = result;
-           // NSLog(@"###result:%@",dic);
+            NSLog(@"###result:%@",dic);
             NSMutableArray *reslutArray = [NSMutableArray new];
             NSArray *dataArray = [dic objectForKey:@"RESULT"];
             for (NSDictionary *dict in dataArray)

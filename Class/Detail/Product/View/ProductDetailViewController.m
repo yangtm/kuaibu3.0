@@ -87,8 +87,9 @@
     [self reloadData];
     self.toolBarView = [[YHBBuytoolBarView alloc] init];
     self.toolBarView.top = self.scrollView.bottom;
-//    [self.toolBarView.cartButton addTarget:self action:@selector(touchCartButton) forControlEvents:UIControlEventTouchUpInside];
-//    [self.toolBarView.buyButton addTarget:self action:@selector(touchBuyButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.toolBarView.cartButton addTarget:self action:@selector(touchCartButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.toolBarView.addButton addTarget:self action:@selector(touchAddButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.toolBarView.privateButton addTarget:self action:@selector(touchPrivateBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.toolBarView];
     [self creatSelectColorCell];
 }
@@ -378,6 +379,24 @@
     self.number = num;
     [self dismissSkuView];
 }
+
+#pragma mark 点击购物车
+
+- (void)touchCartButton
+{
+    NSLog(@"点击进去购物车");
+}
+
+- (void)touchAddButton
+{
+    NSLog(@"点击添加到购物车");
+}
+
+- (void)touchPrivateBtn:(UIButton *)sender
+{
+    NSLog(@"点击收藏");
+}
+
 
 - (void)dismissSkuView
 {

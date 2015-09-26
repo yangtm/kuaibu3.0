@@ -21,6 +21,7 @@
 #import "HomePageBannerCell.h"
 #import "LookSupplyViewController.h"
 #import "ProductViewController.h"
+#import "CateViewController.h"
 
 @interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate>
 
@@ -35,7 +36,7 @@
 @property (strong, nonatomic) HomePageSearchViewController *homePageSearchViewController;
 @property (strong, nonatomic) HomeMainPageViewController *homeMainPageViewController;
 @property (strong, nonatomic) SlideSwitchView *slideSwitchView;
-@property (strong, nonatomic) UIViewController *vc2;
+@property (strong, nonatomic) CateViewController *CateViewController;
 @property (strong, nonatomic) UIViewController *vc3;
 @property (strong, nonatomic) UIViewController *vc4;
 @property (strong, nonatomic) UIViewController *vc5;
@@ -58,15 +59,17 @@
     _homeMainPageViewController.title = @"热卖推荐";
     _homeMainPageViewController.homeMainPageViewDelegate = self;
     
-    _vc2 =[[UIViewController alloc]init];
+    _CateViewController =[[CateViewController alloc]init];
+    _CateViewController.title = @"产品类目";
+    
     _vc3 =[[UIViewController alloc]init];
     _vc4 =[[UIViewController alloc]init];
     _vc5 =[[UIViewController alloc]init];
-    _vc2.view.backgroundColor = [UIColor greenColor];
+   
     _vc3.view.backgroundColor = [UIColor yellowColor];
     _vc4.view.backgroundColor = [UIColor blueColor];
     _vc5.view.backgroundColor = [UIColor grayColor];
-    _vc2.title = @"产品类目";
+    
     _vc3.title = @"实时促销";
     _vc4.title = @"查看采购";
     _vc5.title = @"店铺列表";
@@ -133,7 +136,7 @@
     if (number == 0) {
         return self.homeMainPageViewController;
     } else if (number == 1) {
-        return self.vc2;
+        return self.CateViewController;
     } else if (number == 2) {
         return self.vc3;
     } else if (number == 3) {
@@ -151,7 +154,7 @@
     if (number == 0) {
         vc = self.homeMainPageViewController;
     } else if (number == 1) {
-        vc = self.vc2;
+        vc = self.CateViewController;
     } else if (number == 2) {
         vc = self.vc3;
     } else if (number == 3) {
