@@ -57,6 +57,7 @@ NSString *const TitleCellId = @"CategoryCellId";
     [self.manager getDataArraySuccBlock:^(NSMutableArray *aArray) {
         
         _dataArray = [[NSMutableArray alloc]init];
+        _cateArray= [[NSMutableArray alloc]init];
 //        NSLog(@"_dataArray.count=%lu",aArray.count);
 //        NSLog(@"data=%@",aArray[0]);
         for (int i=0; i<aArray.count; i++) {
@@ -102,6 +103,7 @@ NSString *const TitleCellId = @"CategoryCellId";
     [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
     _selectCate = indexPath.row;
+    NSLog(@"_select=%lu",indexPath.row);
     [_collectionView reloadData];
 }
 
@@ -114,6 +116,7 @@ NSString *const TitleCellId = @"CategoryCellId";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
         NSMutableArray *select = _cateArray[_selectCate];
+        NSLog(@"select=%lu",select.count);
         return  select.count;
 }
 
@@ -122,7 +125,7 @@ NSString *const TitleCellId = @"CategoryCellId";
     UICollectionViewCell *collectionViewCell = nil;
     
         collectionViewCell = [collectionView dequeueReusableCellWithReuseIdentifier:CategoryCellId forIndexPath:indexPath];
-        NSMutableArray *select = _dataArray[_selectCate];
+        NSMutableArray *select = _cateArray[_selectCate];
         YHBCatData *subCatData = select[indexPath.row];
         ((CategoryCell *)collectionViewCell).titleLabel.text = subCatData.categoryName;
     
@@ -133,19 +136,15 @@ NSString *const TitleCellId = @"CategoryCellId";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize size;
-    if (indexPath.section == 0) {
-        size = CGSizeMake(_collectionView.width, 100);
-    }
-    else{
-        CGFloat width = (_collectionView.width - 10) / 3.0;
-        size = CGSizeMake(width, width * 1.3);
-    }
+    CGFloat width = (_collectionView.width - 10) / 4.0;
+    size = CGSizeMake(width, width * 1.3);
+
     return size;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 5.0;
+    return 20.0;
 }
 
 //- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -171,7 +170,7 @@ NSString *const TitleCellId = @"CategoryCellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSMutableArray *select = _dataArray[_selectCate];
+    NSMutableArray *select = _cateArray[_selectCate];
     YHBCatData *subCatData = select[indexPath.row];
         if ([_delegate respondsToSelector:@selector(categoryViewController:selectCategory:)]) {
             [_delegate categoryViewController:self selectCategory:subCatData];
