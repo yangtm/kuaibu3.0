@@ -80,9 +80,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 
 - (void)reloadData
 {
-    
     NSDictionary *dic = [NSDictionary dictionaryWithObject:@"001" forKey:@"advertSpaceNumber"];
-    
     NSString *adverturl= nil;
     kYHBRequestUrl(@"index", adverturl);
     [NetworkService postWithURL:adverturl paramters:dic success:^(NSData *receiveData) {
@@ -97,7 +95,7 @@ typedef NS_ENUM(NSInteger, SectionTag) {
                 NSArray *hotProduct = dictionary[@"products"];
                 NSArray *bands = dictionary[@"industry"];
                 NSArray *latestBuy = dictionary[@"procurement"];
-                //NSLog(@"latesrbuy=%@",pavilions);
+                //NSLog(@"bands=%@",bands);
                 self.pageIndex.banners = adverts;
                 self.pageIndex.pavilions = pavilions;
                 self.pageIndex.hotProduct = hotProduct;

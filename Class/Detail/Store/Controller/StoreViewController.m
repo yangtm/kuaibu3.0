@@ -9,12 +9,12 @@
 #import "StoreViewController.h"
 #import "YHBSegmentView.h"
 #import "CategoryViewController.h"
-#import "YHBProductListsCell.h"
 #import "SVPullToRefresh.h"
 #import "ProductDetailViewController.h"
 #import "DropDownChooseProtocol.h"
 #import "DropDownListView.h"
 #import "StoreModel.h"
+#import "StoreListTableViewCell.h"
 
 typedef enum : long {
     Get_All = 0,
@@ -58,7 +58,7 @@ typedef enum : long {
     UIButton *back =[[UIButton alloc]initWithFrame:CGRectMake(20,30, 30, 30)];
     [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
-    
+    [self getBandsdata];
     chooseArray = [NSMutableArray arrayWithArray:@[@[@"海宁馆",@"余杭馆",@"桐乡馆",@"柯桥馆",@"广东馆"],]];
     DropDownListView * dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(kMainScreenWidth - 95,80, (kMainScreenWidth - 86)/3, 20) dataSource:self delegate:self];
     dropDownView.mSuperView = self.view;
@@ -81,6 +81,25 @@ typedef enum : long {
 {
     [super viewWillDisappear:animated];
     [self removeScrollToTopButton];
+}
+-(void)getBandsdata
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"001" forKey:@"advertSpaceNumber"];
+    NSString *adverturl= nil;
+    kYHBRequestUrl(@"index", adverturl);
+    [NetworkService postWithURL:adverturl paramters:dic success:^(NSData *receiveData) {
+        if (receiveData.length>0) {
+            id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
+            if([result isKindOfClass:[NSDictionary class]])
+            {
+                NSDictionary *dictionary =result[@"RESULT"];
+                NSArray *bands = dictionary[@"industry"];
+               NSLog(@"bands=%@",bands);
+            }
+        }
+    }failure:^(NSError *error){
+        NSLog(@"下载数据失败");
+    }];
 }
 
 #pragma mark 网络请求
@@ -137,11 +156,11 @@ typedef enum : long {
         default:
             break;
     }
-    NSLog(@"dict=%@,url=%@",dict,url);
+    //NSLog(@"dict=%@,url=%@",dict,url);
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-             //NSLog(@"result=%@",result);
+            // NSLog(@"result=%@",result);
             if([result isKindOfClass:[NSDictionary class]])
             {
                 NSArray *array = result[@"RESULT"];
@@ -298,23 +317,24 @@ typedef enum : long {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 120;
 }
 
 #pragma mark 每行显示内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //NSMutableArray *dataArray = self.modelsDic[[NSString stringWithFormat:@"%lu",_selTag]];
-    static NSString *cellIdentifier = @"product";
-    YHBProductListsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    static NSString *cellIdentifier = @"store";
+    StoreListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
-        cell = [[YHBProductListsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[StoreListTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     StoreModel *model = _modelArray[indexPath.row];
     NSString *imageurl =nil;
     kZXYRequestUrl(model.logo, imageurl);
-//    [cell setUIWithImage:imageurl Title:model.logo Price:model.price Type:[model.authenticationType integerValue]];
+    [cell setUIWithImage:imageurl amount:@"99" Title:model.storeName attention:@"99" Type:[model.authenticationType integerValue]];
     return cell;
 }
 
@@ -322,10 +342,11 @@ typedef enum : long {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     StoreModel *model = _modelArray[indexPath.row];
-    ProductDetailViewController *vc = [[ProductDetailViewController alloc] initWithProductID:model.storeId];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    NSLog(@"店铺ID＝%@",model.storeId);
+//    ProductDetailViewController *vc = [[ProductDetailViewController alloc] initWithProductID:model.storeId];
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
+//    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (UIView *)searchView
@@ -431,7 +452,7 @@ typedef enum : long {
 - (NSArray *)titleArray
 {
     if (!_titleArray) {
-        _titleArray = @[@"综合",@"热门",@"商品数量"];
+        _titleArray = @[@"综合",@"热门"];
     }
     return _titleArray;
 }
