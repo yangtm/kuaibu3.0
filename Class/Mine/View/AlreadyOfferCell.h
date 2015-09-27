@@ -17,5 +17,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 
-- (void)configAlreadyOfferCell:(ProcurementModel *)model;
+- (void)configCell:(ProcurementModel *)model;
 @end

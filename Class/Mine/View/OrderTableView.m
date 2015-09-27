@@ -11,7 +11,8 @@
 #import "OrderModel.h"
 #import "OrderListCell.h"
 #import "OrderDetailModel.h"
-
+#import "SVPullToRefresh.h"
+#import "NetworkService.h"
 
 @implementation OrderTableView
 {
@@ -29,7 +30,8 @@
         _dataArray = [NSMutableArray array];
         _sectionArray = [NSMutableArray array];
         _isSelect = 0;
-
+        
+        
     }
     return self;
 }
@@ -41,24 +43,54 @@
     if (state)
     {
         [self createTableView];
+       
+        
     }
+    
+}
+
+- (void)text{
+    
+    NSString *url = nil;
+    kYHBRequestUrl(@"order/getOrdersForBuy", url);
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_curPage),@"pageIndex",@(_state),@"state", nil];
+    [NetworkService postWithURL:url paramters:dic success:^(NSData *receiveData) {
+        [self.pullToRefreshView stopAnimating];
+       
+    } failure:^(NSError *error) {
+        
+    }];
+    
+    [self insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+    [self endUpdates];
+    
     
 }
 
 -(void)createTableView
 {
+    
+    
     [self downloadData];
     
     self.delegate = self;
     self.dataSource = self;
     
-    self.headerView = [MJRefreshHeaderView header];
-    self.headerView.scrollView = self;
-    self.headerView.delegate = self;
+//    __weak OrderTableView *weakself = self;
+//    [weakself addPullToRefreshWithActionHandler:^{
+//        [self text];
+//    }];
     
-    self.footerView = [MJRefreshFooterView footer];
-    self.footerView.scrollView = self;
-    self.footerView.delegate = self;
+//    [weakself addInfiniteScrollingWithActionHandler:^{
+//        [weakself insertrowatbottom];
+//    }];
+//    self.headerView = [MJRefreshHeaderView header];
+//    self.headerView.scrollView = self;
+//    self.headerView.delegate = self;
+//    
+//    self.footerView = [MJRefreshFooterView footer];
+//    self.footerView.scrollView = self;
+//    self.footerView.delegate = self;
     
 //    [self.headerView beginRefreshing];
     
@@ -97,8 +129,8 @@
         }
         [self reloadData];
         _isLoading = NO;
-        [_headerView endRefreshing];
-        [_footerView endRefreshing];
+//        [_headerView endRefreshing];
+//        [_footerView endRefreshing];
         
     } failure:^(NSError *error) {
         _isLoading = NO;
@@ -216,29 +248,50 @@
 }
 
 #pragma mark - 刷新
-- (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
-{
-    if (_isLoading)
-    {
-        return;
-    }
+//- (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
+//{
+//    if (_isLoading)
+//    {
+//        return;
+//    }
+//    
+//    if (refreshView == _headerView)
+//    {
+//        _curPage = 1;
+//        [self downloadData];
+//        
+//    }
+//    if (refreshView == _footerView)
+//    {
+//        _curPage++;
+//        [self downloadData];
+//    }
+//}
+//
+//- (void)dealloc
+//{
+//    self.headerView.scrollView = nil;
+//    self.footerView.scrollView = nil;
+//    [self.headerView removeFromSuperview];
+//    [self.footerView removeFromSuperview];
+//}
+- (void)insertRowAtTop {
+    __weak OrderTableView *weakSelf = self;
     
-    if (refreshView == _headerView)
-    {
-        _curPage = 1;
-        [self downloadData];
+    int64_t delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [weakSelf beginUpdates];
+        NSString *url = nil;
+        kYHBRequestUrl(@"order/getOrdersForBuy", url);
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@(_curPage),@"pageIndex",@(_state),@"state", nil];
         
-    }
-    if (refreshView == _footerView)
-    {
-        _curPage++;
-        [self downloadData];
-    }
+//        [weakSelf.dataSource insertObject:[NSDate date] atIndex:0];
+        [weakSelf insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+        [weakSelf endUpdates];
+        
+        [weakSelf.pullToRefreshView stopAnimating];
+    });
 }
 
-- (void)dealloc
-{
-    self.headerView.scrollView = nil;
-    self.footerView.scrollView = nil;
-}
 @end

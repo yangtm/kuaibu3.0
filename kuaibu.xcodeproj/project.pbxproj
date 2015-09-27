@@ -303,6 +303,8 @@
 		1EE980E41BB51E960054A303 /* OrderListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980E21BB51E960054A303 /* OrderListCell.xib */; };
 		1EE980F41BB53E7E0054A303 /* OrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980F31BB53E7E0054A303 /* OrderHeaderView.m */; };
 		1EE980F71BB556100054A303 /* OrderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980F61BB556100054A303 /* OrderFooterView.m */; };
+		1EE980FB1BB7B25F0054A303 /* shopingCartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EE980F91BB7B25F0054A303 /* shopingCartCell.m */; };
+		1EE980FC1BB7B25F0054A303 /* shopingCartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EE980FA1BB7B25F0054A303 /* shopingCartCell.xib */; };
 		1EEBF6FE1BB0EDB1009F80AF /* NormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */; };
 		1EEBF7011BB0F325009F80AF /* SellerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBF7001BB0F325009F80AF /* SellerViewController.m */; };
 		1EEBF7031BB0F78D009F80AF /* iconfont-nextpage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBF7021BB0F78D009F80AF /* iconfont-nextpage.png */; };
@@ -1062,6 +1064,9 @@
 		1EE980F31BB53E7E0054A303 /* OrderHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderHeaderView.m; sourceTree = "<group>"; };
 		1EE980F51BB556100054A303 /* OrderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFooterView.h; sourceTree = "<group>"; };
 		1EE980F61BB556100054A303 /* OrderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFooterView.m; sourceTree = "<group>"; };
+		1EE980F81BB7B25F0054A303 /* shopingCartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shopingCartCell.h; sourceTree = "<group>"; };
+		1EE980F91BB7B25F0054A303 /* shopingCartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shopingCartCell.m; sourceTree = "<group>"; };
+		1EE980FA1BB7B25F0054A303 /* shopingCartCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = shopingCartCell.xib; sourceTree = "<group>"; };
 		1EEBF6FC1BB0EDB1009F80AF /* NormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NormsViewController.h; sourceTree = "<group>"; };
 		1EEBF6FD1BB0EDB1009F80AF /* NormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NormsViewController.m; sourceTree = "<group>"; };
 		1EEBF6FF1BB0F325009F80AF /* SellerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellerViewController.h; sourceTree = "<group>"; };
@@ -1539,6 +1544,9 @@
 		06706D211B85B2AA00F58ACC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1EE980F81BB7B25F0054A303 /* shopingCartCell.h */,
+				1EE980F91BB7B25F0054A303 /* shopingCartCell.m */,
+				1EE980FA1BB7B25F0054A303 /* shopingCartCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3469,6 +3477,7 @@
 				1EEBF7421BB17F51009F80AF /* 11.png in Resources */,
 				7FE0E9651BAB24B100186F0B /* ReceiverVoiceNodePlaying002@3x.png in Resources */,
 				1EEBF7031BB0F78D009F80AF /* iconfont-nextpage.png in Resources */,
+				1EE980FC1BB7B25F0054A303 /* shopingCartCell.xib in Resources */,
 				7FE0E9631BAB24B100186F0B /* ReceiverVoiceNodePlaying002@3x 2.png in Resources */,
 				1ED5F5C91BA92154007AEE9F /* blackArrow.png in Resources */,
 				1EE980A81BB3FBC70054A303 /* back2.png in Resources */,
@@ -3797,6 +3806,7 @@
 				06706DAA1B85B2AA00F58ACC /* UIImage+ImageEffects.m in Sources */,
 				7FDE8BB21BB3A0910039844E /* ProductDetailViewController.m in Sources */,
 				1ED9E05D1BA825FE000864F3 /* OfferListCell.m in Sources */,
+				1EE980FB1BB7B25F0054A303 /* shopingCartCell.m in Sources */,
 				7F31EE711B9E71DF008015D2 /* MenuModel.m in Sources */,
 				1E84694E1B9D3F5E00842A51 /* UIImage+EMGIF.m in Sources */,
 				1E8469451B9D3F5E00842A51 /* EMSDWebImageCompat.m in Sources */,

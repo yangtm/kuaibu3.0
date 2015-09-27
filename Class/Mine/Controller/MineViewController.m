@@ -375,9 +375,10 @@ typedef NS_ENUM(NSInteger, MineViewType) {
         if (indexPath.row == 0) {
             
             OrderListController *vc = [[OrderListController alloc] init];
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
-                
-            }];
+//            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:^{
+//                
+//            }];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }
