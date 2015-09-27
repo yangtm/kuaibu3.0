@@ -85,6 +85,11 @@
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             button.titleLabel.font = kFont18;
             break;
+        case YHBSegmentViewStyleNormalStore:
+            [button setBackgroundColor:[UIColor whiteColor]];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            button.titleLabel.font = kFont15;
+            break;
         case YHBSegmentViewStyleSeparate:
             button.backgroundColor = RGBCOLOR(254, 254, 254);
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -118,6 +123,11 @@
             button.backgroundColor = KColor;
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             button.titleLabel.font = kFont18;
+            break;
+        case YHBSegmentViewStyleNormalStore:
+            button.backgroundColor = KColor;
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            button.titleLabel.font = kFont15;
             break;
         case YHBSegmentViewStyleSeparate:
             button.backgroundColor = RGBCOLOR(254, 254, 254);

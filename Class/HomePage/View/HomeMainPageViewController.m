@@ -298,7 +298,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             break;
         case HotProductSection:
         {
-            
             cell = [collectionView dequeueReusableCellWithReuseIdentifier:HotProductIdentifier forIndexPath:indexPath];
             [self configHotProductCell:cell indexPath:indexPath];
         }
@@ -437,7 +436,6 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             break;
     }
 }
-
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -658,7 +656,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
 {
     switch (tag) {
         case 1:
-            NSLog(@"精品店铺列表");
+            if ([_homeMainPageViewDelegate respondsToSelector:@selector(selectBtn:)]) {
+                [_homeMainPageViewDelegate selectBtn:1];
+            }
             break;
         case 2:
             if ([_homeMainPageViewDelegate respondsToSelector:@selector(selectBtn:)]) {
@@ -666,7 +666,9 @@ typedef NS_ENUM(NSInteger, SectionTag) {
             }
             break;
         case 3:
-            NSLog(@"产业带列表");
+            if ([_homeMainPageViewDelegate respondsToSelector:@selector(selectBtn:)]) {
+                [_homeMainPageViewDelegate selectBtn:3];
+            }
             break;
         case 4:
         {

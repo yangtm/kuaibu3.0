@@ -8,7 +8,6 @@
 
 #import "HomePageViewController.h"
 #import "HomePageSearchViewController.h"
-#import "CategoryPageViewController.h"
 #import "PageIndex.h"
 #import "MenuModel.h"
 #import "BannerModel.h"
@@ -22,6 +21,7 @@
 #import "LookSupplyViewController.h"
 #import "ProductViewController.h"
 #import "CateViewController.h"
+#import "StoreViewController.h"
 
 @interface HomePageViewController ()<SlideSwitchViewDelegate,HomeMainPageViewControllerDelegate,UITextFieldDelegate,HomePageSearchViewControllerDelegate,CateViewControllerDelegate>
 
@@ -112,7 +112,13 @@
 {
     switch (tag) {
         case 1:
-            NSLog(@"精品店铺列表");
+        {
+            self.navigationController.navigationBar.alpha = 1.f;
+            StoreViewController *vc = [[StoreViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController setNavigationBarHidden:YES animated:YES];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
             break;
         case 2:
         {
@@ -124,7 +130,7 @@
         }
             break;
         case 3:
-            NSLog(@"产业带列表");
+            NSLog(@"产业带列表11");
             break;
         case 4:
         {

@@ -72,7 +72,7 @@
         CGSize textBlockMinSize = {130, 25};
         CGSize pricesize = [words.titleLabel.text sizeWithFont:words.titleLabel.font constrainedToSize:textBlockMinSize lineBreakMode:NSLineBreakByCharWrapping];
         [words setFrame:CGRectMake(pricesize.width + wordsFirst.frame.origin.x, 20, pricesize.width, pricesize.height)];
-        NSLog(@"lozation=%f",words.width);
+        //NSLog(@"lozation=%f",words.width);
         wordsFirst = words;
         [_HotWordsView addSubview:words];
     }

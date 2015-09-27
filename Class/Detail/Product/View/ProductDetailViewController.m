@@ -116,7 +116,7 @@
                 self.commentHead.frame = CGRectMake(0, self.infoView.bottom +128 , kMainScreenWidth, kCCellHeight);
                 //_currentY = self.commentHead.bottom;
                 
-                NSLog(@"_currentY=%f",_currentY);
+                //NSLog(@"_currentY=%f",_currentY);
                 self.conStoreView.frame = CGRectMake(0, _currentY+=kBlankHeight, self.conStoreView.width,self.conStoreView.height);
                 NSString *bandurl = nil;
                 kZXYRequestUrl(self.productModel.storeLogo, bandurl);
@@ -246,7 +246,7 @@
     view.backgroundColor = [UIColor whiteColor];
     UILabel *textLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, (view.height-kTitlefont)/4.0, kMainScreenWidth, 30)];
     textLabel.font = [UIFont systemFontOfSize:kTitlefont];
-    NSLog(@"issample=%@",self.productModel.isSample);
+    //NSLog(@"issample=%@",self.productModel.isSample);
     if ([self.productModel.isSample integerValue]) {
         textLabel.text = @"提示  不提供剪样";
     }else
@@ -389,7 +389,9 @@
 
 - (void)touchAddButton
 {
-    NSLog(@"点击添加到购物车");
+    if (self.productModel) {
+        [self showSkuView];
+    }
 }
 
 - (void)touchPrivateBtn:(UIButton *)sender
