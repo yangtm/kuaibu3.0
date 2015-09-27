@@ -59,7 +59,7 @@ typedef enum : long {
     [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
     
-    chooseArray = [NSMutableArray arrayWithArray:@[@"海宁馆",@"余杭馆",@"桐乡馆",@"柯桥馆",@"广东馆"]];
+    chooseArray = [NSMutableArray arrayWithArray:@[@[@"海宁馆",@"余杭馆",@"桐乡馆",@"柯桥馆",@"广东馆"],]];
     DropDownListView * dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(kMainScreenWidth - 95,80, (kMainScreenWidth - 86)/3, 20) dataSource:self delegate:self];
     dropDownView.mSuperView = self.view;
     [self.view addSubview:dropDownView];
