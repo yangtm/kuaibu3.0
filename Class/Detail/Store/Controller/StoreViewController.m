@@ -243,13 +243,13 @@ typedef enum : long {
                 default:
                     break;
             }
+            //NSLog(@"店铺下拉dict=%@",dict);
             [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
                 if (receiveData.length>0) {
                     id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
                     if([result isKindOfClass:[NSDictionary class]])
                     {
                         NSArray *array = result[@"RESULT"];
-                        _modelArray = [NSMutableArray array];
                         for (NSDictionary *subdic in array) {
                             StoreModel *model = [[StoreModel alloc] init];
                             [model setValuesForKeysWithDictionary:subdic];
