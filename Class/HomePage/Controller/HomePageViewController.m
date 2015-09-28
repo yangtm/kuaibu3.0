@@ -357,13 +357,31 @@
 #pragma mark - UITextFieldDelegate
 - (void)toSearch
 {
-    NSLog(@"搜索");
-    //    NSString *keyword = [_navBarSearchTextField.text copy];
+    if ([_navBarSearchTextField.text isEqualToString:@""]||_navBarSearchTextField.text ==nil) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"请输入关键词" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }else
+    {
+        [_navBarSearchTextField resignFirstResponder];
+         NSLog(@"搜索");
+    }
+ //    NSString *keyword = [_navBarSearchTextField.text copy];
     //    [self dismissSearchView];
     //    [self saveSearchWord:keyword];
     //    YHBRecProductListViewController *vc = [[YHBRecProductListViewController alloc] initWithKeyword:keyword];
     //    vc.hidesBottomBarWhenPushed = YES;
     //    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_navBarSearchTextField resignFirstResponder];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self toSearch];
+    return YES;// 表示允许使用return键
 }
 
 - (void)didReceiveMemoryWarning {
