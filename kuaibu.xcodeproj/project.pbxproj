@@ -156,6 +156,8 @@
 		1E8469E71B9D5F2600842A51 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8469E61B9D5F2600842A51 /* CoreAudio.framework */; };
 		1E8469E91B9D5F4D00842A51 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8469E81B9D5F4D00842A51 /* CoreMedia.framework */; };
 		1E8469EB1B9D5F5900842A51 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E8469EA1B9D5F5900842A51 /* AVFoundation.framework */; };
+		1ECC7FEA1BB8CDAC00576595 /* ShopingCartListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECC7FE91BB8CDAC00576595 /* ShopingCartListCell.m */; };
+		1ECC7FED1BB90A4500576595 /* ShopingCartListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECC7FEC1BB90A4500576595 /* ShopingCartListHeaderView.m */; };
 		1ECDCF6C1BA3C54700C1BF9C /* OfferDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ECDCF6B1BA3C54700C1BF9C /* OfferDetailController.m */; };
 		1ED0BFF11BAA475000FA92D6 /* StarsForeground.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED0BFEF1BAA475000FA92D6 /* StarsForeground.png */; };
 		1ED0BFF71BAA50A900FA92D6 /* SellerDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ED0BFF61BAA50A900FA92D6 /* SellerDetailController.m */; };
@@ -834,6 +836,10 @@
 		1E8469E61B9D5F2600842A51 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		1E8469E81B9D5F4D00842A51 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		1E8469EA1B9D5F5900842A51 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1ECC7FE81BB8CDAC00576595 /* ShopingCartListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopingCartListCell.h; sourceTree = "<group>"; };
+		1ECC7FE91BB8CDAC00576595 /* ShopingCartListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopingCartListCell.m; sourceTree = "<group>"; };
+		1ECC7FEB1BB90A4500576595 /* ShopingCartListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopingCartListHeaderView.h; sourceTree = "<group>"; };
+		1ECC7FEC1BB90A4500576595 /* ShopingCartListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopingCartListHeaderView.m; sourceTree = "<group>"; };
 		1ECDCF6A1BA3C54600C1BF9C /* OfferDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OfferDetailController.h; sourceTree = "<group>"; };
 		1ECDCF6B1BA3C54700C1BF9C /* OfferDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OfferDetailController.m; sourceTree = "<group>"; };
 		1ED0BFEE1BAA475000FA92D6 /* StarsBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarsBackground.png; sourceTree = "<group>"; };
@@ -1545,6 +1551,10 @@
 		06706D211B85B2AA00F58ACC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1ECC7FE81BB8CDAC00576595 /* ShopingCartListCell.h */,
+				1ECC7FE91BB8CDAC00576595 /* ShopingCartListCell.m */,
+				1ECC7FEB1BB90A4500576595 /* ShopingCartListHeaderView.h */,
+				1ECC7FEC1BB90A4500576595 /* ShopingCartListHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3617,6 +3627,7 @@
 				7F31EE6B1B9E7191008015D2 /* PageIndex.m in Sources */,
 				1E84695D1B9D3F5E00842A51 /* PSTGridLayoutInfo.m in Sources */,
 				06706DA81B85B2AA00F58ACC /* ThreadSafeMutableArry.m in Sources */,
+				1ECC7FED1BB90A4500576595 /* ShopingCartListHeaderView.m in Sources */,
 				06706D961B85B2AA00F58ACC /* JSONKit.m in Sources */,
 				06706DA31B85B2AA00F58ACC /* UIImage+MultiFormat.m in Sources */,
 				1EEBF70D1BB10811009F80AF /* NormsManager.m in Sources */,
@@ -3717,6 +3728,7 @@
 				7FE3E5F21BB749C4007CB15E /* StoreViewController.m in Sources */,
 				1E8469981B9D437000842A51 /* WoWAudioRecord.m in Sources */,
 				7FD335F51BA8DFF6009EFC61 /* LookBuyAllShowCell.m in Sources */,
+				1ECC7FEA1BB8CDAC00576595 /* ShopingCartListCell.m in Sources */,
 				7FD7B2B91B9FB17800A4F911 /* SlideSwitchView.m in Sources */,
 				1ED896BF1BA170FE00BB9F1C /* ProcurementListController.m in Sources */,
 				7FDFBAB21BB5CF9E008027DC /* TitleCell.m in Sources */,

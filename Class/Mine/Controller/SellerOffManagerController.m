@@ -145,7 +145,7 @@
         cell = [[[NSBundle mainBundle]loadNibNamed:@"AlreadyOfferCell" owner:nil options:nil]lastObject];
     }
     ProcurementModel *model = self.dataArray[indexPath.row];
-    [cell configAlreadyOfferCell:model];
+    [cell configCell:model];
     if (_typeid == 1) {
         cell.typeLabel.text = @"寻找中";
     }else if(_typeid == 2) {

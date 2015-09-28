@@ -10,14 +10,14 @@
 
 @interface CartModel : NSObject
 
-@property (strong, nonatomic) NSString *cartId;
-@property (strong, nonatomic) NSString *productId;
-@property (strong, nonatomic) NSString *productName;
-@property (strong, nonatomic) NSString *productImage;
-@property (strong, nonatomic) NSString *storeName;
-@property (strong, nonatomic) NSString *storeLogo;
-@property (strong, nonatomic) NSString *amount;
+@property (strong, nonatomic) NSString *cartId;//购物车ID
+@property (strong, nonatomic) NSString *buyerMemberId;//用户ID(买家)
+@property (strong, nonatomic) NSString *sellerMemberId;//卖家ID
+@property (strong, nonatomic) NSString *productId;//商品的ID,取自表product的id
+@property (strong, nonatomic) NSString *amount;//数量
+@property (strong, nonatomic) NSString *createDatetime;
+@property (strong, nonatomic) NSString *lastModifyDatetime;
 @property (strong, nonatomic) NSString *specificationId;
-@property (strong, nonatomic) NSString *price;
+@property (strong,nonatomic) NSDictionary *product;
 
 @end

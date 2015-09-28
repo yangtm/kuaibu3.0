@@ -25,7 +25,7 @@
     NSMutableArray *_btnArray;
 }
 
-@property (nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) OrderTableView *orderTableView;
 @end
 
 @implementation OrderListController
@@ -44,11 +44,19 @@
 
 - (void)back
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+//    [self dismissViewControllerAnimated:YES completion:^{
+//        
+//    }];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+   
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+//    [OrderTableView removeObserver:self forKeyPath:@"yourkey"];
+    [self.orderTableView.headerView removeFromSuperview];
+    [self.orderTableView.footerView removeFromSuperview];
+}
 
 #pragma mark -创建标题栏的滚动视图
 -(void)createHeaderView
@@ -91,17 +99,17 @@
     NSArray *typeArray = @[@"-1",@"4",@"5",@"6",@"7"];
     for (int i = 0; i<typeArray.count; i++)
     {
-        OrderTableView *orderTableView = [[OrderTableView alloc]init];
-        orderTableView.frame = CGRectMake(kMainScreenWidth*i, 0, kMainScreenWidth, kMainScreenHeight- 64 -40);
-        orderTableView.state = [typeArray[i] integerValue];
-        NSLog(@"state:%ld",orderTableView.state);
-        orderTableView.tag = 100+i;
-        orderTableView.selectBlock = ^(NSString *urlString){
+        self.orderTableView = [[OrderTableView alloc]init];
+        self.orderTableView.frame = CGRectMake(kMainScreenWidth*i, 0, kMainScreenWidth, kMainScreenHeight- 64 -40);
+        self.orderTableView.state = [typeArray[i] integerValue];
+//        NSLog(@"state:%ld",self.orderTableView.state);
+        self.orderTableView.tag = 100+i;
+        self.orderTableView.selectBlock = ^(NSString *urlString){
             //点击cell进入详情
         
             
         };
-        [_scrollView addSubview:orderTableView];
+        [_scrollView addSubview:self.orderTableView];
     }
     [self.view addSubview:_scrollView];
 
@@ -203,5 +211,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
 
 @end
