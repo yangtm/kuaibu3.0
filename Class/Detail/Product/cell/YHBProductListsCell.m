@@ -42,8 +42,8 @@
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.prodImgeView.right+10, self.prodImgeView.top, kMainScreenWidth-self.prodImgeView.right-10, self.prodImgeView.height*2/3.0)];
-        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.prodImgeView.right+10, self.prodImgeView.top, kMainScreenWidth-self.prodImgeView.right-10, self.prodImgeView.height*2/5.0)];
+        _titleLabel.backgroundColor = [UIColor whiteColor];
         _titleLabel.font = [UIFont systemFontOfSize:kTitleFont];
         _titleLabel.textColor = [UIColor blackColor];
         _titleLabel.numberOfLines = 2;
@@ -64,12 +64,12 @@
 - (UILabel *)typeLabel
 {
     if (!_typeLabel) {
-        _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleLabel.left +100, self.titleLabel.bottom, 60, self.prodImgeView.height/3.5)];
+        _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.titleLabel.left +90, 65, 20, 20)];
         _typeLabel.backgroundColor = [UIColor clearColor];
-        _typeLabel.textColor = [UIColor blackColor];
+        _typeLabel.textColor = [UIColor whiteColor];
         _typeLabel.textAlignment = NSTextAlignmentCenter;
         _typeLabel.layer.masksToBounds = YES;
-        _typeLabel.layer.cornerRadius = 8;
+        _typeLabel.layer.cornerRadius = 2;
         _typeLabel.font = [UIFont systemFontOfSize:kPriceFont];
     }
     return _typeLabel;
@@ -95,11 +95,11 @@
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",price];
     
     if (Type == 1) {
-        _typeLabel.text = @"个人";
+        _typeLabel.text = @"个";
         _typeLabel.backgroundColor = [UIColor colorWithRed:0.5961 green:0.4157 blue:0.9725 alpha:1];
     }else
     {
-        _typeLabel.text = @"企业";
+        _typeLabel.text = @"商";
         _typeLabel.backgroundColor = [UIColor colorWithRed:0.0118 green:0.5059 blue:0.1255 alpha:1];
     }
     

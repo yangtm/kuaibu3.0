@@ -14,5 +14,5 @@
 @property (strong,nonatomic) NSString *memberId;
 @property (strong,nonatomic) NSString *storeName;
 @property (strong,nonatomic) NSString *logo;
-
+@property (strong,nonatomic) NSString *authenticationType; //认证类型（1：个人；2：企业）
 @end

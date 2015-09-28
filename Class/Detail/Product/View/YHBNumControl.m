@@ -55,7 +55,7 @@
     decButton.frame = CGRectMake(0, 0, kbtnHeight, kbtnHeight);
     decButton.layer.borderWidth = 0.5f;
     decButton.layer.borderColor = [kLineColor CGColor];
-    [decButton setTitle:@"-" forState:UIControlStateNormal];
+    [decButton setTitle:@"－" forState:UIControlStateNormal];
     [decButton addTarget:self action:@selector(decNum) forControlEvents:UIControlEventTouchUpInside];
     [decButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     decButton.titleLabel.font = kFont16;

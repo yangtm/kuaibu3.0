@@ -410,6 +410,7 @@
 		7FDE8BB81BB3A0910039844E /* YHBSelNumColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE8BAA1BB3A0910039844E /* YHBSelNumColorView.m */; };
 		7FDE8BB91BB3A0910039844E /* YHBSku.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE8BAC1BB3A0910039844E /* YHBSku.m */; };
 		7FDE8BBA1BB3A0910039844E /* YHBSkuImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDE8BAE1BB3A0910039844E /* YHBSkuImage.m */; };
+		7FDF2D221BB84ECB00E00D63 /* StoreListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDF2D211BB84ECB00E00D63 /* StoreListTableViewCell.m */; };
 		7FDFBA8A1BB5AE82008027DC /* privateHighImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDFBA881BB5AE82008027DC /* privateHighImg.png */; };
 		7FDFBA8B1BB5AE82008027DC /* privateImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDFBA891BB5AE82008027DC /* privateImg.png */; };
 		7FDFBAAE1BB5CD22008027DC /* CateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDFBAAC1BB5CD22008027DC /* CateViewController.m */; };
@@ -1229,6 +1230,8 @@
 		7FDE8BAC1BB3A0910039844E /* YHBSku.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBSku.m; sourceTree = "<group>"; };
 		7FDE8BAD1BB3A0910039844E /* YHBSkuImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YHBSkuImage.h; sourceTree = "<group>"; };
 		7FDE8BAE1BB3A0910039844E /* YHBSkuImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YHBSkuImage.m; sourceTree = "<group>"; };
+		7FDF2D201BB84ECB00E00D63 /* StoreListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreListTableViewCell.h; sourceTree = "<group>"; };
+		7FDF2D211BB84ECB00E00D63 /* StoreListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreListTableViewCell.m; sourceTree = "<group>"; };
 		7FDFBA881BB5AE82008027DC /* privateHighImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = privateHighImg.png; sourceTree = "<group>"; };
 		7FDFBA891BB5AE82008027DC /* privateImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = privateImg.png; sourceTree = "<group>"; };
 		7FDFBAAB1BB5CD22008027DC /* CateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CateViewController.h; sourceTree = "<group>"; };
@@ -3249,6 +3252,8 @@
 		7FE3E5F31BB74BC1007CB15E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				7FDF2D201BB84ECB00E00D63 /* StoreListTableViewCell.h */,
+				7FDF2D211BB84ECB00E00D63 /* StoreListTableViewCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3669,6 +3674,7 @@
 				1EEBF7091BB10629009F80AF /* NormsModle.m in Sources */,
 				7F5262B41BAC7EDE0063203A /* YHBCatManage.m in Sources */,
 				1E84694B1B9D3F5E00842A51 /* MKAnnotationView+EMWebCache.m in Sources */,
+				7FDF2D221BB84ECB00E00D63 /* StoreListTableViewCell.m in Sources */,
 				7F31EE671B9E7091008015D2 /* BannerView.m in Sources */,
 				1E8469521B9D3F5E00842A51 /* UIImageView+EMWebCache.m in Sources */,
 				06706D971B85B2AA00F58ACC /* LSNavigationController.m in Sources */,
