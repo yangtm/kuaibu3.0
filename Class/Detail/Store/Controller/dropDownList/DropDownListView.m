@@ -29,17 +29,14 @@
         currentExtendSection = -1;
         self.dropDownDataSource = datasource;
         self.dropDownDelegate = delegate;
-        
         NSInteger sectionNum =0;
         if ([self.dropDownDataSource respondsToSelector:@selector(numberOfSections)] ) {
             
             sectionNum = [self.dropDownDataSource numberOfSections];
         }
-        
         if (sectionNum == 0) {
             self = nil;
         }
-        
         //初始化默认显示view
         CGFloat sectionWidth = (1.0*(frame.size.width)/sectionNum);
         for (int i = 0; i <sectionNum; i++) {
@@ -49,23 +46,20 @@
             [sectionBtn  setTitle:@"产业带" forState:UIControlStateNormal];
             [sectionBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             sectionBtn.titleLabel.font = [UIFont boldSystemFontOfSize:14.0f];
-            [self addSubview:sectionBtn];
             
+            [self addSubview:sectionBtn];
             UIImageView *sectionBtnIv = [[UIImageView alloc] initWithFrame:CGRectMake(sectionWidth*i +(sectionWidth - 25), (self.frame.size.height-12)/2, 12, 12)];
             [sectionBtnIv setImage:[UIImage imageNamed:@"down_dark.png"]];
             [sectionBtnIv setContentMode:UIViewContentModeScaleToFill];
             sectionBtnIv.tag = SECTION_IV_TAG_BEGIN + i;
             
             [self addSubview: sectionBtnIv];
-            
             if (i<sectionNum && i != 0) {
                 UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(sectionWidth*i, frame.size.height/4, 1, frame.size.height/2)];
                 lineView.backgroundColor = [UIColor lightGrayColor];
                 [self addSubview:lineView];
             }
-            
         }
-        
     }
     return self;
 }
@@ -73,13 +67,10 @@
 -(void)sectionBtnTouch:(UIButton *)btn
 {
     NSInteger section = btn.tag - SECTION_BTN_TAG_BEGIN;
-    
     UIImageView *currentIV= (UIImageView *)[self viewWithTag:(SECTION_IV_TAG_BEGIN +currentExtendSection)];
-    
     [UIView animateWithDuration:0.3 animations:^{
         currentIV.transform = CGAffineTransformRotate(currentIV.transform, DEGREES_TO_RADIANS(180));
     }];
-    
     if (currentExtendSection == section) {
         [self hideExtendedChooseView];
     }else{
@@ -88,10 +79,8 @@
         [UIView animateWithDuration:0.3 animations:^{
             currentIV.transform = CGAffineTransformRotate(currentIV.transform, DEGREES_TO_RADIANS(180));
         }];
-        
         [self showChooseListViewInSection:currentExtendSection choosedIndex:[self.dropDownDataSource defaultShowSection:currentExtendSection]];
     }
-
 }
 
 - (void)setTitle:(NSString *)title inSection:(NSInteger) section
@@ -107,6 +96,7 @@
     }
     return YES;
 }
+
 -  (void)hideExtendedChooseView
 {
     if (currentExtendSection != -1) {
@@ -132,17 +122,12 @@
 {
     if (!self.mTableView) {
         self.mTableBaseView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + self.frame.size.height , self.frame.size.width, self.mSuperView.frame.size.height - self.frame.origin.y - self.frame.size.height)];
-        //self.mTableBaseView.backgroundColor = [UIColor whiteColor];
-
-        
         UITapGestureRecognizer *bgTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bgTappedAction:)];
         [self.mTableBaseView addGestureRecognizer:bgTap];
-        
         self.mTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y + self.frame.size.height , self.frame.size.width, self.mSuperView.frame.size.height - self.frame.origin.y - self.frame.size.height) style:UITableViewStylePlain];
         self.mTableView.delegate = self;
         self.mTableView.dataSource = self;
     }
-    
     //修改tableview的frame
     int sectionWidth = (self.frame.size.width)/[self.dropDownDataSource numberOfSections];
     CGRect rect = self.mTableView.frame;
@@ -152,13 +137,11 @@
     self.mTableView.frame = rect;
     [self.mSuperView addSubview:self.mTableBaseView];
     [self.mSuperView addSubview:self.mTableView];
-    
     //动画设置位置
     rect .size.height = 240;
     [UIView animateWithDuration:0.3 animations:^{
         self.mTableBaseView.alpha = 0.2;
         self.mTableView.alpha = 0.2;
-        
         self.mTableBaseView.alpha = 1.0;
         self.mTableView.alpha = 1.0;
         self.mTableView.frame =  rect;
@@ -174,6 +157,7 @@
     }];
     [self hideExtendedChooseView];
 }
+
 #pragma mark -- UITableView Delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -183,11 +167,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.dropDownDelegate respondsToSelector:@selector(chooseAtSection:index:)]) {
-        NSString *chooseCellTitle = [self.dropDownDataSource titleInSection:currentExtendSection index:indexPath.row];
-        
+//        NSString *chooseCellTitle = [self.dropDownDataSource titleInSection:currentExtendSection index:indexPath.row];
         UIButton *currentSectionBtn = (UIButton *)[self viewWithTag:SECTION_BTN_TAG_BEGIN + currentExtendSection];
-        [currentSectionBtn setTitle:chooseCellTitle forState:UIControlStateNormal];
-        
+        [currentSectionBtn setTitle:@"产业带" forState:UIControlStateNormal];
         [self.dropDownDelegate chooseAtSection:currentExtendSection index:indexPath.row];
         [self hideExtendedChooseView];
     }
@@ -200,6 +182,7 @@
 {
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.dropDownDataSource numberOfRowsInSection:currentExtendSection];
@@ -213,7 +196,6 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    
     cell.textLabel.text = [self.dropDownDataSource titleInSection:currentExtendSection index:indexPath.row];
     cell.textLabel.font = [UIFont systemFontOfSize:14];
     return cell;

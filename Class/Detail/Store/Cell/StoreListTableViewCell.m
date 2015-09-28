@@ -15,13 +15,11 @@
 #define kImageWidth (kCellHeight-20)*11/10.0
 
 @interface StoreListTableViewCell ()
-
 @property (strong, nonatomic) UIImageView *logo;
 @property (strong, nonatomic) UILabel *amountLabel;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *attentionLabel;
 @property (strong, nonatomic) UILabel *typeLabel;
-
 @end
 
 @implementation StoreListTableViewCell
@@ -56,7 +54,7 @@
 - (UILabel *)titleLabel
 {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 10, 200, 30)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(125, 15, 200, 30)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.textColor = [UIColor blackColor];

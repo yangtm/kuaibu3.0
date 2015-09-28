@@ -36,5 +36,6 @@
 @property (strong,nonatomic) NSArray *productSpecificationList;//规格集合
 @property (strong,nonatomic) NSArray *productImageList;//图片集合
 @property (strong,nonatomic) NSArray *attributes;//产品属性
+@property (strong,nonatomic) NSString *collect;
 @end
 

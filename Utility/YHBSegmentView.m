@@ -113,8 +113,8 @@
         default:
             break;
     }
-    
 }
+
 //将按钮设为选中状态
 - (void)switchButtonSelected:(UIButton *)button
 {
@@ -223,6 +223,7 @@
         }
     }
 }
+
 - (void)setupButtonFrame:(UIButton *)button itemNum:(NSInteger)num
 {
     CGFloat widthOfItem;

@@ -131,6 +131,7 @@ int pagetotal;
             kYHBRequestUrl(@"procurement/getMyAttentionProcurement", url);
         }
         kYHBRequestUrl(@"procurement/open/getProcurementList", url);
+        //NSLog(@"采购刷新dict=%@",dict);
         [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
             id result = [NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
             if ([result isKindOfClass:[NSDictionary class]]) {
