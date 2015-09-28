@@ -33,8 +33,6 @@ typedef enum : long {
 @property (strong, nonatomic) YHBSegmentView *segmentView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *titleArray;
-@property (strong, nonatomic) NSMutableDictionary *modelsDic;//数据字典-存放数据模型数组 key为tag
-@property (strong, nonatomic) NSMutableDictionary *pageDic;
 @property (strong, nonatomic) NSMutableArray *modelArray;
 @property (nonatomic, strong) UIButton *scrollToTopButton;
 
@@ -99,12 +97,17 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
+                //多个筛选条件
 //                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
 //                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",allConditions,@"allConditions", nil];
                 dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"categoryId",nil];
-            }else
+            }else if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil)
             {
                 dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
+            }
+            else
+            {
+                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"productName",nil];
             }
         }
             break;
@@ -115,11 +118,11 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
+                //多个筛选条件
 //                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
 //                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",allConditions,@"allConditions", nil];
                 dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",catIdsStr,@"categoryId", nil];
-            }else
-            {
+            }else             {
                 dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",nil];
             }
             break;
@@ -131,6 +134,7 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
+                //多个筛选条件
 //                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
                 if (_segmentView.price) {
 //                    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.desc",@"orderBy",allConditions,@"allConditions", nil];
@@ -250,7 +254,6 @@ typedef enum : long {
                         {
 //                            dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.asc",@"orderBy",allConditions,@"allConditions", nil];
                             dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"price.asc",@"orderBy",catIdsStr,@"categoryId", nil];
-                            
                         }
                     }else
                     {
@@ -341,7 +344,6 @@ typedef enum : long {
 #pragma mark 每行显示内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSMutableArray *dataArray = self.modelsDic[[NSString stringWithFormat:@"%lu",_selTag]];
     static NSString *cellIdentifier = @"product";
     YHBProductListsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
@@ -392,6 +394,7 @@ typedef enum : long {
 
 - (void)searchButtonClick:(UIButton *)sender
 {
+    [_segmentView changeSelect:0];
     if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"请输入关键词" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
@@ -408,12 +411,21 @@ typedef enum : long {
     NSMutableDictionary *dict;
     NSString *url= nil;
     kYHBRequestUrl(@"product/open/searchProduct", url);
+    if (self.catIds != nil) {
+        NSString *catIdsStr = @"";
+        for (NSNumber *number in self.catIds) {
+            catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
+        }
+        catIdsStr = [catIdsStr substringFromIndex:1];
+        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"productName",catIdsStr,@"categoryId",nil];
+    }else
+    {
     dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"productName",nil];
-   // NSLog(@"url=%@,dic=%@",url,dict);
+    }
+//     NSLog(@"dict=%@,url=%@",dict,url);
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-            // NSLog(@"result=%@",result);
             if([result isKindOfClass:[NSDictionary class]])
             {
                 NSArray *array = result[@"RESULT"];

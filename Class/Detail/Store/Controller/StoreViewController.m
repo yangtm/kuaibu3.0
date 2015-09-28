@@ -15,11 +15,11 @@
 #import "DropDownListView.h"
 #import "StoreModel.h"
 #import "StoreListTableViewCell.h"
+#import "IndustryModel.h"
 
 typedef enum : long {
     Get_All = 0,
     GEt_hot,
-    Get_Amount,
 } GetPrivateTag;
 
 @interface  StoreViewController  ()<UIScrollViewDelegate,UITextFieldDelegate,UITableViewDataSource,UITableViewDelegate,YHBSegmentViewDelegate,DropDownChooseDelegate,DropDownChooseDataSource>
@@ -36,11 +36,10 @@ typedef enum : long {
 @property (strong, nonatomic) YHBSegmentView *segmentView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *titleArray;
-@property (strong, nonatomic) NSMutableDictionary *modelsDic;//数据字典-存放数据模型数组 key为tag
-@property (strong, nonatomic) NSMutableDictionary *pageDic;
 @property (strong, nonatomic) NSMutableArray *modelArray;
 @property (nonatomic, strong) UIButton *scrollToTopButton;
-
+@property (strong, nonatomic) NSMutableArray *IndustryIdArray;
+@property (strong, nonatomic) NSMutableArray *IndustryNameArray;
 @end
 
 @implementation StoreViewController
@@ -58,8 +57,8 @@ typedef enum : long {
     UIButton *back =[[UIButton alloc]initWithFrame:CGRectMake(20,30, 30, 30)];
     [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
-    [self getBandsdata];
-    chooseArray = [NSMutableArray arrayWithArray:@[@[@"海宁馆",@"余杭馆",@"桐乡馆",@"柯桥馆",@"广东馆"],]];
+    [self getIndustrydata];
+    chooseArray = [NSMutableArray arrayWithArray:@[@[@"暂无"]]];
     DropDownListView * dropDownView = [[DropDownListView alloc] initWithFrame:CGRectMake(kMainScreenWidth - 95,80, (kMainScreenWidth - 86)/3, 20) dataSource:self delegate:self];
     dropDownView.mSuperView = self.view;
     [self.view addSubview:dropDownView];
@@ -82,20 +81,27 @@ typedef enum : long {
     [super viewWillDisappear:animated];
     [self removeScrollToTopButton];
 }
--(void)getBandsdata
+
+-(void)getIndustrydata
 {
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:@"001" forKey:@"advertSpaceNumber"];
     NSString *adverturl= nil;
-    kYHBRequestUrl(@"index", adverturl);
-    [NetworkService postWithURL:adverturl paramters:dic success:^(NSData *receiveData) {
+    kYHBRequestUrl(@"store/open/getIndustry", adverturl);
+    [NetworkService postWithURL:adverturl paramters:nil success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
             if([result isKindOfClass:[NSDictionary class]])
             {
-                NSDictionary *dictionary =result[@"RESULT"];
-                NSArray *bands = dictionary[@"industry"];
-               NSLog(@"bands=%@",bands);
+                _IndustryIdArray = [NSMutableArray array];
+                _IndustryNameArray = [NSMutableArray array];
+                NSMutableArray *industry =result[@"RESULT"];
+            for (NSInteger i=0; i<industry.count; i++) {
+                IndustryModel *model =[[IndustryModel alloc]init];
+                [model setValuesForKeysWithDictionary:industry[i]];
+                [_IndustryIdArray addObject:model.industryId];
+                [_IndustryNameArray addObject:model.industryName];
+                }
             }
+            chooseArray = [NSMutableArray arrayWithArray:@[_IndustryNameArray]];
         }
     }failure:^(NSError *error){
         NSLog(@"下载数据失败");
@@ -106,7 +112,7 @@ typedef enum : long {
 - (void)getDataWithPageID:(NSInteger)pageid catIds:(NSArray *)catIds
 {
     pageId = 1;
-    pagesize = 10;
+    pagesize = 5;
     NSMutableDictionary *dict;
     NSString *url= nil;
     kYHBRequestUrl(@"store/open/storeList", url);
@@ -120,7 +126,7 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"categoryId",nil];
+                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"industryId",nil];
             }else
             {
                 dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
@@ -134,33 +140,20 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",catIdsStr,@"categoryId", nil];
+                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"attention_people_count",@"order",catIdsStr,@"industryId",@"desc",@"direction", nil];
             }else
             {
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",nil];
-            }
-            break;
-        case Get_Amount:
-            if (catIds != nil) {
-                NSString *catIdsStr = @"";
-                for (NSNumber *number in catIds) {
-                    catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
-                }
-                catIdsStr = [catIdsStr substringFromIndex:1];
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",catIdsStr,@"categoryId", nil];
-            }else
-            {
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",nil];
+                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"attention_people_count",@"order",@"desc",@"direction",nil];
             }
             break;
         default:
             break;
     }
-    //NSLog(@"dict=%@,url=%@",dict,url);
+    NSLog(@"dict=%@,url=%@",dict,url);
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-            // NSLog(@"result=%@",result);
+             //NSLog(@"result=%@",result);
             if([result isKindOfClass:[NSDictionary class]])
             {
                 NSArray *array = result[@"RESULT"];
@@ -184,6 +177,7 @@ typedef enum : long {
     __weak  StoreViewController  *weakself = self;
     [weakself.tableView addPullToRefreshWithActionHandler:^{
         [weakself.tableView.pullToRefreshView stopAnimating];
+        //self.catIds = nil;
         [self getFirstPageData];
     }];
     [weakself.tableView addInfiniteScrollingWithActionHandler:^{
@@ -192,21 +186,9 @@ typedef enum : long {
         if (pagesize*pageId<pagetotal)
         {
             NSMutableDictionary *dict;
-            if (catIds != nil) {
-                NSString *catIdsStr = @"";
-                for (NSNumber *number in catIds) {
-                    catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
-                }
-                catIdsStr = [catIdsStr substringFromIndex:1];
-                NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",allConditions,@"allConditions", nil];
-            }else
-            {
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
-            }
             NSString *url= nil;
             GetPrivateTag tag = _selTag;
-            kYHBRequestUrl(@"product/open/searchProduct", url);
+            kYHBRequestUrl(@"store/open/storeList", url);
             switch (tag) {
                 case Get_All:
                 {
@@ -216,45 +198,41 @@ typedef enum : long {
                             catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                         }
                         catIdsStr = [catIdsStr substringFromIndex:1];
-                        NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
-                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",allConditions,@"allConditions", nil];
+                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"industryId", nil];
                     }
                     else if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil)
                     {
                         dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
-                        
                     }
                     else
                     {
-                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"productName",nil];
+                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",nil];
                     }
-                    
                 }
                     break;
-                case Get_Amount:
+                case GEt_hot:
                     if (catIds != nil) {
                         NSString *catIdsStr = @"";
                         for (NSNumber *number in catIds) {
                             catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                         }
                         catIdsStr = [catIdsStr substringFromIndex:1];
-                        NSString *allConditions = [NSString stringWithFormat:@"categoryId:%@",catIdsStr];
-                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",allConditions,@"allConditions", nil];
+                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"attention_people_count",@"order",catIdsStr,@"industryId",@"desc",@"direction",nil];
                     }else
                     {
-                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"sales_amount.desc",@"orderBy",nil];
+                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",@"attention_people_count",@"order",@"desc",@"direction",nil];
                     }
                     break;
                 default:
                     break;
             }
             [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
-                if (receiveData.length>0)
-                {
+                if (receiveData.length>0) {
                     id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
                     if([result isKindOfClass:[NSDictionary class]])
                     {
                         NSArray *array = result[@"RESULT"];
+                        _modelArray = [NSMutableArray array];
                         for (NSDictionary *subdic in array) {
                             StoreModel *model = [[StoreModel alloc] init];
                             [model setValuesForKeysWithDictionary:subdic];
@@ -264,7 +242,7 @@ typedef enum : long {
                     }
                 }
             }failure:^(NSError *error){
-                [weakself.tableView.infiniteScrollingView stopAnimating];
+                NSLog(@"下载数据失败");
             }];
         }
     }];
@@ -273,34 +251,6 @@ typedef enum : long {
 - (void)getFirstPageData
 {
     [self getDataWithPageID:_selTag catIds:self.catIds];
-}
-
-#pragma mark - event response
-- (void)rightBarButtonClick:(UIButton *)button
-{
-    
-//    //打开筛选器
-//    LSNavigationController *navVc = [[LSNavigationController alloc] initWithRootViewController:[CategoryViewController sharedInstancetype]];
-//    [CategoryViewController sharedInstancetype].hidesBottomBarWhenPushed = YES;
-//    //navVc.hidesBottomBarWhenPushed = YES;
-//    [[CategoryViewController sharedInstancetype] cleanAll];
-//    [CategoryViewController sharedInstancetype].isPushed = NO;
-//    [CategoryViewController sharedInstancetype].isSingleSelect = NO;
-//    [[CategoryViewController sharedInstancetype] setBlock:^(NSArray *aArray) {
-//        // NSLog(@"%@",aArray);
-//        if (aArray.count > 0) {
-//            NSMutableArray *array = [NSMutableArray array];
-//            for (NSDictionary *dic in aArray) {
-//                [array addObject:[dic valueForKey:@"categoryId"]];
-//            }
-//            self.catIds = array;
-//        }
-//        else{
-//            self.catIds = nil;
-//        }
-//        [self getDataWithPageID:_selTag catIds:self.catIds];
-//    }];
-//    [self presentViewController:navVc animated:YES completion:nil];
 }
 
 #pragma mark - 数据源方法
@@ -323,7 +273,6 @@ typedef enum : long {
 #pragma mark 每行显示内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSMutableArray *dataArray = self.modelsDic[[NSString stringWithFormat:@"%lu",_selTag]];
     static NSString *cellIdentifier = @"store";
     StoreListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell) {
@@ -376,6 +325,7 @@ typedef enum : long {
 
 - (void)searchButtonClick:(UIButton *)sender
 {
+    [_segmentView changeSelect:0];
     if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"请输入关键词" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
@@ -388,16 +338,25 @@ typedef enum : long {
 - (void)refreshData
 {
     pageId = 1;
-    pagesize = 10;
+    pagesize = 5;
     NSMutableDictionary *dict;
     NSString *url= nil;
-    kYHBRequestUrl(@"product/open/searchProduct", url);
-    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"productName",nil];
-    // NSLog(@"url=%@,dic=%@",url,dict);
+    kYHBRequestUrl(@"store/open/storeList", url);
+    if (self.catIds != nil) {
+        NSString *catIdsStr = @"";
+        for (NSNumber *number in self.catIds) {
+            catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
+        }
+        catIdsStr = [catIdsStr substringFromIndex:1];
+        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",catIdsStr,@"industryId",nil];
+    }else
+    {
+        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",nil];
+    }
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-            // NSLog(@"result=%@",result);
+             NSLog(@"result=%@",result);
             if([result isKindOfClass:[NSDictionary class]])
             {
                 NSArray *array = result[@"RESULT"];
@@ -503,7 +462,9 @@ typedef enum : long {
 #pragma mark -- dropDownListDelegate
 -(void) chooseAtSection:(NSInteger)section index:(NSInteger)index
 {
-    NSLog(@"选了section:%ld ,index:%ld",section,index);
+    NSMutableArray *array = [NSMutableArray arrayWithObjects:_IndustryIdArray[index], nil];
+    self.catIds = array;
+    [self getDataWithPageID:_selTag catIds:self.catIds];
 }
 
 #pragma mark -- dropdownList DataSource
@@ -511,15 +472,18 @@ typedef enum : long {
 {
     return [chooseArray count];
 }
+
 -(NSInteger)numberOfRowsInSection:(NSInteger)section
 {
     NSArray *arry =chooseArray[section];
     return [arry count];
 }
+
 -(NSString *)titleInSection:(NSInteger)section index:(NSInteger) index
 {
     return chooseArray[section][index];
 }
+
 -(NSInteger)defaultShowSection:(NSInteger)section
 {
     return 0;

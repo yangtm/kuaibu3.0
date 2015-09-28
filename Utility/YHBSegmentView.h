@@ -30,4 +30,5 @@ typedef NS_ENUM(NSInteger, YHBSegmentViewStyle) {
 @property (strong, nonatomic) NSArray *titleArray;
 @property (assign, nonatomic) BOOL price;
 @property(strong,nonatomic) id<YHBSegmentViewDelegate>segmentViewDelegate;
+- (void)changeSelect:(NSInteger)tag;
 @end
