@@ -126,10 +126,21 @@ typedef enum : long {
                     catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                 }
                 catIdsStr = [catIdsStr substringFromIndex:1];
-                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"industryId",nil];
-            }else
+                if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil) {
+                    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"industryId", nil];
+                }else{
+                    dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",catIdsStr,@"industryId",nil];
+                }
+            }
+            else
             {
+                if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil)
+                {
                 dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
+                }else
+                {
+                dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",nil];
+                }
             }
         }
             break;
@@ -149,7 +160,7 @@ typedef enum : long {
         default:
             break;
     }
-    NSLog(@"dict=%@,url=%@",dict,url);
+   // NSLog(@"dict=%@,url=%@",dict,url);
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
@@ -192,21 +203,27 @@ typedef enum : long {
             switch (tag) {
                 case Get_All:
                 {
-                    if (catIds != nil) {
+                    if (self.catIds != nil) {//产业带不为空
                         NSString *catIdsStr = @"";
-                        for (NSNumber *number in catIds) {
+                        for (NSNumber *number in self.catIds) {
                             catIdsStr = [catIdsStr stringByAppendingFormat:@"|%@", number];
                         }
                         catIdsStr = [catIdsStr substringFromIndex:1];
-                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"industryId", nil];
+                        if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil) {//搜索为空
+                            dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex",catIdsStr,@"industryId", nil];
+                        }else{
+                            dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",catIdsStr,@"industryId",nil];
+                        }
                     }
-                    else if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil)
+                    else //产业带为空
                     {
-                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
-                    }
-                    else
-                    {
-                        dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",nil];
+                        if ([_searchTextField.text isEqualToString:@""]||_searchTextField.text ==nil)
+                        { //搜索为空
+                            dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", nil];
+                        }else
+                        {
+                            dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",nil];
+                        }
                     }
                 }
                     break;
@@ -353,10 +370,11 @@ typedef enum : long {
     {
         dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",pageId],@"pageIndex", _searchTextField.text,@"storeName",nil];
     }
+    //NSLog(@"搜索dict=%@",dict);
     [NetworkService postWithURL:url paramters:dict success:^(NSData *receiveData) {
         if (receiveData.length>0) {
             id result=[NSJSONSerialization JSONObjectWithData:receiveData options:NSJSONReadingMutableContainers error:nil];
-             NSLog(@"result=%@",result);
+            // NSLog(@"result=%@",result);
             if([result isKindOfClass:[NSDictionary class]])
             {
                 NSArray *array = result[@"RESULT"];
