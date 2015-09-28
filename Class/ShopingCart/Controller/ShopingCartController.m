@@ -13,6 +13,7 @@
 #import "ProductModel.h"
 #import "CartModel.h"
 #import "UIImageView+WebCache.h"
+#import "StoreModel.h"
 
 @interface ShopingCartController ()<UITableViewDataSource,UITableViewDelegate,ShopingCartListCellDelegate,UITextFieldDelegate,ShopingCartListHeaderViewDelegate>
 {
@@ -71,12 +72,17 @@
                 ProductModel *productModel = [[ProductModel alloc] init];
                 [productModel setValuesForKeysWithDictionary:product];
                 [_ListArray addObject:productModel];
+                
+                NSDictionary *store = model.store;
+                StoreModel *storeModel = [[StoreModel alloc] init];
+                storeModel.storeName = store[@"storeName"];
+                [_SectionArray addObject:storeModel];
             }
             
             
         }
         [_tableView reloadData];
-        MLOG(@"%@",_ListArray);
+        MLOG(@"%@",result);
     } failure:^(NSError *error) {
         MLOG(@"%@",error);
     }];
@@ -95,12 +101,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return _SectionArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return _ListArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -120,7 +126,9 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    StoreModel *model = _SectionArray[section];
     ShopingCartListHeaderView *view = [[ShopingCartListHeaderView alloc] initWithFrame:CGRectMake(0, 0, kMainScreenWidth, 40)];
+    view.storeNameLabel.text = model.storeName;
     view.delegate = self;
     return view;
 }
@@ -132,14 +140,16 @@
     if (cell == nil) {
         cell = [[ShopingCartListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-//    ProductModel *productModel = _ListArray[indexPath.row];
-//    CartModel *cartModel = _dataArray[indexPath.row];
-//    [cell.productImage sd_setImageWithURL:[NSURL URLWithString:productModel.productImage]];
-//    cell.detailLabel.text = productModel.productName;
-//    cell.priceLabel.text = [NSString stringWithFormat:@"¥%@",productModel.price];
-//    cell.showTextField.text = cartModel.amount;
-//    cell.delegate = self;
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    ProductModel *productModel = _ListArray[indexPath.row];
+    CartModel *cartModel = _dataArray[indexPath.row];
+    NSString *productImageUrl = nil;
+    kZXYRequestUrl(productModel.productImage, productImageUrl);
+    [cell.productImage sd_setImageWithURL:[NSURL URLWithString:productImageUrl]];
+    cell.detailLabel.text = productModel.productName;
+    cell.priceLabel.text = [NSString stringWithFormat:@"¥%@",productModel.price];
+    cell.showTextField.text = [NSString stringWithFormat:@"%@",cartModel.amount];
+    cell.delegate = self;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
