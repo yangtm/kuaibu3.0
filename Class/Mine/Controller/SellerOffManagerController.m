@@ -8,7 +8,7 @@
 
 #import "SellerOffManagerController.h"
 #import "YHBSegmentView.h"
-#import "AlreadyOfferCell.h"
+#import "SellerOffCell.h"
 
 @interface SellerOffManagerController ()<UITableViewDataSource,UITableViewDelegate,MJRefreshBaseViewDelegate>
 {
@@ -139,10 +139,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellid = @"AlreadyOfferCellid";
-    AlreadyOfferCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+    static NSString *cellid = @"SellerOffCellid";
+    SellerOffCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
     if (cell == nil) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"AlreadyOfferCell" owner:nil options:nil]lastObject];
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"SellerOffCell" owner:nil options:nil]lastObject];
     }
     ProcurementModel *model = self.dataArray[indexPath.row];
     [cell configCell:model];

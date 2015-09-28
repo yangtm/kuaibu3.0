@@ -27,7 +27,7 @@
 @property (nonatomic,strong) UILabel *offLabel;
 
 @property (nonatomic,strong) NSString *cycleStr;
-@property (assign,nonatomic) double numberStr;
+@property (strong,nonatomic) NSString *numberStr;
 @property (nonatomic,strong) NSString *dataStr;
 @property (nonatomic,strong) NSString *typeStr;
 @property (nonatomic,strong) NSString *indexStr;
