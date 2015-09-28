@@ -19,5 +19,5 @@
 @property (strong, nonatomic) NSString *lastModifyDatetime;
 @property (strong, nonatomic) NSString *specificationId;
 @property (strong,nonatomic) NSDictionary *product;
-
+@property (strong,nonatomic) NSDictionary *store;
 @end
