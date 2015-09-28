@@ -40,6 +40,13 @@
     [self createTableView];
 }
 
+- (UIView *)createFooterView{
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, kMainScreenHeight - 44, kMainScreenWidth, 44)];
+    
+    return view;
+}
+
 - (void)back
 {
     [self dismissViewControllerAnimated:YES completion:^{
@@ -173,6 +180,7 @@
 
 - (void)clickReduceBtn:(ShopingCartListCell *)cell
 {
+    cell.number = [cell.showTextField.text integerValue];
     if(cell.number >= 2){
         cell.number -= 1;
         cell.showTextField.text = [NSString stringWithFormat:@"%ld",cell.number];
@@ -181,6 +189,7 @@
 
 - (void)clickIncreaseBtn:(ShopingCartListCell *)cell
 {
+    cell.number = [cell.showTextField.text integerValue];
     cell.number += 1;
     cell.showTextField.text = [NSString stringWithFormat:@"%ld",cell.number];
   
@@ -196,5 +205,10 @@
     }
     _selectType = !_selectType;
     return YES;
+}
+
+- (void)tapStoreName:(ShopingCartListHeaderView *)headerView
+{
+    //点击进入店铺详情
 }
 @end
