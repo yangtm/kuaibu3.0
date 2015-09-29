@@ -115,10 +115,10 @@
     _typeLabel.text = _typeStr;
 }
 
--(void)setNumberStr:(double )numberStr
+-(void)setNumberStr:(NSString *)numberStr
 {
     _numberStr = numberStr;
-    _numberLabel.text = [NSString stringWithFormat:@"采购数量 : %d",(int)_numberStr];
+    _numberLabel.text = [NSString stringWithFormat:@"采购数量 : %@",_numberStr];
 }
 
 

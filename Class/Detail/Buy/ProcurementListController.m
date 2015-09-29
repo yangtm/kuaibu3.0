@@ -85,7 +85,8 @@
             for (NSDictionary *subDic in array) {
                 ProcurementModel *model = [[ProcurementModel alloc] init];
 //                [model setValuesForKeysWithDictionary:subDic];
-                model.amount = [subDic[@"amount"] doubleValue];
+//                model.amount = [subDic[@"amount"] doubleValue];
+                model.amount = subDic[@"amount"];
                 model.offerLastDate = subDic[@"offerLastDate"];
                 model.takeDeliveryLastDate = subDic[@"lastModifyDatetime"];
                 model.procurementId = subDic[@"procurementId"];
