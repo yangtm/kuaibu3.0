@@ -30,6 +30,7 @@ typedef enum : long {
 
 @property (strong, nonatomic) UIView *searchView;
 @property (strong, nonatomic) UITextField *searchTextField;
+@property (strong, nonatomic) UIButton *searchBtn;
 @property (strong, nonatomic) YHBSegmentView *segmentView;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *titleArray;
@@ -394,14 +395,15 @@ typedef enum : long {
         searchTf.delegate = self;
         [searchTf setReturnKeyType:UIReturnKeySearch];
         _searchTextField = searchTf;
+        _searchTextField.delegate = self;
         [_searchView addSubview:searchTf];
-        UIButton *searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(searchTf.right+2, searchTf.top, 50, searchTf.height)];
-        [searchBtn setBackgroundColor:[UIColor clearColor]];
-        [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-        searchBtn.titleLabel.font = kFont16;
-        [searchBtn addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_searchView addSubview:searchBtn];
+        _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(searchTf.right+2, searchTf.top, 50, searchTf.height)];
+        [_searchBtn setBackgroundColor:[UIColor clearColor]];
+        [_searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+        _searchBtn.titleLabel.font = kFont16;
+        [_searchBtn addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_searchView addSubview:_searchBtn];
     }
     return _searchView;
 }
@@ -414,6 +416,7 @@ typedef enum : long {
         [alert show];
     }else
     {
+        [_searchTextField resignFirstResponder];
         [self refreshData];
     }
 }
@@ -540,6 +543,17 @@ typedef enum : long {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_searchTextField resignFirstResponder];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self searchButtonClick:_searchBtn];
+    return YES;// 表示允许使用return键
 }
 
 
